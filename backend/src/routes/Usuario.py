@@ -42,7 +42,7 @@ def add_usuario():
                               Correo_Electronico, Nombre_Completo)
             affected_rows = UsuarioModel.add_usuario(usuario)
             if affected_rows == 1:
-                return jsonify(usuario.nombre_usuario)
+                return jsonify({'message' :usuario.nombre_usuario})
             else:
                 return jsonify({'message': "Error on insert"}), 500
         else:

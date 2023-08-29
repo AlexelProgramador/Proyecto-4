@@ -18,7 +18,7 @@ CREATE TABLE Bodega
 
 CREATE TABLE Solicitud
 (
-  idSolicitud INT NOT NULL,
+  idSolicitud VARCHAR(255) NOT NULL,
   N°_Solicitud INT NOT NULL,
   Nombre_Solicitante VARCHAR(255) NOT NULL,
   PRIMARY KEY (idSolicitud)
@@ -36,7 +36,7 @@ CREATE TABLE Detalle_solicitud
   Cotizacion INT NOT NULL,
   Fotografia VARCHAR(255) NOT NULL,
   MontoCompra INT NOT NULL,
-  idSolicitud INT NOT NULL,
+  idSolicitud VARCHAR(255) NOT NULL,
   FOREIGN KEY (idSolicitud) REFERENCES Solicitud(idSolicitud)
 );
 
@@ -70,7 +70,7 @@ CREATE TABLE Etapa
   Tipo_de_Compra VARCHAR(255) NOT NULL,
   Nro_Cotizacion INT NOT NULL,
   Estado VARCHAR(255) NOT NULL,
-  N°ordenCompra INT NOT NULL,
+  Nro_ordenCompra INT NOT NULL,
   FechaOC DATE NOT NULL,
   Proveedor_Seleccionado VARCHAR(255) NOT NULL,
   FechaEntragaProveedor DATE NOT NULL,
@@ -80,8 +80,8 @@ CREATE TABLE Etapa
   EstadoEnvio VARCHAR(255) NOT NULL,
   FechaEstimadaProveedor DATE NOT NULL,
   EstadoCompra VARCHAR(255) NOT NULL,
-  N°CDP INT NOT NULL,
-  N°Factura INT NOT NULL,
+  Nro_CDP INT NOT NULL,
+  Nro_Factura INT NOT NULL,
   FacturaDirectorio VARCHAR(255) NOT NULL,
   FechaEmisionFactura DATE NOT NULL,
   FechaMaxima DATE NOT NULL,
@@ -89,7 +89,7 @@ CREATE TABLE Etapa
   FechaVencimientoFactura DATE NOT NULL,
   MontoFactura INT NOT NULL,
   FechaRecepcion DATE NOT NULL,
-  idEtapa INT NOT NULL,
+  idEtapa VARCHAR(255) NOT NULL,
   Etapa INT NOT NULL,
   PRIMARY KEY (idEtapa)
 );
@@ -112,8 +112,8 @@ CREATE TABLE Etapa_Usuario_Solicitud
 (
   Comentario VARCHAR(1000) NOT NULL,
   rut VARCHAR(255) NOT NULL,
-  idSolicitud INT NOT NULL,
-  idEtapa INT NOT NULL,
+  idSolicitud VARCHAR(255) NOT NULL,
+  idEtapa VARCHAR(255) NOT NULL,
   FOREIGN KEY (rut) REFERENCES Usuario(rut),
   FOREIGN KEY (idSolicitud) REFERENCES Solicitud(idSolicitud),
   FOREIGN KEY (idEtapa) REFERENCES Etapa(idEtapa)

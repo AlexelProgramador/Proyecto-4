@@ -1,53 +1,162 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function App() {
-  const [formData, setFormData] = useState({});  // Estado para almacenar los datos del formulario
+  const [formData, setFormData] = useState({
+    rut: '',
+    nombre_usuario: '',
+    contraseña: '',
+    Correo_Electronico: '',
+    Nombre_Completo: '',
+  });
+
+  const [users, setUsers] = useState([]);
+  const [editing, setEditing] = useState(false);
+
+  useEffect(() => {
+    // Realiza una solicitud GET inicial para obtener los usuarios existentes.
+    fetch('http://127.0.0.1:5000/api/usuarios/')
+      .then(response => response.json())
+      .then(data => {
+        setUsers(data);
+      })
+      .catch(error => {
+        console.error('Error al obtener usuarios:', error);
+      });
+  }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // Realiza la solicitud POST a la ruta en tu servidor Flask
-    fetch('http://localhost:5000/post_data', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json', // Especifica que se envían datos en formato JSON
-      },
-      body: JSON.stringify(formData), // Convierte los datos del formulario a JSON
-    })
-      .then(response => response.json())
-      .then(data => {
-        // Maneja la respuesta del servidor, por ejemplo, muestra un mensaje
-        console.log(data.message);
+    if (editing) {
+      // Si estamos editando, realiza una solicitud PUT para actualizar el usuario existente.
+      fetch(`http://127.0.0.1:5000/api/usuarios/update/${formData.rut}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       })
-      .catch(error => {
-        console.error('Error al enviar los datos:', error);
-      });
+        .then(response => response.json())
+        .then(data => {
+          // Actualiza la lista de usuarios después de la edición.
+          setUsers(users.map(user => (user.rut === data.rut ? data : user)));
+          setFormData({
+            rut: '',
+            nombre_usuario: '',
+            contraseña: '',
+            Correo_Electronico: '',
+            Nombre_Completo: '',
+          });
+          setEditing(false);
+        })
+        .catch(error => {
+          console.error('Error al actualizar el usuario:', error);
+        });
+    } else {
+      // Si no estamos editando, realiza una solicitud POST para crear un nuevo usuario.
+      fetch('http://127.0.0.1:5000/api/usuarios/add', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+        .then(response => response.json())
+        .then(data => {
+          // Agrega el nuevo usuario a la lista.
+          setUsers([...users, data]);
+          setFormData({
+            rut: '',
+            nombre_usuario: '',
+            contraseña: '',
+            Correo_Electronico: '',
+            Nombre_Completo: '',
+          });
+        })
+        .catch(error => {
+          console.error('Error al crear el usuario:', error);
+        });
+    }
   };
 
-  const handleInputChange = (event) => {
-    // Actualiza el estado del formulario cuando cambian los valores de entrada
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
+  const handleEdit = (user) => {
+    // Rellena el formulario con los datos del usuario seleccionado para editar.
+    setFormData({
+      rut: user.rut,
+      nombre_usuario: user.nombre_usuario,
+      contraseña: user.contraseña,
+      Correo_Electronico: user.Correo_Electronico,
+      Nombre_Completo: user.Nombre_Completo,
+    });
+    setEditing(true);
+  };
+
+  const handleDelete = (rut) => {
+    // Realiza una solicitud DELETE para eliminar el usuario.
+    fetch(`http://127.0.0.1:5000/api/usuarios/delete/${rut}`, {
+      method: 'DELETE',
+    })
+      .then(() => {
+        // Elimina el usuario de la lista.
+        setUsers(users.filter(user => user.rut !== rut));
+      })
+      .catch(error => {
+        console.error('Error al eliminar el usuario:', error);
+      });
   };
 
   return (
     <div className="App">
-      <h1>Enviar datos a Flask:</h1>
+      <h1>CRUD de Usuarios</h1>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          name="field1"
-          placeholder="Campo 1"
-          onChange={handleInputChange}
+          placeholder="RUT (ID)"
+          value={formData.rut}
+          onChange={(e) => setFormData({ ...formData, rut: e.target.value })}
         />
         <input
           type="text"
-          name="field2"
-          placeholder="Campo 2"
-          onChange={handleInputChange}
+          placeholder="Nombre de Usuario"
+          value={formData.nombre_usuario}
+          onChange={(e) => setFormData({ ...formData, nombre_usuario: e.target.value })}
         />
-        <button type="submit">Enviar</button>
+        <input
+          type="password"
+          placeholder="Contraseña"
+          value={formData.contraseña}
+          onChange={(e) => setFormData({ ...formData, contraseña: e.target.value })}
+        />
+        <input
+          type="text"
+          placeholder="Correo Electrónico"
+          value={formData.Correo_Electronico}
+          onChange={(e) => setFormData({ ...formData, Correo_Electronico: e.target.value })}
+        />
+        <input
+          type="text"
+          placeholder="Nombre Completo"
+          value={formData.Nombre_Completo}
+          onChange={(e) => setFormData({ ...formData, Nombre_Completo: e.target.value })}
+        />
+        <button type="submit">{editing ? 'Editar' : 'Crear'}</button>
       </form>
+      <ul>
+        {users.map((user) => (
+          <li key={user.rut}>
+            <div>
+              RUT (ID): {user.rut}<br />
+              Nombre de Usuario: {user.nombre_usuario}<br />
+              Correo Electrónico: {user.Correo_Electronico}<br />
+              Nombre Completo: {user.Nombre_Completo}<br />
+              <button onClick={() => handleEdit(user)}>Editar</button>
+              <button onClick={() => handleDelete(user.rut)}>Eliminar</button>
+            </div>
+          </li>
+        ))}
+      </ul>
+
+
     </div>
   );
 }
