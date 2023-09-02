@@ -1,4 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import { spacing } from '@mui/system';
+import { Box } from '@mui/material';
+
+
 
 function App() {
   const [formData, setFormData] = useState({
@@ -109,37 +115,39 @@ function App() {
     <div className="App">
       <h1>CRUD de Usuarios</h1>
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="RUT (ID)"
-          value={formData.rut}
-          onChange={(e) => setFormData({ ...formData, rut: e.target.value })}
-        />
-        <input
+        <Box sx={{'& > :not(style)': { m: 1, width: '25ch' },}}>
+          <TextField id="outlined-basic" label="RUT (ID)" size="small"
+            type="text"
+            placeholder="RUT (ID)"
+            value={formData.rut}
+            onChange={(e) => setFormData({ ...formData, rut: e.target.value })}
+          />
+          <TextField id="outlined-basic" label="Nombre de Usuario" size="small" 
           type="text"
           placeholder="Nombre de Usuario"
           value={formData.nombre_usuario}
           onChange={(e) => setFormData({ ...formData, nombre_usuario: e.target.value })}
-        />
-        <input
+          />
+          <TextField id="outlined-basic" label="Contraseña" size="small"
           type="password"
           placeholder="Contraseña"
           value={formData.contraseña}
           onChange={(e) => setFormData({ ...formData, contraseña: e.target.value })}
-        />
-        <input
-          type="text"
-          placeholder="Correo Electrónico"
-          value={formData.Correo_Electronico}
-          onChange={(e) => setFormData({ ...formData, Correo_Electronico: e.target.value })}
-        />
-        <input
-          type="text"
-          placeholder="Nombre Completo"
-          value={formData.Nombre_Completo}
-          onChange={(e) => setFormData({ ...formData, Nombre_Completo: e.target.value })}
-        />
-        <button type="submit">{editing ? 'Editar' : 'Crear'}</button>
+          />
+          <TextField id="outlined-basic" label="Correo Electrónico" size="small"
+            type="text"
+            placeholder="Correo Electrónico"
+            value={formData.Correo_Electronico}
+            onChange={(e) => setFormData({ ...formData, Correo_Electronico: e.target.value })}
+          />
+          <TextField id="outlined-basic" label="Nombre Completo" size="small"
+            type="text"
+            placeholder="Nombre Completo"
+            value={formData.Nombre_Completo}
+            onChange={(e) => setFormData({ ...formData, Nombre_Completo: e.target.value })}
+          />
+          <Button variant="contained" color="primary" type="submit">{editing ? 'Editar' : 'Crear'}</Button>
+        </Box>
       </form>
       <ul>
         {users.map((user) => (
