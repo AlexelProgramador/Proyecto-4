@@ -23,6 +23,7 @@ function App() {
     const [users, setUsers] = useState<UserData[]>([]);
     const [editing, setEditing] = useState(false);
 
+    //Fetch que obtiene los usuarios existentes
     useEffect(() => {
         // Realiza una solicitud GET inicial para obtener los usuarios existentes.
         fetch('http://127.0.0.1:5000/api/usuarios/')
@@ -34,6 +35,7 @@ function App() {
                 console.error('Error al obtener usuarios:', error);
             });
     }, []);
+    //Crear/Editar Usuario
 
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
@@ -90,6 +92,7 @@ function App() {
         }
     };
 
+    //Edición de Usuario
     const handleEdit = (user: UserData) => {
         // Rellena el formulario con los datos del usuario seleccionado para editar.
         setFormData({
@@ -102,6 +105,7 @@ function App() {
         setEditing(true);
     };
 
+    //Eliminación de Usuario
     const handleDelete = (rut: string) => {
         // Realiza una solicitud DELETE para eliminar el usuario.
         fetch(`http://127.0.0.1:5000/api/usuarios/delete/${rut}`, {
