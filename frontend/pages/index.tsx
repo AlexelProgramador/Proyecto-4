@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import { Box } from '@mui/material';
+
 
 interface UserData {
     rut: string;
@@ -19,6 +17,9 @@ function App() {
         Correo_Electronico: '',
         Nombre_Completo: '',
     });
+
+    const datos = ["RUT (ID)",'Nombre Usuario','Contraseña','Correo Electrónico','Nombre Completo']
+    const valor_datos = ['rut','nombre_usuario','contraseña','Correo_Electronico','Nombre_Completo']
 
     const [users, setUsers] = useState<UserData[]>([]);
     const [editing, setEditing] = useState(false);
@@ -118,73 +119,61 @@ function App() {
 
     return (
         <div className="App">
-            <h1>CRUD de Usuarios</h1>
-            <form onSubmit={handleSubmit}>
-                <Box sx={{'& > :not(style)': { m: 1, width: '25ch' }}}>
-                    <TextField
-                        id="outlined-basic"
-                        label="RUT (ID)"
-                        size="small"
-                        type="text"
-                        placeholder="RUT (ID)"
-                        value={formData.rut}
-                        onChange={(e) => setFormData({ ...formData, rut: e.target.value })}
-                    />
-                    <TextField
-                        id="outlined-basic"
-                        label="Nombre de Usuario"
-                        size="small"
-                        type="text"
-                        placeholder="Nombre de Usuario"
-                        value={formData.nombre_usuario}
-                        onChange={(e) => setFormData({ ...formData, nombre_usuario: e.target.value })}
-                    />
-                    <TextField
-                        id="outlined-basic"
-                        label="Contraseña"
-                        size="small"
-                        type="password"
-                        placeholder="Contraseña"
-                        value={formData.contraseña}
-                        onChange={(e) => setFormData({ ...formData, contraseña: e.target.value })}
-                    />
-                    <TextField
-                        id="outlined-basic"
-                        label="Correo Electrónico"
-                        size="small"
-                        type="text"
-                        placeholder="Correo Electrónico"
-                        value={formData.Correo_Electronico}
-                        onChange={(e) => setFormData({ ...formData, Correo_Electronico: e.target.value })}
-                    />
-                    <TextField
-                        id="outlined-basic"
-                        label="Nombre Completo"
-                        size="small"
-                        type="text"
-                        placeholder="Nombre Completo"
-                        value={formData.Nombre_Completo}
-                        onChange={(e) => setFormData({ ...formData, Nombre_Completo: e.target.value })}
-                    />
-                    <Button variant="contained" color="primary" type="submit">
+            <h1 className='font-bold'>CRUD de Usuarios</h1>
+            <div className='bg-white relative shadow-md sm:rounded-lg overflow-hidden'>
+                <div>
+                <form onSubmit={handleSubmit}>
+                    <div className="space-y-4">
+                    {datos.map((dato,index) => {
+                        return (
+                            <input key={index}
+                                className="border rounded-md p-2 w-75 mx-1"
+                                id={valor_datos[index]}
+                                placeholder={dato}
+                                value={formData[valor_datos[index]]}
+                                onChange={(e) => setFormData({ ...formData, [valor_datos[index]]: e.target.value })}
+                            />
+                            )
+                    })}
+                    </div>
+                    <button
+                        className="items-center bg-blue-500 hover:bg-blue-600 text-white rounded-md p-2 m-2"
+                        type="submit"
+                    >
                         {editing ? 'Editar' : 'Crear'}
-                    </Button>
-                </Box>
-            </form>
-            <ul>
-                {users.map((user) => (
-                    <li key={user.rut}>
-                        <div>
-                            RUT (ID): {user.rut}<br />
-                            Nombre de Usuario: {user.nombre_usuario}<br />
-                            Correo Electrónico: {user.Correo_Electronico}<br />
-                            Nombre Completo: {user.Nombre_Completo}<br />
-                            <button onClick={() => handleEdit(user)}>Editar</button>
-                            <button onClick={() => handleDelete(user.rut)}>Eliminar</button>
-                        </div>
-                    </li>
-                ))}
-            </ul>
+                    </button>
+                </form>
+                </div>
+                <div className="overflow-x-auto">
+                    <table className="w-full text-left text-sm">
+                        <thead className="text-xs border-y">
+                            <tr>
+                                <th className="px-4 py-4">RUT (ID)</th>
+                                <th className="px-4 py-4">NOMBRE</th>
+                                <th className="px-4 py-4">CORREO</th>
+                                <th className="px-4 py-4">NOMBRE COMPLETO</th>
+                                <th className="px-4 py-4"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {users.map((user) => (
+                                <tr key={user.rut} className="border-b">
+                                    <td className="px-4 py-2 text-gray-900 whitespace-nowrap">{user.rut}</td>
+                                    <td className="px-4 py-2 text-gray-900">{user.nombre_usuario}</td>
+                                    <td className="px-4 py-2 text-gray-900">{user.Correo_Electronico}</td>
+                                    <td className="px-4 py-2 text-gray-900">{user.Nombre_Completo}</td>
+                                    <td className="px-4 py-2 text-gray-900 flex items-center justify-end">
+                                        <button className='text-green-500 hover:text-green-400 p-2'
+                                            onClick={() => handleEdit(user)}>Editar</button>
+                                        <button className='text-red-500 hover:text-red-400 p-2' 
+                                            onClick={() => handleDelete(user.rut)}>Eliminar</button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     );
 }
