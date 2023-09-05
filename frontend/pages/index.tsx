@@ -67,6 +67,10 @@ function App() {
                     console.error('Error al actualizar el usuario:', error);
                 });
         } else {
+            // Agrega el nuevo usuario a la lista local antes de hacer la solicitud POST al servidor.
+            const newUser: UserData = { ...formData };
+            setUsers([...users, newUser]);
+            
             // Si no estamos editando, realiza una solicitud POST para crear un nuevo usuario.
             fetch('http://127.0.0.1:5000/api/usuarios/add', {
                 method: 'POST',
@@ -123,30 +127,33 @@ function App() {
 
     return (
         <div className="App">
-            <h1 className='font-bold'>CRUD de Usuarios</h1>
-            <div className='bg-white relative shadow-md sm:rounded-lg overflow-hidden'>
+            <div className='bg-white relative shadow-md sm:rounded-lg overflow-hidden py-2'>
+            <h1 className='font-bold px-2'>CRUD de Usuarios</h1>
                 <div>
-                <form onSubmit={handleSubmit}>
-                    <div className="space-y-4">
-                    {datos.map((dato,index) => {
-                        return (
-                            <input key={index}
-                                className="border rounded-md p-2 w-75 mx-1"
-                                id={valor_datos[index]}
-                                placeholder={dato}
-                                value={formData[valor_datos[index]]}
-                                onChange={(e) => setFormData({ ...formData, [valor_datos[index]]: e.target.value })}
-                            />
-                            )
-                    })}
-                    </div>
-                    <button
-                        className="items-center bg-blue-500 hover:bg-blue-600 text-white rounded-md p-2 m-2"
-                        type="submit"
-                    >
-                        {editing ? 'Editar' : 'Crear'}
-                    </button>
-                </form>
+                    <form onSubmit={handleSubmit}>
+                        <div className='py-4 px-2'>
+                            <div className="grid gap-2 mb-2 sm:grid-cols-3 sm:gap-2 sm:mb-2">
+                            {datos.map((dato,index) => {
+                                return (
+                                    <input key={index}
+                                        className="border rounded-none p-2 w-100 text-sm"
+                                        id={valor_datos[index]}
+                                        placeholder={dato}
+                                        value={formData[valor_datos[index]]}
+                                        onChange={(e) => setFormData({ ...formData, [valor_datos[index]]: e.target.value })}
+                                    />
+                                    )
+                            })}
+                            </div>
+                            <div className='grid justify-items-end'>
+                            <button
+                                className="rounded-none bg-blue-500 hover:bg-blue-600 text-white p-2 w-40"
+                                type="submit" >
+                                {editing ? 'Editar' : 'Crear'}
+                            </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
                 <div className="overflow-x-auto">
                     <table className="w-full text-left text-sm">
