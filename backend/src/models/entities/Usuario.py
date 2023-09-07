@@ -1,20 +1,33 @@
-from utils.DateFormat import DateFormat # NO LO USO ES PARA QUE NO SE ME OLVIDE
+# NO LO USO ES PARA QUE NO SE ME OLVIDE
+from utils.DateFormat import DateFormat
+
 
 class Usuario():
 
-    def __init__(self, rut,nombre_usuario=None, contraseña=None, Correo_Electronico=None, Nombre_Completo=None) -> None:
-        self.rut = rut
+    def __init__(self,
+                 idUsuario,
+                 nombre_usuario=None,
+                 rut=None,
+                 contraseña=None,
+                 correoElectronico=None,
+                 nombre=None,
+                 apellido=None) -> None:
+        self.idUsuario = idUsuario
         self.nombre_usuario = nombre_usuario
+        self.rut = rut
         self.contraseña = contraseña
-        self.Correo_Electronico = Correo_Electronico
-        self.Nombre_Completo = Nombre_Completo
+        self.correoElectronico = correoElectronico
+        self.nombre = nombre
+        self.apellido = apellido
 
     def to_JSON(self):
         return {
-            'rut': self.rut, 
-            'nombre_usuario': self.nombre_usuario,
-            'contraseña': self.contraseña,
-            'Correo_Electronico': self.Correo_Electronico,
-            'Nombre_Completo': self.Nombre_Completo
-            # 'fecha': DateFormat.convert_date(self.fecha) 
+            'idUsuario' : self.idUsuario,
+            'nombre_usuario' : self.nombre_usuario,
+            'rut' : self.rut,
+            'contraseña' : self.contraseña,
+            'correoElectronico' : self.correoElectronico,
+            'nombre' : self.nombre,
+            'apellido' : self.apellido
+
         }

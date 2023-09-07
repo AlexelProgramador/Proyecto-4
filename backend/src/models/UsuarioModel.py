@@ -11,7 +11,16 @@ class UsuarioModel():
 
             with connection.cursor() as cursor:
                 cursor.execute(
-                    "SELECT rut, nombre_usuario,  contraseña, Correo_Electronico, Nombre_Completo FROM usuario")
+                    """
+                    SELECT 
+                        idUsuario,
+                        nombre_usuario,
+                        rut,
+                        contraseña,
+                        correoElectronico,
+                        nombre,
+                        apellido
+                    FROM Usuario""")
                 resultset = cursor.fetchall()
 
                 for row in resultset:
@@ -19,7 +28,9 @@ class UsuarioModel():
                                       row[1],
                                       row[2],
                                       row[3],
-                                      row[4],)
+                                      row[4],
+                                      row[5],
+                                      row[6])
                     usuarios.append(usuario.to_JSON())
             connection.close()
             return usuarios
@@ -28,17 +39,22 @@ class UsuarioModel():
             raise Exception(ex)
 
     @classmethod
-    def get_usuario(self, rut):
+    def get_usuario(self, idUsuario):
         try:
             connection = get_connection()
 
             with connection.cursor() as cursor:
                 cursor.execute(
-                    "SELECT rut, nombre_usuario, contraseña, Correo_Electronico, Nombre_Completo FROM usuario WHERE rut = %s", (rut,))
+                    "SELECT nombre_usuario, rut, contraseña, correoElectronico, nombre, apellido  FROM Usuario WHERE idUsuario = %s", (idUsuario,))
                 row = cursor.fetchone()
                 usuario = None
                 if row != None:
-                    usuario = Usuario(row[0], row[1], row[2], row[3], row[4])
+                    usuario = Usuario(row[0],
+                                      row[1],
+                                      row[2],
+                                      row[3],
+                                      row[4],
+                                      row[5])
                     usuario = usuario.to_JSON()
             connection.close()
             return usuario
@@ -52,8 +68,15 @@ class UsuarioModel():
             connection = get_connection()
 
             with connection.cursor() as cursor:
-                cursor.execute("""INSERT INTO usuario (rut, nombre_usuario, contraseña, Correo_Electronico, Nombre_Completo)
-                               VALUES (%s,%s,%s,%s,%s)""", (usuario.rut, usuario.nombre_usuario, usuario.contraseña, usuario.Correo_Electronico, usuario.Nombre_Completo))
+                cursor.execute("""INSERT INTO Usuario (idUsuario, nombre_usuario, rut, contraseña, correoElectronico, nombre, apellido)
+                                VALUES (%s,%s,%s,%s,%s,%s,%s)""",
+                               (usuario.idUsuario,
+                                usuario.nombre_usuario,
+                                usuario.rut,
+                                usuario.contraseña,
+                                usuario.correoElectronico,
+                                usuario.nombre,
+                                usuario.apellido))
                 affected_rows = cursor.rowcount
                 connection.commit()
 
@@ -70,7 +93,7 @@ class UsuarioModel():
 
             with connection.cursor() as cursor:
                 cursor.execute(
-                    "DELETE FROM usuario WHERE rut = %s", (usuario.rut,))
+                    "DELETE FROM Usuario WHERE idUsuario = %s", (usuario.idUsuario,))
                 affected_rows = cursor.rowcount
                 connection.commit()
 
@@ -86,9 +109,24 @@ class UsuarioModel():
             connection = get_connection()
 
             with connection.cursor() as cursor:
-                cursor.execute("""UPDATE usuario SET nombre_usuario = %s, contraseña = %s, 
-                               Correo_Electronico = %s, Nombre_Completo = %s WHERE rut = %s
-                              """, (usuario.nombre_usuario, usuario.contraseña, usuario.Correo_Electronico, usuario.Nombre_Completo, usuario.rut,))
+                cursor.execute("""UPDATE Usuario 
+                                SET 
+                                    nombre_usuario = %s,
+                                    rut = %s,
+                                    contraseña = %s,
+                                    correoElectronico = %s,
+                                    nombre = %s,
+                                    apellido = %s
+                                WHERE idUsuario = %s
+                            """,
+                               (usuario.nombre_usuario,
+                                usuario.rut,
+                                usuario.contraseña,
+                                usuario.correoElectronico,
+                                usuario.nombre,
+                                usuario.apellido,
+                                usuario.idUsuario))
+
                 affected_rows = cursor.rowcount
                 connection.commit()
 

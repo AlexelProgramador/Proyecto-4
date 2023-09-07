@@ -1,120 +1,175 @@
 CREATE TABLE Usuario
 (
-  nombre_usuario VARCHAR(255) NOT NULL,
-  rut VARCHAR(255) NOT NULL,
-  contraseña VARCHAR(255) NOT NULL,
-  Correo_Electronico VARCHAR(255) NOT NULL,
-  Nombre_Completo VARCHAR(255) NOT NULL,
-  PRIMARY KEY (rut),
-  UNIQUE (Nombre_Completo)
+  nombre_usuario VARCHAR(100),
+  rut VARCHAR(100),
+  contraseña VARCHAR(100),
+  correoElectronico VARCHAR(100),
+  nombre VARCHAR(100),
+  apellido VARCHAR(100),
+  idUsuario VARCHAR(100),
+  PRIMARY KEY (idUsuario),
+  UNIQUE (rut),
+  UNIQUE (correoElectronico)
+);
+
+CREATE TABLE Usuario_Rol
+(
+  Rol VARCHAR(100),
+  idUsuario VARCHAR(100),
+  PRIMARY KEY (idUsuario),
+  FOREIGN KEY (idUsuario) REFERENCES Usuario(idUsuario)
 );
 
 CREATE TABLE Bodega
 (
-  idBodega INT NOT NULL,
-  Nombre_Bodega VARCHAR(255) NOT NULL,
+  idBodega INT,
+  nombreBodega VARCHAR(100),
   PRIMARY KEY (idBodega)
 );
 
-CREATE TABLE Solicitud
+CREATE TABLE Bodega_Lugar
 (
-  idSolicitud VARCHAR(255) NOT NULL,
-  N°_Solicitud INT NOT NULL,
-  Nombre_Solicitante VARCHAR(255) NOT NULL,
-  PRIMARY KEY (idSolicitud)
+  lugar VARCHAR(100),
+  idBodega INT,
+  PRIMARY KEY (idBodega),
+  FOREIGN KEY (idBodega) REFERENCES Bodega(idBodega)
 );
 
-CREATE TABLE Detalle_solicitud
-(
-  BienServicio VARCHAR(255) NOT NULL,
-  Cantidad INT NOT NULL,
-  Tipo_de_empaque VARCHAR(255) NOT NULL,
-  Fecha_solicitud DATE NOT NULL,
-  Anexo VARCHAR(255) NOT NULL,
-  UnidadProyecto VARCHAR(255) NOT NULL,
-  Correo_Electronico VARCHAR(255) NOT NULL,
-  Cotizacion INT NOT NULL,
-  Fotografia VARCHAR(255) NOT NULL,
-  MontoCompra INT NOT NULL,
-  idSolicitud VARCHAR(255) NOT NULL,
-  FOREIGN KEY (idSolicitud) REFERENCES Solicitud(idSolicitud)
-);
 
 CREATE TABLE Producto
 (
-  Nombre_producto VARCHAR(255) NOT NULL,
-  idProducto INT NOT NULL,
-  Marca VARCHAR(255) NOT NULL,
-  Cantidad_Total INT NOT NULL,
+  nombreProducto VARCHAR(100),
+  idProducto INT,
+  marca VARCHAR(100),
+  cantidadTotal INT,
   PRIMARY KEY (idProducto)
 );
 
 CREATE TABLE Bodega_Producto
 (
-  Cantidad INT NOT NULL,
-  Fecha_vencimiento INT NOT NULL,
-  rut VARCHAR(255) NOT NULL,
-  idBodega INT NOT NULL,
-  idProducto INT NOT NULL,
-  FOREIGN KEY (rut) REFERENCES Usuario(rut),
+  cantidad INT,
+  fechaVencimiento DATE,
+  idBodega INT,
+  idUsuario VARCHAR(100),
+  idProducto INT,
   FOREIGN KEY (idBodega) REFERENCES Bodega(idBodega),
+  FOREIGN KEY (idUsuario) REFERENCES Usuario(idUsuario),
   FOREIGN KEY (idProducto) REFERENCES Producto(idProducto)
 );
 
-CREATE TABLE Etapa
+CREATE TABLE Etapa_1
 (
-  Centro_de_Costos INT NOT NULL,
-  Aprobacion_DEA CHAR NOT NULL,
-  Fecha_DEA DATE NOT NULL,
-  Fecha_de_Recepcion DATE NOT NULL,
-  Tipo_de_Compra VARCHAR(255) NOT NULL,
-  Nro_Cotizacion INT NOT NULL,
-  Estado VARCHAR(255) NOT NULL,
-  Nro_ordenCompra INT NOT NULL,
-  FechaOC DATE NOT NULL,
-  Proveedor_Seleccionado VARCHAR(255) NOT NULL,
-  FechaEntragaProveedor DATE NOT NULL,
-  ValorCompraIVA INT NOT NULL,
-  FechaAutorizacionCompra DATE NOT NULL,
-  FechaEnvioProveedor DATE NOT NULL,
-  EstadoEnvio VARCHAR(255) NOT NULL,
-  FechaEstimadaProveedor DATE NOT NULL,
-  EstadoCompra VARCHAR(255) NOT NULL,
-  Nro_CDP INT NOT NULL,
-  Nro_Factura INT NOT NULL,
-  FacturaDirectorio VARCHAR(255) NOT NULL,
-  FechaEmisionFactura DATE NOT NULL,
-  FechaMaxima DATE NOT NULL,
-  AceptadaSII CHAR NOT NULL,
-  FechaVencimientoFactura DATE NOT NULL,
-  MontoFactura INT NOT NULL,
-  FechaRecepcion DATE NOT NULL,
-  idEtapa VARCHAR(255) NOT NULL,
-  Etapa INT NOT NULL,
-  PRIMARY KEY (idEtapa)
+  idEtapa1 VARCHAR(100),
+  fechaRecepcion DATE,
+  nroSolicitud INT,
+  aprobado INT,
+  comentarios VARCHAR(1000),
+  idUsuario VARCHAR(100),
+  PRIMARY KEY (idEtapa1),
+  FOREIGN KEY (idUsuario) REFERENCES Usuario(idUsuario),
+  UNIQUE (nroSolicitud)
 );
 
-CREATE TABLE Usuario_Rol
+CREATE TABLE Etapa_2
 (
-  Rol VARCHAR(255) NOT NULL,
-  rut VARCHAR(255) NOT NULL,
-  FOREIGN KEY (rut) REFERENCES Usuario(rut)
+  idEtapa2 VARCHAR(100),
+  centroCostos INT,
+  aprobado INT,
+  comentarios VARCHAR(1000),
+  idUsuario VARCHAR(100),
+  idEtapa1 VARCHAR(100),
+  PRIMARY KEY (idEtapa2),
+  FOREIGN KEY (idUsuario) REFERENCES Usuario(idUsuario),
+  FOREIGN KEY (idEtapa1) REFERENCES Etapa_1(idEtapa1),
+  UNIQUE (idEtapa1)
 );
 
-CREATE TABLE Bodega_Lugar
+CREATE TABLE Etapa_3
 (
-  Lugar VARCHAR(255) NOT NULL,
-  idBodega INT NOT NULL,
-  FOREIGN KEY (idBodega) REFERENCES Bodega(idBodega)
+  idEtapa3 VARCHAR(100),
+  aprobacionDEA INT,
+  fecha DATE,
+  comentarios VARCHAR(1000),
+  aprobado INT,
+  idUsuario VARCHAR(100),
+  idEtapa2 VARCHAR(100),
+  PRIMARY KEY (idEtapa3),
+  FOREIGN KEY (idUsuario) REFERENCES Usuario(idUsuario),
+  FOREIGN KEY (idEtapa2) REFERENCES Etapa_2(idEtapa2),
+  UNIQUE (idEtapa2)
 );
 
-CREATE TABLE Etapa_Usuario_Solicitud
+CREATE TABLE Etapa_4
 (
-  Comentario VARCHAR(1000) NOT NULL,
-  rut VARCHAR(255) NOT NULL,
-  idSolicitud VARCHAR(255) NOT NULL,
-  idEtapa VARCHAR(255) NOT NULL,
-  FOREIGN KEY (rut) REFERENCES Usuario(rut),
-  FOREIGN KEY (idSolicitud) REFERENCES Solicitud(idSolicitud),
-  FOREIGN KEY (idEtapa) REFERENCES Etapa(idEtapa)
+  idEtapa4 VARCHAR(100),
+  FechaRecepcion DATE,
+  tipoCompra VARCHAR(100),
+  nroCotizacion INT,
+  estado VARCHAR(100),
+  comentarios VARCHAR(1000),
+  nroOrdenCompra INT,
+  fechaOC DATE,
+  proveedorSeleccionado VARCHAR(100),
+  fechaEntregaProveedor DATE,
+  valorCompraIVA INT,
+  fechaAutorizacionCompra DATE,
+  aprobado INT,
+  idUsuario VARCHAR(100),
+  idEtapa3 VARCHAR(100),
+  PRIMARY KEY (idEtapa4),
+  FOREIGN KEY (idUsuario) REFERENCES Usuario(idUsuario),
+  FOREIGN KEY (idEtapa3) REFERENCES Etapa_3(idEtapa3),
+  UNIQUE (idEtapa3)
+);
+
+CREATE TABLE Etapa_5
+(
+  idEtapa5 VARCHAR(100),
+  fechaEnvioProveedor DATE,
+  comentarios VARCHAR(1000),
+  estadoEnvio VARCHAR(100),
+  aprobado INT,
+  idUsuario VARCHAR(100),
+  idEtapa4 VARCHAR(100),
+  PRIMARY KEY (idEtapa5),
+  FOREIGN KEY (idUsuario) REFERENCES Usuario(idUsuario),
+  FOREIGN KEY (idEtapa4) REFERENCES Etapa_4(idEtapa4),
+  UNIQUE (idEtapa4)
+);
+
+
+CREATE TABLE Etapa_6
+(
+  idEtapa6 VARCHAR(100),
+  fechaEstimadaProveedor DATE,
+  estadoCompra VARCHAR(100),
+  comentarios VARCHAR(1000),
+  aprobado INT,
+  idEtapa5 VARCHAR(100),
+  idUsuario VARCHAR(100),
+  PRIMARY KEY (idEtapa6),
+  FOREIGN KEY (idEtapa5) REFERENCES Etapa_5(idEtapa5),
+  FOREIGN KEY (idUsuario) REFERENCES Usuario(idUsuario),
+  UNIQUE (idEtapa5)
+);
+
+CREATE TABLE Etapa_7
+(
+  idEtapa7 VARCHAR(100),
+  nroCDP INT,
+  estado VARCHAR(100),
+  nroFactura INT,
+  fechaEmisionFactura DATE,
+  fechaMaxima DATE,
+  aceptadaSII INT,
+  fechaVencimientoFactura DATE,
+  montoFactura INT,
+  comentarios VARCHAR(1000),
+  fechaRecepcion DATE,
+  aprobado INT,
+  idEtapa6 VARCHAR(100),
+  idUsuario VARCHAR(100),
+  PRIMARY KEY (idEtapa7),
+  FOREIGN KEY (idEtapa6) REFERENCES Etapa_6(idEtapa6),
+  FOREIGN KEY (idUsuario) REFERENCES Usuario(idUsuario)
 );
