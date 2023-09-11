@@ -22,7 +22,7 @@ function App() {
         idUsuario: ''
     });
 
-    const datos = ['Nombre Usuario',"RUT (ID)",'Contraseña','Correo Electrónico','Nombre','Apellido','idUsuario']
+    const datos = ['Nombre Usuario',"RUT",'Contraseña','Correo Electrónico','Nombre','Apellido']
     const valor_datos = ['nombre_usuario',"rut",'contraseña','correoElectronico','nombre','apellido','idUsuario']
 
     const [users, setUsers] = useState<UserData[]>([]);
@@ -137,22 +137,23 @@ function App() {
 
     return (
         <div className="App">
-            <div className='bg-white relative shadow-md sm:rounded-lg overflow-hidden py-2'>
-            <h1 className='font-bold px-2'>CRUD de Usuarios</h1>
+            <div className='bg-[#F9FAFB] relative shadow-md sm:rounded-lg overflow-hidden py-2 m-4'>
+            <h1 className='font-bold px-2'>CRUD DE USUARIOS</h1>
                 <div>
                     <form onSubmit={handleSubmit}>
                         <div className='py-4 px-2'>
                             <div className="grid gap-2 mb-2 sm:grid-cols-3 sm:gap-2 sm:mb-2">
                             {datos.map((dato,index) => {
                                 return (
-<input 
-    key={index}
-    className="border rounded-none p-2 w-100 text-sm"
-    id={valor_datos[index]}
-    placeholder={dato}
-    value={formData[valor_datos[index]] ?? ''}
-    onChange={(e) => setFormData({ ...formData, [valor_datos[index]]: e.target.value })}
-/>
+                                    <input 
+                                        key={index}
+                                        className="border rounded-none p-2 w-100 text-sm"
+                                        id={valor_datos[index]}
+                                        placeholder={dato}
+                                        type={valor_datos[index] === 'contraseña' ? 'password' : 'text'}
+                                        value={formData[valor_datos[index]] ?? ''}
+                                        onChange={(e) => setFormData({ ...formData, [valor_datos[index]]: e.target.value })}
+                                    />
                                     )
                             })}
                             </div>
@@ -173,7 +174,6 @@ function App() {
                                 <th className="px-4 py-4">USUARIO</th>
                                 <th className="px-4 py-4">CORREO</th>
                                 <th className="px-4 py-4">NOMBRE APELLIDO</th>
-                                <th className="px-4 py-4">ID</th>
                                 <th className="px-4 py-4"></th>
                             </tr>
                         </thead>
@@ -184,11 +184,10 @@ function App() {
                                     <td className="px-4 py-2 text-gray-900">{user.nombre_usuario}</td>
                                     <td className="px-4 py-2 text-gray-900">{user.correoElectronico}</td>
                                     <td className="px-4 py-2 text-gray-900">{user.nombre} {user.apellido}</td>
-                                    <td className="px-4 py-2 text-gray-900">{user.idUsuario}</td>
                                     <td className="px-4 py-2 text-gray-900 flex items-center justify-end">
-                                        <button className='text-green-500 hover:text-green-400 p-2'
+                                        <button className='text-green-500 hover:text-green-400 p-2 border border-green-500 hover:border-green-400 mr-1'
                                             onClick={() => handleEdit(user)}>Editar</button>
-                                        <button className='text-red-500 hover:text-red-400 p-2' 
+                                        <button className='text-red-500 hover:text-red-400 p-2 border border-red-500 hover:border-red-400' 
                                             onClick={() => handleDelete(user.idUsuario)}>Eliminar</button>
                                     </td>
                                 </tr>
