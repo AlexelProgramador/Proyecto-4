@@ -1,9 +1,7 @@
 # NO LO USO ES PARA QUE NO SE ME OLVIDE
 from utils.DateFormat import DateFormat
 
-
 class Usuario():
-
     def __init__(self,
                  idUsuario,
                  nombre_usuario=None,
@@ -29,5 +27,4 @@ class Usuario():
             'correoElectronico' : self.correoElectronico,
             'nombre' : self.nombre,
             'apellido' : self.apellido
-
         }
