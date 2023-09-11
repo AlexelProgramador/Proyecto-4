@@ -23,7 +23,7 @@ function App() {
     });
 
     const datos = ['Nombre Usuario',"RUT (ID)",'Contraseña','Correo Electrónico','Nombre','Apellido','idUsuario']
-    const valor_datos = ['Nombre Usuario',"RUT (ID)",'Contraseña','Correo Electrónico','Nombre','Apellido','idUsuario']
+    const valor_datos = ['nombre_usuario',"rut",'contraseña','correoElectronico','nombre','apellido','idUsuario']
 
     const [users, setUsers] = useState<UserData[]>([]);
     const [editing, setEditing] = useState(false);
@@ -170,10 +170,10 @@ function App() {
                     <table className="w-full text-left text-sm">
                         <thead className="text-xs border-y">
                             <tr>
-                                <th className="px-4 py-4">RUT (ID)</th>
-                                <th className="px-4 py-4">NOMBRE</th>
+                                <th className="px-4 py-4">USUARIO</th>
                                 <th className="px-4 py-4">CORREO</th>
-                                <th className="px-4 py-4">NOMBRE COMPLETO</th>
+                                <th className="px-4 py-4">NOMBRE APELLIDO</th>
+                                <th className="px-4 py-4">ID</th>
                                 <th className="px-4 py-4"></th>
                             </tr>
                         </thead>
@@ -183,8 +183,7 @@ function App() {
 
                                     <td className="px-4 py-2 text-gray-900">{user.nombre_usuario}</td>
                                     <td className="px-4 py-2 text-gray-900">{user.correoElectronico}</td>
-                                    <td className="px-4 py-2 text-gray-900">{user.nombre}</td>
-                                    <td className="px-4 py-2 text-gray-900">{user.apellido}</td>
+                                    <td className="px-4 py-2 text-gray-900">{user.nombre} {user.apellido}</td>
                                     <td className="px-4 py-2 text-gray-900">{user.idUsuario}</td>
                                     <td className="px-4 py-2 text-gray-900 flex items-center justify-end">
                                         <button className='text-green-500 hover:text-green-400 p-2'
