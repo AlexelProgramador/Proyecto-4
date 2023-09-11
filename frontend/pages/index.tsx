@@ -2,15 +2,26 @@ import React, { useState, useEffect } from 'react';
 
 
 interface UserData {
+<<<<<<< Updated upstream
     rut: string;
     nombre_usuario: string;
     contraseña: string;
     Correo_Electronico: string;
     Nombre_Completo: string;
+=======
+    nombre_usuario: string;
+    rut: string;
+    contraseña: string;
+    correoElectronico: string;
+    nombre: string;
+    apellido: string;
+    idUsuario: string;
+>>>>>>> Stashed changes
 }
 
 function App() {
     const [formData, setFormData] = useState<UserData>({
+<<<<<<< Updated upstream
         rut: '',
         nombre_usuario: '',
         contraseña: '',
@@ -20,6 +31,19 @@ function App() {
 
     const datos = ["RUT (ID)",'Nombre Usuario','Contraseña','Correo Electrónico','Nombre Completo']
     const valor_datos = ['rut','nombre_usuario','contraseña','Correo_Electronico','Nombre_Completo']
+=======
+        nombre_usuario: '',
+        rut: '',
+        contraseña: '',
+        correoElectronico: '',
+        nombre: '',
+        apellido: '',
+        idUsuario: ''
+    });
+
+    const datos = ['Nombre Usuario',"RUT (ID)",'Contraseña','Correo Electrónico','Nombre','Apellido','idUsuario']
+    const valor_datos = ['Nombre Usuario',"RUT (ID)",'Contraseña','Correo Electrónico','Nombre','Apellido','idUsuario']
+>>>>>>> Stashed changes
 
     const [users, setUsers] = useState<UserData[]>([]);
     const [editing, setEditing] = useState(false);
@@ -55,11 +79,21 @@ function App() {
                     // Actualiza la lista de usuarios después de la edición.
                     setUsers(users.map(user => (user.rut === data.rut ? data : user)));
                     setFormData({
+<<<<<<< Updated upstream
                         rut: '',
                         nombre_usuario: '',
                         contraseña: '',
                         Correo_Electronico: '',
                         Nombre_Completo: '',
+=======
+                        nombre_usuario: '',
+                        rut: '',
+                        contraseña: '',
+                        correoElectronico: '',
+                        nombre: '',
+                        apellido: '',
+                        idUsuario: ''
+>>>>>>> Stashed changes
                     });
                     setEditing(false);
                 })
@@ -84,11 +118,21 @@ function App() {
                     // Agrega el nuevo usuario a la lista.
                     setUsers([...users, data]);
                     setFormData({
+<<<<<<< Updated upstream
                         rut: '',
                         nombre_usuario: '',
                         contraseña: '',
                         Correo_Electronico: '',
                         Nombre_Completo: '',
+=======
+                        nombre_usuario: '',
+                        rut: '',
+                        contraseña: '',
+                        correoElectronico: '',
+                        nombre: '',
+                        apellido: '',
+                        idUsuario: ''
+>>>>>>> Stashed changes
                     });
                 })
                 .catch(error => {
@@ -104,8 +148,15 @@ function App() {
             rut: user.rut,
             nombre_usuario: user.nombre_usuario,
             contraseña: user.contraseña,
+<<<<<<< Updated upstream
             Correo_Electronico: user.Correo_Electronico,
             Nombre_Completo: user.Nombre_Completo,
+=======
+            correoElectronico: user.correoElectronico,
+            nombre: user.nombre,
+            apellido: user.apellido,
+            idUsuario: user.idUsuario
+>>>>>>> Stashed changes
         });
         setEditing(true);
     };
@@ -135,6 +186,7 @@ function App() {
                             <div className="grid gap-2 mb-2 sm:grid-cols-3 sm:gap-2 sm:mb-2">
                             {datos.map((dato,index) => {
                                 return (
+<<<<<<< Updated upstream
                                     <input key={index}
                                         className="border rounded-none p-2 w-100 text-sm"
                                         id={valor_datos[index]}
@@ -142,6 +194,16 @@ function App() {
                                         value={formData[valor_datos[index]]}
                                         onChange={(e) => setFormData({ ...formData, [valor_datos[index]]: e.target.value })}
                                     />
+=======
+<input 
+    key={index}
+    className="border rounded-none p-2 w-100 text-sm"
+    id={valor_datos[index]}
+    placeholder={dato}
+    value={formData[valor_datos[index]] ?? ''}
+    onChange={(e) => setFormData({ ...formData, [valor_datos[index]]: e.target.value })}
+/>
+>>>>>>> Stashed changes
                                     )
                             })}
                             </div>
@@ -171,8 +233,15 @@ function App() {
                                 <tr key={user.rut} className="border-b">
                                     <td className="px-4 py-2 text-gray-900 whitespace-nowrap">{user.rut}</td>
                                     <td className="px-4 py-2 text-gray-900">{user.nombre_usuario}</td>
+<<<<<<< Updated upstream
                                     <td className="px-4 py-2 text-gray-900">{user.Correo_Electronico}</td>
                                     <td className="px-4 py-2 text-gray-900">{user.Nombre_Completo}</td>
+=======
+                                    <td className="px-4 py-2 text-gray-900">{user.correoElectronico}</td>
+                                    <td className="px-4 py-2 text-gray-900">{user.nombre}</td>
+                                    <td className="px-4 py-2 text-gray-900">{user.apellido}</td>
+                                    <td className="px-4 py-2 text-gray-900">{user.idUsuario}</td>
+>>>>>>> Stashed changes
                                     <td className="px-4 py-2 text-gray-900 flex items-center justify-end">
                                         <button className='text-green-500 hover:text-green-400 p-2'
                                             onClick={() => handleEdit(user)}>Editar</button>
