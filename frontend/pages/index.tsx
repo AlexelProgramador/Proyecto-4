@@ -47,7 +47,7 @@ function App() {
 
         if (editing) {
             // Si estamos editando, realiza una solicitud PUT para actualizar el usuario existente.
-            fetch(`http://127.0.0.1:5000/api/usuarios/update/${formData.rut}`, {
+            fetch(`http://127.0.0.1:5000/api/usuarios/update/${formData.idUsuario}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -57,7 +57,7 @@ function App() {
                 .then(response => response.json())
                 .then((data: UserData) => {
                     // Actualiza la lista de usuarios después de la edición.
-                    setUsers(users.map(user => (user.rut === data.rut ? data : user)));
+                    setUsers(users.map(user => (user.idUsuario === data.idUsuario ? data : user)));
                     setFormData({
                         nombre_usuario: '',
                         rut: '',
@@ -121,14 +121,14 @@ function App() {
     };
 
     //Eliminación de Usuario
-    const handleDelete = (rut: string) => {
+    const handleDelete = (idUsuario: string) => {
         // Realiza una solicitud DELETE para eliminar el usuario.
-        fetch(`http://127.0.0.1:5000/api/usuarios/delete/${rut}`, {
+        fetch(`http://127.0.0.1:5000/api/usuarios/delete/${idUsuario}`, {
             method: 'DELETE',
         })
             .then(() => {
                 // Elimina el usuario de la lista.
-                setUsers(users.filter(user => user.rut !== rut));
+                setUsers(users.filter(user => user.idUsuario !== idUsuario));
             })
             .catch(error => {
                 console.error('Error al eliminar el usuario:', error);
@@ -189,7 +189,7 @@ function App() {
                                         <button className='text-green-500 hover:text-green-400 p-2'
                                             onClick={() => handleEdit(user)}>Editar</button>
                                         <button className='text-red-500 hover:text-red-400 p-2' 
-                                            onClick={() => handleDelete(user.rut)}>Eliminar</button>
+                                            onClick={() => handleDelete(user.idUsuario)}>Eliminar</button>
                                     </td>
                                 </tr>
                             ))}
