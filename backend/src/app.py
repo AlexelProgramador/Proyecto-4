@@ -4,6 +4,7 @@ from config import config
 
 #Routes
 from routes import Usuario
+from routes import UsuarioRol
 app = Flask(__name__)
 stored_data = []
 CORS(app, resources={"*":{"origins":"http://localhost:3000"}})
@@ -22,6 +23,7 @@ if __name__ == '__main__':
     
     # Blueprints
     app.register_blueprint(Usuario.main, url_prefix='/api/usuarios')
+    app.register_blueprint(UsuarioRol.main, url_prefix='/api/usuarios/roles')
 
     # Manejo de errores
     app.register_error_handler(404, page_not_found)

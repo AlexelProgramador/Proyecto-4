@@ -12,8 +12,10 @@ const VerUsuarioDetalle: React.FC<VerUsuarioDetalleProps> = ({ idUsuario, onClos
         // Realiza una solicitud GET al backend para obtener los detalles del usuario
         fetch(`http://127.0.0.1:5000/api/usuarios/${idUsuario}`)
             .then(response => response.json())
+            
             .then((data: UserData) => {
                 setUsuario(data);
+                console.log("paso") 
             })
             .catch(error => {
                 console.error('Error al obtener detalles del usuario:', error);

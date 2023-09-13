@@ -1,4 +1,6 @@
 from database.db import get_connection
+
+
 from .entities.Usuario import Usuario
 
 
@@ -30,7 +32,8 @@ class UsuarioModel():
                                       row[3],
                                       row[4],
                                       row[5],
-                                      row[6])
+                                      row[6]
+                                      )
                     usuarios.append(usuario.to_JSON())
             connection.close()
             return usuarios
@@ -45,7 +48,7 @@ class UsuarioModel():
 
             with connection.cursor() as cursor:
                 cursor.execute(
-                    "SELECT nombre_usuario, rut, contraseña, correoElectronico, nombre, apellido  FROM Usuario WHERE idUsuario = %s", (idUsuario,))
+                    "SELECT idUsuario, nombre_usuario, rut, contraseña, correoElectronico, nombre, apellido  FROM Usuario WHERE idUsuario = %s", (idUsuario,))
                 row = cursor.fetchone()
                 usuario = None
                 if row != None:
@@ -54,7 +57,9 @@ class UsuarioModel():
                                       row[2],
                                       row[3],
                                       row[4],
-                                      row[5])
+                                      row[5],
+                                      row[6]
+                                      )
                     usuario = usuario.to_JSON()
             connection.close()
             return usuario
