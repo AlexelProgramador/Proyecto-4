@@ -1,0 +1,71 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "Solicitudes",
+    "dateExported": "2023-10-07T02:08:17.322Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "2ff42299-cff6-46e2-bd0b-042dc577bd04",
+            "colId": "fbc135fa-89b9-48e2-839c-4fb6f198a117",
+            "containerId": "",
+            "name": "Solicitudes GET",
+            "url": "http://127.0.0.1:8000/api/solicitudes",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-10-07T00:55:04.584Z",
+            "modified": "2023-10-07T00:55:04.584Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "356fd8c9-e4a4-4821-ba52-ba189f768276",
+            "colId": "fbc135fa-89b9-48e2-839c-4fb6f198a117",
+            "containerId": "",
+            "name": "Solicitud POST",
+            "url": "http://127.0.0.1:8000/api/solicitud/651ec32f70c3848c93074ef6",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2023-10-07T00:55:22.952Z",
+            "modified": "2023-10-07T00:55:22.952Z",
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\r\n  \"tipoSolicitud\": \"Solicitud Bienes/Servicos\",\r\n  \"infoSolicitud\": {\r\n    \"campo1\": \"campo1\",\r\n    \"campo2\": \"campo2\",\r\n    \"campo3\": \"campo3\",\r\n    \"campo4\": \"campo4\"\r\n  }\r\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "3e3ad81e-4dc1-473a-a771-19829f78284c",
+            "colId": "fbc135fa-89b9-48e2-839c-4fb6f198a117",
+            "containerId": "",
+            "name": "Solicitud DEL",
+            "url": "http://127.0.0.1:8000/api/solicitud",
+            "method": "DELETE",
+            "sortNum": 30000,
+            "created": "2023-10-07T00:55:36.736Z",
+            "modified": "2023-10-07T00:55:36.736Z",
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\r\n  \"idsSolicitudes\": [\r\n    \"6520ab641c4ef30d6e05a482\"\r\n  ]\r\n}",
+                "form": []
+            },
+            "tests": []
+        }
+    ]
+}

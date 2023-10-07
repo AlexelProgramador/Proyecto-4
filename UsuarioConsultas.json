@@ -1,0 +1,71 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "Usuario",
+    "dateExported": "2023-10-07T02:07:32.473Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "12244ed8-7d4c-42e8-ad41-a238fc93ee4a",
+            "colId": "b7ce8e5b-ec21-4274-b18b-fd6d248c97a0",
+            "containerId": "",
+            "name": "Usuario DELETE",
+            "url": "http://127.0.0.1:8000/api/usuario/6520abcd1c4ef30d6e05a483",
+            "method": "DELETE",
+            "sortNum": 10000,
+            "created": "2023-10-07T00:54:24.754Z",
+            "modified": "2023-10-07T00:54:24.754Z",
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\r\n  \"nombre\": \"Diego\",\r\n  \"apellido\": \"Baltazar\",\r\n  \"password\": \"as12QW!@\",\r\n  \"rol\": [\r\n    \"Administrador\",\r\n    \"neymar\",\r\n    \"Colo-Colo\"\r\n  ]\r\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "54ff6fa8-b09b-46b9-beec-bdddb448d719",
+            "colId": "b7ce8e5b-ec21-4274-b18b-fd6d248c97a0",
+            "containerId": "",
+            "name": "Usuario POST",
+            "url": "http://127.0.0.1:8000/api/usuario",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2023-10-07T00:54:39.704Z",
+            "modified": "2023-10-07T00:54:39.704Z",
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\r\n  \"nombre\": \"Diego\",\r\n  \"apellido\": \"Baltazar\",\r\n  \"password\": \"as12QW!@\",\r\n  \"rol\": [\r\n    \"Administrador\",\r\n    \"neymar\",\r\n    \"Colo-Colo\"\r\n  ]\r\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "de908a90-636e-4409-983c-5378ad7140da",
+            "colId": "b7ce8e5b-ec21-4274-b18b-fd6d248c97a0",
+            "containerId": "",
+            "name": "Usuarios GET",
+            "url": "http://127.0.0.1:8000/api/usuarios",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2023-10-07T00:54:51.304Z",
+            "modified": "2023-10-07T00:54:51.304Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        }
+    ]
+}
