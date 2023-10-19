@@ -1,42 +1,84 @@
-.App {
-  text-align: center;
+body {
+  background-color: var(--white-50);
+  padding: 0;
+  margin: 0 auto; 
+  max-width: 1920px;
+  overflow-x: hidden; 
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.sidebar {
+  background-color: var(--regal-blue-900);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  width: 50%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.sidebar .iconos {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
   color: white;
+  padding-top: 1rem;
+  font-size: xx-large;
+  cursor: pointer;
 }
 
-.App-link {
-  color: #61dafb;
+.sidebar .icono-crear {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.sidebar .icono-crear p {
+  margin: 0;
+  font-size: small;
+  text-align: center;
 }
-.contenedorgris {
-  background-color: #808080; /* Color gris en hexadecimal */
-  width: 100%; /* O el ancho que desees */
-  height: 100px; /* O la altura que desees */}
+
+.sidebar .iconos > * {
+  margin-bottom: 1rem;
+}
+
+.navbar {
+  padding: 1vh;
+  margin: 0;
+  color: white;
+  background-color: var(--white-200);
+  display: flex;
+  justify-content: space-between;
+}
+
+.navbar .usuario {
+  color: var(--regal-blue-700);
+  display: inline-flex;
+  flex-direction: row;
+  font-size: medium;
+  padding-right: 2vh;
+  align-items: center;
+  cursor: pointer;
+}
+
+.navbar .logo {
+  color: white;
+  display: inline-flex;
+  flex-direction: row;
+  font-size: 4vw;
+  border-radius: 12%;
+  align-items: center;
+  margin-bottom: 1vh;
+  margin-right: 1vh;
+  background-color: #f1ab6b;
+}
+
+.roles .botonRol {
+  color: white;
+  border-radius: 5px;
+  padding: 1vh;
+  margin: 1vh; 
+  text-align: center;
+}

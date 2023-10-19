@@ -27,6 +27,7 @@ use MongoDB\Exception\UnsupportedException;
 use function current;
 use function is_array;
 use function is_bool;
+use function MongoDB\server_supports_feature;
 
 /**
  * Operation for the renameCollection command.
@@ -38,6 +39,9 @@ use function is_bool;
  */
 class RenameCollection implements Executable
 {
+    /** @var integer */
+    private static $wireVersionForWriteConcern = 5;
+
     /** @var string */
     private $fromNamespace;
 
@@ -54,10 +58,15 @@ class RenameCollection implements Executable
      *
      *  * session (MongoDB\Driver\Session): Client session.
      *
+     *    Sessions are not supported for server versions < 3.6.
+     *
      *  * typeMap (array): Type map for BSON deserialization. This will be used
      *    for the returned command result document.
      *
      *  * writeConcern (MongoDB\Driver\WriteConcern): Write concern.
+     *
+     *    This is not supported for server versions < 3.4 and will result in an
+     *    exception at execution time if used.
      *
      *  * dropTarget (boolean): If true, MongoDB will drop the target before
      *    renaming the collection.
@@ -102,11 +111,15 @@ class RenameCollection implements Executable
      * @see Executable::execute()
      * @param Server $server
      * @return array|object Command result document
-     * @throws UnsupportedException if write concern is used and unsupported
+     * @throws UnsupportedException if writeConcern is used and unsupported
      * @throws DriverRuntimeException for other driver errors (e.g. connection errors)
      */
     public function execute(Server $server)
     {
+        if (isset($this->options['writeConcern']) && ! server_supports_feature($server, self::$wireVersionForWriteConcern)) {
+            throw UnsupportedException::writeConcernNotSupported();
+        }
+
         $inTransaction = isset($this->options['session']) && $this->options['session']->isInTransaction();
         if ($inTransaction && isset($this->options['writeConcern'])) {
             throw UnsupportedException::writeConcernNotSupportedInTransaction();

@@ -294,7 +294,9 @@ abstract class FunctionalTestCase extends TestCase
      */
     protected function createCollection(array $options = []): void
     {
-        $options += ['writeConcern' => new WriteConcern(WriteConcern::MAJORITY)];
+        if (version_compare($this->getServerVersion(), '3.4.0', '>=')) {
+            $options += ['writeConcern' => new WriteConcern(WriteConcern::MAJORITY)];
+        }
 
         $operation = new CreateCollection($this->getDatabaseName(), $this->getCollectionName(), $options);
         $operation->execute($this->getPrimaryServer());
@@ -311,7 +313,9 @@ abstract class FunctionalTestCase extends TestCase
      */
     protected function dropCollection(array $options = []): void
     {
-        $options += ['writeConcern' => new WriteConcern(WriteConcern::MAJORITY)];
+        if (version_compare($this->getServerVersion(), '3.4.0', '>=')) {
+            $options += ['writeConcern' => new WriteConcern(WriteConcern::MAJORITY)];
+        }
 
         $operation = new DropCollection($this->getDatabaseName(), $this->getCollectionName(), $options);
         $operation->execute($this->getPrimaryServer());
@@ -320,6 +324,10 @@ abstract class FunctionalTestCase extends TestCase
     protected function getFeatureCompatibilityVersion(?ReadPreference $readPreference = null)
     {
         if ($this->isShardedCluster()) {
+            return $this->getServerVersion($readPreference);
+        }
+
+        if (version_compare($this->getServerVersion(), '3.4.0', '<')) {
             return $this->getServerVersion($readPreference);
         }
 
@@ -332,8 +340,14 @@ abstract class FunctionalTestCase extends TestCase
         $cursor->setTypeMap(['root' => 'array', 'document' => 'array']);
         $document = current($cursor->toArray());
 
+        // MongoDB 3.6: featureCompatibilityVersion is an embedded document
         if (isset($document['featureCompatibilityVersion']['version']) && is_string($document['featureCompatibilityVersion']['version'])) {
             return $document['featureCompatibilityVersion']['version'];
+        }
+
+        // MongoDB 3.4: featureCompatibilityVersion is a string
+        if (isset($document['featureCompatibilityVersion']) && is_string($document['featureCompatibilityVersion'])) {
+            return $document['featureCompatibilityVersion'];
         }
 
         throw new UnexpectedValueException('Could not determine featureCompatibilityVersion');
@@ -409,7 +423,7 @@ abstract class FunctionalTestCase extends TestCase
             return true;
         }
 
-        // Assume that load balancers are properly configured and front sharded clusters
+        // Assume that load balancers are properly configured and front mongos
         if ($type == Server::TYPE_LOAD_BALANCER) {
             return true;
         }
@@ -419,11 +433,6 @@ abstract class FunctionalTestCase extends TestCase
 
     protected function isShardedClusterUsingReplicasets()
     {
-        // Assume serverless is a sharded cluster using replica sets
-        if (static::isServerless()) {
-            return true;
-        }
-
         $cursor = $this->getPrimaryServer()->executeQuery(
             'config.shards',
             new Query([], ['limit' => 1])
@@ -449,6 +458,10 @@ abstract class FunctionalTestCase extends TestCase
         switch ($this->getPrimaryServer()->getType()) {
             case Server::TYPE_MONGOS:
             case Server::TYPE_LOAD_BALANCER:
+                if (version_compare($this->getServerVersion(), '3.6.0', '<')) {
+                    $this->markTestSkipped('$changeStream is only supported on MongoDB 3.6 or higher');
+                }
+
                 if (! $this->isShardedClusterUsingReplicasets()) {
                     $this->markTestSkipped('$changeStream is only supported with replicasets');
                 }
@@ -456,6 +469,10 @@ abstract class FunctionalTestCase extends TestCase
                 break;
 
             case Server::TYPE_RS_PRIMARY:
+                if (version_compare($this->getFeatureCompatibilityVersion(), '3.6', '<')) {
+                    $this->markTestSkipped('$changeStream is only supported on FCV 3.6 or higher');
+                }
+
                 break;
 
             default:
@@ -468,6 +485,10 @@ abstract class FunctionalTestCase extends TestCase
         switch ($this->getPrimaryServer()->getType()) {
             case Server::TYPE_MONGOS:
             case Server::TYPE_LOAD_BALANCER:
+                if (version_compare($this->getServerVersion(), '3.6.0', '<')) {
+                    $this->markTestSkipped('Causal Consistency is only supported on MongoDB 3.6 or higher');
+                }
+
                 if (! $this->isShardedClusterUsingReplicasets()) {
                     $this->markTestSkipped('Causal Consistency is only supported with replicasets');
                 }
@@ -475,6 +496,10 @@ abstract class FunctionalTestCase extends TestCase
                 break;
 
             case Server::TYPE_RS_PRIMARY:
+                if (version_compare($this->getFeatureCompatibilityVersion(), '3.6', '<')) {
+                    $this->markTestSkipped('Causal Consistency is only supported on FCV 3.6 or higher');
+                }
+
                 if ($this->getServerStorageEngine() !== 'wiredTiger') {
                     $this->markTestSkipped('Causal Consistency requires WiredTiger storage engine');
                 }
