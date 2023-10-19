@@ -5,6 +5,12 @@ import { Sidebar } from './Components/Sidebar';
 import { Dashboard } from './Components/Dashboard';
 import { CrearSolicitud } from './Components/CrearSolicitud';
 import { SolicitudEtapa2 } from './Components/SolicitudEtapa2';
+import { SolicitudEtapa3 } from './Components/SolicitudEtapa3';
+import { CrearBoletacompra } from './Components/CrearBoletaCompraET4';
+import { ActualizacionSoliET5 } from './Components/ActualizacionEnvioET5';
+import { ActualizacionSoliET6 } from './Components/ActualizacionEnvioET6';
+import { FormrecepcionET7 } from './Components/FormularioRecepcionET7';
+
 
 function App() {
   const contentStyle = {
@@ -21,6 +27,7 @@ function App() {
     motivosCompra: 'Necesidad de suministros de oficina',
     fuenteFinanciamiento: 'Presupuesto de oficina',
     montoEstimado: '$1000',
+    codigoCosto: '$4000'
   };
   return (
     <Router>
@@ -32,6 +39,11 @@ function App() {
             <Route path="/" element={<Dashboard />} />
             <Route path="/crear-solicitud" element={<CrearSolicitud />} />
             <Route path="/solicitud-etapa2" element={<SolicitudEtapa2 solicitudData={datosDeEjemplo}/>} />
+            <Route path="/solicitud-etapa3" element={<SolicitudEtapa3 solicitudData={datosDeEjemplo}/>} />
+            <Route path="/solicitud-etapa4" element={<CrearBoletacompra/>}/>
+            <Route path="/solicitud-etapa5" element={<ActualizacionSoliET5/>}/>
+            <Route path="/solicitud-etapa6" element={<ActualizacionSoliET6/>}/>
+            <Route path="/solicitud-etapa7" element={<FormrecepcionET7/>}/>
 
           </Routes>
         </div>
