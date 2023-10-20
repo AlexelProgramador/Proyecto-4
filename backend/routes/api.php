@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\SolicitudController;
 use App\Http\Controllers\Api\UsuarioController;
 use App\Http\Controllers\Api\EtapaController;
+use App\Http\Controllers\Api\BodegaController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -42,3 +43,15 @@ Route::controller(EtapaController::class)->group(function () {
     Route::put("/etapa/{idUsuario}/{idEtapa}", "update");
     Route::delete("/etapa", "destroy");
 });
+
+
+//-------------------------- Rutas SGI ----------------------------
+//Controlador Bodega.
+Route::controller(BodegaController::class)->group(function () {
+    Route::get("/bodegas", "index");
+    // Route::post("/bodega/{idBodega}/{nroSolicitud}", "store");
+    // Route::put("/etapa/{idUsuario}/{idEtapa}", "update");
+    Route::delete("/bodega", "destroy");
+});
+
+//-----------------------------------------------------------------
