@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
+    'App\\Http\\Controllers\\Api\\EtapaController' => $baseDir . '/app/Http/Controllers/Api/EtapaController.php',
     'App\\Http\\Controllers\\Api\\SolicitudController' => $baseDir . '/app/Http/Controllers/Api/SolicitudController.php',
     'App\\Http\\Controllers\\Api\\UsuarioController' => $baseDir . '/app/Http/Controllers/Api/UsuarioController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
@@ -21,6 +22,7 @@ return array(
     'App\\Http\\Middleware\\TrustProxies' => $baseDir . '/app/Http/Middleware/TrustProxies.php',
     'App\\Http\\Middleware\\ValidateSignature' => $baseDir . '/app/Http/Middleware/ValidateSignature.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
+    'App\\Models\\Etapa' => $baseDir . '/app/Models/Etapa.php',
     'App\\Models\\Solicitud' => $baseDir . '/app/Models/Solicitud.php',
     'App\\Models\\Usuario' => $baseDir . '/app/Models/Usuario.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
