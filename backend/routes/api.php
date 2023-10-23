@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\SolicitudController;
 use App\Http\Controllers\Api\UsuarioController;
 use App\Http\Controllers\Api\EtapaController;
 use App\Http\Controllers\Api\BodegaController;
+use App\Http\Controllers\Api\ProductoController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -52,6 +53,14 @@ Route::controller(BodegaController::class)->group(function () {
     Route::post("/bodega", "store");
     // Route::put("/etapa/{idUsuario}/{idEtapa}", "update");
     Route::delete("/bodega/{id}", "destroy");
+});
+
+//Controlador Producto.
+Route::controller(ProductoController::class)->group(function () {
+    Route::get("/productos", "index");
+    Route::post("/producto", "store");
+    // Route::put("/etapa/{idUsuario}/{idEtapa}", "update");
+    Route::delete("/producto/{id}", "destroy");
 });
 
 //-----------------------------------------------------------------

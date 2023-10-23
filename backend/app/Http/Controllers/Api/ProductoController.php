@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Producto;
 
 class ProductoController extends Controller
 {
@@ -15,16 +16,8 @@ class ProductoController extends Controller
     public function index()
     {
         //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $datos = Producto::all();
+        return response()->json($datos);
     }
 
     /**
@@ -36,6 +29,20 @@ class ProductoController extends Controller
     public function store(Request $request)
     {
         //
+        //Crear Nuevo Producto
+        $producto = new Producto();
+
+        //Para establecer el IDProducto
+       
+        //Insercción de datos
+        $producto->NombreProducto = $request->NombreProducto;
+        $producto->LugarProducto = $request->LugarProducto;
+        
+        //Subir Datos
+        $producto->save();
+
+        //Respuesta del Backend
+        return response()->json(['data' => $producto], 201);
     }
 
     /**
@@ -81,5 +88,7 @@ class ProductoController extends Controller
     public function destroy($id)
     {
         //
+        Producto::destroy($id);
+        return response()->json(['message' =>  'Borrado']);
     }
 }
