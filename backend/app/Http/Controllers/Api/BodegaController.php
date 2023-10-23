@@ -21,16 +21,6 @@ class BodegaController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -38,7 +28,27 @@ class BodegaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //Faltaría ver que pasa si son iguales
+        //Nueva Forma de ver la ID (o quitarla)
+
+        //Crear Nueva Bodega
+        $bodega = new Bodega();
+
+        //Para establecer el IDBodega
+        $datos = Bodega::all()->count();
+       
+        //Insercción de datos
+        $bodega->IDBodega = $datos;
+        $bodega->NombreBodega = $request->NombreBodega;
+        $bodega->LugarBodega = $request->LugarBodega;
+        $bodega-> InventarioBodega = $request->InventarioBodega;
+        
+        //Subir Datos
+        $bodega->save();
+
+        //Respuesta del Backend
+        return response()->json(['message' => $datos, 'data' => $bodega], 201);
+
     }
 
     /**
@@ -84,5 +94,7 @@ class BodegaController extends Controller
     public function destroy($id)
     {
         //
+        Bodega::destroy($id);
+        return response()->json(['message' =>  'Borrado']);
     }
 }

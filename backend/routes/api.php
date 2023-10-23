@@ -49,9 +49,9 @@ Route::controller(EtapaController::class)->group(function () {
 //Controlador Bodega.
 Route::controller(BodegaController::class)->group(function () {
     Route::get("/bodegas", "index");
-    // Route::post("/bodega/{idBodega}/{nroSolicitud}", "store");
+    Route::post("/bodega", "store");
     // Route::put("/etapa/{idUsuario}/{idEtapa}", "update");
-    Route::delete("/bodega", "destroy");
+    Route::delete("/bodega/{id}", "destroy");
 });
 
 //-----------------------------------------------------------------

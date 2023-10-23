@@ -10,7 +10,8 @@ import { CrearBoletacompra } from './Components/CrearBoletaCompraET4';
 import { ActualizacionSoliET5 } from './Components/ActualizacionEnvioET5';
 import { ActualizacionSoliET6 } from './Components/ActualizacionEnvioET6';
 import { FormrecepcionET7 } from './Components/FormularioRecepcionET7';
-import { MyComponent } from './SGI/Bodega/ShowBodega';
+import { HomeBodega } from './SGI/Bodega/HomeBodega';
+import { CreateBodega } from './SGI/Bodega/CreateBodega';
 
 
 function App() {
@@ -47,7 +48,9 @@ function App() {
             <Route path="/solicitud-etapa7" element={<FormrecepcionET7/>}/>
 
             {/* Rutas Sistema Inventario*/}
-            <Route path="/show-bodega" element ={<MyComponent/>}/>
+            <Route path="/show-bodega" element ={<HomeBodega/>}/>
+            <Route path="/create-bodega" element ={<CreateBodega/>}/>
+            
 
           </Routes>
         </div>
