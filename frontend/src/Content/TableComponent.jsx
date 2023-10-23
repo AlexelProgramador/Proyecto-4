@@ -18,7 +18,7 @@ export const TableComponent = () => {
             <td>
               <ProgressBarComponents
                 colorBar={"warning"}
-                textBar={"Tu turno"}
+                textBar={"En espera"}
               />
             </td>
             <td>2</td>

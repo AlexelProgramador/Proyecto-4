@@ -1,3 +1,5 @@
+import { SolicitudComponent } from "../Solicitud/SolicitudComponent";
+
 export const roles = [
   "Secretaria",
   "Encargado de presupuesto",
@@ -13,4 +15,12 @@ export const headTitleTableSolicitud = [
   "Estado",
   "Etapa",
   "Acciones",
+];
+
+export const routes = [
+  {
+    path: "/solicitud",
+    component: SolicitudComponent,
+  },
+  // Resto de las rutas
 ];
