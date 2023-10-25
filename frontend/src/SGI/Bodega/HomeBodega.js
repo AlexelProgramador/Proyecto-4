@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export const HomeBodega = () => {
     const [data, setData] = useState([]);
     const url_test = "http://127.0.0.1:8000/api";
+    const navigate = useNavigate();
     
     const fetchData = async () => {
         try {
-            const response = await axios.get(url_test + "/bodegas");
+            const response = await axios.get(url_test+"/bodegas");
             setData(response.data);
         } catch (error) {
             console.error('Error al obtener datos', error);
@@ -26,6 +27,10 @@ export const HomeBodega = () => {
         } catch (error) {
             console.error('Error al eliminar el elemento', error);
         }
+    };
+
+    const handleEdit = (id) => {
+        navigate(`/edit-bodega/${id}`); // Cambia '/edit-bodega' con la ruta de edición deseada
     };
 
     return (
@@ -47,7 +52,7 @@ export const HomeBodega = () => {
                             <td>{item.LugarBodega}</td>
                             <td>
                                 <button>Ver Más</button>
-                                <button>Editar</button>
+                                <button onClick={() => handleEdit(item._id)}>Editar</button>
                                 <button onClick={() => handleDelete(item._id)}>Eliminar</button>
                             </td>
                         </tr>

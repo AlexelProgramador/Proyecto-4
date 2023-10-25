@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export const HomeProducto = () => {
     const [data, setData] = useState([]);
     const url_test = "http://127.0.0.1:8000/api";
+    const navigate = useNavigate();
     
     const fetchData = async () => {
         try {
@@ -28,6 +29,9 @@ export const HomeProducto = () => {
         }
     };
 
+    const handleEdit = (id) => {
+        navigate(`/edit-producto/${id}`); //Ruta para la edición de producto
+    };
     return (
         <div>
             <table>
@@ -47,7 +51,7 @@ export const HomeProducto = () => {
                             <td>{item.LugarProducto}</td>
                             <td>
                                 <button>Ver Más</button>
-                                <button>Editar</button>
+                                <button onClick={() => handleEdit(item._id)}>Editar</button>
                                 <button onClick={() => handleDelete(item._id)}>Eliminar</button>
                             </td>
                         </tr>

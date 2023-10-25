@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export const CreateBodega = () => {
   const [bodegaData, setBodegaData] = useState({
@@ -7,6 +8,7 @@ export const CreateBodega = () => {
     LugarBodega: '',
     InventarioBodega: []
   });
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     setBodegaData({
@@ -20,11 +22,17 @@ export const CreateBodega = () => {
       .then(response => {
         // Manejar la respuesta si es necesario
         console.log(response.data);
+        // Redirigir a la página deseada después de agregar una nueva bodega
+        navigate('/'); // Cambia '/ruta-de-redireccion' con la ruta deseada
       })
       .catch(error => {
         // Manejar el error si ocurre
         console.error('Error al insertar datos: ', error);
       });
+  };
+
+  const handleEdit = () => {
+    navigate('/edit-bodega'); // Cambia '/edit-bodega' con la ruta de edición deseada
   };
 
   return (
@@ -46,6 +54,9 @@ export const CreateBodega = () => {
         />
         <button type="button" onClick={handleInsert}>
           Insertar Datos de Bodega
+        </button>
+        <button type="button" onClick={handleEdit}>
+          Editar Bodega
         </button>
       </form>
     </div>

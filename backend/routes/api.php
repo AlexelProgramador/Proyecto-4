@@ -51,7 +51,8 @@ Route::controller(EtapaController::class)->group(function () {
 Route::controller(BodegaController::class)->group(function () {
     Route::get("/bodegas", "index");
     Route::post("/bodega", "store");
-    // Route::put("/etapa/{idUsuario}/{idEtapa}", "update");
+    Route::get("/bodega/{id}/edit", "edit");
+    Route::put("/bodega/{id}/edit", "update");
     Route::delete("/bodega/{id}", "destroy");
 });
 
@@ -59,7 +60,8 @@ Route::controller(BodegaController::class)->group(function () {
 Route::controller(ProductoController::class)->group(function () {
     Route::get("/productos", "index");
     Route::post("/producto", "store");
-    // Route::put("/etapa/{idUsuario}/{idEtapa}", "update");
+    Route::get("/producto/{id}/edit", "edit");
+    Route::put("/producto/{id}/edit", "update");
     Route::delete("/producto/{id}", "destroy");
 });
 

@@ -65,6 +65,8 @@ class ProductoController extends Controller
     public function edit($id)
     {
         //
+        $datos = Producto::where("_id", $id)->first();
+        return response()->json(['message' => "envio de datos exitorso", 'data' => $datos], 201);
     }
 
     /**
@@ -77,6 +79,12 @@ class ProductoController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $datos = Producto::where("_id", $id)->update([
+            'NombreProducto' => $request->NombreProducto,
+            'LugarProducto' => $request->LugarProducto
+        ]);
+
+        return response()->json(['message' => "llegó exitosamente", 'data' => $datos], 201);
     }
 
     /**

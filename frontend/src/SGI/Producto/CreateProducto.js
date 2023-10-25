@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export const CreateProducto = () => {
   const [productoData, setProductoData] = useState({
     NombreProducto: '',
     LugarProducto: '',
   });
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     setProductoData({
@@ -19,6 +21,8 @@ export const CreateProducto = () => {
       .then(response => {
         // Manejar la respuesta si es necesario
         console.log(response.data);
+        // Redirigir a la página deseada después de agregar un nuevo producto
+        navigate('/show-producto'); // Cambia '/ruta-de-redireccion' con la ruta deseada
       })
       .catch(error => {
         // Manejar el error si ocurre

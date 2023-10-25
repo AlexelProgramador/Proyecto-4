@@ -14,6 +14,8 @@ import { HomeBodega } from './SGI/Bodega/HomeBodega';
 import { CreateBodega } from './SGI/Bodega/CreateBodega';
 import { HomeProducto } from './SGI/Producto/HomeProducto';
 import { CreateProducto } from './SGI/Producto/CreateProducto';
+import { EditBodega } from './SGI/Bodega/EditBodega';
+import { EditProducto } from './SGI/Producto/EditProducto';
 
 
 function App() {
@@ -52,9 +54,12 @@ function App() {
             {/* Rutas Sistema Inventario*/}
             <Route path="/show-bodega" element ={<HomeBodega/>}/>
             <Route path="/create-bodega" element ={<CreateBodega/>}/>
+            <Route path="/edit-bodega/:id" element ={<EditBodega/>}/>
 
             <Route path="/show-producto" element ={<HomeProducto/>}/>
             <Route path="/create-producto" element ={<CreateProducto/>}/>
+            <Route path="/edit-producto/:id" element ={<EditProducto/>}/>
+            
             
 
           </Routes>

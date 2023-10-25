@@ -71,6 +71,8 @@ class BodegaController extends Controller
     public function edit($id)
     {
         //
+        $datos = Bodega::where("_id", $id)->first();
+        return response()->json(['message' => "envio de datos exitorso", 'data' => $datos], 201);
     }
 
     /**
@@ -83,6 +85,13 @@ class BodegaController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $datos = Bodega::where("_id", $id)->update([
+            'NombreBodega' => $request->NombreBodega,
+            'LugarBodega' => $request->LugarBodega
+        ]);
+
+
+        return response()->json(['message' => "llegó exitosamente", 'data' => $datos], 201);
     }
 
     /**
