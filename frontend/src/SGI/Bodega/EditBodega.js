@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 export const EditBodega = () => {
     const [bodega, setBodega] = useState({});
     const { id } = useParams();
+    const navigate = useNavigate();
     const url = `http://localhost:8000/api/bodega/${id}/edit`; // Reemplaza con la URL de tu backend
 
     useEffect(() => {
@@ -28,6 +29,7 @@ export const EditBodega = () => {
     const handleUpdate = async () => {
         try {
             await axios.put(url, bodega);
+            navigate('/show-bodega');
             // Manejar la respuesta si es necesario
         } catch (error) {
             console.error('Error al actualizar la bodega', error);

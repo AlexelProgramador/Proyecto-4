@@ -23,16 +23,12 @@ export const CreateBodega = () => {
         // Manejar la respuesta si es necesario
         console.log(response.data);
         // Redirigir a la página deseada después de agregar una nueva bodega
-        navigate('/'); // Cambia '/ruta-de-redireccion' con la ruta deseada
+        navigate('/show-bodega'); // Cambia '/ruta-de-redireccion' con la ruta deseada
       })
       .catch(error => {
         // Manejar el error si ocurre
         console.error('Error al insertar datos: ', error);
       });
-  };
-
-  const handleEdit = () => {
-    navigate('/edit-bodega'); // Cambia '/edit-bodega' con la ruta de edición deseada
   };
 
   return (
@@ -54,9 +50,6 @@ export const CreateBodega = () => {
         />
         <button type="button" onClick={handleInsert}>
           Insertar Datos de Bodega
-        </button>
-        <button type="button" onClick={handleEdit}>
-          Editar Bodega
         </button>
       </form>
     </div>
