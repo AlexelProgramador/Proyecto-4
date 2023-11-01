@@ -1,4 +1,5 @@
 import './App.css';
+import React, { useState } from 'react';
 import { Primercomponente } from './Components/Primercomponente';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Sidebar } from './Components/Sidebar';
@@ -19,8 +20,10 @@ import { EditProducto } from './SGI/Producto/EditProducto';
 
 
 function App() {
+  const [show, setShow] = useState(false);
   const contentStyle = {
-    marginLeft: '80px', // Ajustar el margen para dejar espacio para la barra azul
+    marginLeft: show ? '80px' : '0', // Ajusta el margen izquierdo según si el Sidebar está abierto o cerrado
+    transition: 'margin 0.3s', // Agrega una transición para suavizar el efecto
   };
   const datosDeEjemplo = {
     solicitadoPor: 'John Doe',
@@ -38,8 +41,9 @@ function App() {
   return (
     <Router>
       <div>
-        <Sidebar />
+        <Sidebar/>
         <div className="content" style={contentStyle}>
+          <h1>a</h1>
           <Primercomponente />
           <Routes>
             <Route path="/" element={<Dashboard />} />
