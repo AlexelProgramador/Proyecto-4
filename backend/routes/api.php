@@ -60,8 +60,8 @@ Route::controller(BodegaController::class)->group(function () {
 Route::controller(ProductoController::class)->group(function () {
     Route::get("/productos", "index");
     Route::post("/producto", "store");
-    Route::get("/producto/{id}/edit", "edit");
-    Route::put("/producto/{id}/edit", "update");
+    Route::get("/producto/{id}", "show");
+    Route::put("/producto/{id}", "update");
     Route::delete("/producto/{id}", "destroy");
 });
 

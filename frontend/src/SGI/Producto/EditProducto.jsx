@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
+import { showProducto, updateProducto } from './HandlerProducto';
 
 export const EditProducto = () => {
     const [producto, setProducto] = useState({});
     const { id } = useParams();
     const navigate = useNavigate();
-    const url = `http://localhost:8000/api/producto/${id}/edit`; // Reemplaza con la URL de tu backend
+    const url = `http://localhost:8000/api/producto/${id}`; // Reemplaza con la URL de tu backend
 
     useEffect(() => {
         const fetchProducto = async () => {
             try {
-                const response = await axios.get(url);
-                setProducto(response.data.data);
+                const data = await showProducto(id);
+                setProducto(data);
             } catch (error) {
                 console.error('Error al obtener la información del producto', error);
             }
@@ -28,7 +28,7 @@ export const EditProducto = () => {
 
     const handleUpdate = async () => {
         try {
-            await axios.put(url, producto);
+            await updateProducto(id, producto);
             navigate('/show-producto');
             // Manejar la respuesta si es necesario
         } catch (error) {

@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { createProducto } from './HandlerProducto';
 
 export const CreateProducto = () => {
   const [productoData, setProductoData] = useState({
     NombreProducto: '',
     LugarProducto: '',
   });
+  
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
@@ -17,15 +18,12 @@ export const CreateProducto = () => {
   };
 
   const handleInsert = () => {
-    axios.post('http://localhost:8000/api/producto', productoData)
-      .then(response => {
-        // Manejar la respuesta si es necesario
-        console.log(response.data);
-        // Redirigir a la página deseada después de agregar un nuevo producto
-        navigate('/show-producto'); // Cambia '/ruta-de-redireccion' con la ruta deseada
+    createProducto(productoData)
+      .then(data => {
+        console.log(data);
+        navigate('/show-producto');
       })
       .catch(error => {
-        // Manejar el error si ocurre
         console.error('Error al insertar datos: ', error);
       });
   };
