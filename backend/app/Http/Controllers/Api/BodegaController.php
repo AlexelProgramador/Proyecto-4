@@ -60,6 +60,8 @@ class BodegaController extends Controller
     public function show($id)
     {
         //
+        $datos = Bodega::where("_id", $id)->first();
+        return response()->json(['message' => "envio de datos exitorso", 'data' => $datos], 201);
     }
 
     /**

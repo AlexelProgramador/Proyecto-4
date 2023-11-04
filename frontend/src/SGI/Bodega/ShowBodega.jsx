@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { showBodega, updateBodega } from './HandlerBodega';
 import { useParams, useNavigate } from 'react-router-dom';
 
-export const EditBodega = () => {
+export const ShowBodega = () => {
     const [bodega, setBodega] = useState({});
     const { id } = useParams();
     const navigate = useNavigate();
@@ -21,46 +21,10 @@ export const EditBodega = () => {
         fetchBodega();
     }, [url]);
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setBodega({ ...bodega, [name]: value });
-    };
-
-    const handleUpdate = async () => {
-        try {
-            await updateBodega(id, bodega);
-            navigate('/show-bodega');
-            // Manejar la respuesta si es necesario
-        } catch (error) {
-            console.error('Error al actualizar la bodega', error);
-            // Manejar el error si es necesario
-        }
-    };
-
     return (
         <div>
-            <h2>Editar Bodega</h2>
-            <div>
-                <label htmlFor="NombreBodega">Nombre:</label>
-                <input
-                    type="text"
-                    id="NombreBodega"
-                    name="NombreBodega"
-                    value={bodega.NombreBodega || ''}
-                    onChange={handleInputChange}
-                />
-            </div>
-            <div>
-                <label htmlFor="LugarBodega">Lugar:</label>
-                <input
-                    type="text"
-                    id="LugarBodega"
-                    name="LugarBodega"
-                    value={bodega.LugarBodega || ''}
-                    onChange={handleInputChange}
-                />
-            </div>
-            <button onClick={handleUpdate}>Actualizar Bodega</button>
+            <h2>Bodega</h2>
+            <h4>{bodega._id}</h4>
             <h3>Inventario</h3>
             {bodega.InventarioBodega && bodega.InventarioBodega.length > 0 ? (
                 <table>
@@ -90,4 +54,4 @@ export const EditBodega = () => {
     );
 };
 
-export default EditBodega;
+export default ShowBodega;

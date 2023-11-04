@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { deleteProducto, homeProducto } from './HandlerProducto';
 
 export const HomeProducto = () => {
     const [data, setData] = useState([]);
-    const url_test = "http://127.0.0.1:8000/api";
     const navigate = useNavigate();
     
     const fetchData = async () => {
         try {
-            const response = await axios.get(url_test + "/productos");
-            setData(response.data);
+            const response = await homeProducto();
+            setData(response);
         } catch (error) {
             console.error('Error al obtener datos', error);
         }
@@ -22,7 +21,7 @@ export const HomeProducto = () => {
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`${url_test}/producto/${id}`);
+            await deleteProducto(id);
             fetchData();
         } catch (error) {
             console.error('Error al eliminar el elemento', error);
@@ -31,6 +30,10 @@ export const HomeProducto = () => {
 
     const handleEdit = (id) => {
         navigate(`/edit-producto/${id}`); //Ruta para la edición de producto
+    };
+    
+    const handleShow = (id) => {
+        navigate(`/show-producto/${id}`); //Ruta para la edición de producto
     };
     return (
         <div>
@@ -50,7 +53,7 @@ export const HomeProducto = () => {
                             <td>{item.NombreProducto}</td>
                             <td>{item.LugarProducto}</td>
                             <td>
-                                <button>Ver Más</button>
+                                <button onClick={() => handleShow(item._id)}>Ver Más</button>
                                 <button onClick={() => handleEdit(item._id)}>Editar</button>
                                 <button onClick={() => handleDelete(item._id)}>Eliminar</button>
                             </td>

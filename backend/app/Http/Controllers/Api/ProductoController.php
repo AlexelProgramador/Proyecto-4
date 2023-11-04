@@ -37,6 +37,22 @@ class ProductoController extends Controller
         //Insercción de datos
         $producto->NombreProducto = $request->NombreProducto;
         $producto->LugarProducto = $request->LugarProducto;
+        $producto->MarcaProducto = $request->MarcaProducto;
+        $producto->DescripcionProducto = $request->DescripcionProducto;
+        $producto->CategoriaProducto = $request->CategoriaProducto;
+        $producto->FechaProducto = $request->FechaProducto;
+        $producto->ContenedorProducto = $request->ContenedorProducto;
+        $producto->CantidadContenedorProducto = intval($request->CantidadContenedorProducto);
+        $producto->CantidadProducto = intval($request->CantidadProducto);
+        
+        $ProductoTotal = $request->CantidadContenedorProducto * $request->CantidadProducto;
+        $producto->CantidadTotalProducto = $ProductoTotal;
+
+        $producto->ValorUnitarioProducto = intval($request->ValorUnitarioProducto);
+
+        $ValorTotal = $request->ValorUnitarioProducto * $ProductoTotal;
+
+        $producto->ValorTotalProducto = $ValorTotal;
         
         //Subir Datos
         $producto->save();
@@ -55,7 +71,7 @@ class ProductoController extends Controller
     {
         //
         $datos = Producto::where("_id", $id)->first();
-        return response()->json(['message' => "envio de datos exitorso", 'data' => $datos], 201);
+        return response()->json(['message' => "envio de datos exitoso", 'data' => $datos], 201);
     }
 
     /**
@@ -68,7 +84,7 @@ class ProductoController extends Controller
     {
         //
         $datos = Producto::where("_id", $id)->first();
-        return response()->json(['message' => "envio de datos exitorso", 'data' => $datos], 201);
+        return response()->json(['message' => "envio de datos exitoso", 'data' => $datos], 201);
     }
 
     /**
@@ -83,7 +99,16 @@ class ProductoController extends Controller
         //
         $datos = Producto::where("_id", $id)->update([
             'NombreProducto' => $request->NombreProducto,
-            'LugarProducto' => $request->LugarProducto
+            'LugarProducto' => $request->LugarProducto,
+            'MarcaProducto' => $request->MarcaProducto,
+            'DescripcionProducto' => $request->DescripcionProducto,
+            'CategoriaProducto' => $request->CategoriaProducto,
+            'ContenedorProducto' => $request->ContenedorProducto,
+            'CantidadContenedorProducto' => $request->CantidadContenedorProducto,
+            'CantidadProducto' => $request->CantidadProducto,
+            'ValorUnitarioProducto' => $request->ValorUnitarioProducto,
+            'FechaProducto' => $request->FechaProducto,
+
         ]);
 
         return response()->json(['message' => "llegó exitosamente", 'data' => $datos], 201);

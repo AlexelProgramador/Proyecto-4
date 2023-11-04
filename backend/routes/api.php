@@ -51,8 +51,8 @@ Route::controller(EtapaController::class)->group(function () {
 Route::controller(BodegaController::class)->group(function () {
     Route::get("/bodegas", "index");
     Route::post("/bodega", "store");
-    Route::get("/bodega/{id}/edit", "edit");
-    Route::put("/bodega/{id}/edit", "update");
+    Route::get("/bodega/{id}", "show");
+    Route::put("/bodega/{id}", "update");
     Route::delete("/bodega/{id}", "destroy");
 });
 

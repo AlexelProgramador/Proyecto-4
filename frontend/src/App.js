@@ -17,6 +17,8 @@ import { HomeProducto } from './SGI/Producto/HomeProducto';
 import { CreateProducto } from './SGI/Producto/CreateProducto';
 import { EditBodega } from './SGI/Bodega/EditBodega';
 import { EditProducto } from './SGI/Producto/EditProducto';
+import { ShowProducto } from './SGI/Producto/ShowProducto';
+import { ShowBodega } from './SGI/Bodega/ShowBodega';
 
 
 function App() {
@@ -59,10 +61,12 @@ function App() {
             <Route path="/show-bodega" element ={<HomeBodega/>}/>
             <Route path="/create-bodega" element ={<CreateBodega/>}/>
             <Route path="/edit-bodega/:id" element ={<EditBodega/>}/>
+            <Route path="/show-bodega/:id" element ={<ShowBodega/>}/>
 
             <Route path="/show-producto" element ={<HomeProducto/>}/>
             <Route path="/create-producto" element ={<CreateProducto/>}/>
             <Route path="/edit-producto/:id" element ={<EditProducto/>}/>
+            <Route path="/show-producto/:id" element ={<ShowProducto/>}/>
             
             
 

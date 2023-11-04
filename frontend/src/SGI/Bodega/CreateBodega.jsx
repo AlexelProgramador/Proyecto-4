@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { createProducto } from '../Producto/HandlerProducto';
 
 export const CreateBodega = () => {
   const [bodegaData, setBodegaData] = useState({
@@ -17,8 +17,8 @@ export const CreateBodega = () => {
     });
   };
 
-  const handleInsert = () => {
-    axios.post('http://localhost:8000/api/bodega', bodegaData)
+  const handleInsert = async () => {
+    createProducto(bodegaData)
       .then(response => {
         // Manejar la respuesta si es necesario
         console.log(response.data);
