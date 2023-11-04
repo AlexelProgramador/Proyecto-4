@@ -1,6 +1,4 @@
-import React, { useState } from "react";
-import { headTitleTableSolicitud } from "./constants";
-import { ProgressBarComponents } from "../Components/ProgressBarComponents";
+import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import { SolicitudComponentET2 } from "../SolicitudET2/SolicitudComponentvistet2";
 import { SolicitudComponentET3 } from "../SolicitudET3/SolicitudComponentvistaet3";
@@ -13,6 +11,81 @@ import { SolicitudComponentET8 } from "../SolicitudET8/SolicitudComponentet8";
 export const TableComponent = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedComponent, setSelectedComponent] = useState(null);
+  const [solicitudes, setSolicitudes] = useState([]);
+  const [etapas, setEtapas] = useState([]);
+
+  useEffect(() => {
+    // Realiza solicitudes a ambas API para obtener las solicitudes y las etapas
+    fetch("http://127.0.0.1:8000/api/solicitudes")
+      .then((response) => response.json())
+      .then((data) => setSolicitudes(data.results));
+
+    fetch("http://127.0.0.1:8000/api/etapas")
+      .then((response) => response.json())
+      .then((data) => setEtapas(data.results));
+  }, []);
+
+  // Función para obtener el estado y la etapa de una solicitud
+  const obtenerEstado = (solicitud) => {
+    const etapaRelacionada = etapas.find(
+      (etapa) => etapa.solicitudInfo._id === solicitud._id
+    );
+    if (etapaRelacionada) {
+      return etapaRelacionada.procesosEtapa1.estado;
+    }
+    return "No se encontró información de estado";
+  };
+
+  const obtenerEtapa = (solicitud) => {
+    const etapaRelacionada = etapas.find(
+      (etapa) => etapa.solicitudInfo._id === solicitud._id
+    );
+    if (etapaRelacionada) {
+      return etapaRelacionada.nroEtapa;
+    }
+    return "No se encontró información de etapa";
+  };
+
+  const handleAccion = (solicitud) => {
+    const etapaRelacionada = etapas.find((etapa) => etapa.solicitudInfo._id === solicitud._id);
+
+    if (etapaRelacionada) {
+      const nroEtapa = etapaRelacionada.nroEtapa;
+
+      let componenteSiguiente = null;
+
+      switch (nroEtapa) {
+        case 1:
+          componenteSiguiente = <SolicitudComponentET2 />;
+          break;
+        case 2:
+          componenteSiguiente = <SolicitudComponentET3 />;
+          break;
+        case 3:
+          componenteSiguiente = <SolicitudComponentET4 />;
+          break;
+        case 4:
+          componenteSiguiente = <SolicitudComponentET5 />;
+          break;
+        case 5:
+          componenteSiguiente = <SolicitudComponentET6 />;
+          break;
+        case 6:
+          componenteSiguiente = <SolicitudComponentET7 />;
+          break;
+        case 7:
+          componenteSiguiente = <SolicitudComponentET8 />;
+          break;
+        default:
+          break;
+      }
+
+      setSelectedComponent(componenteSiguiente);
+      setIsOpen(true);
+    } else {
+      console.log("No se encontró información de la etapa para la solicitud:", solicitud.nroSolicitud);
+    }
+  };
 
   const handleOpen = (component) => {
     setSelectedComponent(component);
@@ -23,125 +96,38 @@ export const TableComponent = () => {
     setSelectedComponent(null);
     setIsOpen(false);
   };
+
   return (
     <>
       <table className="table table-hover">
         <thead>
           <tr>
-            {headTitleTableSolicitud.map((title, index) => {
-              return <th key={index}>{title}</th>;
-            })}
+            <th>Número de Solicitud</th>
+            <th>Estado</th>
+            <th>Etapa</th>
+            <th>Acción</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1234</td>
-            <td>
-              <ProgressBarComponents
-                colorBar={"warning"}
-                textBar={"En espera"}
-              />
-            </td>
-            <td>2</td>
-            <td onClick={handleOpen} style={{ cursor: "pointer" }}>
-              Accion
-            </td>
-          </tr>
-          <tr>
-            <td>1234</td>
-            <td>
-              <ProgressBarComponents textBar={"Tu turno"} />
-            </td>
-            <td>1</td>
-            <td onClick={handleOpen} style={{ cursor: "pointer" }}>
-              Accion
-            </td>
-          </tr>
-          <tr>
-            <td>1234</td>
-            <td>
-              <ProgressBarComponents
-                colorBar={"success"}
-                textBar={"Completo"}
-              />
-            </td>
-            <td >4</td>
-            <td onClick={() => handleOpen(<SolicitudComponentET2 />)}
-              style={{ cursor: "pointer" }}>
-              boton etapa 2
-            </td>
-          </tr>
-          <tr>
-            <td>1234</td>
-            <td>
-              <ProgressBarComponents
-                colorBar={"danger"}
-                textBar={"Rechazado"}
-              />
-            </td>
-            <td >4</td>
-            <td onClick={() => handleOpen(<SolicitudComponentET3 />)}
-              style={{ cursor: "pointer" }} >Boton etapa 3</td>
-          </tr>
-          <tr>
-            <td>1234</td>
-            <td>
-              <ProgressBarComponents
-                colorBar={"success"}
-                textBar={"Completo"}
-              />
-            </td>
-            <td >4</td>
-            <td onClick={() => handleOpen(<SolicitudComponentET4 />)} style={{ cursor: "pointer" }}> boton etapa 4 </td>
-          </tr>
-          <tr>
-            <td>1234</td>
-            <td>
-              <ProgressBarComponents
-                colorBar={"danger"}
-                textBar={"Rechazado"}
-              />
-            </td>
-            <td >4</td>
-            <td onClick={() => handleOpen(<SolicitudComponentET5 />)} style={{ cursor: "pointer" }} >Boton etapa 5</td>
-          </tr>
-          <tr>
-            <td>1234</td>
-            <td>
-              <ProgressBarComponents
-                colorBar={"danger"}
-                textBar={"Rechazado"}
-              />
-            </td>
-            <td >4</td>
-            <td onClick={() => handleOpen(<SolicitudComponentET6 />)} style={{ cursor: "pointer" }} >Boton etapa 6</td>
-          </tr>
-          <tr>
-            <td>1234</td>
-            <td>
-              <ProgressBarComponents
-                colorBar={"danger"}
-                textBar={"Rechazado"}
-              />
-            </td>
-            <td >4</td>
-            <td onClick={() => handleOpen(<SolicitudComponentET7 />)} style={{ cursor: "pointer" }} >Boton etapa 7</td>
-          </tr>
-          <tr>
-            <td>1234</td>
-            <td>
-              <ProgressBarComponents
-                colorBar={"danger"}
-                textBar={"Rechazado"}
-              />
-            </td>
-            <td >4</td>
-            <td onClick={() => handleOpen(<SolicitudComponentET8 />)} style={{ cursor: "pointer" }} >Boton etapa 8</td>
-          </tr>
+          {solicitudes.map((solicitud, index) => (
+            <tr key={index}>
+              <td>{solicitud.nroSolicitud}</td>
+              <td>{obtenerEstado(solicitud)}</td>
+              <td>{obtenerEtapa(solicitud)}</td>
+              <td>
+                <button
+                  onClick={() => handleAccion(solicitud)}
+                  disabled={obtenerEstado(solicitud) !== "en Proceso"}
+                >
+                  Avanzar
+                </button>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
       <Modal isOpen={isOpen} onRequestClose={handleClose} shouldCloseOnOverlayClick={true}>
-      {selectedComponent}
+        {selectedComponent}
       </Modal>
     </>
   );

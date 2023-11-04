@@ -1,6 +1,5 @@
 import React from "react";
 import Modal from "react-modal";
-
 import { ButtonComponents } from "../Components/ButtonComponents";
 import { FaFileUpload } from "react-icons/fa";
 import { useState } from "react";
@@ -31,7 +30,8 @@ export const SolicitudComponent = () => {
         montoCompra: montoCompra,
       },
     };
-    fetch("http://127.0.0.1:8000/api/solicitud/653711b5bc4800001b006d24", {
+
+    fetch("http://127.0.0.1:8000/api/solicitud/6540356bd31971c7e7018992", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -40,14 +40,82 @@ export const SolicitudComponent = () => {
     })
       .then((res) => res.json())
       .then((response) => {
-        console.log("Success:", response);
-        alert("Solicitud enviada");
+        console.log("Número de Solicitud:", response.result.nroSolicitud);
+
+        // Construye los datos para el segundo fetch
+        const etapaData = {
+          results: [
+            {
+              _id: "65403d28d31971c7e7018994",
+              nroEtapa: 1,
+              completado: null,
+              procesosEtapa1: {
+                estado: "en Proceso",
+                proceso1Etapa1: "proceso1Etapa1",
+                proceso2Etapa1: "proceso2Etapa1",
+                proceso3Etapa1: "proceso3Etapa1",
+                proceso4Etapa1: "proceso4Etapa1",
+                comentarios: {
+                  comentarioId1: {
+                    comentario: "comentario 1 es un comentario privado",
+                    fecha: "HH:MM:SS - D/M/Y",
+                    esPrivado: 1,
+                  },
+                  comentarioId2: {
+                    comentario: "comentario 2 no es un comentario privado",
+                    fecha: "HH:MM:SS - D/M/Y",
+                    esPrivado: 0,
+                  },
+                },
+              },
+              procesosEtapa2: [],
+              procesosEtapa3: [],
+              procesosEtapa4: [],
+              procesosEtapa5: [],
+              procesosEtapa6: [],
+              procesosEtapa7: [],
+              procesosEtapa8: [],
+              usuarioEtapa: {
+                _id: "6540356bd31971c7e7018992",
+                nombre: "Diego",
+                apellido: "Baltazar",
+              },
+              solicitudInfo: {
+                _id: "65403cccd31971c7e7018993",
+                nroSolicitud: "203124-SOL-30102023",
+                usuarioInfo: {
+                  _id: "6540356bd31971c7e7018992",
+                  nombre: "Diego",
+                  apellido: "Baltazar",
+                },
+              },
+              updated_at: "2023-10-30T23:32:56.896000Z",
+              created_at: "2023-10-30T23:32:56.896000Z",
+            },
+          ],
+        };
+      
+
+        fetch(`http://127.0.0.1:8000/api/etapa/6540356bd31971c7e7018992/${response.result.nroSolicitud}`, {
+          method: "POST", // Cambia a POST
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(etapaData), // Envía los datos en el cuerpo de la solicitud
+        })
+          .then((etapaResponse) => etapaResponse.json())
+          .then((etapaResponseData) => {
+            console.log("Datos de etapa:", etapaResponseData);
+            alert("Solicitud enviada");
+          })
+          .catch((etapaError) => {
+            console.error("Error al obtener datos de etapa:", etapaError);
+          });
       })
       .catch((error) => {
         console.error("Error:", error);
       });
   };
-
   return (
     <>
       <div className="input-group">
