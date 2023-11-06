@@ -1,32 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import { showBotiquin } from './HandlerBotiquin';
+import { showSolicitud } from './HandlerSolicitud';
 import { useParams, useNavigate } from 'react-router-dom';
 
-export const ShowBotiquin = () => {
-    const [botiquin, setBotiquin] = useState({});
+export const ShowSolicitud = () => {
+    const [solicitud, setSolicitud] = useState({});
     const { id } = useParams();
     const navigate = useNavigate();
-    const url = `http://localhost:8000/api/botiquin/${id}`; // Reemplaza con la URL de tu backend
+    const url = `http://localhost:8000/api/solicitud/${id}/edit`; // Reemplaza con la URL de tu backend
 
     useEffect(() => {
-        const fetchBotiquin = async () => {
+        const fetchSolicitud = async () => {
             try {
-                const data = await showBotiquin(id);
-                setBotiquin(data);
+                const data = await showSolicitud(id);
+                setSolicitud(data);
             } catch (error) {
-                console.error('Error al obtener la información de la botiquin', error);
+                console.error('Error al obtener la información de la solicitud', error);
             }
         };
 
-        fetchBotiquin();
+        fetchSolicitud();
     }, [url]);
 
     return (
         <div>
-            <h2>Botiquin</h2>
-            <h4>{botiquin._id}</h4>
+            <h2>Solicitud</h2>
+            <h4>{solicitud._id}</h4>
             <h3>Inventario</h3>
-            {botiquin.InventarioBotiquin && botiquin.InventarioBotiquin.length > 0 ? (
+            {solicitud.InventarioSolicitud && solicitud.InventarioSolicitud.length > 0 ? (
                 <table>
                     <thead>
                         <tr>
@@ -36,7 +36,7 @@ export const ShowBotiquin = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {botiquin.InventarioBotiquin.map((item, index) => (
+                        {solicitud.InventarioSolicitud.map((item, index) => (
                             <tr key={index}>
                                 <td>{item.prueba}</td>
                                 <td>{item.NombreProducto}</td>
@@ -54,4 +54,4 @@ export const ShowBotiquin = () => {
     );
 };
 
-export default ShowBotiquin;
+export default ShowSolicitud;

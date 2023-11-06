@@ -23,6 +23,9 @@ import { HomeBotiquin } from './SGI/Botiquin/HomeBotiquin';
 import { CreateBotiquin } from './SGI/Botiquin/CreateBotiquin';
 import { EditBotiquin } from './SGI/Botiquin/EditBotiquin';
 import { ShowBotiquin } from './SGI/Botiquin/ShowBotiquin'
+import { HomeSolicitud } from './SGI/Solicitud/HomeSolicitud';
+import { CreateSolicitud } from './SGI/Solicitud/CreateSolicitud';
+import { ShowSolicitud } from './SGI/Solicitud/ShowSolicitud';
 
 
 function App() {
@@ -76,6 +79,10 @@ function App() {
             <Route path="/create-botiquin" element ={<CreateBotiquin/>}/>
             <Route path="/edit-botiquin/:id" element ={<EditBotiquin/>}/>
             <Route path="/show-botiquin/:id" element ={<ShowBotiquin/>}/>
+
+            <Route path="/show-solicitud" element ={<HomeSolicitud/>}/>
+            <Route path="/create-solicitud" element ={<CreateSolicitud/>}/>
+            <Route path="/show-solicitud/:id" element ={<ShowSolicitud/>}/>
             
 
           </Routes>

@@ -5,15 +5,18 @@ import { createProducto } from './HandlerProducto';
 export const CreateProducto = () => {
   const [productoData, setProductoData] = useState({
     NombreProducto: '',
-    LugarProducto: '',
     MarcaProducto: '',
     DescripcionProducto: '',
-    CategoriaProducto: 'Sin Información',
-    FechaProducto: '',
     ContenedorProducto: 'Sin Información',
-    CantidadContenedorProducto: 0,
     CantidadProducto: 0,
     ValorUnitarioProducto: 0,
+    DesgloceProducto: [],
+    UbicacionProducto: []
+
+    //EstadoProducto: 'Sin Información',
+    //FechaProducto: '',
+    //CantidadContenedorProducto: 0,
+    
   });
   
   const navigate = useNavigate();
@@ -48,25 +51,12 @@ export const CreateProducto = () => {
         />
         <input
           type="text"
-          placeholder="Lugar del Producto"
-          name="LugarProducto"
-          value={productoData.LugarProducto}
-          onChange={handleInputChange}
-        />
-        <input
-          type="text"
           placeholder="Marca del Producto"
           name="MarcaProducto"
           value={productoData.MarcaProducto}
           onChange={handleInputChange}
         />
-        <input
-          type="date"
-          placeholder="Fecha de Vencimiento del Producto"
-          name="FechaProducto"
-          value={productoData.FechaProducto}
-          onChange={handleInputChange}
-        />
+        
         <textarea
           placeholder="Descripción del Producto"
           name="DescripcionProducto"
@@ -76,16 +66,6 @@ export const CreateProducto = () => {
           cols={50} // Aquí puedes especificar el número de columnas que deseas mostrar
         />
         
-        <select
-          name="EstadoProducto"
-          value={productoData.EstadoProducto}
-          onChange={handleInputChange}
-        >
-          <option value="Sin Información">Sin Información</option>
-          <option value="Buen Estado">Buen Estado</option>
-          <option value="Mal Estado">Mal Estado</option>
-        </select>
-
         <select
           name="ContenedorProducto"
           value={productoData.ContenedorProducto}
@@ -98,15 +78,6 @@ export const CreateProducto = () => {
           <option value="Pote">Pote</option>
           <option value="Frasco">Frasco</option>
         </select>
-        
-        {/*No puedo hacer que pueda escribir solo numero*/ }
-        <input
-          type="text"
-          placeholder="Cantidad del Contenedor"
-          name="CantidadContenedorProducto"
-          value={productoData.CantidadContenedorProducto}
-          onChange={handleInputChange}
-        />
 
         <input
           type="text"
@@ -123,6 +94,36 @@ export const CreateProducto = () => {
           value={productoData.ValorUnitarioProducto}
           onChange={handleInputChange}
         />
+        
+        {/*No puedo hacer que pueda escribir solo numero*/ }
+        {/*
+        <select
+          name="EstadoProducto"
+          value={productoData.EstadoProducto}
+          onChange={handleInputChange}
+        >
+          <option value="Sin Información">Sin Información</option>
+          <option value="Buen Estado">Buen Estado</option>
+          <option value="Mal Estado">Mal Estado</option>
+        </select>
+
+        <input
+          type="text"
+          placeholder="Cantidad del Contenedor"
+          name="CantidadContenedorProducto"
+          value={productoData.CantidadContenedorProducto}
+          onChange={handleInputChange}
+        />
+
+        <input
+          type="date"
+          placeholder="Fecha de Vencimiento del Producto"
+          name="FechaProducto"
+          value={productoData.FechaProducto}
+          onChange={handleInputChange}
+        />
+        */}
+        
         
 
       

@@ -36,23 +36,25 @@ class ProductoController extends Controller
        
         //Insercción de datos
         $producto->NombreProducto = $request->NombreProducto;
-        $producto->LugarProducto = $request->LugarProducto;
         $producto->MarcaProducto = $request->MarcaProducto;
         $producto->DescripcionProducto = $request->DescripcionProducto;
-        $producto->CategoriaProducto = $request->CategoriaProducto;
-        $producto->FechaProducto = $request->FechaProducto;
         $producto->ContenedorProducto = $request->ContenedorProducto;
-        $producto->CantidadContenedorProducto = intval($request->CantidadContenedorProducto);
+        $producto->DesgloceProducto = $request->DesgloceProducto;
+        $producto->UbicacionProducto = $request->UbicacionProducto;
+       
         $producto->CantidadProducto = intval($request->CantidadProducto);
         
-        $ProductoTotal = $request->CantidadContenedorProducto * $request->CantidadProducto;
-        $producto->CantidadTotalProducto = $ProductoTotal;
+        
 
         $producto->ValorUnitarioProducto = intval($request->ValorUnitarioProducto);
+        //$producto->EstadoProducto = $request->EstadoProducto;
+        //$producto->FechaProducto = $request->FechaProducto;
+         //$producto->CantidadContenedorProducto = intval($request->CantidadContenedorProducto);
+        //$ProductoTotal = $request->CantidadContenedorProducto * $request->CantidadProducto;
+        //$producto->CantidadTotalProducto = $ProductoTotal;
+        //$ValorTotal = $request->ValorUnitarioProducto * $ProductoTotal;
 
-        $ValorTotal = $request->ValorUnitarioProducto * $ProductoTotal;
-
-        $producto->ValorTotalProducto = $ValorTotal;
+        //$producto->ValorTotalProducto = $ValorTotal;
         
         //Subir Datos
         $producto->save();
