@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { createProducto } from '../Producto/HandlerProducto';
+import { createBodega } from './HandlerBodega';
 
 export const CreateBodega = () => {
   const [bodegaData, setBodegaData] = useState({
@@ -18,7 +18,7 @@ export const CreateBodega = () => {
   };
 
   const handleInsert = async () => {
-    createProducto(bodegaData)
+    createBodega(bodegaData)
       .then(response => {
         // Manejar la respuesta si es necesario
         console.log(response.data);

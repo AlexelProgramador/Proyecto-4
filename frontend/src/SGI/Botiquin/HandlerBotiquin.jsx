@@ -2,8 +2,8 @@ import axios from 'axios';
 
 var url = 'http://localhost:8000/api'
 
-export const homeBodega = async () => {
-  return axios.get(url + '/bodegas')
+export const homeBotiquin = async () => {
+  return axios.get(url + '/botiquines')
     .then(response => response.data)
     .catch(error => {
       // Manejar el error si ocurre
@@ -11,8 +11,8 @@ export const homeBodega = async () => {
     });
 };
 
-export const createBodega = async (bodegaData) => {
-    return axios.post(url + '/bodega', bodegaData)
+export const createBotiquin = async (botiquinData) => {
+    return axios.post(url + '/botiquin', botiquinData)
       .then(response => response.data)
       .catch(error => {
         // Manejar el error si ocurre
@@ -20,8 +20,8 @@ export const createBodega = async (bodegaData) => {
       });
 };
 
-export const showBodega = async (id) => {
-    return axios.get(url + `/bodega/${id}`)
+export const showBotiquin = async (id) => {
+    return axios.get(url + `/botiquin/${id}`)
     .then(response => response.data.data)
     .catch(error => {
     // Manejar el error si ocurre
@@ -29,8 +29,8 @@ export const showBodega = async (id) => {
     });
 };
 
-export const updateBodega = async (id, bodegaData) => {
-    return axios.put(url + `/bodega/${id}`, bodegaData)
+export const updateBotiquin = async (id, botiquinData) => {
+    return axios.put(url + `/botiquin/${id}`, botiquinData)
     .then()
     .catch(error => {
     // Manejar el error si ocurre
@@ -38,8 +38,8 @@ export const updateBodega = async (id, bodegaData) => {
     });
 };
 
-export const deleteBodega = async (id) => {
-  return axios.delete(url + `/bodega/${id}`)
+export const deleteBotiquin = async (id) => {
+  return axios.delete(url + `/botiquin/${id}`)
   .then()
   .catch(error => {
   // Manejar el error si ocurre

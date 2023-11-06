@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Bodega;
+use App\Models\Botiquin;
 
-class BodegaController extends Controller
+class BotiquinController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class BodegaController extends Controller
     public function index()
     {
         //
-        $datos = Bodega::all();
+        $datos = Botiquin::all();
         return response()->json($datos);
     }
 
@@ -28,27 +28,27 @@ class BodegaController extends Controller
      */
     public function store(Request $request)
     {
+        //
         //Faltaría ver que pasa si son iguales
         //Nueva Forma de ver la ID (o quitarla)
 
-        //Crear Nueva Bodega
-        $bodega = new Bodega();
+        //Crear Nuevo Botiquin
+        $botiquin = new Botiquin();
 
-        //Para establecer el IDBodega
-        $datos = Bodega::all()->count();
+        //Para establecer el IDBotiquin
+        $datos = Botiquin::all()->count();
        
         //Insercción de datos
-        $bodega->IDBodega = $datos;
-        $bodega->NombreBodega = $request->NombreBodega;
-        $bodega->LugarBodega = $request->LugarBodega;
-        $bodega-> InventarioBodega = $request->InventarioBodega;
+        $botiquin->IDBotiquin = $datos;
+        $botiquin->NombreBotiquin = $request->NombreBotiquin;
+        $botiquin->LugarBotiquin = $request->LugarBotiquin;
+        $botiquin-> InventarioBotiquin = $request->InventarioBotiquin;
         
         //Subir Datos
-        $bodega->save();
+        $botiquin->save();
 
         //Respuesta del Backend
-        return response()->json(['message' => $datos, 'data' => $bodega], 201);
-
+        return response()->json(['message' => $datos, 'data' => $botiquin], 201);
     }
 
     /**
@@ -60,7 +60,7 @@ class BodegaController extends Controller
     public function show($id)
     {
         //
-        $datos = Bodega::where("_id", $id)->first();
+        $datos = Botiquin::where("_id", $id)->first();
         return response()->json(['message' => "envio de datos exitoso", 'data' => $datos], 201);
     }
 
@@ -73,7 +73,7 @@ class BodegaController extends Controller
     public function edit($id)
     {
         //
-        $datos = Bodega::where("_id", $id)->first();
+        $datos = Botiquin::where("_id", $id)->first();
         return response()->json(['message' => "envio de datos exitoso", 'data' => $datos], 201);
     }
 
@@ -87,9 +87,9 @@ class BodegaController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $datos = Bodega::where("_id", $id)->update([
-            'NombreBodega' => $request->NombreBodega,
-            'LugarBodega' => $request->LugarBodega
+        $datos = Botiquin::where("_id", $id)->update([
+            'NombreBotiquin' => $request->NombreBotiquin,
+            'LugarBotiquin' => $request->LugarBotiquin
         ]);
 
 
@@ -105,7 +105,7 @@ class BodegaController extends Controller
     public function destroy($id)
     {
         //
-        Bodega::destroy($id);
+        Botiquin::destroy($id);
         return response()->json(['message' =>  'Borrado']);
     }
 }

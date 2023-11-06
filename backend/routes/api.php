@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\SolicitudController;
 use App\Http\Controllers\Api\UsuarioController;
 use App\Http\Controllers\Api\EtapaController;
 use App\Http\Controllers\Api\BodegaController;
+use App\Http\Controllers\Api\BotiquinController;
 use App\Http\Controllers\Api\ProductoController;
 
 use Illuminate\Http\Request;
@@ -54,6 +55,15 @@ Route::controller(BodegaController::class)->group(function () {
     Route::get("/bodega/{id}", "show");
     Route::put("/bodega/{id}", "update");
     Route::delete("/bodega/{id}", "destroy");
+});
+
+//Controlador Botiquin.
+Route::controller(BotiquinController::class)->group(function () {
+    Route::get("/botiquines", "index");
+    Route::post("/botiquin", "store");
+    Route::get("/botiquin/{id}", "show");
+    Route::put("/botiquin/{id}", "update");
+    Route::delete("/botiquin/{id}", "destroy");
 });
 
 //Controlador Producto.

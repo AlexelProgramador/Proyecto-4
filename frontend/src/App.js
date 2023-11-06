@@ -19,6 +19,10 @@ import { EditBodega } from './SGI/Bodega/EditBodega';
 import { EditProducto } from './SGI/Producto/EditProducto';
 import { ShowProducto } from './SGI/Producto/ShowProducto';
 import { ShowBodega } from './SGI/Bodega/ShowBodega';
+import { HomeBotiquin } from './SGI/Botiquin/HomeBotiquin';
+import { CreateBotiquin } from './SGI/Botiquin/CreateBotiquin';
+import { EditBotiquin } from './SGI/Botiquin/EditBotiquin';
+import { ShowBotiquin } from './SGI/Botiquin/ShowBotiquin'
 
 
 function App() {
@@ -68,6 +72,10 @@ function App() {
             <Route path="/edit-producto/:id" element ={<EditProducto/>}/>
             <Route path="/show-producto/:id" element ={<ShowProducto/>}/>
             
+            <Route path="/show-botiquin" element ={<HomeBotiquin/>}/>
+            <Route path="/create-botiquin" element ={<CreateBotiquin/>}/>
+            <Route path="/edit-botiquin/:id" element ={<EditBotiquin/>}/>
+            <Route path="/show-botiquin/:id" element ={<ShowBotiquin/>}/>
             
 
           </Routes>
