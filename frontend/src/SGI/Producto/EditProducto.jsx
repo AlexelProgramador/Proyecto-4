@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { showProducto, updateProducto } from './HandlerProducto';
+import { NewDesgloce } from './Componentes/NewDesgloce'; 
 
 export const EditProducto = () => {
     const [producto, setProducto] = useState({});
@@ -26,31 +27,6 @@ export const EditProducto = () => {
         setProducto({ ...producto, [name]: value });
     };
 
-    // Nuevo estado para rastrear los datos del nuevo desgloce de producto
-    const [nuevoDesgloce, setNuevoDesgloce] = useState({
-        CantidadContenedorProducto: 0,
-        CantidadTotal: 0,
-        ValorTotal: 0,
-        FechaVencimientoProducto: '',
-        EstadoProducto: '',
-    });
-
-    // Función para agregar un nuevo desgloce
-    const handleAgregarDesgloce = () => {
-        setProducto({
-            ...producto,
-            DesgloceProducto: [...(producto.DesgloceProducto || []), nuevoDesgloce],
-        });
-
-        // Reiniciar los campos del nuevo desgloce
-        setNuevoDesgloce({
-            CantidadContenedorProducto: 0,
-            CantidadTotal: 0,
-            ValorTotal: 0,
-            FechaVencimientoProducto: '',
-            EstadoProducto: '',
-        });
-    };
 
     const handleUpdate = async () => {
         try {
@@ -77,13 +53,24 @@ export const EditProducto = () => {
                 />
             </div>
             <div>
-                <label htmlFor="LugarProducto">Lugar:</label>
+                <label htmlFor="MarcaProducto">Marca:</label>
                 <input
                     type="text"
-                    id="LugarProducto"
-                    name="LugarProducto"
-                    value={producto.LugarProducto || ''}
+                    id="MarcaProducto"
+                    name="MarcaProducto"
+                    value={producto.MarcaProducto || ''}
                     onChange={handleInputChange}
+                />
+            </div>
+            <div>
+                <label htmlFor="DescripcionProducto">Descripcion:</label>
+                <textarea
+                    placeholder="Descripción del Producto"
+                    name="DescripcionProducto"
+                    value={producto.DescripcionProducto || ''}
+                    onChange={handleInputChange}
+                    rows={4} // Aquí puedes especificar el número de filas que deseas mostrar
+                    cols={50} // Aquí puedes especificar el número de columnas que deseas mostrar
                 />
             </div>
             <button onClick={handleUpdate}>Actualizar Producto</button>
@@ -95,6 +82,7 @@ export const EditProducto = () => {
                         <tr>
                             <th>Cantidad Contenedor Producto</th>
                             <th>Cantidad Total</th>
+                            <th>Cantidad Actual</th>
                             <th>Valor Total</th>
                             <th>Fecha Vencimiento Producto</th>
                             <th>Estado Producto</th>
@@ -104,8 +92,9 @@ export const EditProducto = () => {
                         {producto.DesgloceProducto.map((item, index) => (
                             <tr key={index}>
                                 <td>{item.CantidadContenedorProducto}</td>
-                                <td>{item.CantidadTotal}</td>
-                                <td>{item.ValorTotal}</td>
+                                <td>{item.CantidadTotalProducto}</td>
+                                <td>{item.CantidadActualProducto}</td>
+                                <td>{item.ValorTotalProducto}</td>
                                 <td>{item.FechaVencimientoProducto}</td>
                                 <td>{item.EstadoProducto}</td>
                             </tr>
@@ -115,60 +104,7 @@ export const EditProducto = () => {
             ) : (
                 <p>No hay datos de producto disponibles</p>
             )}
-
-            <h2>Agregar Nuevo Desgloce de Producto</h2>
-            <div>
-                <label htmlFor="CantidadContenedorProducto">Cantidad Contenedor Producto:</label>
-                <input
-                    type="text"
-                    id="CantidadContenedorProducto"
-                    name="CantidadContenedorProducto"
-                    value={nuevoDesgloce.CantidadContenedorProducto}
-                    onChange={(e) => setNuevoDesgloce({ ...nuevoDesgloce, CantidadContenedorProducto: e.target.value })}
-                />
-            </div>
-            <div>
-                <label htmlFor="CantidadTotal">Cantidad Total:</label>
-                <input
-                    type="text"
-                    id="CantidadTotal"
-                    name="CantidadTotal"
-                    value={nuevoDesgloce.CantidadTotal}
-                    onChange={(e) => setNuevoDesgloce({ ...nuevoDesgloce, CantidadTotal: e.target.value })}
-                />
-            </div>
-            <div>
-                <label htmlFor="ValorTotal">Valor Total:</label>
-                <input
-                    type="text"
-                    id="ValorTotal"
-                    name="ValorTotal"
-                    value={nuevoDesgloce.ValorTotal}
-                    onChange={(e) => setNuevoDesgloce({ ...nuevoDesgloce, ValorTotal: e.target.value })}
-                />
-            </div>
-            <div>
-                <label htmlFor="FechaVencimientoProducto">Fecha Vencimiento Producto:</label>
-                <input
-                    type="text"
-                    id="FechaVencimientoProducto"
-                    name="FechaVencimientoProducto"
-                    value={nuevoDesgloce.FechaVencimientoProducto}
-                    onChange={(e) => setNuevoDesgloce({ ...nuevoDesgloce, FechaVencimientoProducto: e.target.value })}
-                />
-            </div>
-
-            <div>
-                <label htmlFor="EstadoProducto">Estado Producto:</label>
-                <input
-                    type="text"
-                    id="EstadoProducto"
-                    name="EstadoProducto"
-                    value={nuevoDesgloce.EstadoProducto}
-                    onChange={(e) => setNuevoDesgloce({ ...nuevoDesgloce, EstadoProducto: e.target.value })}
-                />
-            </div>
-            <button onClick={handleAgregarDesgloce}>Agregar Desgloce</button>
+            <NewDesgloce setProducto={setProducto} producto ={producto}/>
             <h2>Ubicación de los Productos</h2>
         {producto.UbicacionProducto && producto.UbicacionProducto.length > 0 ? (
             <table>

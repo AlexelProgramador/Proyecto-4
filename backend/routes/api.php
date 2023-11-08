@@ -72,6 +72,7 @@ Route::controller(ProductoController::class)->group(function () {
     Route::post("/producto", "store");
     Route::get("/producto/{id}", "show");
     Route::put("/producto/{id}", "update");
+    Route::put("/producto/{id}/desgloce", "updateDesgloce");
     Route::delete("/producto/{id}", "destroy");
 });
 

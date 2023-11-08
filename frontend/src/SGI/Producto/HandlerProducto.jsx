@@ -38,6 +38,15 @@ export const updateProducto = async (id, productoData) => {
     });
 };
 
+export const updateProductoDesgloce = async (id, desgloceData) => {
+  return axios.put(url + `/producto/${id}/desgloce`, desgloceData)
+  .then(response => response.data)
+  .catch(error => {
+  // Manejar el error si ocurre
+  console.error('Error al actualizar datos: ', error);
+  });
+};
+
 export const deleteProducto = async (id) => {
   return axios.delete(url + `/producto/${id}`)
   .then()

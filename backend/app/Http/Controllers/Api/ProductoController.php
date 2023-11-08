@@ -116,6 +116,24 @@ class ProductoController extends Controller
         return response()->json(['message' => "llegó exitosamente", 'data' => $datos], 201);
     }
 
+    public function updateDesgloce(Request $request, $id)
+    {
+        $producto = Producto::findOrFail($id);
+        $desgloceData = array(
+            'CantidadContenedorProducto' => $request->CantidadContenedorProducto,
+            'CantidadTotalProducto' => $request->CantidadTotal,
+            'ValorTotalProducto' => $request->ValorTotal,
+            'CantidadActualProducto' => $request->ValorTotal,
+            'FechaVencimientoProducto' => $request->FechaVencimientoProducto,
+            'EstadoProducto' => $request->EstadoProducto
+        );
+        
+        $producto->push('DesgloceProducto', $desgloceData);
+        $producto->save();
+        return response()->json(['message' => 'Producto actualizado con éxito', 'data' => $producto], 200);
+
+    }
+
     /**
      * Remove the specified resource from storage.
      *
