@@ -104,12 +104,6 @@ class ProductoController extends Controller
             'LugarProducto' => $request->LugarProducto,
             'MarcaProducto' => $request->MarcaProducto,
             'DescripcionProducto' => $request->DescripcionProducto,
-            'CategoriaProducto' => $request->CategoriaProducto,
-            'ContenedorProducto' => $request->ContenedorProducto,
-            'CantidadContenedorProducto' => $request->CantidadContenedorProducto,
-            'CantidadProducto' => $request->CantidadProducto,
-            'ValorUnitarioProducto' => $request->ValorUnitarioProducto,
-            'FechaProducto' => $request->FechaProducto,
 
         ]);
 
