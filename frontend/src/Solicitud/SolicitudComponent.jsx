@@ -31,7 +31,7 @@ export const SolicitudComponent = () => {
       },
     };
 
-    fetch("http://127.0.0.1:8000/api/solicitud/653711b5bc4800001b006d24", {
+    fetch("http://127.0.0.1:8000/api/solicitud/6540356bd31971c7e7018992", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -73,17 +73,17 @@ export const SolicitudComponent = () => {
           procesosEtapa7: [],
           procesosEtapa8: [],
           usuarioEtapa: {
-            _id: "653711b5bc4800001b006d24",
-            nombre: "Nicolas",
-            apellido: "Lampe",
+            _id: "6540356bd31971c7e7018992",
+            nombre: "Diego",
+            apellido: "Baltazar"
           },
           solicitudInfo: {
             _id: response.result.id,
             nroSolicitud: response.result.nroSolicitud,
             usuarioInfo: {
-              _id: "653711b5bc4800001b006d24",
-              nombre: "Nicolas",
-              apellido: "Lampe",
+              _id: "6540356bd31971c7e7018992",
+              nombre: "Diego",
+              apellido: "Baltazar"
             },
           },
           updated_at: "2023-10-30T23:32:56.896000Z",
@@ -91,7 +91,7 @@ export const SolicitudComponent = () => {
         };
 
         fetch(
-          `http://127.0.0.1:8000/api/etapa/65371187bc4800001b006d22/${response.result.nroSolicitud}`,
+          `http://127.0.0.1:8000/api/etapa/6540356bd31971c7e7018992/${response.result.nroSolicitud}`,
           {
             method: "POST", // Cambia a POST
             headers: {

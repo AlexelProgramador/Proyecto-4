@@ -56,25 +56,25 @@ export const TableComponent = () => {
 
       switch (nroEtapa) {
         case 1:
-          componenteSiguiente = <SolicitudComponentET2 />;
+          componenteSiguiente = <SolicitudComponentET2 solicitud={solicitud} />;
           break;
         case 2:
-          componenteSiguiente = <SolicitudComponentET3 />;
+          componenteSiguiente = <SolicitudComponentET3 solicitud={solicitud} />;
           break;
         case 3:
-          componenteSiguiente = <SolicitudComponentET4 />;
+          componenteSiguiente = <SolicitudComponentET4 solicitud={solicitud}  />;
           break;
         case 4:
-          componenteSiguiente = <SolicitudComponentET5 />;
+          componenteSiguiente = <SolicitudComponentET5 solicitud={solicitud}  />;
           break;
         case 5:
-          componenteSiguiente = <SolicitudComponentET6 />;
+          componenteSiguiente = <SolicitudComponentET6 solicitud={solicitud}  />;
           break;
         case 6:
-          componenteSiguiente = <SolicitudComponentET7 />;
+          componenteSiguiente = <SolicitudComponentET7 solicitud={solicitud}  />;
           break;
         case 7:
-          componenteSiguiente = <SolicitudComponentET8 />;
+          componenteSiguiente = <SolicitudComponentET8 solicitud={solicitud}  />;
           break;
         default:
           break;
