@@ -1,114 +1,109 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { updateProductoDesgloce } from '../HandlerProducto';
+import { updateProductoAsignacion } from '../HandlerProducto';
+import { homeBodega } from '../../Bodega/HandlerBodega'
 
 
-export const NewAsignacion = ({setProducto, producto}) => {
+
+export const NewAsignacion = () => {
 
     const { id } = useParams();
-    const [nuevoDesgloce, setNuevoDesgloce] = useState({
-        CantidadContenedorProducto: 0,
-        CantidadTotal: 0,
-        ValorTotal: 0,
-        FechaVencimientoProducto: '',
-        EstadoProducto: '',
+    const [dataBodega, setDataBodega] = useState([]);
+    const [nuevaAsignacion, setNuevaAsignacion] = useState({
+        IdBodegaProducto: dataBodega.length > 0 ? dataBodega[0]._id : '',
+        TipoProcesoProducto: 'Asignación a Bodega',
+        UbicacionProducto: dataBodega.length > 0 ? dataBodega[0].NombreBodega : '',
+        CantidadAsignadaProducto: 0,
+        FechaProcesoProducto: '',
     });
 
-    const handleAgregarDesgloce = async () => {
+    const handleAgregarAsignacion = async () => {
         try {
-            await updateProductoDesgloce(id, nuevoDesgloce);
-            console.log(nuevoDesgloce);
+            const bodegaSeleccionada = dataBodega.find(bodega => bodega.NombreBodega === nuevaAsignacion.UbicacionProducto);
+        if (bodegaSeleccionada) {
+            const nuevaAsignacionConId = {
+                ...nuevaAsignacion,
+                IdBodegaProducto: bodegaSeleccionada._id
+            };
+            await updateProductoAsignacion(id, nuevaAsignacionConId);
+            // console.log(nuevaAsignacionConId);
+        } 
+        else {
+            console.error('No se encontró la bodega seleccionada en la lista de bodegas.');
+        }
         } catch (error) {
-            console.error('Error al actualizar el desgloce', error);
+            console.error('Error al agregar la asignación', error);
+            console.log(nuevaAsignacion);
         }
 
         // Reiniciar los campos del nuevo desgloce
-        setNuevoDesgloce({
-            CantidadContenedorProducto: 0,
-            CantidadTotal: 0,
-            ValorTotal: 0,
-            FechaVencimientoProducto: '',
-            EstadoProducto: '',
+        setNuevaAsignacion({
+            IdBodegaProducto: dataBodega.length > 0 ? dataBodega[0]._id : '',
+            TipoProcesoProducto: 'Asignación a Bodega',
+            UbicacionProducto: dataBodega.length > 0 ? dataBodega[0].NombreBodega : '',
+            CantidadAsignadaProducto: 0,
+            FechaProcesoProducto: '',
         });
     };
 
     const handleInputChange = (e) => {
-        setNuevoDesgloce({
-          ...nuevoDesgloce,
+        setNuevaAsignacion({
+          ...nuevaAsignacion,
           [e.target.name]: e.target.value
         });
     };
-    
-    const handleCantidadContenedorChange = (e) => {
-        const newValue = e.target.value;
-        const cantidadTotal = parseInt(newValue) * producto.CantidadProducto || 0;
-        const valorTotal = cantidadTotal * producto.ValorUnitarioProducto || 0;
-        setNuevoDesgloce({
-          ...nuevoDesgloce,
-          CantidadContenedorProducto: newValue,
-          CantidadTotal: cantidadTotal,
-          ValorTotal: valorTotal,
-        });
+
+    const fetchData = async () => {
+        try {
+            const response = await homeBodega();
+            setDataBodega(response);
+        } catch (error) {
+            console.error('Error al obtener datos', error);
+        }
     };
+
+    useEffect(() => {
+        fetchData();
+    }, []);
 
     return(
         <div>
-            <h2>Agregar Nuevo Desgloce de Producto</h2>
-                    <div>
-                        <label htmlFor="CantidadContenedorProducto">Cantidad Contenedor Producto:</label>
-                        <input
-                            type="text"
-                            id="CantidadContenedorProducto"
-                            name="CantidadContenedorProducto"
-                            value={nuevoDesgloce.CantidadContenedorProducto}
-                            onChange={handleCantidadContenedorChange}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="CantidadTotal">Cantidad Total:</label>
-                        <input
-                            type="text"
-                            id="CantidadTotal"
-                            name="CantidadTotal"
-                            value={nuevoDesgloce.CantidadTotal}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="ValorTotal">Valor Total:</label>
-                        <input
-                            type="text"
-                            id="ValorTotal"
-                            name="ValorTotal"
-                            value={nuevoDesgloce.ValorTotal}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="FechaVencimientoProducto">Fecha Vencimiento Producto:</label>
-                        <input
-                            type="date"
-                            id="FechaVencimientoProducto"
-                            name="FechaVencimientoProducto"
-                            value={nuevoDesgloce.FechaVencimientoProducto}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-
-                    <div>
-                        <label htmlFor="EstadoProducto">Estado Producto:</label>
-                        <select
-                            id="EstadoProducto"
-                            name="EstadoProducto"
-                            value={nuevoDesgloce.EstadoProducto}
-                            onChange={handleInputChange}
-                        >
-                            <option value="Sin información">Sin información</option>
-                            <option value="Buen Estado">Buen Estado</option>
-                            <option value="Mal Estado">Mal Estado</option>
-                        </select>
-                    </div>
-                    <button onClick={handleAgregarDesgloce}>Agregar Desgloce</button>
+            <h2>Agregar Nueva Asignación a Bodega</h2>      
+            <div>
+                <label htmlFor="UbicacionProducto">Ubicación del Producto:</label>
+                <select
+                    id="UbicacionProducto"
+                    name="UbicacionProducto"
+                    value={nuevaAsignacion.UbicacionProducto}
+                    onChange={handleInputChange}
+                >
+                    {dataBodega.map(option => (
+                    <option key={option._id} value={option.NombreBodega}>
+                        {option.NombreBodega}
+                    </option>
+                    ))}
+                </select>
+            </div>
+            <div>
+                <label htmlFor="CantidadAsignadaProducto">Cantidad Total:</label>
+                <input
+                    type="text"
+                    id="CantidadAsignadaProducto"
+                    name="CantidadAsignadaProducto"
+                    value={nuevaAsignacion.CantidadAsignadaProducto}
+                    onChange={handleInputChange}
+                />
+            </div>
+            <div>
+                <label>Fecha:</label>
+                <input 
+                    type="date" 
+                    id= "FechaProcesoProducto"
+                    name= "FechaProcesoProducto"
+                    value={nuevaAsignacion.FechaProcesoProducto} 
+                    onChange={handleInputChange} />
+            </div>
+            <button onClick={handleAgregarAsignacion}>Agregar Asignación</button>
         </div>
     );
 };

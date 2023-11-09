@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { showProducto, updateProducto } from './HandlerProducto';
 import { NewDesgloce } from './Componentes/NewDesgloce'; 
+import NewAsignacion from './Componentes/NewAsignacion';
 
 export const EditProducto = () => {
     const [producto, setProducto] = useState({});
@@ -104,23 +105,26 @@ export const EditProducto = () => {
             ) : (
                 <p>No hay datos de producto disponibles</p>
             )}
-            <NewDesgloce setProducto={setProducto} producto ={producto}/>
+            <NewDesgloce producto ={producto}/>
             <h2>Ubicación de los Productos</h2>
         {producto.UbicacionProducto && producto.UbicacionProducto.length > 0 ? (
             <table>
                 <thead>
                     <tr>
-                        <th>Nombre Producto</th>
-                        <th>Cantidad Inventario</th>
+                        <th>Tipo de Proceso</th>
+                        <th>Ubicación Producto</th>
+                        <th>Cantidad Asignada</th>
+                        <th>Fecha Proceso Producto</th>
                         {/* Encabezados */}
                     </tr>
                 </thead>
                 <tbody>
                     {producto.UbicacionProducto.map((item, index) => (
                         <tr key={index}>
-                            <td>{item.CajasProducto}</td>
-                            <td>{item.NombreProducto}</td>
-                            <td>{item.CantidadInventario}</td>
+                            <td>{item.TipoProcesoProducto}</td>
+                            <td>{item.UbicacionProducto}</td>
+                            <td>{item.CantidadAsignadaProducto}</td>
+                            <td>{item.FechaProcesoProducto}</td>
                             {/* Celdas */}
                         </tr>
                     ))}
@@ -129,6 +133,7 @@ export const EditProducto = () => {
         ) : (
             <p>No hay datos de inventario disponibles</p>
         )}
+            <NewAsignacion/>
         {/* Mostrar otros detalles de la producto según sea necesario */}
     </div>
 );

@@ -73,6 +73,7 @@ Route::controller(ProductoController::class)->group(function () {
     Route::get("/producto/{id}", "show");
     Route::put("/producto/{id}", "update");
     Route::put("/producto/{id}/desgloce", "updateDesgloce");
+    Route::put("/producto/{id}/asignacion", "updateAsignacion");
     Route::delete("/producto/{id}", "destroy");
 });
 

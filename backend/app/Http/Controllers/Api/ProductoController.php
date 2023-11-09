@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Producto;
+use App\Models\Bodega;
 
 class ProductoController extends Controller
 {
@@ -124,6 +125,35 @@ class ProductoController extends Controller
         
         $producto->push('DesgloceProducto', $desgloceData);
         $producto->save();
+        return response()->json(['message' => 'Producto actualizado con éxito', 'data' => $producto], 200);
+
+    }
+
+    public function updateAsignacion(Request $request, $id)
+    {
+        $producto = Producto::findOrFail($id);
+        $asignacionData = array(
+            'TipoProcesoProducto' => $request->TipoProcesoProducto,
+            'UbicacionProducto' => $request->UbicacionProducto,
+            'CantidadAsignadaProducto' => $request->CantidadAsignadaProducto,
+            'FechaProcesoProducto' => $request->FechaProcesoProducto
+        );
+        
+        $producto->push('UbicacionProducto', $asignacionData);
+        $producto->save();
+
+        $bodega = Bodega::findOrFail($request->IdBodegaProducto);
+
+        $inventarioData = array(
+            'NombreProducto'=> $producto->NombreProducto,
+            'TipoProcesoProducto' => $request->TipoProcesoProducto,
+            'UbicacionProducto' => $request->UbicacionProducto,
+            'CantidadAsignadaProducto' => $request->CantidadAsignadaProducto,
+            'FechaProcesoProducto' => $request->FechaProcesoProducto
+        );
+        $bodega->push('InventarioBodega', $inventarioData);
+        $bodega->save();
+
         return response()->json(['message' => 'Producto actualizado con éxito', 'data' => $producto], 200);
 
     }
