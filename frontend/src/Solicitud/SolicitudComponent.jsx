@@ -231,6 +231,6 @@ export const SolicitudComponent = () => {
       <button className="btn btn-primary" type="submit" onClick={handleSubmit}>
         Enviar
       </button>
-    </>
+    </> 
   );
 };

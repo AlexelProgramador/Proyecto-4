@@ -1,6 +1,7 @@
-import React from "react";
+
 import { ButtonComponents } from "../Components/ButtonComponents";
 import { FaFileUpload } from "react-icons/fa";
+import React, { useEffect, useState } from "react";
 
 export const SolicitudComponentET2 = ({ solicitud }) => {
 
@@ -34,10 +35,48 @@ export const SolicitudComponentET2 = ({ solicitud }) => {
     procesosEtapa7: {},
     procesosEtapa8: {}
   };
+
+  const [idEtapaEncontrado, setIdEtapa] = useState(null);
+
+
+          useEffect(() => {
+            // Realizar una solicitud GET para obtener los datos necesarios
+            fetch("http://127.0.0.1:8000/api/etapas")
+              .then((response) => response.json())
+              .then((data) => {
+                if (data.results && data.results.length > 0) {
+                  //console.log("solicitud._id:", solicitud._id);
+                  
+                  // Recorremos los resultados en busca del objeto con solicitudInfo._id coincidente
+                  let idEtapaEncontrado = null;
+                  data.results.forEach((result) => {
+                    if (result.solicitudInfo._id === solicitud._id) {
+                      console.log("solicitud por fetch:", result.solicitudInfo._id);
+                      
+                      idEtapaEncontrado = result._id;
+                    }
+                  });
+          
+                  if (idEtapaEncontrado) {
+                    console.log("idetapa encontrado adentr0:", idEtapaEncontrado);
+                    setIdEtapa(idEtapaEncontrado);
+                  } else {
+                    console.error("No se encontró un objeto con solicitudInfo._id coincidente.");
+                  }
+                } else {
+                  console.error("No se encontraron datos de etapas.");
+                }
+              })
+              .catch((error) => {
+                console.error("Error al obtener los datos de etapas:", error);
+              });
+          }, []);
+          console.log("idetapaEncontrado fuera del useEffect:", idEtapaEncontrado);
+
   const confirmarRevision = (solicitud) => {
+ 
 
-
-    fetch(`http://127.0.0.1:8000/api/etapa/6540356bd31971c7e7018992/${solicitud._id}`, {
+    fetch(`http://127.0.0.1:8000/api/etapa/6540356bd31971c7e7018992/${idEtapaEncontrado}`, {
       method: "PUT", // Utiliza el método PUT
       headers: {
         "Content-Type": "application/json",
@@ -58,7 +97,6 @@ export const SolicitudComponentET2 = ({ solicitud }) => {
       });
   };
   
-  console.log("id de etapa:", solicitud._id);
   return (
     
     <>

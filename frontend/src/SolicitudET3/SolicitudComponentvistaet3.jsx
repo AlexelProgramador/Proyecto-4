@@ -18,7 +18,7 @@ const handleSubmit = (e) => {
     }
   };
 
-  fetch("http://127.0.0.1:8000/api/solicitud/6540356bd31971c7e7018992", {
+  fetch(`http://127.0.0.1:8000/api/solicitud/6540356bd31971c7e7018992`, {
   method: "PUT",
   headers: {
     "Content-Type": "application/json",
