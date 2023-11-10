@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createSolicitud } from './HandlerSolicitud';
-import { homeProducto } from '../Producto/HandlerProducto';
+import { showBodega } from '../Bodega/HandlerBodega';
 
-export const CreateSolicitud = () => {
+export const CreateSolicitudBodega = () => {
   const [solicitudData, setSolicitudData] = useState({
     VariableSolicitud: '',
     UnidadSolicitud: '',
@@ -13,7 +13,7 @@ export const CreateSolicitud = () => {
     InventarioSolicitud: [],
   });
 
-  const [productoData, setProductoData] = useState(null);
+  //const [productoData, setProductoData] = useState(null);
 
   const navigate = useNavigate();
 
@@ -38,14 +38,18 @@ export const CreateSolicitud = () => {
       });
   };
 
-  const fetchData = async () => {
-    try {
-        const response = await homeProducto();
-        setProductoData(response);
-    } catch (error) {
-        console.error('Error al obtener datos', error);
-    }
-};
+  // const fetchData = async () => {
+  //   try {
+  //       const response = await showBodega();
+  //       setProductoData(response);
+  //   } catch (error) {
+  //       console.error('Error al obtener datos', error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
 
   return (
     <div>
@@ -82,7 +86,7 @@ export const CreateSolicitud = () => {
         />
 
         <input
-          type="text"
+          type="date"
           placeholder="Fecha Solicitud"
           name="FechaSolicitud"
           value={solicitudData.FechaSolicitud}
@@ -98,4 +102,4 @@ export const CreateSolicitud = () => {
   );
 };
 
-export default CreateSolicitud;
+export default CreateSolicitudBodega;

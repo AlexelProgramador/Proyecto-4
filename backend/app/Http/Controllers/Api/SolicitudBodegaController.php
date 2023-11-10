@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controller\Api;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -16,6 +16,8 @@ class SolicitudBodegaController extends Controller
     public function index()
     {
         //
+        $datos = SolicitudBodega::all();
+        return response()->json($datos);
     }
 
     /**
@@ -26,6 +28,7 @@ class SolicitudBodegaController extends Controller
     public function create()
     {
         //
+        
     }
 
     /**
@@ -37,6 +40,21 @@ class SolicitudBodegaController extends Controller
     public function store(Request $request)
     {
         //
+        $solicitud_bodega = new SolicitudBodega();
+       
+        //Insercción de datos
+        $solicitud_bodega->VariableSolicitud = $request->VariableSolicitud;
+        $solicitud_bodega->NombreBotiquin = $request->UnidadSolicitud;
+        $solicitud_bodega->LugarBotiquin = $request->BotiquinSolicitud;
+        $solicitud_bodega->NombreSolicitanteSolicitud = $request->NombreSolicitanteSolicitud;
+        $solicitud_bodega->FechaSolicitud = $request->FechaSolicitud;
+        $solicitud_bodega->EstadoSolicitud = 'Pendiente';
+        
+        //Subir Datos
+        $solicitud_bodega->save();
+
+        //Respuesta del Backend
+        return response()->json(['data' => $solicitud_bodega], 201);
     }
 
     /**
@@ -48,6 +66,7 @@ class SolicitudBodegaController extends Controller
     public function show($id)
     {
         //
+        
     }
 
     /**

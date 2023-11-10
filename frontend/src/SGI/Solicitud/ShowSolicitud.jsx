@@ -6,7 +6,7 @@ export const ShowSolicitud = () => {
     const [solicitud, setSolicitud] = useState({});
     const { id } = useParams();
     const navigate = useNavigate();
-    const url = `http://localhost:8000/api/solicitud/${id}/edit`; // Reemplaza con la URL de tu backend
+    //const url = `http://localhost:8000/api/solicitud/${id}/edit`; // Reemplaza con la URL de tu backend
 
     useEffect(() => {
         const fetchSolicitud = async () => {
@@ -19,7 +19,7 @@ export const ShowSolicitud = () => {
         };
 
         fetchSolicitud();
-    }, [url]);
+    }, []);
 
     return (
         <div>

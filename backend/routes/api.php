@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\EtapaController;
 use App\Http\Controllers\Api\BodegaController;
 use App\Http\Controllers\Api\BotiquinController;
 use App\Http\Controllers\Api\ProductoController;
+use App\Http\Controllers\Api\SolicitudBodegaController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -77,4 +78,11 @@ Route::controller(ProductoController::class)->group(function () {
     Route::delete("/producto/{id}", "destroy");
 });
 
+Route::controller(SolicitudBodegaController::class)->group(function () {
+    Route::get("/solicitudes_bodega", "index");
+    Route::post("/solicitud_bodega", "store");
+    Route::get("/solicitud_bodega/{id}", "show");
+    Route::put("/solicitud_bodega/{id}", "update");
+    Route::delete("/solicitud_bodega/{id}", "destroy");
+});
 //-----------------------------------------------------------------
