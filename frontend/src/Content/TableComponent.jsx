@@ -13,6 +13,8 @@ export const TableComponent = () => {
   const [selectedComponent, setSelectedComponent] = useState(null);
   const [solicitudes, setSolicitudes] = useState([]);
   const [etapas, setEtapas] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10; // Puedes ajustar la cantidad de elementos por página según tus necesidades
 
   useEffect(() => {
     // Realiza solicitudes a ambas API para obtener las solicitudes y las etapas
@@ -97,9 +99,31 @@ export const TableComponent = () => {
     setIsOpen(false);
   };
 
+  const getEstadoColor = (estado) => {
+    switch (estado) {
+      case "en Proceso":
+        return "table-warning";
+      case "Completado":
+        return "table-success";
+      default:
+        return "table-light";
+    }
+  };
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentSolicitudes = solicitudes.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(solicitudes.length / itemsPerPage);
+
+  const pageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1);
+
+  const handleClickPage = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
     <>
-      <table className="table table-hover">
+      <table className="table table-hover text-center">
         <thead>
           <tr>
             <th>Número de Solicitud</th>
@@ -109,23 +133,35 @@ export const TableComponent = () => {
           </tr>
         </thead>
         <tbody>
-          {solicitudes.map((solicitud, index) => (
-            <tr key={index}>
+          {currentSolicitudes.map((solicitud, index) => (
+            <tr key={index} >
               <td>{solicitud.nroSolicitud}</td>
-              <td>{obtenerEstado(solicitud)}</td>
+              <td className={getEstadoColor(obtenerEstado(solicitud))} >{obtenerEstado(solicitud)}</td>
               <td>{obtenerEtapa(solicitud)}</td>
               <td>
                 <button
                   onClick={() => handleAccion(solicitud)}
                   disabled={obtenerEstado(solicitud) !== "en Proceso"}
+                  className="btn btn-primary"
                 >
-                  Avanzar
+                  Ver
                 </button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+
+      <ul className="pagination justify-content-center">
+        {pageNumbers.map((number) => (
+          <li key={number} className={`page-item ${currentPage === number ? 'active' : ''}`}>
+            <button className="page-link" onClick={() => handleClickPage(number)}>
+              {number}
+            </button>
+          </li>
+        ))}
+      </ul>
+
       <Modal isOpen={isOpen} onRequestClose={handleClose} shouldCloseOnOverlayClick={true}>
         {selectedComponent}
       </Modal>

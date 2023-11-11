@@ -12,13 +12,11 @@ export const Sidebar = () => {
   };
 
   return (
-    <div className="sidebar">
-      <div className="iconos">
-        <BiHomeAlt2 />
-        <div className="icono-crear" onClick={handleOpen}>
-          <AiFillFileAdd />
-          <p>crear solicitud</p>
-        </div>
+    <div className="sidebar text-white d-flex flex-column justify-content-center p-4">
+      <BiHomeAlt2 className="icono-home fs-3 mb-3" style={{ marginTop: "-15px" }} />
+      <div className="icono-crear text-center" onClick={handleOpen}>
+        <AiFillFileAdd className="fs-3" />
+        <p className="m-0">Crear Solicitud</p>
       </div>
       <Modal isOpen={isOpen} onRequestClose={handleOpen}>
         <SolicitudComponent />

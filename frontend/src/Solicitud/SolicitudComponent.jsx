@@ -113,25 +113,43 @@ export const SolicitudComponent = () => {
         console.error("Error:", error);
       });
   };
-  return (
-    <>
-      <div className="input-group">
-        <span className="input-group-text">Solicitado por:</span>
-        <input type="text" className="form-control" />
+  return  (
+    <div className="container mt-4">
+            <h2 className="text-center mb-4">Crear Solicitud Etapa 1</h2>
+      <div className="row">
+        <div className="col-md-6">
+          <div className="mb-3">
+            <label htmlFor="solicitadoPor" className="form-label">
+              Solicitado por:
+            </label>
+            <input type="text" className="form-control" id="solicitadoPor" />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="fecha" className="form-label">
+              En fecha:
+            </label>
+            <input type="date" className="form-control" />
+          </div>
+        </div>
+        <div className="col-md-6">
+          <div className="mb-3">
+            <label htmlFor="anexo" className="form-label">
+              Anexo:
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              value={anexo}
+              onChange={(e) => setAnexo(e.target.value)}
+            />
+          </div>
+        </div>
       </div>
-      <div className="input-group">
-        <span className="input-group-text">En fecha:</span>
-        <input type="date" className="form-control" />
-        <span className="input-group-text">Anexo:</span>
-        <input
-          type="text"
-          className="form-control"
-          value={anexo}
-          onChange={(e) => setAnexo(e.target.value)}
-        />
-      </div>
-      <div className="input-group">
-        <span className="input-group-text">Correo Electronico:</span>
+
+      <div className="mb-3">
+        <label htmlFor="correoElectronico" className="form-label">
+          Correo Electrónico:
+        </label>
         <input
           type="email"
           className="form-control"
@@ -139,84 +157,97 @@ export const SolicitudComponent = () => {
           onChange={(e) => setCorreoElectronico(e.target.value)}
         />
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th>
-              Describa claramente el bien/servicio de la compra(fundamente)
-            </th>
-            <th>Cantidad</th>
-            <th>Tipo Empaque</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <input
-                type="text"
-                className="form-control"
-                value={bienServicio}
-                onChange={(e) => setBienServicio(e.target.value)}
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                className="form-control"
-                value={cantidad}
-                onChange={(e) => setCantdidad(e.target.value)}
-              />
-            </td>
-            <td>
-              <button
-                className="btn btn-outline-secondary dropdown-toggle"
-                type="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-                value={tipoEmpaque}
-                onChange={(e) => setTipoEmpaque(e.target.value)}
-              >
-                Empaque
-              </button>
-              <ul className="dropdown-menu">
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Empaque1
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Empaque2
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Empaque3
-                  </a>
-                </li>
-              </ul>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <span>Argumente los motivos, necesidad de la compra (fundamente):</span>
-      <textarea
-        className="form-control"
-        aria-label="With textarea"
-        value={motivo}
-        onChange={(e) => setMotivo(e.target.value)}
-      ></textarea>
-      <span>
-        Fuente de financiamiento, indicar nombre y numero (centro de costos):
-      </span>
-      <textarea
-        className="form-control"
-        aria-label="With textarea"
-        value={fuenteFinanciamiento}
-        onChange={(e) => setFuenteFinanciamiento(e.target.value)}
-      ></textarea>
-      <div className="input-group">
-        <span className="input-group-text">Monto estimado de compra:</span>
+
+      <table className="table">
+  <thead>
+    <tr>
+      <th>Describa claramente el bien/servicio de la compra (fundamente)</th>
+      <th>Cantidad</th>
+      <th>Tipo Empaque</th>
+      <th></th> {/* Espacio para el botón de agregar */}
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <input
+          type="text"
+          className="form-control"
+          value={bienServicio}
+          onChange={(e) => setBienServicio(e.target.value)}
+        />
+      </td>
+      <td>
+        <input
+          type="text"
+          className="form-control"
+          value={cantidad}
+          onChange={(e) => setCantdidad(e.target.value)}
+        />
+      </td>
+      <td>
+        <div className="dropdown">
+          <button
+            className="btn btn-secondary dropdown-toggle"
+            type="button"
+            id="tipoEmpaqueDropdown"
+            data-bs-toggle="dropdown"
+          >
+            {tipoEmpaque || "Tipo de Empaque"}
+          </button>
+          <ul className="dropdown-menu" aria-labelledby="tipoEmpaqueDropdown">
+            <li>
+              <a className="dropdown-item" href="#">
+                Empaque1
+              </a>
+            </li>
+            <li>
+              <a className="dropdown-item" href="#">
+                Empaque2
+              </a>
+            </li>
+            <li>
+              <a className="dropdown-item" href="#">
+                Empaque3
+              </a>
+            </li>
+          </ul>
+        </div>
+      </td>
+      <td>
+        <button className="btn btn-primary">Agregar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+      <div className="mb-3">
+        <label htmlFor="motivo" className="form-label">
+          Argumente los motivos, necesidad de la compra (fundamente):
+        </label>
+        <textarea
+          className="form-control"
+          aria-label="With textarea"
+          value={motivo}
+          onChange={(e) => setMotivo(e.target.value)}
+        ></textarea>
+      </div>
+
+      <div className="mb-3">
+        <label htmlFor="fuenteFinanciamiento" className="form-label">
+          Fuente de financiamiento, indicar nombre y número (centro de costos):
+        </label>
+        <textarea
+          className="form-control"
+          aria-label="With textarea"
+          value={fuenteFinanciamiento}
+          onChange={(e) => setFuenteFinanciamiento(e.target.value)}
+        ></textarea>
+      </div>
+
+      <div className="mb-3">
+        <label htmlFor="montoCompra" className="form-label">
+          Monto estimado de compra:
+        </label>
         <input
           type="text"
           className="form-control"
@@ -224,13 +255,22 @@ export const SolicitudComponent = () => {
           onChange={(e) => setMontoCompra(e.target.value)}
         />
       </div>
-      <div>
-        <FaFileUpload style={{ fontSize: "50px", cursor: "pointer" }} />
-        <input type="file" name="" id="" />
+
+      <div className="mb-3">
+        <label htmlFor="adjunto" className="form-label">
+          Adjuntar archivo:
+        </label>
+        <div className="d-flex align-items-center">
+          <FaFileUpload style={{ fontSize: "30px", marginRight: "10px", cursor: "pointer" }} />
+          <input type="file" name="" id="" />
+        </div>
       </div>
-      <button className="btn btn-primary" type="submit" onClick={handleSubmit}>
-        Enviar
-      </button>
-    </> 
+
+      <div className="text-center">
+        <button className="btn btn-primary" type="submit" onClick={handleSubmit}>
+          Enviar
+        </button>
+      </div>
+    </div>
   );
 };
