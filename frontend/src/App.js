@@ -23,9 +23,9 @@ import { HomeBotiquin } from './SGI/Botiquin/HomeBotiquin';
 import { CreateBotiquin } from './SGI/Botiquin/CreateBotiquin';
 import { EditBotiquin } from './SGI/Botiquin/EditBotiquin';
 import { ShowBotiquin } from './SGI/Botiquin/ShowBotiquin'
-import { HomeSolicitud } from './SGI/Solicitud/HomeSolicitud';
-import { CreateSolicitudBodega } from './SGI/Solicitud/CreateSolicitud';
-import { ShowSolicitud } from './SGI/Solicitud/ShowSolicitud';
+import { HomeSolicitud } from './SGI/Solicitud/HomeSolicitudBodega';
+import { CreateSolicitudBodega } from './SGI/Solicitud/CreateSolicitudBodega';
+import { ShowSolicitud } from './SGI/Solicitud/ShowSolicitudBodega';
 
 
 function App() {

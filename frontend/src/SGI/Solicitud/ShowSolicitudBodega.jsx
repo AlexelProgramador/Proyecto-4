@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { showSolicitud } from './HandlerSolicitud';
+import { showSolicitud } from './HandlerSolicitudBodega';
 import { useParams, useNavigate } from 'react-router-dom';
 
 export const ShowSolicitud = () => {

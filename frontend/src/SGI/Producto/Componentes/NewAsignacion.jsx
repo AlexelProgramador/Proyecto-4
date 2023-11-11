@@ -5,7 +5,7 @@ import { homeBodega } from '../../Bodega/HandlerBodega'
 
 
 
-export const NewAsignacion = () => {
+export const NewAsignacion = ({producto}) => {
 
     const { id } = useParams();
     const [dataBodega, setDataBodega] = useState([]);
@@ -14,6 +14,7 @@ export const NewAsignacion = () => {
         TipoProcesoProducto: 'Asignación a Bodega',
         UbicacionProducto: dataBodega.length > 0 ? dataBodega[0].NombreBodega : '',
         CantidadAsignadaProducto: 0,
+        DesgloceProducto: 0,
         FechaProcesoProducto: '',
     });
 
@@ -68,7 +69,23 @@ export const NewAsignacion = () => {
 
     return(
         <div>
-            <h2>Agregar Nueva Asignación a Bodega</h2>      
+            <h2>Agregar Nueva Asignación a Bodega</h2>
+            <div>
+                <label htmlFor="UbicacionProducto">Ubicación del Producto:</label>
+                {/* <label htmlFor="DesgloceProducto">Ubicación del Producto:</label>
+                <select
+                    id="DesgloceProducto"
+                    name="DesgloceProducto"
+                    value={nuevaAsignacion.DesgloceProdcuto}
+                    onChange={handleInputChange}
+                >
+                    {producto.DesgloceProducto.map(option => (
+                    <option key={option._id} value={option.NombreBodega}>
+                        {option.NombreBodega}
+                    </option>
+                    ))}
+                </select> */}
+            </div>    
             <div>
                 <label htmlFor="UbicacionProducto">Ubicación del Producto:</label>
                 <select

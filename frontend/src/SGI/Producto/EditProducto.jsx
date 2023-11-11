@@ -21,7 +21,7 @@ export const EditProducto = () => {
         };
 
         fetchProducto();
-    }, [url]);
+    }, []);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -133,7 +133,7 @@ export const EditProducto = () => {
         ) : (
             <p>No hay datos de inventario disponibles</p>
         )}
-            <NewAsignacion/>
+            <NewAsignacion producto = {producto} />
         {/* Mostrar otros detalles de la producto según sea necesario */}
     </div>
 );

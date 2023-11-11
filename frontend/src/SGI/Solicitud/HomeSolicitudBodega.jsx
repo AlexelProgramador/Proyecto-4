@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { homeSolicitud } from './HandlerSolicitud';
+import { homeSolicitud } from './HandlerSolicitudBodega';
 
 export const HomeSolicitud = () => {
     const [data, setData] = useState([]);

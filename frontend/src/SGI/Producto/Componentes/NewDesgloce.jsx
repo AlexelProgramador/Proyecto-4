@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { updateProductoDesgloce } from '../HandlerProducto';
 
@@ -12,6 +12,7 @@ export const NewDesgloce = ({setProducto, producto}) => {
         ValorTotal: 0,
         FechaVencimientoProducto: '',
         EstadoProducto: '',
+        NombreDesgloceProduto:'',
     });
 
     const handleAgregarDesgloce = async () => {
@@ -29,6 +30,7 @@ export const NewDesgloce = ({setProducto, producto}) => {
             ValorTotal: 0,
             FechaVencimientoProducto: '',
             EstadoProducto: '',
+            NombreDesgloceProduto:'',
         });
     };
 
@@ -54,6 +56,16 @@ export const NewDesgloce = ({setProducto, producto}) => {
     return(
         <div>
             <h2>Agregar Nuevo Desgloce de Producto</h2>
+                    <div>
+                        <label htmlFor="NombreDesgloceProducto">Nombre del Desgloce:</label>
+                        <input
+                            type="text"
+                            id="NombreDesgloceProducto"
+                            name="NombreDesgloceProducto"
+                            value={nuevoDesgloce.NombreDesgloceProducto}
+                            onChange={handleInputChange}
+                        />
+                    </div>
                     <div>
                         <label htmlFor="CantidadContenedorProducto">Cantidad Contenedor Producto:</label>
                         <input

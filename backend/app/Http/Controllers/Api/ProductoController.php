@@ -120,7 +120,8 @@ class ProductoController extends Controller
             'ValorTotalProducto' => $request->ValorTotal,
             'CantidadActualProducto' => $request->ValorTotal,
             'FechaVencimientoProducto' => $request->FechaVencimientoProducto,
-            'EstadoProducto' => $request->EstadoProducto
+            'EstadoProducto' => $request->EstadoProducto,
+            'NombreDesgloceProducto' => $request->NombreDesgloceProducto
         );
         
         $producto->push('DesgloceProducto', $desgloceData);
