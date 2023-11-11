@@ -13,9 +13,10 @@ class SolicitudController extends Controller
     public function index()
     {
         $solicitudes = Solicitud::all();
-        return response()->json([
-            "results" => $solicitudes
-        ], Response::HTTP_OK);
+        return response()->json(
+            $solicitudes,
+            Response::HTTP_OK
+        );
     }
     public function store(Request $request, $idUsuario)
     {

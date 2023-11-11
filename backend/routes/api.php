@@ -3,7 +3,7 @@
 use App\Http\Controllers\Api\SolicitudController;
 use App\Http\Controllers\Api\UsuarioController;
 use App\Http\Controllers\Api\EtapaController;
-
+use App\Http\Controllers\Api\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +18,10 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+// Controlador Autenticacion.
+Route::controller(AuthController::class)->group(function () {
+    Route::post("/login", "login");
+});
 
 // Controlador Usuario.
 Route::controller(UsuarioController::class)->group(function () {
