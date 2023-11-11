@@ -1,34 +1,5 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  /* Colores */
-  /* Regal: #1e4162 */
-  --regal-blue-50: #f3f7fc;
-  --regal-blue-100: #e5eff9;
-  --regal-blue-200: #c5ddf2;
-  --regal-blue-300: #93c1e6;
-  --regal-blue-400: #59a1d7;
-  --regal-blue-500: #3386c4;
-  --regal-blue-600: #236aa6;
-  --regal-blue-700: #1e5586;
-  --regal-blue-800: #1c4970;
-  --regal-blue-900: #1e4162;
-  --regal-blue-950: #13283e;
-  /* white: #ffffff */
-  --white-50: #ffffff;
-  --white-100: #efefef;
-  --white-200: #dcdcdc;
-  --white-300: #bdbdbd;
-  --white-400: #989898;
-  --white-500: #7c7c7c;
-  --white-600: #656565;
-  --white-700: #525252;
-  --white-800: #464646;
-  --white-900: #3d3d3d;
-  --white-950: #292929;
-}
+#root {
+    margin: 0;
+    padding: 0;
+   }
+   

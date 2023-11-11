@@ -18,7 +18,20 @@ class SolicitudController extends Controller
             Response::HTTP_OK
         );
     }
-    public function store(Request $request, $idUsuario)
+
+    public function solicitudInfo(Request $request)
+    {
+        $solicitud = Solicitud::where('nroSolicitud', $request->nroSolicitud)->first();
+        if (!$solicitud) {
+            return response()->json(['error' => 'No se encontro la solicitud'], Response::HTTP_CONFLICT);
+        }
+        return response()->json(
+            $solicitud,
+            Response::HTTP_OK
+        );
+    }
+
+    public function store(Request $request)
     {
         $solicitud = new solicitud();
 
@@ -27,20 +40,21 @@ class SolicitudController extends Controller
         $solicitud->nroSolicitud = date('His') . '-SOL-' . date('dmY');
         $solicitud->tipoSolicitud = $request->tipoSolicitud;
         // Obtenemos el id, nombre y apellido de la persona que realizo la solicitud.
-        $usuarioSolicitud = Usuario::select('_id', 'nombre', 'apellido')->where('_id', $idUsuario)->first()->toArray();
+        $usuarioSolicitud = Usuario::select('_id', 'nombre', 'apellido')->where('_id', $request->idUsuario)->first()->toArray();
         // Flujo en caso de que no encuentre el usuario por el id.
         if ($usuarioSolicitud === null) {
             return response()->json(['error' => 'No se encontro el usuario'], Response::HTTP_CONFLICT);
         }
-        $solicitud->usuarioInfo = $usuarioSolicitud;
+        $solicitud->creadoPor = $usuarioSolicitud;
 
+        $solicitud->usuarioInfo = $request->infoUsuario;
         // Dependiendo de la solicitud, se deben entregar mas o menos campos y tambien adjuntar otro
         // tipo de informacion.
         $solicitud->infoSolicitud = $request->infoSolicitud;
 
         $solicitud->save();
 
-        return response()->json(['result' => $solicitud], Response::HTTP_CREATED);
+        return response()->json($solicitud, Response::HTTP_CREATED);
     }
     public function update(Request $request, $idUsuario)
     {

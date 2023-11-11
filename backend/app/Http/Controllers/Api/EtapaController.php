@@ -19,20 +19,12 @@ class EtapaController extends Controller
             Response::HTTP_OK
         );
     }
-    public function store(Request $request, $idUsuario, $nroSolicitud)
+    public function store(Request $request)
     {
         $etapa = new Etapa();
 
-        // Usuario que atiende la etapa.
-        $usuarioEtapa = Usuario::select('_id', 'nombre', 'apellido')->where('_id', $idUsuario)->first()->toArray();
-
-        // Flujo en caso de que no encuentre el usuario por el id.
-        if ($usuarioEtapa === null) {
-            return response()->json(['error' => 'No se encontro el usuario'], Response::HTTP_CONFLICT);
-        }
-
         // Solicitud que se esta atendiendo.
-        $solicitudInfo = Solicitud::select('_id', 'usuarioInfo', 'nroSolicitud')->where('nroSolicitud', $nroSolicitud)->first()->toArray();
+        $solicitudInfo = Solicitud::select('_id', 'usuarioInfo', 'nroSolicitud')->where('nroSolicitud', $request->nroSolicitud)->first()->toArray();
 
         // Flujo en caso de que no encuentre la solicitud por el id.
         if ($solicitudInfo === null) {
@@ -52,15 +44,12 @@ class EtapaController extends Controller
         $etapa->procesosEtapa7 = $request->procesosEtapa7;
         $etapa->procesosEtapa8 = $request->procesosEtapa8;
 
-        // Usuario que atiende la etapa.
-        $etapa->usuarioEtapa = $usuarioEtapa;
-
         // variable correspondientes de una solicitud.
         $etapa->solicitudInfo = $solicitudInfo;
 
         $etapa->save();
 
-        return response()->json(['result' => $etapa], Response::HTTP_OK);
+        return response()->json($etapa, Response::HTTP_OK);
     }
     public function update(Request $request, $idUsuario, $idEtapa)
     {

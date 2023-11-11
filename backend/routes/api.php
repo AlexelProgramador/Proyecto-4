@@ -34,7 +34,8 @@ Route::controller(UsuarioController::class)->group(function () {
 // Controlador Solicitud.
 Route::controller(SolicitudController::class)->group(function () {
     Route::get("/solicitudes", "index");
-    Route::post("/solicitud/{idUsuario}", "store");
+    Route::post("/crearSolicitud", "store");
+    Route::post("/solicitudInfo", "solicitudInfo");
     Route::put("/solicitud/{idUsuario}", "update");
     Route::delete("/solicitud", "destroy");
 });
@@ -42,7 +43,7 @@ Route::controller(SolicitudController::class)->group(function () {
 // Controlador Etapa.
 Route::controller(EtapaController::class)->group(function () {
     Route::get("/etapas", "index");
-    Route::post("/etapa/{idUsuario}/{nroSolicitud}", "store");
+    Route::post("/crearEtapa", "store");
     Route::put("/etapa/{idUsuario}/{idEtapa}", "update");
     Route::delete("/etapa", "destroy");
 });
