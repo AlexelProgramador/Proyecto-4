@@ -14,9 +14,10 @@ class EtapaController extends Controller
     public function index()
     {
         $etapas = Etapa::all();
-        return response()->json([
-            "results" => $etapas
-        ], Response::HTTP_OK);
+        return response()->json(
+            $etapas,
+            Response::HTTP_OK
+        );
     }
     public function store(Request $request, $idUsuario, $nroSolicitud)
     {
