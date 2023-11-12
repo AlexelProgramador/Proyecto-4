@@ -33,25 +33,31 @@ export const CreateBodega = () => {
 
   return (
     <div>
-      <form>
-        <input
-          type="text"
-          placeholder="Nombre de la Bodega"
-          name="NombreBodega"
-          value={bodegaData.NombreBodega}
-          onChange={handleInputChange}
-        />
-        <input
-          type="text"
-          placeholder="Lugar de la Bodega"
-          name="LugarBodega"
-          value={bodegaData.LugarBodega}
-          onChange={handleInputChange}
-        />
-        <button type="button" onClick={handleInsert}>
-          Insertar Datos de Bodega
-        </button>
-      </form>
+      <div className='card shadow-card rounded-0 border border-0'>
+        <div className='card-body'>
+          <form>
+            <input
+              className='form-control'
+              type="text"
+              placeholder="Nombre de la Bodega"
+              name="NombreBodega"
+              value={bodegaData.NombreBodega}
+              onChange={handleInputChange}
+            />
+            <input 
+              className='form-control'
+              type="text"
+              placeholder="Lugar de la Bodega"
+              name="LugarBodega"
+              value={bodegaData.LugarBodega}
+              onChange={handleInputChange}
+            />
+            <button className='btn btn-primary' type="button" onClick={handleInsert}>
+              Insertar Datos de Bodega
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 };

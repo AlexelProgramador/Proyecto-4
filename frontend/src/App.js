@@ -30,10 +30,7 @@ import { ShowSolicitud } from './SGI/Solicitud/ShowSolicitudBodega';
 
 function App() {
   const [show, setShow] = useState(false);
-  const contentStyle = {
-    marginLeft: show ? '80px' : '0', // Ajusta el margen izquierdo según si el Sidebar está abierto o cerrado
-    transition: 'margin 0.3s', // Agrega una transición para suavizar el efecto
-  };
+
   const datosDeEjemplo = {
     solicitadoPor: 'John Doe',
     fecha: '2023-10-16',
@@ -50,10 +47,50 @@ function App() {
   return (
     <Router>
       <div>
-        <Sidebar/>
-        <div className="content" style={contentStyle}>
-          <h1>a</h1>
-          <Primercomponente />
+      <main className={show ? 'space-toggle' : null}>
+      <header className={`header ${show ? 'space-toggle' : null}`}>
+        <div className='header-toggle' onClick={() => setShow(!show)}>
+          <i className={`fas fa-bars ${show ? 'fa-solid fa-xmark' : null}`}></i>
+        </div>
+      </header>
+      {/* SIDEBAR */}
+      <aside className={`sidebar ${show ? 'show' : null}`}>
+        <nav className='nav'>
+          <div>
+            {/* SIDEBAR HEADER */}
+            <a href='/' className='nav-logo'>
+              <i className='fas fa-home-alt nav-logo-icon'/>
+              <span className='nav-logo-name'>CASITA</span>
+            </a>
+            {/* ITEMS */}
+            <div className='nav-list'>
+              <a href='/' className='nav-link align-middle'>
+                <i className='fas fa-fw fa-tachometer-alt nav-logo-link'></i>
+                <span>Dashboard</span>
+              </a>
+              
+              <a href='/show-bodega' className='nav-link'>
+                <i className='fas fa-hotel  nav-logo-link'></i>
+                <span>seccion1</span>
+              </a>
+              <a href='/create-bodega' className='nav-link'>
+                <i className='fas fa-image nav-logo-link'></i>
+                <span>seccion2</span>
+              </a>
+              <a href='/' className='nav-link'>
+                <i className='fas fa-dollar-sign nav-logo-link'></i>
+                <span>seccion3</span>
+              </a>
+            </div>
+          </div>
+          <a href='/logout' className='nav-link'>
+            <i className='fas fa-sign-out nav-logo-link'></i>
+            <span>Logout</span>
+          </a>
+        </nav>
+      </aside>
+      {/* CONTENIDO */}
+      <div className="container-fluid pt-4">
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/crear-solicitud" element={<CrearSolicitud />} />
@@ -87,8 +124,8 @@ function App() {
 
           </Routes>
         </div>
-      </div>
-      
+      </main>   
+      </div>  
     </Router>
   );
 }
