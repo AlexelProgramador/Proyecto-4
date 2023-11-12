@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import usePostRequest from "../Hooks/usePostRequest";
 import PaginationButtons from "../Solicitud/SolicitudInputs/PaginationButtons";
 import usePutRequest from "../Hooks/usePutRequest";
+import { useNavigate } from "react-router-dom";
 
 export const Etapa1 = () => {
   const location = useLocation();
@@ -16,12 +17,13 @@ export const Etapa1 = () => {
   const [verificarSaldo, setVerificarSaldo] = useState(0);
   const [comentario, setComentario] = useState("");
   const { data, error, isLoading, execute: executePut } = usePutRequest();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {
       idEtapa: item._id,
-      nroEtapa: 1,
+      nroEtapa: 2,
       procesosEtapa1: {
         centroDeCostos: centroDeCostos,
         verificarSaldo: verificarSaldo,
@@ -30,6 +32,7 @@ export const Etapa1 = () => {
     };
     const url = "avanzarEtapa";
     const response = await executePut(url, data);
+    navigate("/")
   };
 
   const getSolicitudInfo = async () => {
@@ -40,7 +43,7 @@ export const Etapa1 = () => {
     var response = await executePost(data, url);
     setSolicitudInfo(response);
     setNumeroDePaginas(
-      Math.ceil(response.infoSolicitud.productos.length / productosPorPagina)
+      Math.ceil(response.solicitudInfo.productos.length / productosPorPagina)
     );
   };
   useEffect(() => {
