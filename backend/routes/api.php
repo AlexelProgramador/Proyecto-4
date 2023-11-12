@@ -43,7 +43,10 @@ Route::controller(SolicitudController::class)->group(function () {
 // Controlador Etapa.
 Route::controller(EtapaController::class)->group(function () {
     Route::get("/etapas", "index");
-    Route::post("/crearEtapa", "store");
+    Route::post("/crearEtapa", "crearEtapa");
+    Route::post("/verEtapa", "verEtapa");
+    Route::put("/avanzarEtapa", "avanzarEtapa");
+
     Route::put("/etapa/{idUsuario}/{idEtapa}", "update");
     Route::delete("/etapa", "destroy");
 });

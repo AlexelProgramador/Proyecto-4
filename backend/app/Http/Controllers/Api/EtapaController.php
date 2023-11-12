@@ -19,17 +19,45 @@ class EtapaController extends Controller
             Response::HTTP_OK
         );
     }
-    public function store(Request $request)
+
+    public function avanzarEtapa(Request $request)
+    {
+        $etapa = Etapa::where('_id', $request->idEtapa)->first();
+        if (!$etapa) {
+            return response()->json(['error' => $request], Response::HTTP_CONFLICT);
+        }
+        $etapa->procesosEtapa1 = $request->procesosEtapa1;
+        $etapa->procesosEtapa2 = $request->procesosEtapa2;
+        $etapa->procesosEtapa3 = $request->procesosEtapa3;
+        $etapa->procesosEtapa4 = $request->procesosEtapa4;
+        $etapa->procesosEtapa5 = $request->procesosEtapa5;
+        $etapa->procesosEtapa6 = $request->procesosEtapa6;
+        $etapa->procesosEtapa7 = $request->procesosEtapa7;
+        $etapa->procesosEtapa8 = $request->procesosEtapa8;
+
+        $etapa->save();
+
+        return response()->json(
+            $etapa,
+            Response::HTTP_OK
+        );
+    }
+    public function verEtapa(Request $request)
+    {
+        $etapa = Etapa::where('solicitudInfo.nroSolicitud', $request->nroSolicitud)->first();
+        if (!$etapa) {
+            return response()->json(['error' => $request], Response::HTTP_CONFLICT);
+        }
+
+        return response()->json(
+            $etapa,
+            Response::HTTP_OK
+        );
+    }
+
+    public function crearEtapa(Request $request)
     {
         $etapa = new Etapa();
-
-        // Solicitud que se esta atendiendo.
-        $solicitudInfo = Solicitud::select('_id', 'usuarioInfo', 'nroSolicitud')->where('nroSolicitud', $request->nroSolicitud)->first()->toArray();
-
-        // Flujo en caso de que no encuentre la solicitud por el id.
-        if ($solicitudInfo === null) {
-            return response()->json(['error' => 'No se encontro la solicitud'], Response::HTTP_CONFLICT);
-        }
 
         // Variables correspondientes a la etapa.
         $etapa->nroEtapa = $request->nroEtapa;
@@ -45,11 +73,13 @@ class EtapaController extends Controller
         $etapa->procesosEtapa8 = $request->procesosEtapa8;
 
         // variable correspondientes de una solicitud.
-        $etapa->solicitudInfo = $solicitudInfo;
-
+        $etapa->solicitudInfo = $request->infoSolicitud;
+        $etapa->infoUsuario = $request->infoUsuario;
         $etapa->save();
-
-        return response()->json($etapa, Response::HTTP_OK);
+        return response()->json(
+            $etapa,
+            Response::HTTP_OK
+        );
     }
     public function update(Request $request, $idUsuario, $idEtapa)
     {

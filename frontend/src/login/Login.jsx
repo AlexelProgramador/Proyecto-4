@@ -7,22 +7,24 @@ import Cookies from "js-cookie";
 export const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { response, error, isLoading, execute } = usePostRequest("login");
+  const { execute, response } = usePostRequest();
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    execute({ username, password });
-  };
-  useEffect(() => {
-    if (response) {
-      Cookies.set("response", JSON.stringify(response));
-      if (response.sucess) {
-        console.log("Login success");
-        navigate("/");
-      }
+    const data = {
+      username: username,
+      password: password,
+    };
+    const url = "login";
+    let response = await execute(data, url);
+    Cookies.set("response", JSON.stringify(response));
+    if (response.sucess) {
+      console.log("Login success");
+      navigate("/");
     }
-  }, [response]);
+  };
+
   return (
     <>
       <h1>Login</h1>

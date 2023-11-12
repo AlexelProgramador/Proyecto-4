@@ -1,9 +1,9 @@
 import { Content } from "./Content";
-import { Etapa1 } from "../etapas/etapa1";
-import { Etapa2 } from "../etapas/etapa2";
-import { Etapa3 } from "../etapas/etapa3";
-import { Etapa4 } from "../etapas/etapa4";
-import { Etapa5 } from "../etapas/etapa5";
+import { Etapa1 } from "../etapas/Etapa1";
+import { Etapa2 } from "../etapas/Etapa2";
+import { Etapa3 } from "../etapas/Etapa3";
+import { Etapa4 } from "../etapas/Etapa4";
+import { Etapa5 } from "../etapas/Etapa5";
 import { CrearSolicitud } from "../solicitud/CrearSolicitud";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { Navbar } from "./Navbar";

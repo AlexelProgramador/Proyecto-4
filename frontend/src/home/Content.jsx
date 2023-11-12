@@ -47,8 +47,7 @@ export const Content = () => {
                     <td>{item.solicitudInfo.nroSolicitud}</td>
                     <td>{item.nroEtapa}</td>
                     <td>
-                      {item.solicitudInfo.usuarioInfo.nombre}{" "}
-                      {item.solicitudInfo.usuarioInfo.apellido}
+                      {item.infoUsuario.solicitadoPor}
                     </td>
                     <td>{item.etapa}</td>
                     <td>

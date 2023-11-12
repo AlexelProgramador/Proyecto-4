@@ -17,6 +17,7 @@ const usePostRequest = (url = "") => {
           data
         );
         setResponse(result);
+        console.log(result.data);
       } catch (error) {
         setError(error);
       } finally {

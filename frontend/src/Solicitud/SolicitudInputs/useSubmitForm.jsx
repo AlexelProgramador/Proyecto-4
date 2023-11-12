@@ -1,6 +1,7 @@
 // useSubmitForm.js
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import moment from "moment-timezone";
 
 const useSubmitForm = (execute, setShowAlert) => {
   const navigate = useNavigate();
@@ -19,29 +20,10 @@ const useSubmitForm = (execute, setShowAlert) => {
   ) => {
     event.preventDefault();
     let sessionInfo = JSON.parse(Cookies.get("response"));
+    let now = moment().tz("America/Santiago");
+    let nroSolicitud = `${now.format("HHmmss")}-SOL-${now.format("DDMMYYYY")}`;
 
-    var data = {
-      tipoSolicitud: "Solicitud Bienes/Servicos",
-      idUsuario: sessionInfo.usuarioId,
-      infoUsuario: {
-        solicitadoPor: solicitadoPor,
-        anexo: anexo,
-        correo: correo,
-      },
-      infoSolicitud: {
-        fecha: fecha,
-        productos: productos,
-        motivos: motivos,
-        fuenteFinanciamiento: fuenteFinanciamiento,
-        montoEstimado: montoEstimado,
-        imagen: imagen,
-      },
-    };
-    var url = "crearSolicitud";
-
-    var response = await execute(data, url);
-    data = {
-      nroSolicitud: response.nroSolicitud,
+    const data = {
       nroEtapa: 1,
       completado: false,
       procesosEtapa1: {},
@@ -52,9 +34,25 @@ const useSubmitForm = (execute, setShowAlert) => {
       procesosEtapa6: {},
       procesosEtapa7: {},
       procesosEtapa8: {},
+      infoUsuario: {
+        solicitadoPor: solicitadoPor,
+        anexo: anexo,
+        correo: correo,
+      },
+      infoSolicitud: {
+        nroSolicitud: nroSolicitud,
+        fecha: fecha,
+        tipoSolicitud: "Solicitud Bienes/Servicos",
+        idUsuario: sessionInfo.usuarioId,
+        productos: productos,
+        motivos: motivos,
+        fuenteFinanciamiento: fuenteFinanciamiento,
+        montoEstimado: montoEstimado,
+        imagen: imagen,
+      },
     };
-    var url = "crearEtapa";
-    response = await execute(data, url);
+    const url = "crearEtapa";
+    const response = await execute(data, url);
     setShowAlert(true);
     navigate("/");
   };
