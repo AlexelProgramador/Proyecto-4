@@ -16,6 +16,8 @@ export const Content = () => {
     }
   }, [showAlert]);
   const navigate = useNavigate();
+  console.log("Solicitud de confirmación exitosa.",data);
+
   return (
     <>
       <div>
@@ -43,12 +45,12 @@ export const Content = () => {
             <tbody>
               {data &&
                 data.map((item) => (
+                  
                   <tr key={item._id}>
                     <td>{item.solicitudInfo.nroSolicitud}</td>
                     <td>{item.nroEtapa}</td>
-                    <td>
-                      {item.infoUsuario.solicitadoPor}
-                    </td>
+                    <td>{item.infoUsuario?.solicitadoPor}</td>
+
                     <td>{item.etapa}</td>
                     <td>
                       <button
