@@ -8,9 +8,9 @@ export const CreateProducto = () => {
     MarcaProducto: '',
     DescripcionProducto: '',
     ContenedorProducto: 'Sin Información',
-    CantidadProducto: 0,
+    CantidadProducto: '',
     CantidadTotalProducto: 0,
-    ValorUnitarioProducto: 0,
+    ValorUnitarioProducto: '',
     DesgloceProducto: [],
     UbicacionProducto: []
   });
@@ -86,7 +86,7 @@ export const CreateProducto = () => {
               </div>
               <div className='col-md-3 pb-4'>
               <input className='form-control'
-                type="text"
+                type="number"
                 placeholder="Cantidad del Producto"
                 name="CantidadProducto"
                 value={productoData.CantidadProducto}
@@ -95,7 +95,7 @@ export const CreateProducto = () => {
               </div>
               <div className='col-md-3 pb-4'>
               <input className='form-control'
-                type="text"
+                type="number"
                 placeholder="Valor Unitario del Producto"
                 name="ValorUnitarioProducto"
                 value={productoData.ValorUnitarioProducto}
