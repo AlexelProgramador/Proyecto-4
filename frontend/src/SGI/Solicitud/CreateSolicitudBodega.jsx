@@ -42,8 +42,17 @@ export const CreateSolicitudBodega = () => {
     // Alternar la selección del elemento
     setSelectedItems((prevSelectedItems) => {
       if (prevSelectedItems.includes(itemId)) {
+        // Desmarcar: Eliminar el elemento de la lista
+        setSolicitudData((prevData) => {
+          const updatedInventario = prevData.InventarioSolicitud.filter((item, index) => index !== itemId);
+          return {
+            ...prevData,
+            InventarioSolicitud: updatedInventario
+          };
+        });
         return prevSelectedItems.filter((id) => id !== itemId);
       } else {
+        // Marcar: Añadir el elemento a la lista
         return [...prevSelectedItems, itemId];
       }
     });
@@ -54,7 +63,6 @@ export const CreateSolicitudBodega = () => {
     const selectedItemsData = inventarioBodegaData.filter((item, index) => selectedItems.includes(index));
 
     // Agregar lógica para manejar los elementos seleccionados
-
     createSolicitud({
       ...solicitudData,
       InventarioSolicitud: selectedItemsData,
@@ -74,18 +82,35 @@ export const CreateSolicitudBodega = () => {
   const handleInventarioChange = (index, cantidad) => {
     setSolicitudData((prevData) => {
       const updatedInventario = [...prevData.InventarioSolicitud];
-      const updatedItem = {
-        ...updatedInventario[index],
-        CantidadSolicitud: cantidad
-      };
-      updatedInventario[index] = updatedItem;
+      
+      // Si la cantidad es mayor a 0, actualiza la cantidad; de lo contrario, elimina el elemento
+      if (cantidad > 0) {
+        const updatedItem = {
+          ...updatedInventario[index],
+          CantidadSolicitud: cantidad
+        };
+        updatedInventario[index] = updatedItem;
+      } else {
+        updatedInventario.splice(index, 1);
+      }
   
       return {
         ...prevData,
         InventarioSolicitud: updatedInventario
       };
     });
-    
+  
+    // Añadir o quitar el índice según si la cantidad es mayor a 0
+    setSelectedItems((prevSelectedItems) => {
+      if (cantidad > 0) {
+        if (!prevSelectedItems.includes(index)) {
+          return [...prevSelectedItems, index];
+        }
+      } else {
+        return prevSelectedItems.filter((id) => id !== index);
+      }
+      return prevSelectedItems;
+    });
   };
 
   const fetchData = async () => {
