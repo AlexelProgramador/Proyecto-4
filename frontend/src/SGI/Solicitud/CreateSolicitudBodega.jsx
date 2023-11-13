@@ -2,19 +2,22 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createSolicitud } from './HandlerSolicitudBodega';
 import { homeBodega } from '../Bodega/HandlerBodega';
+import { homeBotiquin}  from '../Botiquin/HandlerBotiquin';
 
 export const CreateSolicitudBodega = () => {
   const [solicitudData, setSolicitudData] = useState({
     VariableSolicitud: '',
     UnidadSolicitud: '',
-    BotiquinSolicitud: 0,
-    BodegaSolicitud:'Defecto',
+    IdBotiquin: '',
+    NombreBotiquinSolicitud: '',
+    NombreBodegaSolicitud:'',
     NombreSolicitanteSolicitud: '',
     FechaSolicitud: '',
     InventarioSolicitud: [],
   });
 
   const [bodegaData, setBodegaData] = useState([]);
+  const [botiquinData, setBotiquinData] = useState([]);
   const [inventarioBodegaData, setInventarioBodegaData] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
 
@@ -82,13 +85,15 @@ export const CreateSolicitudBodega = () => {
         InventarioSolicitud: updatedInventario
       };
     });
-    console.log(solicitudData);
+    
   };
 
   const fetchData = async () => {
     try {
-        const response = await homeBodega();
-        setBodegaData(response);
+        const responseBodega = await homeBodega();
+        const responseBotiquin =await homeBotiquin();
+        setBodegaData(responseBodega);
+        setBotiquinData(responseBotiquin);
     } catch (error) {
         console.error('Error al obtener datos', error);
     }
@@ -98,9 +103,41 @@ export const CreateSolicitudBodega = () => {
     fetchData();
   }, []);
 
+  const handleBotiquinChange = (e) => {
+    const selectedOIdUbicacionBotiquin = e.target.value;
+    const selectedBotiquin = botiquinData.find(option => option._id === selectedOIdUbicacionBotiquin);
+
+    if (selectedBotiquin) {
+        setSolicitudData(prevState => ({
+            ...prevState,
+            NombreBotiquinSolicitud: selectedBotiquin.NombreBotiquin,
+            IdBotiquin: selectedOIdUbicacionBotiquin
+        }));
+    }
+
+  };
+  const handleBodegaChange = (e) => {
+    const selectedOIdUbicacionBodega = e.target.value;
+    const selectedBodega = bodegaData.find(option => option._id === selectedOIdUbicacionBodega);
+
+    if (selectedBodega) {
+        setSolicitudData(prevState => ({
+            ...prevState,
+            NombreBodegaSolicitud: selectedBodega.NombreBodega,
+            IdBodega: selectedOIdUbicacionBodega
+        }));
+        setInventarioBodegaData(selectedBodega ? selectedBodega.InventarioBodega : []);
+    }
+    
+};
+  console.log(solicitudData);
+
+
   return (
     <div>
       <form>
+        <div>
+          <label htmlFor="Variable Solicitud">Variable Solicitud:</label>
         <input
           type="text"
           placeholder="Variable Solicitud"
@@ -108,30 +145,52 @@ export const CreateSolicitudBodega = () => {
           value={solicitudData.VariableSolicitud}
           onChange={handleInputChange}
         />
-        <input
-          type="text"
-          placeholder="Unidad Solicitud"
-          name="UnidadSolicitud"
-          value={solicitudData.UnidadSolicitud}
-          onChange={handleInputChange}
-        />
+        </div>
 
-        <input
-          type="text"
-          placeholder="Botiquin Solicitud"
-          name="BotiquinSolicitud"
-          value={solicitudData.BotiquinSolicitud}
-          onChange={handleInputChange}
-        />
+        <div>
+          <label htmlFor="Unidad Solicitud">Unidad Solicitud:</label>
+          <input
+            type="text"
+            placeholder="Unidad Solicitud"
+            name="UnidadSolicitud"
+            value={solicitudData.UnidadSolicitud}
+            onChange={handleInputChange}
+          />
+        </div>
+        
+        <div>
+          <label htmlFor="BotiquinSolicitud">Botiquin Solicitante:</label>
+          <select
+            id="NombreBotiquinSolicitud"
+            name="NombreBotiquinSolicitud"
+            value={solicitudData.NombreBotiquinSolicitud}
+            onChange={handleBotiquinChange}
+          >
+            <option value="">
+              Selecciona un Botiquin
+            </option>
+            {botiquinData.map(option => (
+              <option key={option._id} value={option._id}>
+                {option.NombreBotiquin}
+              </option>
+            ))}
+          </select>
 
-        <input
-          type="text"
-          placeholder="Nombre Solicitante Solicitud"
-          name="NombreSolicitanteSolicitud"
-          value={solicitudData.NombreSolicitanteSolicitud}
-          onChange={handleInputChange}
-        />
+        </div>
 
+        <div>
+          <label htmlFor="NombreSolicitanteSolicitud">Nombre del Solicitante:</label>
+          <input
+            type="text"
+            placeholder="Nombre Solicitante Solicitud"
+            name="NombreSolicitanteSolicitud"
+            value={solicitudData.NombreSolicitanteSolicitud}
+            onChange={handleInputChange}
+          />
+        </div>
+        
+        <div>
+        <label htmlFor="FechaSolicitud">Fecha Solicitud:</label>
         <input
           type="date"
           placeholder="Fecha Solicitud"
@@ -139,23 +198,28 @@ export const CreateSolicitudBodega = () => {
           value={solicitudData.FechaSolicitud}
           onChange={handleInputChange}
         />
-
-        <select
-          id="BodegaSolicitud"
-          name="BodegaSolicitud"
-          value={solicitudData.BodegaSolicitud}
-          onChange={handleInputChange}
-          disabled={selectedItems.length > 0}
-        >
-          <option value="">
-            Selecciona una bodega
-          </option>
-          {bodegaData.map(option => (
-            <option key={option._id} value={option.NombreBodega}>
-              {option.NombreBodega}
+        </div>
+        
+        <div>
+          <label htmlFor="BodegaSolicitud">Bodega a Seleccionar:</label>
+          <select
+            id="NombreBodegaSolicitud"
+            name="NombreBodegaSolicitud"
+            value={solicitudData.NombreBodegaSolicitud}
+            onChange={handleBodegaChange}
+            disabled={selectedItems.length > 0}
+          >
+            <option value="">
+              Selecciona una bodega
             </option>
-          ))}
-        </select>
+            {bodegaData.map(option => (
+              <option key={option._id} value={option._id}>
+                {option.NombreBodega}
+              </option>
+            ))}
+          </select>
+        </div>
+        
 
         {/* Mostrar detalles del inventario de la bodega o mensaje si no hay datos */}
         {inventarioBodegaData.length > 0 ? (

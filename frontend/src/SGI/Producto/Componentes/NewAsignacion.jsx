@@ -90,7 +90,7 @@ export const NewAsignacion = ({desgloseProducto}) => {
         <div>
             <h2>Agregar Nueva Asignación a Bodega</h2>
             <div>
-                {/* <label htmlFor="DesgloceProducto">Desgloce del Producto:</label>
+                <label htmlFor="DesgloceProducto">Desgloce del Producto:</label>
                 <select
                     id="IdDesgloceProducto"
                     name="IdDesgloceProducto"
@@ -105,7 +105,7 @@ export const NewAsignacion = ({desgloseProducto}) => {
                         {option.NombreDesgloceProducto}
                     </option>
                     ))}
-                </select> */}
+                </select>
             </div>    
             <div>
                 <label htmlFor="UbicacionProducto">Ubicación del Producto:</label>

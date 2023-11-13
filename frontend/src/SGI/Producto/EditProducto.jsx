@@ -93,7 +93,6 @@ export const EditProducto = () => {
                         <tr>
                             <th>Cantidad Contenedor Producto</th>
                             <th>Cantidad Total</th>
-                            <th>Cantidad Actual</th>
                             <th>Valor Total</th>
                             <th>Fecha Vencimiento Producto</th>
                             <th>Estado Producto</th>
@@ -104,7 +103,6 @@ export const EditProducto = () => {
                             <tr key={index}>
                                 <td>{item.CantidadContenedorProducto}</td>
                                 <td>{item.CantidadTotalProducto}</td>
-                                <td>{item.CantidadActualProducto}</td>
                                 <td>{item.ValorTotalProducto}</td>
                                 <td>{item.FechaVencimientoProducto}</td>
                                 <td>{item.EstadoProducto}</td>
