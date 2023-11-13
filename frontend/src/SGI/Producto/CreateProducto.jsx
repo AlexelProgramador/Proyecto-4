@@ -37,64 +37,78 @@ export const CreateProducto = () => {
 
   return (
     <div>
-      <form>
-        <input
-          type="text"
-          placeholder="Nombre del Producto"
-          name="NombreProducto"
-          value={productoData.NombreProducto}
-          onChange={handleInputChange}
-        />
-        <input
-          type="text"
-          placeholder="Marca del Producto"
-          name="MarcaProducto"
-          value={productoData.MarcaProducto}
-          onChange={handleInputChange}
-        />
-        
-        <textarea
-          placeholder="Descripción del Producto"
-          name="DescripcionProducto"
-          value={productoData.DescripcionProducto}
-          onChange={handleInputChange}
-          rows={4} // Aquí puedes especificar el número de filas que deseas mostrar
-          cols={50} // Aquí puedes especificar el número de columnas que deseas mostrar
-        />
-        
-        <select
-          name="ContenedorProducto"
-          value={productoData.ContenedorProducto}
-          onChange={handleInputChange}
-        >
-          <option value="Sin Informacion">Sin Información</option>
-          <option value="Caja">Caja</option>
-          <option value="Kit">Kit</option>
-          <option value="Paquete">Paquete</option>
-          <option value="Pote">Pote</option>
-          <option value="Frasco">Frasco</option>
-        </select>
-
-        <input
-          type="text"
-          placeholder="Cantidad del Producto"
-          name="CantidadProducto"
-          value={productoData.CantidadProducto}
-          onChange={handleInputChange}
-        />
-
-        <input
-          type="text"
-          placeholder="Valor Unitario del Producto"
-          name="ValorUnitarioProducto"
-          value={productoData.ValorUnitarioProducto}
-          onChange={handleInputChange}
-        />
-      
-        <button type="button" onClick={handleInsert}>
-          Insertar Datos de Producto
-        </button>
-      </form>
+      <div className='card shadow-card rounded-0 border border-0'>
+        <div className='card-body'>
+          <div className='h5 text-uppercase pb-2'>Nuevo Producto</div>
+          <div>
+            <form className='row'>
+              <div className='col-md-6 pb-4'>
+              <input className='form-control'
+                type="text"
+                placeholder="Nombre del Producto"
+                name="NombreProducto"
+                value={productoData.NombreProducto}
+                onChange={handleInputChange}
+              />
+              </div>
+              <div className='col-md-6 pb-4'>
+              <input className='form-control'
+                type="text"
+                placeholder="Marca del Producto"
+                name="MarcaProducto"
+                value={productoData.MarcaProducto}
+                onChange={handleInputChange}
+              />
+              </div>
+              <div className='col-12 pb-4'>
+              <textarea className='form-control'
+                placeholder="Descripción del Producto"
+                name="DescripcionProducto"
+                value={productoData.DescripcionProducto}
+                onChange={handleInputChange}
+                rows={4} // Aquí puedes especificar el número de filas que deseas mostrar
+                cols={50} // Aquí puedes especificar el número de columnas que deseas mostrar
+              />
+              </div>
+              <div className='col-md-6 pb-4'>
+              <select className='form-select'
+                name="ContenedorProducto"
+                value={productoData.ContenedorProducto}
+                onChange={handleInputChange}
+              >
+                <option value="Sin Informacion">Sin Información</option>
+                <option value="Caja">Caja</option>
+                <option value="Kit">Kit</option>
+                <option value="Paquete">Paquete</option>
+                <option value="Pote">Pote</option>
+                <option value="Frasco">Frasco</option>
+              </select>
+              </div>
+              <div className='col-md-3 pb-4'>
+              <input className='form-control'
+                type="text"
+                placeholder="Cantidad del Producto"
+                name="CantidadProducto"
+                value={productoData.CantidadProducto}
+                onChange={handleInputChange}
+              />
+              </div>
+              <div className='col-md-3 pb-4'>
+              <input className='form-control'
+                type="text"
+                placeholder="Valor Unitario del Producto"
+                name="ValorUnitarioProducto"
+                value={productoData.ValorUnitarioProducto}
+                onChange={handleInputChange}
+              />
+              </div>            
+              <button  className="btn btn-primary" type="button" onClick={handleInsert}>
+                Insertar Datos de Producto
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

@@ -64,7 +64,7 @@ function App() {
             </a>
             {/* ITEMS */}
             <div className='nav-list'>
-              <a href='/' className='nav-link align-middle'>
+              <a href='/' className='nav-link active'>
                 <i className='fas fa-fw fa-tachometer-alt nav-logo-link'></i>
                 <span>Dashboard</span>
               </a>

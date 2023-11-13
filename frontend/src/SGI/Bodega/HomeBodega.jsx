@@ -40,6 +40,11 @@ export const HomeBodega = () => {
         <div>
             <div className='card shadow-card rounded-0 border border-0'>
                 <div className='card-body'>
+                    <div className='d-flex justify-content-between pb-2'>
+                        <div className='h5 text-uppercase'>Bodegas</div>
+                        <div className=''><button className='btn btn-success'>Crear <i class="fa-solid fa-plus"></i></button></div>
+                    </div>
+                    <div className='table-responsive'>
                     <table className='table'>
                         <thead>
                             <tr>
@@ -66,6 +71,7 @@ export const HomeBodega = () => {
                             ))}
                         </tbody>
                     </table>
+                    </div>
                 </div>
             </div>
         </div>
