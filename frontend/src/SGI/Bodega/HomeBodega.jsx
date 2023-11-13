@@ -38,30 +38,36 @@ export const HomeBodega = () => {
 
     return (
         <div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>UUID es de prueba</th>
-                        <th>Nombre Bodega</th>
-                        <th>Lugar Bodega</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {data.map((item) => (
-                        <tr key={item.id}>
-                            <td>{item._id}</td>
-                            <td>{item.NombreBodega}</td>
-                            <td>{item.LugarBodega}</td>
-                            <td>
-                                <button onClick={() => handleShow(item._id)}>Ver Más</button>
-                                <button onClick={() => handleEdit(item._id)}>Editar</button>
-                                <button onClick={() => handleDelete(item._id)}>Eliminar</button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+            <div className='card shadow-card rounded-0 border border-0'>
+                <div className='card-body'>
+                    <table className='table'>
+                        <thead>
+                            <tr>
+                                <th>UUID es de prueba</th>
+                                <th>Nombre Bodega</th>
+                                <th>Lugar Bodega</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {data.map((item) => (
+                                <tr key={item.id}>
+                                    <td>{item._id}</td>
+                                    <td>{item.NombreBodega}</td>
+                                    <td>{item.LugarBodega}</td>
+                                    <td>
+                                        <div className='btn-group btn-group-sm'>
+                                            <button className='btn btn-primary' onClick={() => handleShow(item._id)}><i class="fa-solid fa-eye"></i></button>
+                                            <button className='btn btn-warning' onClick={() => handleEdit(item._id)}><i class="fa-solid fa-pen"></i></button>
+                                            <button className='btn btn-danger' onClick={() => handleDelete(item._id)}><i class="fa-solid fa-trash-can"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     );
 };
