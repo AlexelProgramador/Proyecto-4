@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { showSolicitud } from './HandlerSolicitudBodega';
 import { useParams, useNavigate } from 'react-router-dom';
 
-export const ShowSolicitud = () => {
+export const ShowSolicitudBodega = () => {
     const [solicitud, setSolicitud] = useState({});
     const { id } = useParams();
     const navigate = useNavigate();
@@ -54,4 +54,4 @@ export const ShowSolicitud = () => {
     );
 };
 
-export default ShowSolicitud;
+export default ShowSolicitudBodega;

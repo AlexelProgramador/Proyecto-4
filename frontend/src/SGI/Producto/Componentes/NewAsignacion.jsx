@@ -5,44 +5,39 @@ import { homeBodega } from '../../Bodega/HandlerBodega'
 
 
 
-export const NewAsignacion = ({producto}) => {
+export const NewAsignacion = ({desgloseProducto}) => {
 
     const { id } = useParams();
     const [dataBodega, setDataBodega] = useState([]);
     const [nuevaAsignacion, setNuevaAsignacion] = useState({
-        IdBodegaProducto: dataBodega.length > 0 ? dataBodega[0]._id : '',
+        IdBodegaProducto:'',
         TipoProcesoProducto: 'Asignación a Bodega',
-        UbicacionProducto: dataBodega.length > 0 ? dataBodega[0].NombreBodega : '',
+        IdProducto: id,
+        IdUbicacionProducto: '',
         CantidadAsignadaProducto: 0,
-        DesgloceProducto: 0,
+        NombreDesgloceProducto: '',
+        IdDesgloceProducto: '',
+        NombreUbicacionBodega:'',
         FechaProcesoProducto: '',
     });
 
     const handleAgregarAsignacion = async () => {
         try {
-            const bodegaSeleccionada = dataBodega.find(bodega => bodega.NombreBodega === nuevaAsignacion.UbicacionProducto);
-        if (bodegaSeleccionada) {
-            const nuevaAsignacionConId = {
-                ...nuevaAsignacion,
-                IdBodegaProducto: bodegaSeleccionada._id
-            };
-            await updateProductoAsignacion(id, nuevaAsignacionConId);
-            // console.log(nuevaAsignacionConId);
-        } 
-        else {
-            console.error('No se encontró la bodega seleccionada en la lista de bodegas.');
-        }
+            await updateProductoAsignacion(id, nuevaAsignacion);
+
         } catch (error) {
             console.error('Error al agregar la asignación', error);
-            console.log(nuevaAsignacion);
         }
 
         // Reiniciar los campos del nuevo desgloce
         setNuevaAsignacion({
-            IdBodegaProducto: dataBodega.length > 0 ? dataBodega[0]._id : '',
+            IdBodegaProducto:'',
             TipoProcesoProducto: 'Asignación a Bodega',
-            UbicacionProducto: dataBodega.length > 0 ? dataBodega[0].NombreBodega : '',
+            IdUbicacionProducto: '',
             CantidadAsignadaProducto: 0,
+            NombreDesgloceProducto: '',
+            IdDesgloceProducto: '',
+            NombreUbicacionBodega:'',
             FechaProcesoProducto: '',
         });
     };
@@ -62,6 +57,30 @@ export const NewAsignacion = ({producto}) => {
             console.error('Error al obtener datos', error);
         }
     };
+    const handleDesgloceChange = (e) => {
+        const selectedUuidDesgloceProducto = e.target.value;
+        const selectedDesgloce = desgloseProducto.find(option => option.UuidProducto === selectedUuidDesgloceProducto);
+    
+        if (selectedDesgloce) {
+            setNuevaAsignacion(prevState => ({
+                ...prevState,
+                NombreDesgloceProducto: selectedDesgloce.NombreDesgloceProducto,
+                IdDesgloceProducto: selectedUuidDesgloceProducto
+            }));
+        }
+    };
+    const handleBodegaChange = (e) => {
+        const selectedOIdUbicacionBodega = e.target.value;
+        const selectedUbicacion = dataBodega.find(option => option._id === selectedOIdUbicacionBodega);
+    
+        if (selectedUbicacion) {
+            setNuevaAsignacion(prevState => ({
+                ...prevState,
+                NombreUbicacionBodega: selectedUbicacion.NombreBodega,
+                IdUbicacionProducto: selectedOIdUbicacionBodega
+            }));
+        }
+    };
 
     useEffect(() => {
         fetchData();
@@ -71,17 +90,19 @@ export const NewAsignacion = ({producto}) => {
         <div>
             <h2>Agregar Nueva Asignación a Bodega</h2>
             <div>
-                <label htmlFor="UbicacionProducto">Ubicación del Producto:</label>
-                {/* <label htmlFor="DesgloceProducto">Ubicación del Producto:</label>
+                {/* <label htmlFor="DesgloceProducto">Desgloce del Producto:</label>
                 <select
-                    id="DesgloceProducto"
-                    name="DesgloceProducto"
-                    value={nuevaAsignacion.DesgloceProdcuto}
-                    onChange={handleInputChange}
+                    id="IdDesgloceProducto"
+                    name="IdDesgloceProducto"
+                    value={nuevaAsignacion.IdDesgloceProducto}
+                    onChange={handleDesgloceChange}
                 >
-                    {producto.DesgloceProducto.map(option => (
-                    <option key={option._id} value={option.NombreBodega}>
-                        {option.NombreBodega}
+                    <option value="Defecto">
+                        Selecciona un Desgloce
+                    </option>
+                    {desgloseProducto.map(option => (
+                    <option key={option.UuidProducto} value={option.UuidProducto}>
+                        {option.NombreDesgloceProducto}
                     </option>
                     ))}
                 </select> */}
@@ -89,13 +110,16 @@ export const NewAsignacion = ({producto}) => {
             <div>
                 <label htmlFor="UbicacionProducto">Ubicación del Producto:</label>
                 <select
-                    id="UbicacionProducto"
-                    name="UbicacionProducto"
-                    value={nuevaAsignacion.UbicacionProducto}
-                    onChange={handleInputChange}
+                    id="IdUbicacionProducto"
+                    name="IdUbicacionProducto"
+                    value={nuevaAsignacion.IdUbicacionProducto}
+                    onChange={handleBodegaChange}
                 >
+                    <option value="Defecto">
+                    Selecciona una bodega
+                    </option>
                     {dataBodega.map(option => (
-                    <option key={option._id} value={option.NombreBodega}>
+                    <option key={option._id} value={option._id}>
                         {option.NombreBodega}
                     </option>
                     ))}

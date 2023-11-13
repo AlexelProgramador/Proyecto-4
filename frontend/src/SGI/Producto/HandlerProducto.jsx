@@ -43,16 +43,25 @@ export const updateProductoDesgloce = async (id, desgloceData) => {
   .then(response => response.data)
   .catch(error => {
   // Manejar el error si ocurre
-  console.error('Error al actualizar datos: ', error);
+  console.error('Error al actualizar desgloce: ', error);
   });
 };
 
 export const updateProductoAsignacion = async (id, asignacionData) => {
   return axios.put(url + `/producto/${id}/asignacion`, asignacionData)
-  .then(response => response.data)
+  .then(response => {
+    const data = response.data;
+    if (data.success) {
+      console.log(data.message); // Mensaje de depuración
+      // Realizar otras acciones según sea necesario
+    } else {
+      console.error('Error en la operación:', data.message);
+      // Manejar el error de alguna manera
+    }
+    })
   .catch(error => {
   // Manejar el error si ocurre
-  console.error('Error al actualizar datos: ', error);
+  console.error('Error al actualizar asignacion: ', error);
   });
 };
 

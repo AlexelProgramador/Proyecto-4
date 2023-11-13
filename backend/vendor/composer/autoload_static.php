@@ -546,6 +546,7 @@ class ComposerStaticInita8d2db4968e3a7353ea107b6733b0a6b
         'App\\Http\\Controllers\\Api\\BotiquinController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/BotiquinController.php',
         'App\\Http\\Controllers\\Api\\EtapaController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/EtapaController.php',
         'App\\Http\\Controllers\\Api\\ProductoController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/ProductoController.php',
+        'App\\Http\\Controllers\\Api\\SolicitudBodegaController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/SolicitudBodegaController.php',
         'App\\Http\\Controllers\\Api\\SolicitudController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/SolicitudController.php',
         'App\\Http\\Controllers\\Api\\UsuarioController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/UsuarioController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',

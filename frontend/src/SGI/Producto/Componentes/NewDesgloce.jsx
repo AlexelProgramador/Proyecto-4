@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { updateProductoDesgloce } from '../HandlerProducto';
 
 
-export const NewDesgloce = ({setProducto, producto}) => {
+export const NewDesgloce = ({ producto }) => {
 
     const { id } = useParams();
     const [nuevoDesgloce, setNuevoDesgloce] = useState({
@@ -12,7 +12,7 @@ export const NewDesgloce = ({setProducto, producto}) => {
         ValorTotal: 0,
         FechaVencimientoProducto: '',
         EstadoProducto: '',
-        NombreDesgloceProduto:'',
+        NombreDesgloceProducto:'',
     });
 
     const handleAgregarDesgloce = async () => {
@@ -30,7 +30,7 @@ export const NewDesgloce = ({setProducto, producto}) => {
             ValorTotal: 0,
             FechaVencimientoProducto: '',
             EstadoProducto: '',
-            NombreDesgloceProduto:'',
+            NombreDesgloceProducto:'',
         });
     };
 

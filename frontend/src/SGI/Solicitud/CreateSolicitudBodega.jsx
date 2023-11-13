@@ -68,6 +68,23 @@ export const CreateSolicitudBodega = () => {
       });
   };
 
+  const handleInventarioChange = (index, cantidad) => {
+    setSolicitudData((prevData) => {
+      const updatedInventario = [...prevData.InventarioSolicitud];
+      const updatedItem = {
+        ...updatedInventario[index],
+        CantidadSolicitud: cantidad
+      };
+      updatedInventario[index] = updatedItem;
+  
+      return {
+        ...prevData,
+        InventarioSolicitud: updatedInventario
+      };
+    });
+    console.log(solicitudData);
+  };
+
   const fetchData = async () => {
     try {
         const response = await homeBodega();
@@ -128,8 +145,9 @@ export const CreateSolicitudBodega = () => {
           name="BodegaSolicitud"
           value={solicitudData.BodegaSolicitud}
           onChange={handleInputChange}
+          disabled={selectedItems.length > 0}
         >
-          <option value="" disabled>
+          <option value="">
             Selecciona una bodega
           </option>
           {bodegaData.map(option => (
@@ -178,15 +196,32 @@ export const CreateSolicitudBodega = () => {
         {selectedItems.length > 0 && (
           <div>
             <h3>Objetos Seleccionados</h3>
-            <ul>
-              {selectedItems.map((index) => (
-                <li key={index}>
-                  {inventarioBodegaData[index].NombreProducto}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+            <table>
+              <thead>
+                <tr>
+                  <th>Producto</th>
+                  <th>Cantidad Actual</th>
+                  <th>Número de Inventario a Pedir</th>
+                </tr>
+              </thead>
+              <tbody>
+                {selectedItems.map((index) => (
+                  <tr key={index}>
+                  <td>{inventarioBodegaData[index].NombreProducto}</td>
+                  <td>{inventarioBodegaData[index].CantidadAsignadaProducto}</td>
+                  <td>
+                    <input
+                      type="number"
+                      value={solicitudData.InventarioSolicitud[index]?.CantidadSolicitud || 0}
+                      onChange={(e) => handleInventarioChange(index, e.target.value)}
+                    />
+                  </td>
+                </tr>
+                ))}
+              </tbody>
+            </table>
+        </div>
+      )}
 
         <button type="button" onClick={handleInsert}>
           Insertar Datos de Solicitud

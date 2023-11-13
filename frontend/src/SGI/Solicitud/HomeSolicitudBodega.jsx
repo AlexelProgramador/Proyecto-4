@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { homeSolicitud } from './HandlerSolicitudBodega';
 
-export const HomeSolicitud = () => {
+export const HomeSolicitudBodega = () => {
     const [data, setData] = useState([]);
     const navigate = useNavigate();
     
@@ -52,4 +52,4 @@ export const HomeSolicitud = () => {
     );
 };
 
-export default HomeSolicitud;
+export default HomeSolicitudBodega;

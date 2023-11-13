@@ -9,14 +9,10 @@ export const CreateProducto = () => {
     DescripcionProducto: '',
     ContenedorProducto: 'Sin Información',
     CantidadProducto: 0,
+    CantidadTotalProducto: 0,
     ValorUnitarioProducto: 0,
     DesgloceProducto: [],
     UbicacionProducto: []
-
-    //EstadoProducto: 'Sin Información',
-    //FechaProducto: '',
-    //CantidadContenedorProducto: 0,
-    
   });
   
   const navigate = useNavigate();
@@ -94,38 +90,6 @@ export const CreateProducto = () => {
           value={productoData.ValorUnitarioProducto}
           onChange={handleInputChange}
         />
-        
-        {/*No puedo hacer que pueda escribir solo numero*/ }
-        {/*
-        <select
-          name="EstadoProducto"
-          value={productoData.EstadoProducto}
-          onChange={handleInputChange}
-        >
-          <option value="Sin Información">Sin Información</option>
-          <option value="Buen Estado">Buen Estado</option>
-          <option value="Mal Estado">Mal Estado</option>
-        </select>
-
-        <input
-          type="text"
-          placeholder="Cantidad del Contenedor"
-          name="CantidadContenedorProducto"
-          value={productoData.CantidadContenedorProducto}
-          onChange={handleInputChange}
-        />
-
-        <input
-          type="date"
-          placeholder="Fecha de Vencimiento del Producto"
-          name="FechaProducto"
-          value={productoData.FechaProducto}
-          onChange={handleInputChange}
-        />
-        */}
-        
-        
-
       
         <button type="button" onClick={handleInsert}>
           Insertar Datos de Producto

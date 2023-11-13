@@ -6,20 +6,26 @@ import NewAsignacion from './Componentes/NewAsignacion';
 
 export const EditProducto = () => {
     const [producto, setProducto] = useState({});
+    const [cargandoAsignacion, setCargandoAsignacion] = useState(true);
+    const [cargandoDesgloce, setCargandoDesgloce] = useState(true);
     const { id } = useParams();
     const navigate = useNavigate();
-    const url = `http://localhost:8000/api/producto/${id}`; // Reemplaza con la URL de tu backend
+    //const url = `http://localhost:8000/api/producto/${id}`; // Reemplaza con la URL de tu backend
+
+    const fetchProducto = async () => {
+        try {
+            const data = await showProducto(id);
+            setProducto(data);
+            
+        } catch (error) {
+            console.error('Error al obtener la información del producto', error);
+        } finally {
+            setCargandoDesgloce(false);
+            setCargandoAsignacion(false);
+        }
+    };
 
     useEffect(() => {
-        const fetchProducto = async () => {
-            try {
-                const data = await showProducto(id);
-                setProducto(data);
-            } catch (error) {
-                console.error('Error al obtener la información del producto', error);
-            }
-        };
-
         fetchProducto();
     }, []);
 
@@ -74,6 +80,10 @@ export const EditProducto = () => {
                     cols={50} // Aquí puedes especificar el número de columnas que deseas mostrar
                 />
             </div>
+            <div>
+                <label htmlFor="TotalProducto">Total Producto:</label>
+                <p>{producto.TotalProducto}</p>
+            </div>
             <button onClick={handleUpdate}>Actualizar Producto</button>
 
             <h2>Desgloce de los Productos</h2>
@@ -105,7 +115,7 @@ export const EditProducto = () => {
             ) : (
                 <p>No hay datos de producto disponibles</p>
             )}
-            <NewDesgloce producto ={producto}/>
+            {cargandoDesgloce ? <p> CArgando datos..</p> : <NewDesgloce producto ={producto}/>}
             <h2>Ubicación de los Productos</h2>
         {producto.UbicacionProducto && producto.UbicacionProducto.length > 0 ? (
             <table>
@@ -122,7 +132,7 @@ export const EditProducto = () => {
                     {producto.UbicacionProducto.map((item, index) => (
                         <tr key={index}>
                             <td>{item.TipoProcesoProducto}</td>
-                            <td>{item.UbicacionProducto}</td>
+                            <td>{item.NombreUbicacionBodega}</td>
                             <td>{item.CantidadAsignadaProducto}</td>
                             <td>{item.FechaProcesoProducto}</td>
                             {/* Celdas */}
@@ -133,10 +143,9 @@ export const EditProducto = () => {
         ) : (
             <p>No hay datos de inventario disponibles</p>
         )}
-            <NewAsignacion producto = {producto} />
+        {cargandoAsignacion ? <p> CArgando datos..</p> : <NewAsignacion desgloseProducto = {producto.DesgloceProducto}/>}
         {/* Mostrar otros detalles de la producto según sea necesario */}
     </div>
-);
-};
+);};
 
 export default EditProducto;
