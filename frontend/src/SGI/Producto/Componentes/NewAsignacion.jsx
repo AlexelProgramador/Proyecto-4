@@ -88,63 +88,75 @@ export const NewAsignacion = ({desgloseProducto}) => {
 
     return(
         <div>
-            <h2>Agregar Nueva Asignación a Bodega</h2>
-            <div>
-                <label htmlFor="DesgloceProducto">Desgloce del Producto:</label>
-                <select
-                    id="IdDesgloceProducto"
-                    name="IdDesgloceProducto"
-                    value={nuevaAsignacion.IdDesgloceProducto}
-                    onChange={handleDesgloceChange}
-                >
-                    <option value="Defecto">
-                        Selecciona un Desgloce
-                    </option>
-                    {desgloseProducto.map(option => (
-                    <option key={option.UuidProducto} value={option.UuidProducto}>
-                        {option.NombreDesgloceProducto}
-                    </option>
-                    ))}
-                </select>
-            </div>    
-            <div>
-                <label htmlFor="UbicacionProducto">Ubicación del Producto:</label>
-                <select
-                    id="IdUbicacionProducto"
-                    name="IdUbicacionProducto"
-                    value={nuevaAsignacion.IdUbicacionProducto}
-                    onChange={handleBodegaChange}
-                >
-                    <option value="Defecto">
-                    Selecciona una bodega
-                    </option>
-                    {dataBodega.map(option => (
-                    <option key={option._id} value={option._id}>
-                        {option.NombreBodega}
-                    </option>
-                    ))}
-                </select>
+            <div className='h5 pb-2'>Agregar Nueva Asignación a Bodega</div>
+            <div className='row'>
+                <div className='col-md-6 pb-4'>
+                    <div className='form-floating'>
+                        <select className='form-select'
+                            id="IdDesgloceProducto"
+                            name="IdDesgloceProducto"
+                            value={nuevaAsignacion.IdDesgloceProducto}
+                            onChange={handleDesgloceChange}
+                        >
+                            <option value="Defecto">
+                                Selecciona un Desgloce
+                            </option>
+                            {desgloseProducto.map(option => (
+                            <option key={option.UuidProducto} value={option.UuidProducto}>
+                                {option.NombreDesgloceProducto}
+                            </option>
+                            ))}
+                        </select>
+                        <label htmlFor="DesgloceProducto">Desgloce del Producto:</label>
+                    </div>
+                </div>
+                <div className='col-md-6 pb-4'>    
+                    <div className='form-floating'>
+                        <select className='form-select'
+                            id="IdUbicacionProducto"
+                            name="IdUbicacionProducto"
+                            value={nuevaAsignacion.IdUbicacionProducto}
+                            onChange={handleBodegaChange}
+                        >
+                            <option value="Defecto">
+                            Selecciona una bodega
+                            </option>
+                            {dataBodega.map(option => (
+                            <option key={option._id} value={option._id}>
+                                {option.NombreBodega}
+                            </option>
+                            ))}
+                        </select>
+                        <label htmlFor="UbicacionProducto">Ubicación del Producto:</label>
+                    </div>                
+                </div>
+                <div className='col-md-4 pb-4'>
+                    <div className='form-floating'>
+                        <input className='form-control'
+                            type="text"
+                            id="CantidadAsignadaProducto"
+                            name="CantidadAsignadaProducto"
+                            value={nuevaAsignacion.CantidadAsignadaProducto}
+                            onChange={handleInputChange}
+                        />
+                        <label htmlFor="CantidadAsignadaProducto">Cantidad Total:</label>
+                    </div> 
+                </div>
+                <div className='col-md-4 pb-4'>
+                    <div className='form-floating'>
+                        <input className='form-control'
+                            type="date" 
+                            id= "FechaProcesoProducto"
+                            name= "FechaProcesoProducto"
+                            value={nuevaAsignacion.FechaProcesoProducto} 
+                            onChange={handleInputChange} />
+                        <label>Fecha:</label>
+                    </div>                
+                </div>
+                <div className='col-md-4 pb-4'>
+                    <button className='btn btn-primary' onClick={handleAgregarAsignacion}>Agregar Asignación</button>
+                </div>
             </div>
-            <div>
-                <label htmlFor="CantidadAsignadaProducto">Cantidad Total:</label>
-                <input
-                    type="text"
-                    id="CantidadAsignadaProducto"
-                    name="CantidadAsignadaProducto"
-                    value={nuevaAsignacion.CantidadAsignadaProducto}
-                    onChange={handleInputChange}
-                />
-            </div>
-            <div>
-                <label>Fecha:</label>
-                <input 
-                    type="date" 
-                    id= "FechaProcesoProducto"
-                    name= "FechaProcesoProducto"
-                    value={nuevaAsignacion.FechaProcesoProducto} 
-                    onChange={handleInputChange} />
-            </div>
-            <button onClick={handleAgregarAsignacion}>Agregar Asignación</button>
         </div>
     );
 };

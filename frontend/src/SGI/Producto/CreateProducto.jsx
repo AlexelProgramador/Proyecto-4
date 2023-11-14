@@ -101,10 +101,12 @@ export const CreateProducto = () => {
                 value={productoData.ValorUnitarioProducto}
                 onChange={handleInputChange}
               />
-              </div>            
-              <button  className="btn btn-primary" type="button" onClick={handleInsert}>
-                Insertar Datos de Producto
-              </button>
+              </div>    
+              <div class="col-12">        
+                <button  className="btn btn-primary" type="button" onClick={handleInsert}>
+                  Insertar Datos de Producto
+                </button>              
+              </div>
             </form>
           </div>
         </div>

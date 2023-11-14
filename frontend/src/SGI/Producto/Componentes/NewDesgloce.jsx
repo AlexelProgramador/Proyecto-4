@@ -55,61 +55,71 @@ export const NewDesgloce = ({ producto }) => {
 
     return(
         <div>
-            <h2>Agregar Nuevo Desgloce de Producto</h2>
-                    <div>
-                        <label htmlFor="NombreDesgloceProducto">Nombre del Desgloce:</label>
-                        <input
+            <div className='h5 pb-2'>Agregar Nuevo Desgloce de Producto</div>
+            <div className='row'>
+                <div className='col-12 pb-4'>
+                    <div className='form-floating'>
+                        <input className='form-control'
                             type="text"
                             id="NombreDesgloceProducto"
                             name="NombreDesgloceProducto"
                             value={nuevoDesgloce.NombreDesgloceProducto}
                             onChange={handleInputChange}
                         />
+                        <label htmlFor="NombreDesgloceProducto">Nombre del Desgloce:</label>
                     </div>
-                    <div>
-                        <label htmlFor="CantidadContenedorProducto">Cantidad Contenedor Producto:</label>
-                        <input
+                </div>
+                <div className='col-md-4 pb-4'>
+                    <div className='form-floating'>
+                        <input className='form-control'
                             type="text"
                             id="CantidadContenedorProducto"
                             name="CantidadContenedorProducto"
                             value={nuevoDesgloce.CantidadContenedorProducto}
                             onChange={handleCantidadContenedorChange}
                         />
+                        <label htmlFor="CantidadContenedorProducto">Cantidad Contenedor Producto:</label>
                     </div>
-                    <div>
-                        <label htmlFor="CantidadTotal">Cantidad Total:</label>
-                        <input
+                </div>
+                <div className='col-md-4 pb-4'>
+                    <div className='form-floating'>
+                        <input className='form-control'
                             type="text"
                             id="CantidadTotal"
                             name="CantidadTotal"
                             value={nuevoDesgloce.CantidadTotal}
                             onChange={handleInputChange}
                         />
+                        <label htmlFor="CantidadTotal">Cantidad Total:</label>
                     </div>
-                    <div>
-                        <label htmlFor="ValorTotal">Valor Total:</label>
-                        <input
+                </div>
+                <div className='col-md-4 pb-4'>
+                    <div className='form-floating'>
+                        <input className='form-control'
                             type="text"
                             id="ValorTotal"
                             name="ValorTotal"
                             value={nuevoDesgloce.ValorTotal}
                             onChange={handleInputChange}
                         />
+                        <label htmlFor="ValorTotal">Valor Total:</label>
                     </div>
-                    <div>
-                        <label htmlFor="FechaVencimientoProducto">Fecha Vencimiento Producto:</label>
-                        <input
+                </div>
+                <div className='col-md-4 pb-4'>
+                    <div className='form-floating'>
+                        <input className='form-control'
                             type="date"
                             id="FechaVencimientoProducto"
                             name="FechaVencimientoProducto"
                             value={nuevoDesgloce.FechaVencimientoProducto}
                             onChange={handleInputChange}
                         />
+                        <label htmlFor="FechaVencimientoProducto">Fecha Vencimiento Producto:</label>
                     </div>
-
-                    <div>
-                        <label htmlFor="EstadoProducto">Estado Producto:</label>
-                        <select
+                </div>
+                <div className='col-md-4 pb-4'>
+                    <div className='form-floating'>
+                        <select className='form-select'
                             id="EstadoProducto"
                             name="EstadoProducto"
                             value={nuevoDesgloce.EstadoProducto}
@@ -119,8 +129,13 @@ export const NewDesgloce = ({ producto }) => {
                             <option value="Buen Estado">Buen Estado</option>
                             <option value="Mal Estado">Mal Estado</option>
                         </select>
+                        <label htmlFor="EstadoProducto">Estado Producto:</label>
                     </div>
-                    <button onClick={handleAgregarDesgloce}>Agregar Desgloce</button>
+                </div>
+                <div className='col-md-4 pb-4'>
+                    <button className='btn btn-primary' onClick={handleAgregarDesgloce}>Agregar Desgloce</button>
+                </div>                   
+            </div> 
         </div>
     );
 };
