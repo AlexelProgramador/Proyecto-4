@@ -27,14 +27,32 @@ class EtapaController extends Controller
             return response()->json(['error' => $request], Response::HTTP_CONFLICT);
         }
         $etapa->nroEtapa = $request->nroEtapa;
-        $etapa->procesosEtapa1 = $request->procesosEtapa1;
-        $etapa->procesosEtapa2 = $request->procesosEtapa2;
-        $etapa->procesosEtapa3 = $request->procesosEtapa3;
-        $etapa->procesosEtapa4 = $request->procesosEtapa4;
-        $etapa->procesosEtapa5 = $request->procesosEtapa5;
-        $etapa->procesosEtapa6 = $request->procesosEtapa6;
-        $etapa->procesosEtapa7 = $request->procesosEtapa7;
-        $etapa->procesosEtapa8 = $request->procesosEtapa8;
+        switch (true) {
+            case $request->has('procesosEtapa1'):
+                $etapa->procesosEtapa1 = $request->procesosEtapa1;
+                break;
+            case $request->has('procesosEtapa2'):
+                $etapa->procesosEtapa2 = $request->procesosEtapa2;
+                break;
+            case $request->has('procesosEtapa3'):
+                $etapa->procesosEtapa3 = $request->procesosEtapa3;
+                break;
+            case $request->has('procesosEtapa4'):
+                $etapa->procesosEtapa4 = $request->procesosEtapa4;
+                break;
+            case $request->has('procesosEtapa5'):
+                $etapa->procesosEtapa5 = $request->procesosEtapa5;
+                break;
+            case $request->has('procesosEtapa6'):
+                $etapa->procesosEtapa6 = $request->procesosEtapa6;
+                break;
+            case $request->has('procesosEtapa7'):
+                $etapa->procesosEtapa7 = $request->procesosEtapa7;
+                break;
+            case $request->has('procesosEtapa8'):
+                $etapa->procesosEtapa8 = $request->procesosEtapa8;
+                break;
+        }
 
         $etapa->save();
 
