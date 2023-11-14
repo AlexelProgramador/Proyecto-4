@@ -51,8 +51,10 @@ export const Etapa3 = () => {
     <>
       {solicitudInfo ? (
         <>
-          {/* ... Renderizar la información existente ... */}
-
+    <div style={{ position: 'relative', height: '90vh', width: '90%' }} >
+      <div className='card shadow-card rounded-0 border border-0'style={{ position: 'absolute', right: '10px', bottom: '190px', width: '1050px' }} >
+        <div className='card-body'>
+          <h2 className='mx-auto p-2'>Solicitud Etapa 3</h2>
           <form onSubmit={handleSubmit}>
 
             <div className="form-floating mt-2 g-2">
@@ -101,6 +103,9 @@ export const Etapa3 = () => {
               Atrás
             </button>
           </form>
+          </div>
+      </div>
+    </div>
         </>
       ) : (
         <p>Loading...</p>

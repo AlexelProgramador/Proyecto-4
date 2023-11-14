@@ -38,73 +38,86 @@ export const CrearSolicitud = () => {
   } = useProductos([{ descripcion: "", cantidad: "", tipoEmpaque: "" }], 3);
 
   return (
-    <form
-      onSubmit={(event) =>
-        handleSubmit(
-          event,
-          solicitadoPor,
-          anexo,
-          correo,
-          fecha,
-          productos,
-          motivos,
-          fuenteFinanciamiento,
-          montoEstimado,
-          imagen
-        )
-      }
-      className="p-5"
-    >
-      <UsuarioInput
-        solicitadoPor={solicitadoPor}
-        setSolicitadoPor={setSolicitadoPor}
-        fecha={fecha}
-        setFecha={setFecha}
-        setAnexo={setAnexo}
-      />
-      <div className="row">
-        {productosPaginados.map((producto, index) => (
-          <ProductoInput
-            key={index}
-            index={index}
-            producto={producto}
-            handleProductoChange={handleProductoChange}
-          />
-        ))}
-        <div className="text-center">
-          <button className="btn btn-primary" onClick={handleAddProducto}>
-            +
-          </button>
+    <div style={{ position: 'relative', height: '140vh', width: '90%' }} >
+      <div className='card shadow-card rounded-0 border border-0' style={{ position: 'absolute', right: '10px', bottom: '20px', width: '1050px' }}>
+        <div className='card-body'>
+          
+          <div className='d-flex justify-content-between pb-2'>
+            <h2 className='mx-auto p-2'>Crear solicitud</h2>
+             </div>
+          
+              <form
+            onSubmit={(event) =>
+              handleSubmit(
+                event,
+                solicitadoPor,
+                anexo,
+                correo,
+                fecha,
+                productos,
+                motivos,
+                fuenteFinanciamiento,
+                montoEstimado,
+                imagen
+              )
+            }
+            className="row g-3"
+          >
+            <UsuarioInput
+              solicitadoPor={solicitadoPor}
+              setSolicitadoPor={setSolicitadoPor}
+              fecha={fecha}
+              setFecha={setFecha}
+              setCorrea={setCorreo}
+              setAnexo={setAnexo}
+            />
+            <div className="row">
+              {productosPaginados.map((producto, index) => (
+                <ProductoInput
+                  key={index}
+                  index={index}
+                  producto={producto}
+                  handleProductoChange={handleProductoChange}
+                />
+              ))}
+              <div className="text-center">
+                <button className="btn btn-primary" onClick={handleAddProducto}>
+                  +
+                </button>
+              </div>
+              <PaginationButtons
+                paginaActual={paginaActual}
+                setPaginaActual={setPaginaActual}
+                numeroDePaginas={numeroDePaginas}
+                productos={productos}
+                productosPorPagina={productosPorPagina}
+              />
+            </div>
+            <MotivosInput
+              motivos={motivos}
+              setMotivos={setMotivos}
+              fuenteFinanciamiento={fuenteFinanciamiento}
+              setFuenteFinanciamiento={setFuenteFinanciamiento}
+              setMontoEstimado={setMontoEstimado}
+            />
+            <div>
+              <button type="submit" className="btn btn-primary">
+                Enviar
+              </button>
+              <button
+                type="button"
+                className="btn btn-danger"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate("/");
+                }}
+              >
+                Atras
+              </button>
+            </div>
+          </form>
         </div>
-        <PaginationButtons
-          paginaActual={paginaActual}
-          setPaginaActual={setPaginaActual}
-          numeroDePaginas={numeroDePaginas}
-          productos={productos}
-          productosPorPagina={productosPorPagina}
-        />
       </div>
-      <MotivosInput
-        motivos={motivos}
-        setMotivos={setMotivos}
-        fuenteFinanciamiento={fuenteFinanciamiento}
-        setFuenteFinanciamiento={setFuenteFinanciamiento}
-        setMontoEstimado={setMontoEstimado}
-      />
-
-      <button type="submit" className="btn btn-primary">
-        Enviar
-      </button>
-      <button
-        type="button"
-        className="btn btn-danger"
-        onClick={(e) => {
-          e.preventDefault();
-          navigate("/");
-        }}
-      >
-        Atras
-      </button>
-    </form>
+    </div>
   );
 };

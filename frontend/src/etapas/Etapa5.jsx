@@ -31,8 +31,9 @@ export const Etapa5 = () => {
     e.preventDefault();
     const data = {
       idEtapa: item._id,
-      nroEtapa: 5,
-      procesosEtapa4: {
+      nroEtapa: 6,
+      completado: true,
+      procesosEtapa5: {
         ncdp: ncdp,
         estado: estado,
         proveedor: proveedor,
@@ -66,8 +67,10 @@ export const Etapa5 = () => {
     <>
       {solicitudInfo ? (
         <>
-          {/* ... Renderizar la información existente ... */}
-
+    <div style={{ position: 'relative', height: '160vh', width: '90%' }} >
+      <div className='card shadow-card rounded-0 border border-0'style={{ position: 'absolute', right: '10px', bottom: '190px', width: '1050px' }} >
+        <div className='card-body'>
+          <h2 className='mx-auto p-2'>Solicitud Etapa 5</h2>
           <form onSubmit={handleSubmit}>
 
           <div className="form-floating mt-2 g-2">
@@ -177,7 +180,7 @@ export const Etapa5 = () => {
                 value={fecharecep}
                 onChange={(e) => setFechaRecep(e.target.value)}
               />
-              <label htmlFor="floatingSelect">Comentario</label>
+              <label htmlFor="floatingSelect">Fecha recepcion:</label>
             </div>
 
             <div className="form-floating mt-2 g-2">
@@ -187,7 +190,7 @@ export const Etapa5 = () => {
                 value={perscargrecep}
                 onChange={(e) => setPersCargRecep(e.target.value)}
               />
-              <label htmlFor="floatingSelect">Comentario</label>
+              <label htmlFor="floatingSelect">Persona a cargo de recepcion</label>
             </div>
 
             {/* Agrega más campos según sea necesario */}
@@ -204,6 +207,9 @@ export const Etapa5 = () => {
               Atrás
             </button>
           </form>
+          </div>
+      </div>
+    </div>
         </>
       ) : (
         <p>Loading...</p>

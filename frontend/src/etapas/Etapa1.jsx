@@ -52,7 +52,13 @@ export const Etapa1 = () => {
   return (
     <>
       {solicitudInfo ? (
-        <>
+      <>
+    <div style={{ position: 'relative', height: '135vh', width: '90%' }} >
+      <div className='card shadow-card rounded-0 border border-0'style={{ position: 'absolute', right: '10px', bottom: '190px', width: '1050px' }} >
+        <div className='card-body'>
+          <h2 className='mx-auto p-2'>Solicitud Etapa 1</h2>
+          
+          
           <div className="row g-2">
             <div className="col-md">
               <div className="form-floating">
@@ -212,10 +218,14 @@ export const Etapa1 = () => {
               atras
             </button>
           </form>
+        </div>
+      </div>
+    </div>
         </>
       ) : (
         <p>Loading...</p>
       )}
+      
     </>
   );
 };

@@ -10,45 +10,49 @@ const UsuarioInput = ({
 }) => {
   return (
     <div>
-      <div className="mb-3">
-        <label htmlFor="solicitadoPor" className="form-label">
-          Solicitado por:
-        </label>
-        <input
-          type="text"
-          className="form-control"
-          id="solicitadoPor"
-          value={solicitadoPor}
-          onChange={(e) => setSolicitadoPor(e.target.value)}
-        />
+      <div className="form-floating mt-2 g-2">
+              <input
+                type="text"
+                className="form-control"
+                value={solicitadoPor}
+                onChange={(e) => setSolicitadoPor(e.target.value)}
+              />
+              <label htmlFor="floatingSelect">Solicitado por</label>
       </div>
+
       <div className="row">
         <div className="col">
-          <div className="mb-3">
-            <label htmlFor="fecha" className="form-label">
-              En fecha:
-            </label>
-            <input
-              type="date"
-              className="form-control"
-              id="fecha"
-              value={fecha}
-              onChange={(e) => setFecha(e.target.value)}
-            />
-          </div>
+          <div className="form-floating mt-2 g-2">
+              <input
+                type="date"
+                className="form-control"
+                value={fecha}
+                onChange={(e) => setFecha(e.target.value)}
+              />
+              <label htmlFor="floatingSelect">En Fecha:</label>
+            </div>
         </div>
         <div className="col">
-          <div className="mb-3">
-            <label htmlFor="anexo" className="form-label">
-              Anexo:
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="anexo"
-              onChange={(e) => setAnexo(e.target.value[0])}
-            />
-          </div>
+          <div className="form-floating mt-2 g-2">
+              <input
+                type="text"
+                className="form-control"
+                id="anexo"
+                onChange={(e) => setAnexo(e.target.value[0])}
+              />
+              <label htmlFor="floatingSelect"> Anexo:</label>
+            </div>
+        </div>
+        <div className="col">
+          <div className="form-floating mt-2 g-2">
+              <input
+                type="text"
+                className="form-control"
+                id="correo"
+                onChange={(e) => setCorreo(e.target.value)}
+              />
+              <label htmlFor="floatingSelect"> Correo Electronico:</label>
+            </div>
         </div>
       </div>
     </div>

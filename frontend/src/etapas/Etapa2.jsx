@@ -67,7 +67,10 @@ export const Etapa2 = () => {
     <>
       {solicitudInfo ? (
         <>
-          {/* ... Renderizar la información existente ... */}
+    <div style={{ position: 'relative', height: '135vh', width: '90%' }} >
+      <div className='card shadow-card rounded-0 border border-0'style={{ position: 'absolute', right: '10px', bottom: '190px', width: '1050px' }} >
+        <div className='card-body'>
+          <h2 className='mx-auto p-2'>Solicitud Etapa 2</h2>
 
           <form onSubmit={handleSubmit}>
             {/* Nuevos campos para la vista 2 */}
@@ -187,6 +190,10 @@ export const Etapa2 = () => {
               Atrás
             </button>
           </form>
+    
+          </div>
+      </div>
+    </div>
         </>
       ) : (
         <p>Loading...</p>
