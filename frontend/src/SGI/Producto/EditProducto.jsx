@@ -61,7 +61,7 @@ export const EditProducto = () => {
                                     value={producto.NombreProducto || ''}
                                     onChange={handleInputChange}
                                 />
-                                <label htmlFor="NombreProducto">Nombre</label>
+                                <label htmlFor="NombreProducto">Nombre:</label>
                             </div>
                         </div>
                         <div className='col-md-6 pb-4'>
@@ -73,13 +73,12 @@ export const EditProducto = () => {
                                     value={producto.MarcaProducto || ''}
                                     onChange={handleInputChange}
                                 />
-                                <label htmlFor="MarcaProducto">Marca</label>
+                                <label htmlFor="MarcaProducto">Marca:</label>
                             </div>
                         </div>
                         <div className='col-12 pb-4'>  
                             <div className='form-floating'>
-                                <textarea
-                                    className='form-control'
+                                <textarea className='form-control'
                                     placeholder="Descripción del Producto"
                                     name="DescripcionProducto"
                                     value={producto.DescripcionProducto || ''}
@@ -87,8 +86,7 @@ export const EditProducto = () => {
                                     rows={4} // Aquí puedes especificar el número de filas que deseas mostrar
                                     cols={50} // Aquí puedes especificar el número de columnas que deseas mostrar
                                 />
-                                <label htmlFor="DescripcionProducto">Descripción</label>
-                        
+                                <label>Descripción:</label>
                             </div>
                         </div>
                         <div className='col-12 pb-4 d-flex justify-content-between'>  
