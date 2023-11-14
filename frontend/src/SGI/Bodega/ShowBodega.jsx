@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { showBodega, updateBodega } from './HandlerBodega';
+import { showBodega } from './HandlerBodega';
 import { useParams, useNavigate } from 'react-router-dom';
 
 export const ShowBodega = () => {

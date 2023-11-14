@@ -30,8 +30,9 @@ export const HomeSolicitudBodega = () => {
                 <thead>
                     <tr>
                         <th>UUID es de prueba</th>
-                        <th>Nombre Solicitud</th>
+                        <th>Nombre Solicitante</th>
                         <th>Lugar Solicitud</th>
+                        <th>Cantidad a Pedir</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -39,8 +40,9 @@ export const HomeSolicitudBodega = () => {
                     {data.map((item) => (
                         <tr key={item.id}>
                             <td>{item._id}</td>
-                            <td>{item.NombreSolicitud}</td>
-                            <td>{item.LugarSolicitud}</td>
+                            <td>{item.NombreSolicitanteSolicitud}</td>
+                            <td>{item.LugarBotiquin}</td>
+                            <td>{item.InventarioBodega.length}</td>
                             <td>
                                 <button onClick={() => handleShow(item._id)}>Ver Más</button>
                             </td>

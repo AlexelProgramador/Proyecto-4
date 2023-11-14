@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createSolicitud } from './HandlerSolicitudBodega';
 import { homeBodega } from '../Bodega/HandlerBodega';
-import { homeBotiquin}  from '../Botiquin/HandlerBotiquin';
+import { homeBotiquin }  from '../Botiquin/HandlerBotiquin';
 
 export const CreateSolicitudBodega = () => {
   const [solicitudData, setSolicitudData] = useState({

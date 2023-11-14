@@ -8,16 +8,15 @@ export const ShowSolicitudBodega = () => {
     const navigate = useNavigate();
     //const url = `http://localhost:8000/api/solicitud/${id}/edit`; // Reemplaza con la URL de tu backend
 
+    const fetchSolicitud = async () => {
+        try {
+            const data = await showSolicitud(id);
+            setSolicitud(data);
+        } catch (error) {
+            console.error('Error al obtener la información de la solicitud', error);
+        }
+    };
     useEffect(() => {
-        const fetchSolicitud = async () => {
-            try {
-                const data = await showSolicitud(id);
-                setSolicitud(data);
-            } catch (error) {
-                console.error('Error al obtener la información de la solicitud', error);
-            }
-        };
-
         fetchSolicitud();
     }, []);
 
