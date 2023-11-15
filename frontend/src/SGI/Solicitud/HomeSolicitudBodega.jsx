@@ -35,7 +35,7 @@ export const HomeSolicitudBodega = () => {
                                 <tr>
                                     <th>UUID es de prueba</th>
                                     <th>Nombre Solicitante</th>
-                                    <th>Lugar Solicitud</th>
+                                    <th>Destino Solicitud</th>
                                     <th>Cantidad a Pedir</th>
                                     <th>Acciones</th>
                                 </tr>
@@ -45,7 +45,7 @@ export const HomeSolicitudBodega = () => {
                                     <tr key={item.id}>
                                         <td>{item._id}</td>
                                         <td>{item.NombreSolicitanteSolicitud}</td>
-                                        <td>{item.LugarBotiquin}</td>
+                                        <td>{item.NombreBotiquin}</td>
                                         <td>{item.InventarioSolicitud.length}</td>
                                         <td>
                                             <button onClick={() => handleShow(item._id)}>Ver Más</button>

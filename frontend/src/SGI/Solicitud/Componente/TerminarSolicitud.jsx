@@ -1,9 +1,6 @@
-import React, { useState, useEffect } from 'react';
-
+import React from 'react';
 
 export const TerminarSolicitud = ({ solicitud, handleinput, aceptar, rechazar }) => {
-
-
     return(
       <div>
             <h2>Solicitud</h2>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { rechazarSolicitud, showSolicitud } from './HandlerSolicitudBodega';
+import { rechazarSolicitud, showSolicitud, aceptarSolicitud } from './HandlerSolicitudBodega';
 import { useParams, useNavigate } from 'react-router-dom';
 import { TerminarSolicitud } from './Componente/TerminarSolicitud';
 
@@ -25,6 +25,17 @@ export const ShowSolicitudBodega = () => {
     }, []);
 
     const aceptarSoli  = async (id) => {
+        aceptarSolicitud(id, solicitud)
+        .then(response => {
+            // Manejar la respuesta si es necesario
+            console.log(response.data);
+            // Redirigir a la página deseada después de agregar una nueva solicitud
+            navigate('/show-solicitud'); // Cambia '/ruta-de-redireccion' con la ruta deseada
+          })
+          .catch(error => {
+            // Manejar el error si ocurre
+            console.error('Error al rechazar solicitud: ', error, solicitud);
+          });
 
         navigate("/show-solicitud");
     };

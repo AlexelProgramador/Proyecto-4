@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\SolicitudBodega;
+use App\Models\Bodega;
+use App\Models\Botiquin;
 
 class SolicitudBodegaController extends Controller
 {
@@ -44,8 +46,10 @@ class SolicitudBodegaController extends Controller
        
         //Insercción de datos
         $solicitud_bodega->VariableSolicitud = $request->VariableSolicitud;
-        $solicitud_bodega->NombreBotiquin = $request->UnidadSolicitud;
-        $solicitud_bodega->LugarBotiquin = $request->BotiquinSolicitud;
+        $solicitud_bodega->NombreBotiquin = $request->NombreBotiquinSolicitud;
+        $solicitud_bodega->NombreBodega = $request->NombreBodegaSolicitud;
+        $solicitud_bodega->IdBotiquin = $request->IdBotiquin;
+        $solicitud_bodega->IdBodega = $request->IdBodega;
         $solicitud_bodega->NombreSolicitanteSolicitud = $request->NombreSolicitanteSolicitud;
         $solicitud_bodega->FechaSolicitud = $request->FechaSolicitud;
         $solicitud_bodega->EstadoSolicitud = 'Pendiente';
@@ -109,6 +113,41 @@ class SolicitudBodegaController extends Controller
     public function aceptarSolicitud(request $request, $id)
     {
         //
+        $datos = SolicitudBodega::where("_id", $id)->update([
+            'EstadoSolicitud' => 'Aceptado',
+            'ComentarioSolicitud' => $request->ComentarioSolicitud,
+        ]);
+
+        // Buscar la bodega por su ID
+        $botiquin = Botiquin::findOrFail($request->IdBotiquin);
+        //$botiquin = Bodega::findOrFail($request->IdBodega);
+        // Verificar si el producto está en el inventarioBodega de la bodega
+        $productoEncontrado = collect($botiquin['InventarioSolicitud'])->first(function ($producto) use ($id) {
+            return $producto['IdProducto'] == $id;
+        });
+        if ($productoEncontrado) {
+            $inventario = $botiquin->InventarioBotiquin;
+            foreach ($inventario as $index => $producto) {
+                if ($producto['IdProducto'] == $id) {
+                    $inventario[$index]['CantidadAsignadaBotiquin'] += intval($request->CantidadAsignadaProducto);
+                    break;
+                }
+            }
+            $botiquin->InventarioBotiquin = $inventario;
+            $botiquin->save();
+            return response()->json(['message' => $inventario, 'success' => true]);
+        } else {
+            // El producto no está en el inventarioBodega de la bodega
+            $inventarioData = array(
+            'IdProducto' => $request->IdBotiquin,
+            'NombreProducto'=> $request->NombreProducto,
+            'CantidadAsignadaBotiquin' => intval($request->CantidadAsignadaProducto),
+            );
+            $botiquin->push('InventarioBotiquin', $inventarioData);
+        }
+        $botiquin->save();
+        return response()->json(['message' => 'Solicitud Aceptada']);
+
     }
 
     public function rechazarSolicitud(request $request, $id)
