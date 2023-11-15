@@ -1751,7 +1751,7 @@ progress {
   --bs-table-hover-bg: rgba(0, 0, 0, 0.075);
   --bs-table-font-size: 14px;
   width: 100%;
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
   color: var(--bs-table-color);
   vertical-align: middle;
   border-color: var(--bs-table-border-color);
@@ -1765,6 +1765,8 @@ progress {
 }
 .table > tbody {
   vertical-align: inherit;
+  border-color: #fff;
+
 }
 .table > thead {
   vertical-align: bottom;
@@ -6697,6 +6699,11 @@ textarea.form-control-lg {
   display: block;
   clear: both;
   content: "";
+}
+
+.bg-card{
+  color: #000 !important;
+  background-color: RGBA(227,229,229, var(--bs-bg-opacity, 1)) !important;
 }
 
 .text-bg-primary {

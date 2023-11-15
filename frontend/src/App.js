@@ -26,7 +26,7 @@ import { ShowBotiquin } from './SGI/Botiquin/ShowBotiquin'
 import { HomeSolicitudBodega } from './SGI/Solicitud/HomeSolicitudBodega';
 import { CreateSolicitudBodega } from './SGI/Solicitud/CreateSolicitudBodega';
 import { ShowSolicitudBodega } from './SGI/Solicitud/ShowSolicitudBodega';
-
+import { DashboardBodega } from './SGI/Bodega/DashboardBodega';
 
 function App() {
   const [show, setShow] = useState(false);
@@ -64,7 +64,7 @@ function App() {
             </a>
             {/* ITEMS */}
             <div className='nav-list'>
-              <a href='/' className='nav-link'>
+              <a href='/dashboard-bodega' className='nav-link'>
                 <i className='fas fa-fw fa-tachometer-alt nav-logo-link'></i>
                 <span>Dashboard</span>
               </a>
@@ -106,6 +106,7 @@ function App() {
             <Route path="/create-bodega" element ={<CreateBodega/>}/>
             <Route path="/edit-bodega/:id" element ={<EditBodega/>}/>
             <Route path="/show-bodega/:id" element ={<ShowBodega/>}/>
+            <Route path="/dashboard-bodega" element ={<DashboardBodega/>}/>
 
             <Route path="/show-producto" element ={<HomeProducto/>}/>
             <Route path="/create-producto" element ={<CreateProducto/>}/>
