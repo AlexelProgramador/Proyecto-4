@@ -45,8 +45,8 @@ export const Etapa1chequeo = () => {
     <>
       {solicitudInfo ? (
       <>
-    <div style={{ position: 'relative', height: '135vh', width: '90%' }} >
-      <div className='card shadow-card rounded-0 border border-0'style={{ position: 'absolute', right: '10px', bottom: '190px', width: '1050px' }} >
+    <div className='w-75 h-40 mx-auto' >
+      <div className='card shadow-card rounded-3 border border-0'>
         <div className='card-body'>
           <h2 className='mx-auto p-2'>Solicitud Etapa 1</h2>
           

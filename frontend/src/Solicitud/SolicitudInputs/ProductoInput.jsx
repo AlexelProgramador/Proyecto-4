@@ -2,10 +2,9 @@
 import React from "react";
 const ProductoInput = ({ index, producto, handleProductoChange }) => {
   return (
-    <div key={index} className="row">
-      <div className="col-6 mb-3">
-        <label className="form-label">Descripción del producto:</label>
-        <input
+    <div key={index} className="row">     
+      <div key={index} className="form-floating mt-3 g-3 col-6 mb-3" >
+      <input
           type="text"
           className="form-control"
           value={producto.descripcion}
@@ -13,10 +12,11 @@ const ProductoInput = ({ index, producto, handleProductoChange }) => {
             handleProductoChange(index, "descripcion", e.target.value)
           }
         />
+              <label htmlFor="floatingSelect">Descripción del producto:</label>
       </div>
-      <div className="col-3 mb-3">
-        <label className="form-label">Cantidad:</label>
-        <input
+
+      <div className="form-floating mt-3 g-3 col-3 mb-4">
+      <input
           type="number"
           className="form-control"
           value={producto.cantidad}
@@ -24,10 +24,11 @@ const ProductoInput = ({ index, producto, handleProductoChange }) => {
             handleProductoChange(index, "cantidad", e.target.value)
           }
         />
+          <label htmlFor="floatingSelect">Cantidad:</label>
       </div>
-      <div className="col-3 mb-3">
-        <label className="form-label">Tipo de empaque:</label>
-        <input
+
+      <div className="form-floating  mt-3 g-3 col-3 mb-4">
+      <input
           type="text"
           className="form-control"
           value={producto.tipoEmpaque}
@@ -35,7 +36,9 @@ const ProductoInput = ({ index, producto, handleProductoChange }) => {
             handleProductoChange(index, "tipoEmpaque", e.target.value)
           }
         />
+              <label htmlFor="floatingSelect">Tipo de empaque:</label>
       </div>
+
     </div>
   );
 };

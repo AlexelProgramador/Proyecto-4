@@ -2,7 +2,7 @@
 
 const PaginationButtons = ({ paginaActual, setPaginaActual, numeroDePaginas, productos, productosPorPagina }) => {
     return (
-      <div className="d-flex justify-content-center">
+      <div className="d-flex justify-content-center mt-1 ">
         <button
           className="btn btn-primary mr-2"
           onClick={(e) => {

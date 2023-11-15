@@ -18,18 +18,15 @@ export const Home = () => {
 
   return (
     <AlertContext.Provider value={{ showAlert, setShowAlert }}>
-    <div className="d-flex flex-column vh-100">
-
-      <nav style={{ height: "4%" }}>
+    <div>
+      <nav>
         <Navbar />
       </nav>
-
-      <div className="d-flex flex-grow-1">
+      <div>
         <div>
           <Sidebar />
         </div>
-
-        <div className="bg-secondary col">
+        <div className="col">
           <Routes>
             <Route path="/" element={<Content />} />
             <Route path="etapa0" element={<Etapa1chequeo />} />

@@ -38,8 +38,8 @@ export const CrearSolicitud = () => {
   } = useProductos([{ descripcion: "", cantidad: "", tipoEmpaque: "" }], 3);
 
   return (
-    <div style={{ position: 'relative', height: '140vh', width: '90%' }} >
-      <div className='card shadow-card rounded-0 border border-0' style={{ position: 'absolute', right: '10px', bottom: '20px', width: '1050px' }}>
+    <div className='w-75 h-40 mx-auto' >
+      <div className='card shadow-card rounded-3 border border-0'>
         <div className='card-body'>
           
           <div className='d-flex justify-content-between pb-2'>
