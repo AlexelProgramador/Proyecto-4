@@ -125,6 +125,8 @@ class SolicitudBodegaController extends Controller
         $productoEncontrado = collect($botiquin['InventarioSolicitud'])->first(function ($producto) use ($id) {
             return $producto['IdProducto'] == $id;
         });
+        //creo que el while podría ir aqui
+        //foreach...
         if ($productoEncontrado) {
             $inventario = $botiquin->InventarioBotiquin;
             foreach ($inventario as $index => $producto) {
