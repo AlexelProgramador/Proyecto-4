@@ -9,10 +9,12 @@ export const CreateSolicitudBodega = () => {
     VariableSolicitud: '',
     UnidadSolicitud: '',
     IdBotiquin: '',
+    IdBodega: '',
     NombreBotiquinSolicitud: '',
     NombreBodegaSolicitud:'',
     NombreSolicitanteSolicitud: '',
     FechaSolicitud: '',
+    ComentarioSolicitud:'',
     InventarioSolicitud: [],
   });
 
@@ -301,7 +303,7 @@ export const CreateSolicitudBodega = () => {
                   <td>
                     <input
                       type="number"
-                      value={solicitudData.InventarioSolicitud[index]?.CantidadSolicitud || 0}
+                      value={solicitudData.InventarioSolicitud[index]?.CantidadSolicitud}
                       onChange={(e) => handleInventarioChange(index, e.target.value)}
                     />
                   </td>

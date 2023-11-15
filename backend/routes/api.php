@@ -83,6 +83,8 @@ Route::controller(SolicitudBodegaController::class)->group(function () {
     Route::post("/solicitud_bodega", "store");
     Route::get("/solicitud_bodega/{id}", "show");
     Route::put("/solicitud_bodega/{id}", "update");
+    Route::put("/solicitud_bodega/{id}/aceptar", "aceptarSolicitud");
+    Route::put("/solicitud_bodega/{id}/rechazar", "rechazarSolicitud");
     Route::delete("/solicitud_bodega/{id}", "destroy");
 });
 //-----------------------------------------------------------------
