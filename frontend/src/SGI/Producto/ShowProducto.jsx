@@ -23,61 +23,68 @@ export const ShowProducto = () => {
 
     return (
         <div>
-            <h1>{producto._id}</h1>
-            <h2>{producto.NombreProducto}</h2>
-            <h2>{producto.LugarProducto}</h2>
+            <div className='card shadow-card rounded-0 border border-0'>
+                <div className='card-body'>
+                    <div className='h5 text-uppercase pb-2'>Producto {producto.NombreProducto}</div>
+                    <p>{producto._id}</p>
+                    <p>{producto.LugarProducto}</p>
 
-            <h2>Desgloce de los Productos</h2>
-            {producto.DesgloceProducto && producto.DesgloceProducto.length > 0 ? (
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nombre Producto</th>
-                        <th>Cantidad Inventario</th>
-                        {/* Encabezados */}
-                    </tr>
-                </thead>
-                <tbody>
-                    {producto.DesgloceProducto.map((item, index) => (
-                        <tr key={index}>
-                            <td>{item.CajasProducto}</td>
-                            <td>{item.NombreProducto}</td>
-                            <td>{item.CantidadInventario}</td>
-                            {/* Celdas */}
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-            ) : (
-            <p>No hay datos de productdisponibles</p>
-            )}
+                    <div className='h5 pb-2'>Desgloce de los Productos</div>
+                    {producto.DesgloceProducto && producto.DesgloceProducto.length > 0 ? (
+                    <div className='table-responsive'>
+                        <table className='table'>
+                            <thead>
+                                <tr>
+                                    <th>Nombre Producto</th>
+                                    <th>Cantidad Inventario</th>
+                                    {/* Encabezados */}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {producto.DesgloceProducto.map((item, index) => (
+                                    <tr key={index}>
+                                        <td>{item.CajasProducto}</td>
+                                        <td>{item.NombreProducto}</td>
+                                        <td>{item.CantidadInventario}</td>
+                                        {/* Celdas */}
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                    ) : (
+                    <p>No hay datos de producto disponibles</p>
+                    )}
 
-            <h2>ubicación de los Productos</h2>
-            {producto.UbicacionProducto && producto.UbicacionProducto.length > 0 ? (
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nombre Producto</th>
-                            <th>Cantidad Inventario</th>
-                            {/* Encabezados */}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {producto.UbicacionProducto.map((item, index) => (
-                            <tr key={index}>
-                                <td>{item.CajasProducto}</td>
-                                <td>{item.NombreProducto}</td>
-                                <td>{item.CantidadInventario}</td>
-                                {/* Celdas */}
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            ) : (
-                <p>No hay datos de inventario disponibles</p>
-            )}
+                    <div className='h5 pb-2'>Ubicación de los Productos</div>
+                    {producto.UbicacionProducto && producto.UbicacionProducto.length > 0 ? (
+                    <div className='table-responsive'>
+                        <table className='table'>
+                            <thead>
+                                <tr>
+                                    <th>Nombre Producto</th>
+                                    <th>Cantidad Inventario</th>
+                                    {/* Encabezados */}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {producto.UbicacionProducto.map((item, index) => (
+                                    <tr key={index}>
+                                        <td>{item.CajasProducto}</td>
+                                        <td>{item.NombreProducto}</td>
+                                        <td>{item.CantidadInventario}</td>
+                                        {/* Celdas */}
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                    ) : (
+                        <p>No hay datos de inventario disponibles</p>
+                    )}
+                </div>
+            </div>
         </div>
-    
     );
 };
 

@@ -26,30 +26,37 @@ export const HomeSolicitudBodega = () => {
 
     return (
         <div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>UUID es de prueba</th>
-                        <th>Nombre Solicitante</th>
-                        <th>Lugar Solicitud</th>
-                        <th>Cantidad a Pedir</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {data.map((item) => (
-                        <tr key={item.id}>
-                            <td>{item._id}</td>
-                            <td>{item.NombreSolicitanteSolicitud}</td>
-                            <td>{item.LugarBotiquin}</td>
-                            <td>{item.InventarioBodega.length}</td>
-                            <td>
-                                <button onClick={() => handleShow(item._id)}>Ver Más</button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+            <div className='card shadow-card rounded-0 border border-0'>
+                <div className='card-body'>
+                    <div className='h5 text-uppercase pb-2'>Solicitudes</div>
+                    <div className='table-responsive'>
+                        <table className='table'>
+                            <thead>
+                                <tr>
+                                    <th>UUID es de prueba</th>
+                                    <th>Nombre Solicitante</th>
+                                    <th>Lugar Solicitud</th>
+                                    <th>Cantidad a Pedir</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {data.map((item) => (
+                                    <tr key={item.id}>
+                                        <td>{item._id}</td>
+                                        <td>{item.NombreSolicitanteSolicitud}</td>
+                                        <td>{item.LugarBotiquin}</td>
+                                        <td>{item.InventarioBodega.length}</td>
+                                        <td>
+                                            <button onClick={() => handleShow(item._id)}>Ver Más</button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>    
         </div>
     );
 };
