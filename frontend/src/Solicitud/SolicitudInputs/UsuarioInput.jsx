@@ -6,6 +6,7 @@ const UsuarioInput = ({
   setSolicitadoPor,
   fecha,
   setFecha,
+  setCorreo,
   setAnexo,
 }) => {
   return (

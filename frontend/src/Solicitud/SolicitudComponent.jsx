@@ -44,7 +44,7 @@ export const SolicitudComponent = () => {
 
         // Construye los datos para el segundo fetch
         const etapaData = {
-          nroEtapa: 1,
+          nroEtapa: 0,
           completado: null,
           procesosEtapa1: {
             estado: "en Proceso",

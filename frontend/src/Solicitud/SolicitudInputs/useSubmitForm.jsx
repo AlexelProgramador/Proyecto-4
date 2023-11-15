@@ -24,7 +24,7 @@ const useSubmitForm = (execute, setShowAlert) => {
     let nroSolicitud = `${now.format("HHmmss")}-SOL-${now.format("DDMMYYYY")}`;
 
     const data = {
-      nroEtapa: 1,
+      nroEtapa: 0,
       completado: false,
       procesosEtapa1: {},
       procesosEtapa2: {},

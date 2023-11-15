@@ -1,48 +1,33 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import usePostRequest from "../Hooks/usePostRequest";
+import PaginationButtons from "../Solicitud/SolicitudInputs/PaginationButtons";
 import usePutRequest from "../Hooks/usePutRequest";
 import { useNavigate } from "react-router-dom";
 
-export const Etapa2 = () => {
+export const Etapa1 = () => {
   const location = useLocation();
   const item = location.state.item;
-  const { execute: executePost } = usePostRequest();
+  const { execute: executePost, response } = usePostRequest();
   const [solicitudInfo, setSolicitudInfo] = useState(null);
-  
-
-  const [tipoCompra, setTipoCompra] = useState("");
-  const [nrocotizacion, setNroCotizacion] = useState("");
-  const [estado, setEstado] = useState("");
-  const [comentarios, setComentarios] = useState("");
-  const [nroordencompra, setNroOrdenCompra] = useState("");
-  const [fechaoc, setFechaoc] = useState("");
-  const [proveedorselecc, setProvSelec] = useState("");
-  const [fechaentregaprov, setFechaEntProv] = useState("");
-  const [valorcompra, setValorCompra] = useState("");
-  const [fechaautocompra, setFechaautocompra] = useState("");
-
-
-
-  const { execute: executePut } = usePutRequest();
+  const productosPorPagina = 3;
+  const [paginaActual, setPaginaActual] = useState(0);
+  const [numeroDePaginas, setNumeroDePaginas] = useState(0);
+  const [centroDeCostos, setCentroDeCostos] = useState("");
+  const [verificarSaldo, setVerificarSaldo] = useState(0);
+  const [comentario, setComentario] = useState("");
+  const { data, error, isLoading, execute: executePut } = usePutRequest();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {
       idEtapa: item._id,
-      nroEtapa: 3,
-      procesosEtapa2: {
-        tipodecompra: tipoCompra,
-        numerocotizacion: nrocotizacion,
-        estado: estado,
-        comentarios: comentarios,
-        nroordendecompra: nroordencompra,
-        fechadeoc: fechaoc,
-        proveedorseleccionado: proveedorselecc,
-        fechaentregaproveedor: fechaentregaprov,
-        valordecompramiva: valorcompra,
-        fechaautocompra: fechaautocompra
+      nroEtapa: 2,
+      procesosEtapa1: {
+        centroDeCostos: centroDeCostos,
+        verificarSaldo: verificarSaldo,
+        comentario: comentario,
       },
     };
     const url = "avanzarEtapa";
@@ -57,147 +42,190 @@ export const Etapa2 = () => {
     var url = "verEtapa";
     var response = await executePost(data, url);
     setSolicitudInfo(response);
+    setNumeroDePaginas(
+      Math.ceil(response.solicitudInfo.productos.length / productosPorPagina)
+    );
   };
-
   useEffect(() => {
     getSolicitudInfo();
   }, []);
-
   return (
     <>
       {solicitudInfo ? (
-        <>
+      <>
     <div style={{ position: 'relative', height: '135vh', width: '90%' }} >
       <div className='card shadow-card rounded-0 border border-0'style={{ position: 'absolute', right: '10px', bottom: '190px', width: '1050px' }} >
         <div className='card-body'>
-          <h2 className='mx-auto p-2'>Solicitud Etapa 2</h2>
+          <h2 className='mx-auto p-2'>Solicitud Etapa 1</h2>
+          
+          
+          <div className="row g-2">
+            <div className="col-md">
+              <div className="form-floating">
+                <input
+                  type="text"
+                  className="form-control"
+                  value={solicitudInfo.infoUsuario.solicitadoPor}
+                  disabled
+                />
+                <label htmlFor="floatingInputGrid">Solicitado por:</label>
+              </div>
+            </div>
+            <div className="col-md">
+              <div className="form-floating">
+                <input
+                  type="text"
+                  className="form-control"
+                  value={solicitudInfo.infoUsuario.anexo}
+                  disabled
+                />
+                <label htmlFor="floatingInputGrid">Anexo:</label>
+              </div>
+            </div>
+            <div className="col-md">
+              <div className="form-floating">
+                <input
+                  type="text"
+                  className="form-control"
+                  value={
+                    solicitudInfo.infoUsuario.correo
+                      ? solicitudInfo.infoUsuario.correo
+                      : "No tiene correo electronico"
+                  }
+                  disabled
+                />
+                <label htmlFor="floatingInputGrid">Correo Electronico:</label>
+              </div>
+            </div>
+          </div>
+          <div className="row mt-2 g-2">
+            <div style={{ overflow: "hidden" }}>
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Tipo de empaque</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {solicitudInfo.solicitudInfo.productos.map((item, index) => (
+                    <tr key={index}>
+                      <td>{item.descripcion}</td>
+                      <td>{item.cantidad}</td>
+                      <td>{item.tipoEmpaque}</td>
+                    </tr>
+                  ))}
+                  <tr>
+                    <td></td>
+                    <td>
+                      <PaginationButtons
+                        paginaActual={paginaActual}
+                        setPaginaActual={setPaginaActual}
+                        numeroDePaginas={numeroDePaginas}
+                        productos={solicitudInfo.solicitudInfo.productos}
+                        productosPorPagina={productosPorPagina}
+                      />
+                    </td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div className="row g-2">
+            <div className="col-md">
+              <div className="form-floating">
+                <input
+                  type="text"
+                  className="form-control"
+                  value={solicitudInfo.solicitudInfo.fuenteFinanciamiento}
+                  disabled
+                />
+                <label htmlFor="floatingInputGrid">
+                  Fuente de financiamiento:
+                </label>
+              </div>
+            </div>
+            <div className="col-md">
+              <div className="form-floating">
+                <input
+                  type="text"
+                  className="form-control"
+                  value={solicitudInfo.solicitudInfo.montoEstimado}
+                  disabled
+                />
+                <label htmlFor="floatingInputGrid">Monto estimado:</label>
+              </div>
+            </div>
+          </div>
 
+          <div className="form-floating mt-2 g-2">
+            <textarea
+              className="form-control"
+              id="floatingTextarea2"
+              value={solicitudInfo.solicitudInfo.motivos}
+              style={{ height: "100px" }}
+              disabled
+            ></textarea>
+            <label htmlFor="floatingTextarea2">Motivo de compra</label>
+          </div>
           <form onSubmit={handleSubmit}>
-            {/* Nuevos campos para la vista 2 */}
-            <div className="form-floating mt-2 g-2">
-              <input
-                type="text"
-                className="form-control"
-                value={tipoCompra}
-                onChange={(e) => setTipoCompra(e.target.value)}
-              />
-              <label htmlFor="floatingSelect">Tipo de compra</label>
+            <div className="form-floating mt-2">
+              <select
+                className="form-select"
+                id="floatingSelect"
+                aria-label="Floating label select example"
+                onChange={(e) => setVerificarSaldo(e.target.value)}
+              >
+                <option value="-1">Selecciona una opcion</option>
+                <option value="1">Si</option>
+                <option value="0">No</option>
+              </select>
+              <label htmlFor="floatingSelect">Verificar saldo</label>
+            </div>
+
+            <div className="col-md mt-2">
+              <div className="form-floating">
+                <input
+                  type="text"
+                  className="form-control"
+                  value={centroDeCostos}
+                  onChange={(e) => setCentroDeCostos(e.target.value)}
+                />
+                <label htmlFor="floatingInputGrid">Centro de Costos (CC)</label>
+              </div>
             </div>
 
             <div className="form-floating mt-2 g-2">
-              <input
-                type="text"
+              <textarea
                 className="form-control"
-                value={nrocotizacion}
-                onChange={(e) => setNroCotizacion(e.target.value)}
-              />
-              <label htmlFor="floatingSelect">Numero de cotizacion</label>
+                id="floatingTextarea2"
+                value={comentario}
+                style={{ height: "100px" }}
+                onChange={(e) => setComentario(e.target.value)}
+              ></textarea>
+              <label htmlFor="floatingTextarea2">comentario</label>
             </div>
-
-
-            <div className="form-floating mt-2 g-2">
-              <input
-                type="text"
-                className="form-control"
-                value={estado}
-                onChange={(e) => setEstado(e.target.value)}
-              />
-              <label htmlFor="floatingSelect">Estado</label>
-            </div>
-
-            <div className="form-floating mt-2 g-2">
-              <input
-                type="text"
-                className="form-control"
-                value={comentarios}
-                onChange={(e) => setComentarios(e.target.value)}
-              />
-              <label htmlFor="floatingSelect">Comentario</label>
-            </div>
-
-            <div className="form-floating mt-2 g-2">
-              <input
-                type="text"
-                className="form-control"
-                value={nroordencompra}
-                onChange={(e) => setNroOrdenCompra(e.target.value)}
-              />
-              <label htmlFor="floatingSelect">Numero de orden de compra</label>
-            </div>
-
-            <div className="form-floating mt-2 g-2">
-              <input
-                type="date"
-                className="form-control"
-                value={fechaoc}
-                onChange={(e) => setFechaoc(e.target.value)}
-              />
-              <label htmlFor="floatingSelect">Fecha de orden de compra</label>
-            </div>
-
-            <div className="form-floating mt-2 g-2">
-              <input
-                type="text"
-                className="form-control"
-                value={proveedorselecc}
-                onChange={(e) => setProvSelec(e.target.value)}
-              />
-              <label htmlFor="floatingSelect">Proveedor seleccionado</label>
-            </div>
-
-            <div className="form-floating mt-2 g-2">
-              <input
-                type="date"
-                className="form-control"
-                value={fechaentregaprov}
-                onChange={(e) => setFechaEntProv(e.target.value)}
-              />
-              <label htmlFor="floatingSelect">Fecha entrega proveedor</label>
-            </div>
-
-            <div className="form-floating mt-2 g-2">
-              <input
-                type="text"
-                className="form-control"
-                value={valorcompra}
-                onChange={(e) => setValorCompra(e.target.value)}
-              />
-              <label htmlFor="floatingSelect">Valor de compra mas iva</label>
-            </div>
-
-            <div className="form-floating mt-2 g-2">
-              <input
-                type="date"
-                className="form-control"
-                value={fechaautocompra}
-                onChange={(e) => setFechaautocompra(e.target.value)}
-              />
-              <label htmlFor="floatingSelect">Fecha de autorizacion de compra </label>
-            </div>
-
-
-            {/* Agrega más campos según sea necesario */}
-            
-            {/* Botones del formulario */}
             <button className="m-2 btn btn-primary" type="submit">
               Aceptar
             </button>
             <button
               className="m-2  btn btn-danger"
               type="button"
-              onClick={() => navigate("/")}
+              onClick={(e) => e.preventDefault()}
             >
-              Atrás
+              atras
             </button>
           </form>
-    
-          </div>
+        </div>
       </div>
     </div>
         </>
       ) : (
         <p>Loading...</p>
       )}
+      
     </>
   );
 };

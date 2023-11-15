@@ -4,25 +4,15 @@ import usePostRequest from "../Hooks/usePostRequest";
 import usePutRequest from "../Hooks/usePutRequest";
 import { useNavigate } from "react-router-dom";
 
-export const Etapa5 = () => {
+export const Etapa4 = () => {
   const location = useLocation();
   const item = location.state.item;
   const { execute: executePost } = usePostRequest();
   const [solicitudInfo, setSolicitudInfo] = useState(null);
 
-  const [ncdp, setNcdp] = useState("");
-  const [estado, setEstado] = useState("");
-  const [proveedor, setProveedor] = useState("");
-  const [nrofactura, setNrofactura] = useState("");
-  const [fechaemifactura, setFechaemifactura] = useState("");
-  const [fechamaxima, setFechamaxima] = useState("");
-  const [aceptadassi, setAceptadassi] = useState("");
-  const [fechavencfact, setFechavencfact] = useState("");
-  const [montofactura, setMontofactura] = useState("");
+  const [fechaestprov, setFechEstProv] = useState("");
+  const [estadodecomp, setEstadodeComp] = useState("");
   const [comentarios, setComentarios] = useState("");
-  const [fecharecep, setFechaRecep] = useState("");
-  const [perscargrecep, setPersCargRecep] = useState("");
-
   
   const { execute: executePut } = usePutRequest();
   const navigate = useNavigate();
@@ -31,18 +21,12 @@ export const Etapa5 = () => {
     e.preventDefault();
     const data = {
       idEtapa: item._id,
-      nroEtapa: 6,
-      completado: true,
-      procesosEtapa5: {
-        ncdp: ncdp,
-        estado: estado,
-        proveedor: proveedor,
-        nrofactura: nrofactura,
-        fechaemisionfact: fechaemifactura,
-        fechamaxima: fechamaxima,
-        aceptadoSsi: aceptadassi,
-        fechavencfact: fechavencfact,
-        montofactura: montofactura
+      nroEtapa: 5,
+      procesosEtapa4: {
+        fechaestiprov: fechaestprov,
+        estadodecomp: estadodecomp,
+        comentarios: comentarios,
+
       },
     };
     const url = "avanzarEtapa";
@@ -67,99 +51,30 @@ export const Etapa5 = () => {
     <>
       {solicitudInfo ? (
         <>
-    <div style={{ position: 'relative', height: '160vh', width: '90%' }} >
+    <div style={{ position: 'relative', height: '90vh', width: '90%' }} >
       <div className='card shadow-card rounded-0 border border-0'style={{ position: 'absolute', right: '10px', bottom: '190px', width: '1050px' }} >
         <div className='card-body'>
-          <h2 className='mx-auto p-2'>Solicitud Etapa 5</h2>
+          <h2 className='mx-auto p-2'>Solicitud Etapa 4</h2>
           <form onSubmit={handleSubmit}>
 
-          <div className="form-floating mt-2 g-2">
-              <input
-                type="text"
-                className="form-control"
-                value={ncdp}
-                onChange={(e) => setNcdp(e.target.value)}
-              />
-              <label htmlFor="floatingSelect">N° CDP</label>
-            </div>
-
-            <div className="form-floating mt-2 g-2">
-              <input
-                type="text"
-                className="form-control"
-                value={estado}
-                onChange={(e) => setEstado(e.target.value)}
-              />
-              <label htmlFor="floatingSelect">Estado</label>
-            </div>
-
-            <div className="form-floating mt-2 g-2">
-              <input
-                type="text"
-                className="form-control"
-                value={proveedor}
-                onChange={(e) => setProveedor(e.target.value)}
-              />
-              <label htmlFor="floatingSelect">Proveedor</label>
-            </div>
-
-            <div className="form-floating mt-2 g-2">
-              <input
-                type="text"
-                className="form-control"
-                value={nrofactura}
-                onChange={(e) => setNrofactura(e.target.value)}
-              />
-              <label htmlFor="floatingSelect">N° Factura</label>
-            </div>
-
             <div className="form-floating mt-2 g-2">
               <input
                 type="date"
                 className="form-control"
-                value={fechaemifactura}
-                onChange={(e) => setFechaemifactura(e.target.value)}
+                value={fechaestprov}
+                onChange={(e) => setFechEstProv(e.target.value)}
               />
-              <label htmlFor="floatingSelect">Fecha emision factura</label>
-            </div>
-
-            <div className="form-floating mt-2 g-2">
-              <input
-                type="date"
-                className="form-control"
-                value={fechamaxima}
-                onChange={(e) => setFechamaxima(e.target.value)}
-              />
-              <label htmlFor="floatingSelect">Fecha Maxima</label>
+              <label htmlFor="floatingSelect">Fecha estimada proveedor</label>
             </div>
 
             <div className="form-floating mt-2 g-2">
               <input
                 type="text"
                 className="form-control"
-                value={aceptadassi}
-                onChange={(e) => setAceptadassi(e.target.value)}
+                value={estadodecomp}
+                onChange={(e) => setEstadodeComp(e.target.value)}
               />
-              <label htmlFor="floatingSelect">Aceptada SII</label>
-            </div>
-            <div className="form-floating mt-2 g-2">
-              <input
-                type="date"
-                className="form-control"
-                value={fechavencfact}
-                onChange={(e) => setFechavencfact(e.target.value)}
-              />
-              <label htmlFor="floatingSelect">Fecha vencimiento factura</label>
-            </div>
-
-            <div className="form-floating mt-2 g-2">
-              <input
-                type="text"
-                className="form-control"
-                value={montofactura}
-                onChange={(e) => setMontofactura(e.target.value)}
-              />
-              <label htmlFor="floatingSelect">Monto factura</label>
+              <label htmlFor="floatingSelect">Estado de compra</label>
             </div>
 
 
@@ -173,25 +88,6 @@ export const Etapa5 = () => {
               <label htmlFor="floatingSelect">Comentario</label>
             </div>
 
-            <div className="form-floating mt-2 g-2">
-              <input
-                type="date"
-                className="form-control"
-                value={fecharecep}
-                onChange={(e) => setFechaRecep(e.target.value)}
-              />
-              <label htmlFor="floatingSelect">Fecha recepcion:</label>
-            </div>
-
-            <div className="form-floating mt-2 g-2">
-              <input
-                type="text"
-                className="form-control"
-                value={perscargrecep}
-                onChange={(e) => setPersCargRecep(e.target.value)}
-              />
-              <label htmlFor="floatingSelect">Persona a cargo de recepcion</label>
-            </div>
 
             {/* Agrega más campos según sea necesario */}
             

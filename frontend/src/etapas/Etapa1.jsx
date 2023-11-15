@@ -5,7 +5,7 @@ import PaginationButtons from "../Solicitud/SolicitudInputs/PaginationButtons";
 import usePutRequest from "../Hooks/usePutRequest";
 import { useNavigate } from "react-router-dom";
 
-export const Etapa1 = () => {
+export const Etapa1chequeo = () => {
   const location = useLocation();
   const item = location.state.item;
   const { execute: executePost, response } = usePostRequest();
@@ -13,9 +13,6 @@ export const Etapa1 = () => {
   const productosPorPagina = 3;
   const [paginaActual, setPaginaActual] = useState(0);
   const [numeroDePaginas, setNumeroDePaginas] = useState(0);
-  const [centroDeCostos, setCentroDeCostos] = useState("");
-  const [verificarSaldo, setVerificarSaldo] = useState(0);
-  const [comentario, setComentario] = useState("");
   const { data, error, isLoading, execute: executePut } = usePutRequest();
   const navigate = useNavigate();
 
@@ -23,12 +20,7 @@ export const Etapa1 = () => {
     e.preventDefault();
     const data = {
       idEtapa: item._id,
-      nroEtapa: 2,
-      procesosEtapa1: {
-        centroDeCostos: centroDeCostos,
-        verificarSaldo: verificarSaldo,
-        comentario: comentario,
-      },
+      nroEtapa: 1,
     };
     const url = "avanzarEtapa";
     const response = await executePut(url, data);
@@ -171,42 +163,6 @@ export const Etapa1 = () => {
             <label htmlFor="floatingTextarea2">Motivo de compra</label>
           </div>
           <form onSubmit={handleSubmit}>
-            <div className="form-floating mt-2">
-              <select
-                className="form-select"
-                id="floatingSelect"
-                aria-label="Floating label select example"
-                onChange={(e) => setVerificarSaldo(e.target.value)}
-              >
-                <option value="-1">Selecciona una opcion</option>
-                <option value="1">Si</option>
-                <option value="0">No</option>
-              </select>
-              <label htmlFor="floatingSelect">Verificar saldo</label>
-            </div>
-
-            <div className="col-md mt-2">
-              <div className="form-floating">
-                <input
-                  type="text"
-                  className="form-control"
-                  value={centroDeCostos}
-                  onChange={(e) => setCentroDeCostos(e.target.value)}
-                />
-                <label htmlFor="floatingInputGrid">Centro de Costos (CC)</label>
-              </div>
-            </div>
-
-            <div className="form-floating mt-2 g-2">
-              <textarea
-                className="form-control"
-                id="floatingTextarea2"
-                value={comentario}
-                style={{ height: "100px" }}
-                onChange={(e) => setComentario(e.target.value)}
-              ></textarea>
-              <label htmlFor="floatingTextarea2">comentario</label>
-            </div>
             <button className="m-2 btn btn-primary" type="submit">
               Aceptar
             </button>

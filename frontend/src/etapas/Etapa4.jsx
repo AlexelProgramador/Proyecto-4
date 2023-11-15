@@ -4,14 +4,14 @@ import usePostRequest from "../Hooks/usePostRequest";
 import usePutRequest from "../Hooks/usePutRequest";
 import { useNavigate } from "react-router-dom";
 
-export const Etapa4 = () => {
+export const Etapa3 = () => {
   const location = useLocation();
   const item = location.state.item;
   const { execute: executePost } = usePostRequest();
   const [solicitudInfo, setSolicitudInfo] = useState(null);
 
-  const [fechaestprov, setFechEstProv] = useState("");
-  const [estadodecomp, setEstadodeComp] = useState("");
+  const [fechaenvaprov, setFechaEnvaProv] = useState("");
+  const [estadodeenvio, setEstadodeEnvio] = useState("");
   const [comentarios, setComentarios] = useState("");
   
   const { execute: executePut } = usePutRequest();
@@ -21,10 +21,10 @@ export const Etapa4 = () => {
     e.preventDefault();
     const data = {
       idEtapa: item._id,
-      nroEtapa: 5,
-      procesosEtapa4: {
-        fechaestiprov: fechaestprov,
-        estadodecomp: estadodecomp,
+      nroEtapa: 4,
+      procesosEtapa3: {
+        fechadeenvioproveedor: fechaenvaprov,
+        estadodeenvio: estadodeenvio,
         comentarios: comentarios,
 
       },
@@ -54,27 +54,27 @@ export const Etapa4 = () => {
     <div style={{ position: 'relative', height: '90vh', width: '90%' }} >
       <div className='card shadow-card rounded-0 border border-0'style={{ position: 'absolute', right: '10px', bottom: '190px', width: '1050px' }} >
         <div className='card-body'>
-          <h2 className='mx-auto p-2'>Solicitud Etapa 4</h2>
+          <h2 className='mx-auto p-2'>Solicitud Etapa 3</h2>
           <form onSubmit={handleSubmit}>
 
             <div className="form-floating mt-2 g-2">
               <input
                 type="date"
                 className="form-control"
-                value={fechaestprov}
-                onChange={(e) => setFechEstProv(e.target.value)}
+                value={fechaenvaprov}
+                onChange={(e) => setFechaEnvaProv(e.target.value)}
               />
-              <label htmlFor="floatingSelect">Fecha estimada proveedor</label>
+              <label htmlFor="floatingSelect">Fecha de envio a proveedor</label>
             </div>
 
             <div className="form-floating mt-2 g-2">
               <input
                 type="text"
                 className="form-control"
-                value={estadodecomp}
-                onChange={(e) => setEstadodeComp(e.target.value)}
+                value={estadodeenvio}
+                onChange={(e) => setEstadodeEnvio(e.target.value)}
               />
-              <label htmlFor="floatingSelect">Estado de compra</label>
+              <label htmlFor="floatingSelect">Estado de envio</label>
             </div>
 
 

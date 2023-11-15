@@ -1,9 +1,10 @@
 import { Content } from "./Content";
-import { Etapa1 } from "../etapas/Etapa1";
-import { Etapa2 } from "../etapas/Etapa2";
-import { Etapa3 } from "../etapas/Etapa3";
-import { Etapa4 } from "../etapas/Etapa4";
-import { Etapa5 } from "../etapas/Etapa5";
+import { Etapa1 } from "../etapas/Etapa2";
+import { Etapa1chequeo } from "../etapas/Etapa1";
+import { Etapa2 } from "../etapas/Etapa3";
+import { Etapa3 } from "../etapas/Etapa4";
+import { Etapa4 } from "../etapas/Etapa5";
+import { Etapa5 } from "../etapas/Etapa6";
 import { CrearSolicitud } from "../solicitud/CrearSolicitud";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { Navbar } from "./Navbar";
@@ -24,13 +25,14 @@ export const Home = () => {
       </nav>
 
       <div className="d-flex flex-grow-1">
-        <div style={{ width: "6.60%", backgroundColor: "skyblue", height: "100%" }}>
+        <div>
           <Sidebar />
         </div>
 
         <div className="bg-secondary col">
           <Routes>
             <Route path="/" element={<Content />} />
+            <Route path="etapa0" element={<Etapa1chequeo />} />
             <Route path="etapa1" element={<Etapa1 />} />
             <Route path="etapa2" element={<Etapa2 />} />
             <Route path="etapa3" element={<Etapa3 />} />

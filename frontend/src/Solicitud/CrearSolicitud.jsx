@@ -68,7 +68,7 @@ export const CrearSolicitud = () => {
               setSolicitadoPor={setSolicitadoPor}
               fecha={fecha}
               setFecha={setFecha}
-              setCorrea={setCorreo}
+              setCorreo={setCorreo}
               setAnexo={setAnexo}
             />
             <div className="row">
