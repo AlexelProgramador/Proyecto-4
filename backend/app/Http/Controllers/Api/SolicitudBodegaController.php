@@ -49,6 +49,7 @@ class SolicitudBodegaController extends Controller
         $solicitud_bodega->NombreSolicitanteSolicitud = $request->NombreSolicitanteSolicitud;
         $solicitud_bodega->FechaSolicitud = $request->FechaSolicitud;
         $solicitud_bodega->EstadoSolicitud = 'Pendiente';
+        $solicitud_bodega->InventarioSolicitud = $request->InventarioSolicitud;
         
         //Subir Datos
         $solicitud_bodega->save();
@@ -66,6 +67,8 @@ class SolicitudBodegaController extends Controller
     public function show($id)
     {
         //
+        $datos = SolicitudBodega::where("_id", $id)->first();
+        return response()->json(['message' => "envio de datos exitoso", 'data' => $datos], 201);
         
     }
 
@@ -101,5 +104,19 @@ class SolicitudBodegaController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function aceptarSolicitud(request $request, $id)
+    {
+        //
+    }
+
+    public function rechazarSolicitud(request $request, $id)
+    {
+        $datos = SolicitudBodega::where("_id", $id)->update([
+            'EstadoSolicitud' => 'Rechazado',
+            'ComentarioSolicitud' => $request->ComentarioSolicitud,
+        ]);
+        return response()->json(['message' => "Solicitud Rechazada", 'data' => $datos], 201);
     }
 }

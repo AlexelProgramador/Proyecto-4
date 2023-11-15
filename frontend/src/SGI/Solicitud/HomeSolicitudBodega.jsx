@@ -46,7 +46,7 @@ export const HomeSolicitudBodega = () => {
                                         <td>{item._id}</td>
                                         <td>{item.NombreSolicitanteSolicitud}</td>
                                         <td>{item.LugarBotiquin}</td>
-                                        <td>{item.InventarioBodega.length}</td>
+                                        <td>{item.InventarioSolicitud.length}</td>
                                         <td>
                                             <button onClick={() => handleShow(item._id)}>Ver Más</button>
                                         </td>
@@ -56,7 +56,7 @@ export const HomeSolicitudBodega = () => {
                         </table>
                     </div>
                 </div>
-            </div>    
+            </div>
         </div>
     );
 };

@@ -13,6 +13,7 @@ export const CreateSolicitudBodega = () => {
     NombreBodegaSolicitud:'',
     NombreSolicitanteSolicitud: '',
     FechaSolicitud: '',
+    ComentarioSolicitud:'',
     InventarioSolicitud: [],
   });
 

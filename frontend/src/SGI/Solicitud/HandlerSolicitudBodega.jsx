@@ -29,6 +29,24 @@ export const showSolicitud = async (id) => {
     });
 };
 
+export const aceptarSolicitud = async (id, solicitudData) => {
+  return axios.put(url + `/solicitud_bodega/${id}/aceptar`, solicitudData)
+  .then()
+  .catch(error => {
+  // Manejar el error si ocurre
+  console.error('Error al actualizar datos: ', error);
+  });
+};
+
+export const rechazarSolicitud = async (id, solicitudData) => {
+  return axios.put(url + `/solicitud_bodega/${id}/rechazar`, solicitudData)
+  .then()
+  .catch(error => {
+  // Manejar el error si ocurre
+  console.error('Error al actualizar datos: ', error);
+  });
+};
+
 {/* Probablemente estas se tengan que ir pq no las necesitamos
 ----------------------------------------------------------------
 */}
