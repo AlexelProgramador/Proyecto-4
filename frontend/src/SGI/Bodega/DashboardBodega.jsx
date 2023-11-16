@@ -1,41 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { deleteBodega, homeBodega } from './HandlerBodega';
 
 export const DashboardBodega = () => {
-    const [data, setData] = useState([]);
-    const navigate = useNavigate();
-    
-    const fetchData = async () => {
-        try {
-            const response = await homeBodega();
-            setData(response);
-        } catch (error) {
-            console.error('Error al obtener datos', error);
-        }
-    };
-
-    useEffect(() => {
-        fetchData();
-    }, []);
-
-    const handleDelete = async (id) => {
-        try {
-            await deleteBodega(id);
-            fetchData();
-        } catch (error) {
-            console.error('Error al eliminar el elemento', error);
-        }
-    };
-
-    const handleEdit = (id) => {
-        navigate(`/edit-bodega/${id}`); // Cambia '/edit-bodega' con la ruta de edición deseada
-    };
-
-    const handleShow = (id) => {
-        navigate(`/show-bodega/${id}`);
-    };
-
     return (
         <div>
             <div className='h5 text-uppercase pb-2'>Bienvenido Bodeguero</div>
@@ -52,22 +17,20 @@ export const DashboardBodega = () => {
                                     <thead>
                                         <tr>
                                             <th className='px-3'>Nombre</th>
-                                            <th className='px-3'>Cantidad</th>
+                                            <th className='px-3 text-end'>Cantidad</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {data.map((item) => (
-                                            <tr key={item.id}>
-                                                <td className='px-3'>{item.NombreBodega}</td>
-                                                <td className='px-3'>{item.LugarBodega}</td>
-                                            </tr>
-                                        ))}
+                                        <tr>
+                                            <td className='px-3'></td>
+                                            <td className='px-3 text-end'></td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
-                            <div className='row p-2'>
-                                <div className='col align-self-end'>
-                                <button className='btn btn-primary'>Ver mas</button>
+                            <div className='text-end p-2'>
+                                <div className=''>
+                                <button className='btn btn-xs btn-primary text-uppercase'>Ver mas <i class="fa-solid fa-angle-right"></i></button>
                                 </div>
                             </div>
                         </div>

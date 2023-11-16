@@ -1770,6 +1770,7 @@ progress {
 }
 .table > thead {
   vertical-align: bottom;
+  color: #1E4162;
 }
 
 .table-group-divider {
@@ -2854,12 +2855,12 @@ textarea.form-control-lg {
 .btn:hover {
   color: var(--bs-btn-hover-color);
   background-color: var(--bs-btn-hover-bg);
-  border-color: var(--bs-btn-hover-border-color);
+  /* border-color: var(--bs-btn-hover-border-color); */
 }
 .btn-check + .btn:hover {
   color: var(--bs-btn-color);
   background-color: var(--bs-btn-bg);
-  border-color: var(--bs-btn-border-color);
+  /* border-color: var(--bs-btn-border-color); */
 }
 .btn:focus-visible {
   color: var(--bs-btn-hover-color);
@@ -2869,14 +2870,14 @@ textarea.form-control-lg {
   box-shadow: var(--bs-btn-focus-box-shadow);
 }
 .btn-check:focus-visible + .btn {
-  border-color: var(--bs-btn-hover-border-color);
+  /* border-color: var(--bs-btn-hover-border-color); */
   outline: 0;
   box-shadow: var(--bs-btn-focus-box-shadow);
 }
 .btn-check:checked + .btn, :not(.btn-check) + .btn:active, .btn:first-child:active, .btn.active, .btn.show {
   color: var(--bs-btn-active-color);
   background-color: var(--bs-btn-active-bg);
-  border-color: var(--bs-btn-active-border-color);
+  /* border-color: var(--bs-btn-active-border-color); */
 }
 .btn-check:checked + .btn:focus-visible, :not(.btn-check) + .btn:active:focus-visible, .btn:first-child:active:focus-visible, .btn.active:focus-visible, .btn.show:focus-visible {
   box-shadow: var(--bs-btn-focus-box-shadow);
@@ -2885,7 +2886,7 @@ textarea.form-control-lg {
   color: var(--bs-btn-disabled-color);
   pointer-events: none;
   background-color: var(--bs-btn-disabled-bg);
-  border-color: var(--bs-btn-disabled-border-color);
+  /* border-color: var(--bs-btn-disabled-border-color); */
   opacity: var(--bs-btn-disabled-opacity);
 }
 
@@ -3195,6 +3196,11 @@ textarea.form-control-lg {
   --bs-btn-padding-x: 0.5rem;
   --bs-btn-font-size: 0.875rem;
   --bs-btn-border-radius: 0.25rem;
+}
+.btn-xs, .btn-group-xs > .btn {
+  --bs-btn-padding-y: .25rem; 
+  --bs-btn-padding-x: .5rem; 
+  --bs-btn-font-size: .75rem;
 }
 
 .fade {
