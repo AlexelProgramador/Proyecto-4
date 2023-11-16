@@ -14,29 +14,69 @@ class EtapaController extends Controller
     public function index()
     {
         $etapas = Etapa::all();
-        return response()->json([
-            "results" => $etapas
-        ], Response::HTTP_OK);
+        return response()->json(
+            $etapas,
+            Response::HTTP_OK
+        );
     }
-    public function store(Request $request, $idUsuario, $nroSolicitud)
+
+    public function avanzarEtapa(Request $request)
+    {
+        $etapa = Etapa::where('_id', $request->idEtapa)->first();
+        if (!$etapa) {
+            return response()->json(['error' => $request], Response::HTTP_CONFLICT);
+        }
+        $etapa->nroEtapa = $request->nroEtapa;
+        switch (true) {
+            case $request->has('procesosEtapa1'):
+                $etapa->procesosEtapa1 = $request->procesosEtapa1;
+                break;
+            case $request->has('procesosEtapa2'):
+                $etapa->procesosEtapa2 = $request->procesosEtapa2;
+                break;
+            case $request->has('procesosEtapa3'):
+                $etapa->procesosEtapa3 = $request->procesosEtapa3;
+                break;
+            case $request->has('procesosEtapa4'):
+                $etapa->procesosEtapa4 = $request->procesosEtapa4;
+                break;
+            case $request->has('procesosEtapa5'):
+                $etapa->procesosEtapa5 = $request->procesosEtapa5;
+                break;
+            case $request->has('procesosEtapa6'):
+                $etapa->procesosEtapa6 = $request->procesosEtapa6;
+                break;
+            case $request->has('procesosEtapa7'):
+                $etapa->procesosEtapa7 = $request->procesosEtapa7;
+                break;
+            case $request->has('procesosEtapa8'):
+                $etapa->procesosEtapa8 = $request->procesosEtapa8;
+                break;
+        }
+
+        $etapa->save();
+
+        return response()->json(
+            $etapa,
+            Response::HTTP_OK
+        );
+    }
+    public function verEtapa(Request $request)
+    {
+        $etapa = Etapa::where('solicitudInfo.nroSolicitud', $request->nroSolicitud)->first();
+        if (!$etapa) {
+            return response()->json(['error' => $request], Response::HTTP_CONFLICT);
+        }
+
+        return response()->json(
+            $etapa,
+            Response::HTTP_OK
+        );
+    }
+
+    public function crearEtapa(Request $request)
     {
         $etapa = new Etapa();
-
-        // Usuario que atiende la etapa.
-        $usuarioEtapa = Usuario::select('_id', 'nombre', 'apellido')->where('_id', $idUsuario)->first()->toArray();
-
-        // Flujo en caso de que no encuentre el usuario por el id.
-        if ($usuarioEtapa === null) {
-            return response()->json(['error' => 'No se encontro el usuario'], Response::HTTP_CONFLICT);
-        }
-
-        // Solicitud que se esta atendiendo.
-        $solicitudInfo = Solicitud::select('_id', 'usuarioInfo', 'nroSolicitud')->where('nroSolicitud', $nroSolicitud)->first()->toArray();
-
-        // Flujo en caso de que no encuentre la solicitud por el id.
-        if ($solicitudInfo === null) {
-            return response()->json(['error' => 'No se encontro la solicitud'], Response::HTTP_CONFLICT);
-        }
 
         // Variables correspondientes a la etapa.
         $etapa->nroEtapa = $request->nroEtapa;
@@ -51,15 +91,14 @@ class EtapaController extends Controller
         $etapa->procesosEtapa7 = $request->procesosEtapa7;
         $etapa->procesosEtapa8 = $request->procesosEtapa8;
 
-        // Usuario que atiende la etapa.
-        $etapa->usuarioEtapa = $usuarioEtapa;
-
         // variable correspondientes de una solicitud.
-        $etapa->solicitudInfo = $solicitudInfo;
-
+        $etapa->solicitudInfo = $request->infoSolicitud;
+        $etapa->infoUsuario = $request->infoUsuario;
         $etapa->save();
-
-        return response()->json(['result' => $etapa], Response::HTTP_OK);
+        return response()->json(
+            $etapa,
+            Response::HTTP_OK
+        );
     }
     public function update(Request $request, $idUsuario, $idEtapa)
     {

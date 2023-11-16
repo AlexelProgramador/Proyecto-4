@@ -1,13 +1,14 @@
 <?php
 
-use App\Http\Controllers\Api\SolicitudController;
-use App\Http\Controllers\Api\UsuarioController;
-use App\Http\Controllers\Api\EtapaController;
+
 use App\Http\Controllers\Api\BodegaController;
 use App\Http\Controllers\Api\BotiquinController;
 use App\Http\Controllers\Api\ProductoController;
 use App\Http\Controllers\Api\SolicitudBodegaController;
-
+use App\Http\Controllers\Api\SolicitudController;
+use App\Http\Controllers\Api\UsuarioController;
+use App\Http\Controllers\Api\EtapaController;
+use App\Http\Controllers\Api\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +23,11 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+//-------------------------- Rutas SSC ----------------------------
+// Controlador Autenticacion.
+Route::controller(AuthController::class)->group(function () {
+    Route::post("/login", "login");
+});
 
 // Controlador Usuario.
 Route::controller(UsuarioController::class)->group(function () {
@@ -34,7 +40,8 @@ Route::controller(UsuarioController::class)->group(function () {
 // Controlador Solicitud.
 Route::controller(SolicitudController::class)->group(function () {
     Route::get("/solicitudes", "index");
-    Route::post("/solicitud/{idUsuario}", "store");
+    Route::post("/crearSolicitud", "store");
+    Route::post("/solicitudInfo", "solicitudInfo");
     Route::put("/solicitud/{idUsuario}", "update");
     Route::delete("/solicitud", "destroy");
 });
@@ -42,11 +49,13 @@ Route::controller(SolicitudController::class)->group(function () {
 // Controlador Etapa.
 Route::controller(EtapaController::class)->group(function () {
     Route::get("/etapas", "index");
-    Route::post("/etapa/{idUsuario}/{nroSolicitud}", "store");
+    Route::post("/crearEtapa", "crearEtapa");
+    Route::post("/verEtapa", "verEtapa");
+    Route::put("/avanzarEtapa", "avanzarEtapa");
+
     Route::put("/etapa/{idUsuario}/{idEtapa}", "update");
     Route::delete("/etapa", "destroy");
 });
-
 
 //-------------------------- Rutas SGI ----------------------------
 //Controlador Bodega.
