@@ -6,6 +6,7 @@ import { Etapa3 } from "../etapas/Etapa4";
 import { Etapa4 } from "../etapas/Etapa5";
 import { Etapa5 } from "../etapas/Etapa6";
 import { CrearSolicitud } from "../solicitud/CrearSolicitud";
+import { VerSolicitud } from "../solicitud/VerSolicitud";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { Navbar } from "./Navbar";
 import { Sidebar } from "./Sidebar";
@@ -18,29 +19,29 @@ export const Home = () => {
 
   return (
     <AlertContext.Provider value={{ showAlert, setShowAlert }}>
-    <div>
-      <nav>
-        <Navbar />
-      </nav>
       <div>
+        <nav>
+          <Navbar />
+        </nav>
         <div>
-          <Sidebar />
-        </div>
-        <div className="col">
-          <Routes>
-            <Route path="/" element={<Content />} />
-            <Route path="etapa0" element={<Etapa1chequeo />} />
-            <Route path="etapa1" element={<Etapa1 />} />
-            <Route path="etapa2" element={<Etapa2 />} />
-            <Route path="etapa3" element={<Etapa3 />} />
-            <Route path="etapa4" element={<Etapa4 />} />
-            <Route path="etapa5" element={<Etapa5 />} />
-            <Route path="crearSolicitud" element={<CrearSolicitud />} />
-          </Routes>
+          <div>
+            <Sidebar />
+          </div>
+          <div className="col">
+            <Routes>
+              <Route path="/" element={<Content />} />
+              <Route path="etapa0" element={<Etapa1chequeo />} />
+              <Route path="etapa1" element={<Etapa1 />} />
+              <Route path="etapa2" element={<Etapa2 />} />
+              <Route path="etapa3" element={<Etapa3 />} />
+              <Route path="etapa4" element={<Etapa4 />} />
+              <Route path="etapa5" element={<Etapa5 />} />
+              <Route path="crearSolicitud" element={<CrearSolicitud />} />
+              <Route path="verSolicitud" element={<VerSolicitud />} />
+            </Routes>
+          </div>
         </div>
       </div>
-
-    </div>
-  </AlertContext.Provider>
+    </AlertContext.Provider>
   );
 };

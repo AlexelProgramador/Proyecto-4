@@ -1,0 +1,35 @@
+.botones {
+  display: flex;
+  justify-content: flex-start;
+  padding: 0;
+  margin: 0;
+}
+.botones :first-child {
+  border-radius: 10px 0 0 0;
+  border-width: 1px 0 0 1px;
+  border-style: solid;
+  border-color: #000000;
+}
+.botones :last-child {
+  border-radius: 0 10px 0 0;
+  border-width: 1px 1px 0 0;
+  border-style: solid;
+  border-color: #000000;
+}
+.botonEtapas {
+  border-radius: 0;
+  background: #a2a2a2;
+  color: #5f5f5f;
+  border-width: 1px 0 0 1px;
+  border-style: solid;
+  border-color: #000000;
+}
+.selected {
+  background: #f3f3f3;
+  color: #000000;
+  border-bottom: 0;
+}
+.botonEtapas:hover {
+  background: #6d6c6c;
+  color: #000000;
+}

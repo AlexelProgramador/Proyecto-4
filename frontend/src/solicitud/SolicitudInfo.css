@@ -1,0 +1,15 @@
+.botones {
+  position: relative;
+  z-index: 1;
+}
+
+.contenido {
+  background: #f3f3f3;
+  border-radius: 0 10px 10px 10px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+  border: 1px solid #000000;
+  position: relative;
+  top: -1px;
+  z-index: 0;
+  padding: 10px;
+}
