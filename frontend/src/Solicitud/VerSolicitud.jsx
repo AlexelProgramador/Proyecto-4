@@ -1,12 +1,44 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import "./VerSolicitud.css";
-import InfoSolicitud from "./InfoSolicitud";
+import {
+  InfoSolicitud,
+  VerEtapa1,
+  VerEtapa2,
+  VerEtapa3,
+  VerEtapa4,
+  VerEtapa5,
+} from "./verSolicitudInfo/";
 
 export const VerSolicitud = () => {
   const location = useLocation();
   const item = location.state.item;
   const [selected, setSelected] = useState(0);
+
+  let info;
+  switch (selected) {
+    case 0:
+      info = <InfoSolicitud item={item} />;
+      break;
+    case 1:
+      info = <VerEtapa1 item={item} />;
+      break;
+    case 2:
+      info = <VerEtapa2 item={item} />;
+      break;
+    case 3:
+      info = <VerEtapa3 item={item} />;
+      break;
+    case 4:
+      info = <VerEtapa4 item={item} />;
+      break;
+    case 5:
+      info = <VerEtapa5 item={item} />;
+      break;
+
+    default:
+      info = {};
+  }
 
   const handleButtonClick = (value) => {
     setSelected(value);
@@ -25,9 +57,7 @@ export const VerSolicitud = () => {
             <button
               value={0}
               type="button"
-              className={`btn btn-lg botonEtapas ${
-                selected === 0 ? "selected" : ""
-              }`}
+              className={`botonEtapas ${selected === 0 ? "selected" : ""}`}
               onClick={() => handleButtonClick(0)}
             >
               Ver Solicitud
@@ -35,9 +65,7 @@ export const VerSolicitud = () => {
             <button
               value={1}
               type="button"
-              className={`btn btn-lg botonEtapas ${
-                selected === 1 ? "selected" : ""
-              }`}
+              className={`botonEtapas ${selected === 1 ? "selected" : ""}`}
               onClick={() => handleButtonClick(1)}
             >
               Etapa 1
@@ -45,9 +73,7 @@ export const VerSolicitud = () => {
             <button
               value={2}
               type="button"
-              className={`btn btn-lg botonEtapas ${
-                selected === 2 ? "selected" : ""
-              }`}
+              className={`botonEtapas ${selected === 2 ? "selected" : ""}`}
               onClick={() => handleButtonClick(2)}
             >
               Etapa 2
@@ -55,9 +81,7 @@ export const VerSolicitud = () => {
             <button
               value={3}
               type="button"
-              className={`btn btn-lg botonEtapas ${
-                selected === 3 ? "selected" : ""
-              }`}
+              className={`botonEtapas ${selected === 3 ? "selected" : ""}`}
               onClick={() => handleButtonClick(3)}
             >
               Etapa 3
@@ -65,9 +89,7 @@ export const VerSolicitud = () => {
             <button
               value={4}
               type="button"
-              className={`btn btn-lg botonEtapas ${
-                selected === 4 ? "selected" : ""
-              }`}
+              className={`botonEtapas ${selected === 4 ? "selected" : ""}`}
               onClick={() => handleButtonClick(4)}
             >
               Etapa 4
@@ -75,45 +97,13 @@ export const VerSolicitud = () => {
             <button
               value={5}
               type="button"
-              className={`btn btn-lg botonEtapas ${
-                selected === 5 ? "selected" : ""
-              }`}
+              className={`botonEtapas ${selected === 5 ? "selected" : ""}`}
               onClick={() => handleButtonClick(5)}
             >
               Etapa 5
             </button>
-            <button
-              value={6}
-              type="button"
-              className={`btn btn-lg botonEtapas ${
-                selected === 6 ? "selected" : ""
-              }`}
-              onClick={() => handleButtonClick(6)}
-            >
-              Etapa 6
-            </button>
-            <button
-              value={7}
-              type="button"
-              className={`btn btn-lg botonEtapas ${
-                selected === 7 ? "selected" : ""
-              }`}
-              onClick={() => handleButtonClick(7)}
-            >
-              Etapa 7
-            </button>
-            <button
-              value={8}
-              type="button"
-              className={`btn btn-lg botonEtapas ${
-                selected === 8 ? "selected" : ""
-              }`}
-              onClick={() => handleButtonClick(8)}
-            >
-              Etapa 8
-            </button>
           </div>
-          <InfoSolicitud selected={selected} item={item} />
+          {info}
         </div>
       </div>
     </div>

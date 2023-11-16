@@ -43,15 +43,6 @@ class EtapaController extends Controller
             case $request->has('procesosEtapa5'):
                 $etapa->procesosEtapa5 = $request->procesosEtapa5;
                 break;
-            case $request->has('procesosEtapa6'):
-                $etapa->procesosEtapa6 = $request->procesosEtapa6;
-                break;
-            case $request->has('procesosEtapa7'):
-                $etapa->procesosEtapa7 = $request->procesosEtapa7;
-                break;
-            case $request->has('procesosEtapa8'):
-                $etapa->procesosEtapa8 = $request->procesosEtapa8;
-                break;
         }
 
         $etapa->save();
@@ -87,9 +78,6 @@ class EtapaController extends Controller
         $etapa->procesosEtapa3 = $request->procesosEtapa3;
         $etapa->procesosEtapa4 = $request->procesosEtapa4;
         $etapa->procesosEtapa5 = $request->procesosEtapa5;
-        $etapa->procesosEtapa6 = $request->procesosEtapa6;
-        $etapa->procesosEtapa7 = $request->procesosEtapa7;
-        $etapa->procesosEtapa8 = $request->procesosEtapa8;
 
         // variable correspondientes de una solicitud.
         $etapa->solicitudInfo = $request->infoSolicitud;
@@ -114,9 +102,6 @@ class EtapaController extends Controller
         $etapa->procesosEtapa3 = $request->procesosEtapa3;
         $etapa->procesosEtapa4 = $request->procesosEtapa4;
         $etapa->procesosEtapa5 = $request->procesosEtapa5;
-        $etapa->procesosEtapa6 = $request->procesosEtapa6;
-        $etapa->procesosEtapa7 = $request->procesosEtapa7;
-        $etapa->procesosEtapa8 = $request->procesosEtapa8;
 
         // Usuario que atiende la etapa.
         $usuarioEtapa = Usuario::select('_id', 'nombre', 'apellido')->where('_id', $idUsuario)->first()->toArray();

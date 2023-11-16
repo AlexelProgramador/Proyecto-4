@@ -21,7 +21,6 @@ export const Content = () => {
     }
   }, [showAlert]);
   const navigate = useNavigate();
-  console.log("Solicitud de confirmación exitosa.", data);
 
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const selectedItems = data
@@ -63,16 +62,23 @@ export const Content = () => {
                         <td>{item.etapa}</td>
                         <td>
                           <div className="btn-group btn-group-sm">
-                            <button
-                              className="btn btn-primary"
-                              onClick={() =>
-                                navigate(`etapa${item.nroEtapa}`, {
-                                  state: { item },
-                                })
-                              }
-                            >
-                              Ver Etapa
-                            </button>
+                            {item.nroEtapa !== "Finalizado" && (
+                              <button
+                                className="btn btn-primary"
+                                onClick={() =>
+                                  navigate(
+                                    item.nroEtapa === 0
+                                      ? "solicitudChequeo"
+                                      : `etapa${item.nroEtapa}`,
+                                    {
+                                      state: { item },
+                                    }
+                                  )
+                                }
+                              >
+                                Ver Etapa
+                              </button>
+                            )}
 
                             <button
                               className="btn btn-warning"

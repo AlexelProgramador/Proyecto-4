@@ -4,26 +4,16 @@ import usePostRequest from "../Hooks/usePostRequest";
 import usePutRequest from "../Hooks/usePutRequest";
 import { useNavigate } from "react-router-dom";
 
-export const Etapa2 = () => {
+export const Etapa3 = () => {
   const location = useLocation();
   const item = location.state.item;
   const { execute: executePost } = usePostRequest();
   const [solicitudInfo, setSolicitudInfo] = useState(null);
-  
 
-  const [tipoCompra, setTipoCompra] = useState("");
-  const [nrocotizacion, setNroCotizacion] = useState("");
-  const [estado, setEstado] = useState("");
+  const [fechaenvaprov, setFechaEnvaProv] = useState("");
+  const [estadodeenvio, setEstadodeEnvio] = useState("");
   const [comentarios, setComentarios] = useState("");
-  const [nroordencompra, setNroOrdenCompra] = useState("");
-  const [fechaoc, setFechaoc] = useState("");
-  const [proveedorselecc, setProvSelec] = useState("");
-  const [fechaentregaprov, setFechaEntProv] = useState("");
-  const [valorcompra, setValorCompra] = useState("");
-  const [fechaautocompra, setFechaautocompra] = useState("");
-
-
-
+  
   const { execute: executePut } = usePutRequest();
   const navigate = useNavigate();
 
@@ -31,18 +21,12 @@ export const Etapa2 = () => {
     e.preventDefault();
     const data = {
       idEtapa: item._id,
-      nroEtapa: 3,
-      procesosEtapa2: {
-        tipodecompra: tipoCompra,
-        numerocotizacion: nrocotizacion,
-        estado: estado,
+      nroEtapa: 4,
+      procesosEtapa3: {
+        fechadeenvioproveedor: fechaenvaprov,
+        estadodeenvio: estadodeenvio,
         comentarios: comentarios,
-        nroordendecompra: nroordencompra,
-        fechadeoc: fechaoc,
-        proveedorseleccionado: proveedorselecc,
-        fechaentregaproveedor: fechaentregaprov,
-        valordecompramiva: valorcompra,
-        fechaautocompra: fechaautocompra
+
       },
     };
     const url = "avanzarEtapa";
@@ -70,40 +54,29 @@ export const Etapa2 = () => {
     <div className='w-75 h-40 mx-auto' >
       <div className='card shadow-card rounded-3 border border-0'>
         <div className='card-body'>
-          <h2 className='mx-auto p-2'>Solicitud Etapa 2</h2>
-
+          <h2 className='mx-auto p-2'>Solicitud Etapa 3</h2>
           <form onSubmit={handleSubmit}>
-            {/* Nuevos campos para la vista 2 */}
+
             <div className="form-floating mt-2 g-2">
               <input
-                type="text"
+                type="date"
                 className="form-control"
-                value={tipoCompra}
-                onChange={(e) => setTipoCompra(e.target.value)}
+                value={fechaenvaprov}
+                onChange={(e) => setFechaEnvaProv(e.target.value)}
               />
-              <label htmlFor="floatingSelect">Tipo de compra</label>
+              <label htmlFor="floatingSelect">Fecha de envio a proveedor</label>
             </div>
 
             <div className="form-floating mt-2 g-2">
               <input
                 type="text"
                 className="form-control"
-                value={nrocotizacion}
-                onChange={(e) => setNroCotizacion(e.target.value)}
+                value={estadodeenvio}
+                onChange={(e) => setEstadodeEnvio(e.target.value)}
               />
-              <label htmlFor="floatingSelect">Numero de cotizacion</label>
+              <label htmlFor="floatingSelect">Estado de envio</label>
             </div>
 
-
-            <div className="form-floating mt-2 g-2">
-              <input
-                type="text"
-                className="form-control"
-                value={estado}
-                onChange={(e) => setEstado(e.target.value)}
-              />
-              <label htmlFor="floatingSelect">Estado</label>
-            </div>
 
             <div className="form-floating mt-2 g-2">
               <input
@@ -113,66 +86,6 @@ export const Etapa2 = () => {
                 onChange={(e) => setComentarios(e.target.value)}
               />
               <label htmlFor="floatingSelect">Comentario</label>
-            </div>
-
-            <div className="form-floating mt-2 g-2">
-              <input
-                type="text"
-                className="form-control"
-                value={nroordencompra}
-                onChange={(e) => setNroOrdenCompra(e.target.value)}
-              />
-              <label htmlFor="floatingSelect">Numero de orden de compra</label>
-            </div>
-
-            <div className="form-floating mt-2 g-2">
-              <input
-                type="date"
-                className="form-control"
-                value={fechaoc}
-                onChange={(e) => setFechaoc(e.target.value)}
-              />
-              <label htmlFor="floatingSelect">Fecha de orden de compra</label>
-            </div>
-
-            <div className="form-floating mt-2 g-2">
-              <input
-                type="text"
-                className="form-control"
-                value={proveedorselecc}
-                onChange={(e) => setProvSelec(e.target.value)}
-              />
-              <label htmlFor="floatingSelect">Proveedor seleccionado</label>
-            </div>
-
-            <div className="form-floating mt-2 g-2">
-              <input
-                type="date"
-                className="form-control"
-                value={fechaentregaprov}
-                onChange={(e) => setFechaEntProv(e.target.value)}
-              />
-              <label htmlFor="floatingSelect">Fecha entrega proveedor</label>
-            </div>
-
-            <div className="form-floating mt-2 g-2">
-              <input
-                type="text"
-                className="form-control"
-                value={valorcompra}
-                onChange={(e) => setValorCompra(e.target.value)}
-              />
-              <label htmlFor="floatingSelect">Valor de compra mas iva</label>
-            </div>
-
-            <div className="form-floating mt-2 g-2">
-              <input
-                type="date"
-                className="form-control"
-                value={fechaautocompra}
-                onChange={(e) => setFechaautocompra(e.target.value)}
-              />
-              <label htmlFor="floatingSelect">Fecha de autorizacion de compra </label>
             </div>
 
 
@@ -190,7 +103,6 @@ export const Etapa2 = () => {
               Atrás
             </button>
           </form>
-    
           </div>
       </div>
     </div>

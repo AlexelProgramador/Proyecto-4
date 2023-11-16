@@ -38,15 +38,14 @@ export const CrearSolicitud = () => {
   } = useProductos([{ descripcion: "", cantidad: "", tipoEmpaque: "" }], 3);
 
   return (
-    <div className='w-75 h-40 mx-auto' >
-      <div className='card shadow-card rounded-3 border border-0'>
-        <div className='card-body'>
-          
-          <div className='d-flex justify-content-between pb-2'>
-            <h2 className='mx-auto p-2'>Crear solicitud</h2>
-             </div>
-          
-              <form
+    <div className="w-75 h-40 mx-auto">
+      <div className="card shadow-card rounded-3 border border-0">
+        <div className="card-body">
+          <div className="d-flex justify-content-between pb-2">
+            <h2 className="mx-auto p-2">Crear solicitud</h2>
+          </div>
+
+          <form
             onSubmit={(event) =>
               handleSubmit(
                 event,

@@ -37,7 +37,7 @@ const useSubmitForm = (execute, setShowAlert) => {
       infoUsuario: {
         solicitadoPor: solicitadoPor,
         anexo: anexo,
-        correo: correo,
+        correo: correo ? correo : "no ingresado",
       },
       infoSolicitud: {
         nroSolicitud: nroSolicitud,
