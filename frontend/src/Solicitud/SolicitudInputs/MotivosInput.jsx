@@ -7,12 +7,12 @@ const MotivosInput = ({
   fuenteFinanciamiento,
   setFuenteFinanciamiento,
   setMontoEstimado,
+  setArchivo,
 }) => {
   return (
     <div>
-
       <div className="form-floating mt-2 g-2">
-      <textarea
+        <textarea
           type="text"
           className="form-control"
           id="motivos"
@@ -21,11 +21,11 @@ const MotivosInput = ({
         />
         <label htmlFor="motivos" className="form-label">
           Argumente los motivos, necesidad de la compra (fundamente):
-        </label>      
-        </div>
+        </label>
+      </div>
 
       <div className="form-floating mt-2 g-2">
-      <textarea
+        <textarea
           type="text"
           className="form-control"
           id="fuenteFinanciamiento"
@@ -44,24 +44,25 @@ const MotivosInput = ({
         />
         <label htmlFor="montoEstimado" className="form-label">
           Monto estimado de compra:
-        </label>      
+        </label>
       </div>
 
       <div className="mb-3">
         <label htmlFor="montoEstimado" className="form-label">
-          Subir imagen de productos:
+          Subir PDF con las imagenes de los productos
         </label>
         <input
           type="file"
           className="form-control"
-          id="montoEstimado"
-          onChange={(e) => setMontoEstimado(e.target.files[0])}
+          id="archivo"
+          accept="application/pdf"
+          onChange={(e) => {
+            setArchivo(e.target.files[0]);
+          }}
         />
       </div>
-
-      
     </div>
   );
 };
 
-export default MotivosInput
+export default MotivosInput;

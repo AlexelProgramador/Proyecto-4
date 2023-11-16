@@ -68,20 +68,25 @@ class EtapaController extends Controller
     public function crearEtapa(Request $request)
     {
         $etapa = new Etapa();
+        $data = json_decode($request->get('data'), true);
+        $archivo = $request->file('archivo');
 
         // Variables correspondientes a la etapa.
-        $etapa->nroEtapa = $request->nroEtapa;
-        $etapa->completado = $request->completado;
-        // Etapas 
-        $etapa->procesosEtapa1 = $request->procesosEtapa1;
-        $etapa->procesosEtapa2 = $request->procesosEtapa2;
-        $etapa->procesosEtapa3 = $request->procesosEtapa3;
-        $etapa->procesosEtapa4 = $request->procesosEtapa4;
-        $etapa->procesosEtapa5 = $request->procesosEtapa5;
+        $etapa->nroEtapa = $data['nroEtapa'];
+        $etapa->completado = $data['completado'];
+        $etapa->procesosEtapa1 = $data['procesosEtapa1'];
+        $etapa->procesosEtapa2 = $data['procesosEtapa2'];
+        $etapa->procesosEtapa3 = $data['procesosEtapa3'];
+        $etapa->procesosEtapa4 = $data['procesosEtapa4'];
+        $etapa->procesosEtapa5 = $data['procesosEtapa5'];
+        $etapa->solicitudInfo = $data['infoSolicitud'];
+        $etapa->infoUsuario = $data['infoUsuario'];
+        $nombrePdf = $data['infoSolicitud']['nroSolicitud']. '-' . $archivo->getClientOriginalName() . '.' . $archivo->getClientOriginalExtension();
+        $destino = public_path('/pdfs');
+        $archivo->move($destino, $nombrePdf);
+        $etapa->nombrePdf = $nombrePdf;
 
-        // variable correspondientes de una solicitud.
-        $etapa->solicitudInfo = $request->infoSolicitud;
-        $etapa->infoUsuario = $request->infoUsuario;
+
         $etapa->save();
         return response()->json(
             $etapa,
