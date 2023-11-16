@@ -17,9 +17,15 @@ export const CreateSolicitudBodega = () => {
     ComentarioSolicitud:'',
     InventarioSolicitud: [],
   });
+  const [detalleInventarioData, setDetalleInventarioData] = useState({
+    IdProducto: '',
+    CantidadProducto: '',
+    NombreProducto: '',
+  });
 
   const [bodegaData, setBodegaData] = useState([]);
   const [botiquinData, setBotiquinData] = useState([]);
+  const [inventarioSolicitud, setInventarioSolicitud] = useState({});
   const [inventarioBodegaData, setInventarioBodegaData] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
 
@@ -30,31 +36,40 @@ export const CreateSolicitudBodega = () => {
     setSolicitudData({
       ...solicitudData,
       [e.target.name]: e.target.value
-      
     });
-
-    if (e.target.name === 'BodegaSolicitud') {
-      const bodegaSeleccionada = bodegaData.find((bodega) => bodega.NombreBodega === e.target.value);
-      setInventarioBodegaData(bodegaSeleccionada ? bodegaSeleccionada.InventarioBodega : []);
-      
-    }
   };
 
   const handleCheckboxChange = (itemId) => {
     // Alternar la selección del elemento
     setSelectedItems((prevSelectedItems) => {
       if (prevSelectedItems.includes(itemId)) {
-        // Desmarcar: Eliminar el elemento de la lista
-        setSolicitudData((prevData) => {
-          const updatedInventario = prevData.InventarioSolicitud.filter((item, index) => index !== itemId);
-          return {
-            ...prevData,
-            InventarioSolicitud: updatedInventario
-          };
-        });
+        // Desmarcar: Eliminar el elemento del inventario
+        const { [itemId]: _, ...updatedInventario } = inventarioSolicitud;
+        setInventarioSolicitud(updatedInventario);
+        // Eliminar el detalle del inventario correspondiente
+        const { [itemId]: __, ...updatedDetalleInventario } = detalleInventarioData;
+        setDetalleInventarioData(updatedDetalleInventario);
         return prevSelectedItems.filter((id) => id !== itemId);
       } else {
-        // Marcar: Añadir el elemento a la lista
+        // Marcar: Añadir el elemento al inventario
+        const producto = inventarioBodegaData[itemId];
+        setInventarioSolicitud((prevInventario) => ({
+          ...prevInventario,
+          [producto.IdProducto]: {
+            IdProducto: producto.IdProducto,
+            NombreProducto: producto.NombreProducto,
+            CantidadSolicitud: '',  // Inicializar la cantidad en 0
+          },
+        }));
+        // Inicializar el detalle del inventario correspondiente
+        setDetalleInventarioData((prevDetalle) => ({
+          ...prevDetalle,
+          [itemId]: {
+            IdProducto: producto.IdProducto,
+            NombreProducto: producto.NombreProducto,
+            CantidadProducto: '',
+          },
+        }));
         return [...prevSelectedItems, itemId];
       }
     });
@@ -62,8 +77,15 @@ export const CreateSolicitudBodega = () => {
 
   const handleInsert = async () => {
     // Aquí puedes utilizar los elementos seleccionados según necesites
-    const selectedItemsData = inventarioBodegaData.filter((item, index) => selectedItems.includes(index));
-
+    const selectedItemsData = selectedItems.map(index => {
+      const productoSeleccionado = solicitudData.InventarioSolicitud[index];
+      return {
+        IdProducto: productoSeleccionado.IdProducto,
+        NombreProducto: productoSeleccionado.NombreProducto,
+        CantidadSolicitud: productoSeleccionado.CantidadSolicitud || 0,
+      };
+    });
+  
     // Agregar lógica para manejar los elementos seleccionados
     createSolicitud({
       ...solicitudData,
@@ -81,19 +103,34 @@ export const CreateSolicitudBodega = () => {
       });
   };
 
-  const handleInventarioChange = (index, cantidad) => {
+  const handleInventarioChange = (e, index) => {
     setSolicitudData((prevData) => {
       const updatedInventario = [...prevData.InventarioSolicitud];
-      
+      const productId = inventarioBodegaData[index].IdProducto;
+  
+      // Buscar el producto por IdProducto en el InventarioSolicitud
+      const existingProductIndex = updatedInventario.findIndex(item => item.IdProducto === productId);
+  
       // Si la cantidad es mayor a 0, actualiza la cantidad; de lo contrario, elimina el elemento
-      if (cantidad > 0) {
+      if (e.target.value > 0) {
         const updatedItem = {
-          ...updatedInventario[index],
-          CantidadSolicitud: cantidad
+          IdProducto: productId,
+          NombreProducto: inventarioBodegaData[index].NombreProducto,
+          CantidadSolicitud: e.target.value
         };
-        updatedInventario[index] = updatedItem;
+  
+        if (existingProductIndex !== -1) {
+          // Si el producto ya existe, actualiza la cantidad
+          updatedInventario[existingProductIndex] = updatedItem;
+        } else {
+          // Si el producto no existe, agréguelo al final del arreglo
+          updatedInventario.push(updatedItem);
+        }
       } else {
-        updatedInventario.splice(index, 1);
+        // Si la cantidad es 0 o menor, elimina el elemento si existe
+        if (existingProductIndex !== -1) {
+          updatedInventario.splice(existingProductIndex, 1);
+        }
       }
   
       return {
@@ -102,9 +139,19 @@ export const CreateSolicitudBodega = () => {
       };
     });
   
+    // Actualizar el detalle del inventario correspondiente
+    setDetalleInventarioData((prevDetalle) => ({
+      ...prevDetalle,
+      [index]: {
+        IdProducto: inventarioBodegaData[index].IdProducto,
+        NombreProducto: inventarioBodegaData[index].NombreProducto,
+        CantidadProducto: e.target.value,
+      },
+    }));
+  
     // Añadir o quitar el índice según si la cantidad es mayor a 0
     setSelectedItems((prevSelectedItems) => {
-      if (cantidad > 0) {
+      if (e.target.value > 0) {
         if (!prevSelectedItems.includes(index)) {
           return [...prevSelectedItems, index];
         }
@@ -114,6 +161,9 @@ export const CreateSolicitudBodega = () => {
       return prevSelectedItems;
     });
   };
+  
+  console.log(solicitudData);
+  
 
   const fetchData = async () => {
     try {
@@ -157,7 +207,6 @@ export const CreateSolicitudBodega = () => {
     }
     
 };
-  console.log(solicitudData);
 
 
   return (
@@ -301,11 +350,15 @@ export const CreateSolicitudBodega = () => {
                   <td>{inventarioBodegaData[index].NombreProducto}</td>
                   <td>{inventarioBodegaData[index].CantidadAsignadaProducto}</td>
                   <td>
-                    <input
-                      type="number"
-                      value={solicitudData.InventarioSolicitud[index]?.CantidadSolicitud}
-                      onChange={(e) => handleInventarioChange(index, e.target.value)}
-                    />
+                  <input
+                    type="text"
+                    id="CantidadProducto"
+                    name="CantidadProducto"
+                    value={detalleInventarioData[index]?.CantidadProducto || ''}
+                    onChange={(e) => handleInventarioChange(e, index)}
+                    pattern="\d*" // Asegura que solo se ingresen números
+                    title="Ingresa solo números"
+                  />
                   </td>
                 </tr>
                 ))}

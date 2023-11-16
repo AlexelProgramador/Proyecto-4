@@ -19,7 +19,7 @@ export const TerminarSolicitud = ({ solicitud, handleinput, aceptar, rechazar })
                         {solicitud.InventarioSolicitud.map((item, index) => (
                             <tr key={index}>
                                 <td>{item.NombreProducto}</td>
-                                <td>{item.CantidadAsignadaProducto}</td>
+                                <td>{item.CantidadSolicitud}</td>
                                 {/* Celdas */}
                             </tr>
                         ))}
