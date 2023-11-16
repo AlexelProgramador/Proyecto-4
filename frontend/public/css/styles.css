@@ -29,12 +29,12 @@
   --bs-gray-700: #495057;
   --bs-gray-800: #343a40;
   --bs-gray-900: #212529;
-  --bs-primary: #0d6efd;
+  --bs-primary: #008dc9;
   --bs-secondary: #6c757d;
   --bs-success: #198754;
   --bs-info: #0dcaf0;
   --bs-warning: #ffc107;
-  --bs-danger: #dc3545;
+  --bs-danger: #ef5343;
   --bs-light: #f8f9fa;
   --bs-dark: #212529;
   --bs-primary-rgb: 13, 110, 253;
@@ -42,7 +42,7 @@
   --bs-success-rgb: 25, 135, 84;
   --bs-info-rgb: 13, 202, 240;
   --bs-warning-rgb: 255, 193, 7;
-  --bs-danger-rgb: 220, 53, 69;
+  --bs-danger-rgb: 239, 83, 67;
   --bs-light-rgb: 248, 249, 250;
   --bs-dark-rgb: 33, 37, 41;
   --bs-white-rgb: 255, 255, 255;
@@ -56,7 +56,7 @@
   --bs-body-font-size: 1rem;
   --bs-body-font-weight: 400;
   --bs-body-line-height: 1.5;
-  --bs-body-color: #212529;
+  --bs-body-color: #444;
   --bs-body-bg: #fff;
   --bs-border-width: 1px;
   --bs-border-style: solid;
@@ -112,6 +112,7 @@ h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
   margin-bottom: 0.5rem;
   font-weight: 500;
   line-height: 1.2;
+  /* font-family: Raleway, sans-serif; */
 }
 
 h1, .h1 {
@@ -1739,7 +1740,7 @@ progress {
   }
 }
 .table {
-  --bs-table-color:  rgba(0, 0, 0, 0.87);
+  --bs-table-color:  #444;
   --bs-table-bg: transparent;
   --bs-table-border-color: var(--bs-border-color);
   --bs-table-accent-bg: transparent;
@@ -2823,7 +2824,7 @@ textarea.form-control-lg {
   --bs-btn-bg: transparent;
   --bs-btn-border-width: 1px;
   --bs-btn-border-color: transparent;
-  --bs-btn-border-radius: 0.375rem;
+  --bs-btn-border-radius: 3px;
   --bs-btn-hover-border-color: transparent;
   --bs-btn-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075);
   --bs-btn-disabled-opacity: 0.65;
@@ -2892,8 +2893,8 @@ textarea.form-control-lg {
 
 .btn-primary {
   --bs-btn-color: #fff;
-  --bs-btn-bg: #0d6efd;
-  --bs-btn-border-color: #0d6efd;
+  --bs-btn-bg: #008dc9;
+  --bs-btn-border-color: #008dc9;
   --bs-btn-hover-color: #fff;
   --bs-btn-hover-bg: #0b5ed7;
   --bs-btn-hover-border-color: #0a58ca;
@@ -2977,8 +2978,8 @@ textarea.form-control-lg {
 
 .btn-danger {
   --bs-btn-color: #fff;
-  --bs-btn-bg: #dc3545;
-  --bs-btn-border-color: #dc3545;
+  --bs-btn-bg: #ef5343;
+  --bs-btn-border-color: #ef5343;
   --bs-btn-hover-color: #fff;
   --bs-btn-hover-bg: #bb2d3b;
   --bs-btn-hover-border-color: #b02a37;
@@ -3198,9 +3199,9 @@ textarea.form-control-lg {
   --bs-btn-border-radius: 0.25rem;
 }
 .btn-xs, .btn-group-xs > .btn {
-  --bs-btn-padding-y: .25rem; 
-  --bs-btn-padding-x: .5rem; 
-  --bs-btn-font-size: .75rem;
+  --bs-btn-padding-y: 0.25rem; 
+  --bs-btn-padding-x: 0.5rem; 
+  --bs-btn-font-size: 0.75rem;
 }
 
 .fade {
@@ -6708,7 +6709,7 @@ textarea.form-control-lg {
 }
 
 .bg-card{
-  color: #000 !important;
+  color: #444 !important;
   background-color: RGBA(227,229,229, var(--bs-bg-opacity, 1)) !important;
 }
 
@@ -7110,7 +7111,7 @@ textarea.form-control-lg {
 }
 
 .shadow-card {
-  box-shadow: 0px 1px 3px 2px rgba(0, 0, 0, 0.20);
+  box-shadow: 0 1px 3px rgba(0,0,0,.2), 0 1px 2px rgba(0,0,0,.2);
 }
 
 .shadow-sm {
