@@ -76,9 +76,6 @@ export const CreateSolicitudBodega = () => {
   };
 
   const handleInsert = async () => {
-    console.log('Tipo de InventarioSolicitud:', Array.isArray(solicitudData.InventarioSolicitud));
-    console.log('InventarioSolicitud:', solicitudData.InventarioSolicitud);
-  
     try {
       // Insertar directamente los datos de InventarioSolicitud
       const response = await createSolicitud({
