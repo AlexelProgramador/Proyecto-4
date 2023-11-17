@@ -37,6 +37,7 @@ export const HomeSolicitudBodega = () => {
                                     <th>Nombre Solicitante</th>
                                     <th>Destino Solicitud</th>
                                     <th>Cantidad a Pedir</th>
+                                    <th>Estado Solicitud</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
@@ -47,6 +48,7 @@ export const HomeSolicitudBodega = () => {
                                         <td>{item.NombreSolicitanteSolicitud}</td>
                                         <td>{item.NombreBotiquin}</td>
                                         <td>{item.InventarioSolicitud.length}</td>
+                                        <td>{item.EstadoSolicitud}</td>
                                         <td>
                                             <button onClick={() => handleShow(item._id)}>Ver Más</button>
                                         </td>

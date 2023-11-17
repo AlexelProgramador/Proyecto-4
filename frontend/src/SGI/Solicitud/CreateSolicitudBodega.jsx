@@ -76,31 +76,29 @@ export const CreateSolicitudBodega = () => {
   };
 
   const handleInsert = async () => {
-    // Aquí puedes utilizar los elementos seleccionados según necesites
-    const selectedItemsData = selectedItems.map(index => {
-      const productoSeleccionado = solicitudData.InventarioSolicitud[index];
-      return {
-        IdProducto: productoSeleccionado.IdProducto,
-        NombreProducto: productoSeleccionado.NombreProducto,
-        CantidadSolicitud: productoSeleccionado.CantidadSolicitud || 0,
-      };
-    });
+    console.log('Tipo de InventarioSolicitud:', Array.isArray(solicitudData.InventarioSolicitud));
+    console.log('InventarioSolicitud:', solicitudData.InventarioSolicitud);
   
-    // Agregar lógica para manejar los elementos seleccionados
-    createSolicitud({
-      ...solicitudData,
-      InventarioSolicitud: selectedItemsData,
-    })
-      .then(response => {
-        // Manejar la respuesta si es necesario
-        console.log(response.data);
-        // Redirigir a la página deseada después de agregar una nueva solicitud
-        navigate('/show-solicitud'); // Cambia '/ruta-de-redireccion' con la ruta deseada
-      })
-      .catch(error => {
-        // Manejar el error si ocurre
-        console.error('Error al insertar datos: ', error, solicitudData);
+    try {
+      // Insertar directamente los datos de InventarioSolicitud
+      const response = await createSolicitud({
+        ...solicitudData,
+        InventarioSolicitud: solicitudData.InventarioSolicitud.map(productoSeleccionado => ({
+          IdProducto: productoSeleccionado.IdProducto,
+          NombreProducto: productoSeleccionado.NombreProducto,
+          CantidadSolicitud: productoSeleccionado.CantidadSolicitud || 0,
+        })),
       });
+  
+      // Manejar la respuesta si es necesario
+      console.log(response.data);
+      
+      // Redirigir a la página deseada después de agregar una nueva solicitud
+      navigate('/show-solicitud'); // Cambia '/ruta-de-redireccion' con la ruta deseada
+    } catch (error) {
+      // Manejar el error si ocurre
+      console.error('Error al insertar datos: ', error, solicitudData);
+    }
   };
 
   const handleInventarioChange = (e, index) => {
@@ -178,7 +176,7 @@ export const CreateSolicitudBodega = () => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [inventarioSolicitud]);
 
   const handleBotiquinChange = (e) => {
     const selectedOIdUbicacionBotiquin = e.target.value;
