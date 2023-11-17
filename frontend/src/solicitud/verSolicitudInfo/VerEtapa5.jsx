@@ -3,14 +3,16 @@ import React from "react";
 const VerEtapa5 = ({ item }) => {
   return (
     <div className="contenido">
-      <h2>Numero cdp: {item.procesosEtapa5.ncdp}</h2>
-      <h2>Estado: {item.procesosEtapa5.estado}</h2>
-      <h2>Proveedor: {item.procesosEtapa5.proveedor}</h2>
-      <h2>Fecha emision de factura: {item.procesosEtapa5.fechaemisionfact}</h2>
-      <h2>Fecha maxima: {item.procesosEtapa5.fechamaxima}</h2>
-      <h2>Aceptado SSI: {item.procesosEtapa5.aceptadoSsi}</h2>
-      <h2>Fecha vencimiento de factura: {item.procesosEtapa5.fechavencfact}</h2>
-      <h2>Monto de factura: {item.procesosEtapa5.montofactura}</h2>
+    <div className="p-5">
+      <h2 className="mb-3">Numero cdp: <span className="text-primary">{item.procesosEtapa5.ncdp}</span></h2>
+      <h2 className="mb-3">Estado: <span className="text-primary">{item.procesosEtapa5.estado}</span></h2>
+      <h2 className="mb-3">Proveedor: <span className="text-primary">{item.procesosEtapa5.proveedor}</span></h2>
+      <h2 className="mb-3">Fecha emision de factura: <span className="text-primary">{item.procesosEtapa5.fechaemisionfact}</span></h2>
+      <h2 className="mb-3">Fecha maxima: <span className="text-primary">{item.procesosEtapa5.fechamaxima}</span></h2>
+      <h2 className="mb-3">Aceptado SSI: <span className="text-primary">{item.procesosEtapa5.aceptadoSsi}</span></h2>
+      <h2 className="mb-3">Fecha vencimiento de factura: <span className="text-primary">{item.procesosEtapa5.fechavencfact}</span></h2>
+      <h2 className="mb-3">Monto de factura: <span className="text-primary">{item.procesosEtapa5.montofactura}</span></h2>
+    </div>
     </div>
   );
 };

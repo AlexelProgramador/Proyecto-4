@@ -3,11 +3,11 @@ import React from "react";
 const VerEtapa3 = ({ item }) => {
   return (
     <div className="contenido">
-      <h2>
-        Fecha de envio proveedor: {item.procesosEtapa3.fechadeenvioproveedor}
-      </h2>
-      <h2>Estado de envio: {item.procesosEtapa3.estadodeenvio}</h2>
-      <h2>Comentarios: {item.procesosEtapa3.comentarios}</h2>
+    <div className="p-5">
+      <h2 className="mb-3">Fecha de envio proveedor: <span className="text-primary">{item.procesosEtapa3.fechadeenvioproveedor}</span></h2>
+      <h2 className="mb-3">Estado de envio: <span className="text-primary">{item.procesosEtapa3.estadodeenvio}</span></h2>
+      <h2 className="mb-3">Comentarios: <span className="text-muted">{item.procesosEtapa3.comentarios}</span></h2>
+    </div>
     </div>
   );
 };

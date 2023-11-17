@@ -49,10 +49,12 @@ export const VerSolicitud = () => {
       <div className="card shadow-card rounded-3 border border-0">
         <div className="card-body">
           <div className="d-flex justify-content-between pb-0">
-            <div className="h1 text-uppercase">
-              Solicitud nro: {item.solicitudInfo.nroSolicitud}
-            </div>
+            <h2 class="pb-2 h1 border-bottom">Informacion de solicitud</h2>
           </div>
+          <div className="h2 text-uppercase">
+              <br />
+              Numero de solicitud: {item.solicitudInfo.nroSolicitud}
+            </div>
           <div className="botones">
             <button
               value={0}
@@ -108,4 +110,6 @@ export const VerSolicitud = () => {
       </div>
     </div>
   );
+
+    
 };
