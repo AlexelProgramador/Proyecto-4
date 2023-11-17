@@ -27,6 +27,7 @@ import { HomeSolicitudBodega } from './SGI/Solicitud/HomeSolicitudBodega';
 import { CreateSolicitudBodega } from './SGI/Solicitud/CreateSolicitudBodega';
 import { ShowSolicitudBodega } from './SGI/Solicitud/ShowSolicitudBodega';
 import { DashboardBodega } from './SGI/Bodega/DashboardBodega';
+import { PrimerRender } from './SGI/PDFRenderer/PrimerRender';
 
 function App() {
   const [show, setShow] = useState(false);
@@ -125,6 +126,7 @@ function App() {
             <Route path="/create-solicitud" element ={<CreateSolicitudBodega/>}/>
             <Route path="/show-solicitud/:id" element ={<ShowSolicitudBodega/>}/>
             
+            <Route path="/PDF" element ={<PrimerRender/>}/>
 
           </Routes>
         </div>
