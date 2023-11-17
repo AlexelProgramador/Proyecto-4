@@ -39,54 +39,67 @@ export const EditBotiquin = () => {
 
     return (
         <div>
-            <h2>Editar Botiquin</h2>
-            <div>
-                <label htmlFor="NombreBotiquin">Nombre:</label>
-                <input
-                    type="text"
-                    id="NombreBotiquin"
-                    name="NombreBotiquin"
-                    value={botiquin.NombreBotiquin || ''}
-                    onChange={handleInputChange}
-                />
-            </div>
-            <div>
-                <label htmlFor="LugarBotiquin">Lugar:</label>
-                <input
-                    type="text"
-                    id="LugarBotiquin"
-                    name="LugarBotiquin"
-                    value={botiquin.LugarBotiquin || ''}
-                    onChange={handleInputChange}
-                />
-            </div>
-            <button onClick={handleUpdate}>Actualizar Botiquin</button>
-            <h3>Inventario</h3>
-            {botiquin.InventarioBotiquin && botiquin.InventarioBotiquin.length > 0 ? (
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nombre Producto</th>
-                            <th>Cantidad Inventario</th>
-                            {/* Encabezados */}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {botiquin.InventarioBotiquin.map((item, index) => (
-                            <tr key={index}>
-                                <td>{item.prueba}</td>
-                                <td>{item.NombreProducto}</td>
-                                <td>{item.CantidadInventario}</td>
-                                {/* Celdas */}
+        <div className='card shadow-card rounded-0 border border-0'>
+            <div className='card-body'>
+                <div className='h5 text-uppercase pb-2'>Editar Botiquin</div>
+                <form className='row'>                        
+                    <div className='col-md-6 pb-4'>
+                        <div className='form-floating'>
+                            <input className='form-control'
+                                type="text"
+                                id="NombreBotiquin"
+                                name="NombreBotiquin"
+                                value={botiquin.NombreBotiquin || ''}
+                                onChange={handleInputChange}
+                            />
+                            <label htmlFor="NombreBotiquin">Nombre:</label>
+                        </div>
+                    </div>
+                    <div className='col-md-6 pb-4'>
+                        <div className='form-floating'>
+                            <input className='form-control'
+                                type="text"
+                                id="LugarBotiquin"
+                                name="LugarBotiquin"
+                                value={botiquin.LugarBotiquin || ''}
+                                onChange={handleInputChange}
+                            />
+                            <label htmlFor="LugarBotiquin">Lugar:</label>
+                        </div>
+                    </div>
+                    <div className='col-12 pb-4'>
+                        <button className='btn btn-primary' onClick={handleUpdate}>Actualizar Botiquin</button>
+                    </div>
+                </form>
+                <div className='h5 text-uppercase pb-2'>Inventario</div>
+                {botiquin.InventarioBotiquin && botiquin.InventarioBotiquin.length > 0 ? (
+                <div className='table-responsive'>
+                    <table className='table'>
+                        <thead>
+                            <tr>
+                                <th>Nombre Producto</th>
+                                <th>Cantidad Inventario</th>
+                                {/* Encabezados */}
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
-            ) : (
-                <p>No hay datos de inventario disponibles</p>
-            )}
+                        </thead>
+                        <tbody>
+                            {botiquin.InventarioBotiquin.map((item, index) => (
+                                <tr key={index}>
+                                    <td>{item.prueba}</td>
+                                    <td>{item.NombreProducto}</td>
+                                    <td>{item.CantidadInventario}</td>
+                                    {/* Celdas */}
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+                ) : (
+                    <p>No hay datos de inventario disponibles</p>
+                )}
+            </div>
         </div>
-        
+        </div>
     );
 };
 
