@@ -11,11 +11,22 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { Navbar } from "./Navbar";
 import { Sidebar } from "./Sidebar";
 import { useState } from "react";
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 import { AlertContext } from "../context/AlertContext";
 
 export const Home = () => {
   const [showAlert, setShowAlert] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const response = Cookies.get("response");
+    if (!response) {
+      navigate("/login");
+    }
+  }, []);
 
   return (
     <AlertContext.Provider value={{ showAlert, setShowAlert }}>
