@@ -115,4 +115,21 @@ class EtapaController extends Controller
             Response::HTTP_OK
         );
     }
+
+    public function eliminarEtapa(Request $request)
+    {
+        // Buscar la etapa actual
+        $etapa = Etapa::where('_id', $request->idEtapa)->first();
+        if (!$etapa) {
+            return response()->json(['error' => 'No se encontró la etapa actual'], 404);
+        }
+        $etapa->delete();
+
+
+
+        return response()->json(
+            ['message' => 'Etapa eliminada correctamente'],
+            Response::HTTP_OK
+        );
+    }
 }

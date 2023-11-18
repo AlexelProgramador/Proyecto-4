@@ -36,5 +36,5 @@ Route::controller(EtapaController::class)->group(function () {
     Route::post("/verEtapa", "verEtapa");
     Route::put("/rechazarEtapa", "rechazarEtapa");
     Route::put("/avanzarEtapa", "avanzarEtapa");
-
+    Route::delete("/eliminarEtapa", "eliminarEtapa");
 });
