@@ -23,13 +23,12 @@ function getRole(nroEtapa) {
       return null;
   }
 }
-export const Content = () => {
+const MisSolicitudes = () => {
   const { data, loading, error } = useFetch("etapas");
   const { showAlert, setShowAlert } = useContext(AlertContext);
   const [currentPage, setCurrentPage] = useState(1);
   const response = JSON.parse(Cookies.get("response"));
   const ITEMS_PER_PAGE = 10;
-
   useEffect(() => {
     if (showAlert) {
       const timer = setTimeout(() => {
@@ -49,7 +48,7 @@ export const Content = () => {
       <div className="card shadow-card rounded-3 border border-0">
         <div className="card-body">
           <div className="d-flex justify-content-between pb-0">
-            <div className="h5 text-uppercase">Solicitudes</div>
+            <div className="h5 text-uppercase">Mis solicitudes</div>
           </div>
           {loading ? (
             <div className="d-flex justify-content-center  m-5">
@@ -71,9 +70,9 @@ export const Content = () => {
                 </thead>
                 <tbody>
                   {" "}
-                  {selectedItems.map(
-                    (item) =>
-                      item.nroEtapa !== "Rechazado" && (
+                  {selectedItems.map((item) => {
+                    if (item.solicitudInfo.idUsuario === response.usuarioId) {
+                      return (
                         <tr key={item._id}>
                           <td>{item.solicitudInfo.nroSolicitud}</td>
                           <td>{item.nroEtapa}</td>
@@ -92,8 +91,8 @@ export const Content = () => {
                                     onClick={() =>
                                       navigate(
                                         item.nroEtapa === 0
-                                          ? "solicitudChequeo"
-                                          : `etapa${item.nroEtapa}`,
+                                          ? "/solicitudChequeo"
+                                          : `/etapa${item.nroEtapa}`,
                                         {
                                           state: { item },
                                         }
@@ -107,7 +106,7 @@ export const Content = () => {
                               <button
                                 className="btn btn-warning"
                                 onClick={() =>
-                                  navigate(`verSolicitud`, {
+                                  navigate(`/verSolicitud`, {
                                     state: { item },
                                   })
                                 }
@@ -117,8 +116,11 @@ export const Content = () => {
                             </div>
                           </td>
                         </tr>
-                      )
-                  )}
+                      );
+                    } else {
+                      return null;
+                    }
+                  })}
                   {Array(10 - selectedItems.length)
                     .fill()
                     .map((_, index) => (
@@ -160,3 +162,4 @@ export const Content = () => {
     </div>
   );
 };
+export default MisSolicitudes;

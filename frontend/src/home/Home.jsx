@@ -11,11 +11,13 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { Navbar } from "./Navbar";
 import { Sidebar } from "./Sidebar";
 import { useState } from "react";
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Cookies from 'js-cookie';
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 import { AlertContext } from "../context/AlertContext";
+import MisSolicitudes from "../solicitud/MisSolicitudes";
+import { EtapaRechazado } from "../etapas/EtapaRechazado";
 
 export const Home = () => {
   const [showAlert, setShowAlert] = useState(false);
@@ -49,6 +51,8 @@ export const Home = () => {
               <Route path="etapa5" element={<Etapa5 />} />
               <Route path="crearSolicitud" element={<CrearSolicitud />} />
               <Route path="verSolicitud" element={<VerSolicitud />} />
+              <Route path="misSolicitudes" element={<MisSolicitudes />} />
+              <Route path="etapaRechazado" element={<EtapaRechazado />} />
             </Routes>
           </div>
         </div>

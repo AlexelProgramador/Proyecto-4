@@ -27,17 +27,6 @@ Route::controller(AuthController::class)->group(function () {
 Route::controller(UsuarioController::class)->group(function () {
     Route::get("/usuarios", "index");
     Route::post("/usuario", "store");
-    Route::put("/usuario/{idUsuario}", "update");
-    Route::delete("/usuario/{idUsuario}", "destroy");
-});
-
-// Controlador Solicitud.
-Route::controller(SolicitudController::class)->group(function () {
-    Route::get("/solicitudes", "index");
-    Route::post("/crearSolicitud", "store");
-    Route::post("/solicitudInfo", "solicitudInfo");
-    Route::put("/solicitud/{idUsuario}", "update");
-    Route::delete("/solicitud", "destroy");
 });
 
 // Controlador Etapa.
@@ -45,8 +34,7 @@ Route::controller(EtapaController::class)->group(function () {
     Route::get("/etapas", "index");
     Route::post("/crearEtapa", "crearEtapa");
     Route::post("/verEtapa", "verEtapa");
+    Route::put("/rechazarEtapa", "rechazarEtapa");
     Route::put("/avanzarEtapa", "avanzarEtapa");
 
-    Route::put("/etapa/{idUsuario}/{idEtapa}", "update");
-    Route::delete("/etapa", "destroy");
 });

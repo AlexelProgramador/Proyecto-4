@@ -81,7 +81,7 @@ class EtapaController extends Controller
         $etapa->procesosEtapa5 = $data['procesosEtapa5'];
         $etapa->solicitudInfo = $data['infoSolicitud'];
         $etapa->infoUsuario = $data['infoUsuario'];
-        $nombrePdf = $data['infoSolicitud']['nroSolicitud']. '-' . $archivo->getClientOriginalName() . '.' . $archivo->getClientOriginalExtension();
+        $nombrePdf = $data['infoSolicitud']['nroSolicitud'] . '-' . $archivo->getClientOriginalName() . '.' . $archivo->getClientOriginalExtension();
         $destino = public_path('/pdfs');
         $archivo->move($destino, $nombrePdf);
         $etapa->nombrePdf = $nombrePdf;
@@ -93,42 +93,26 @@ class EtapaController extends Controller
             Response::HTTP_OK
         );
     }
-    public function update(Request $request, $idUsuario, $idEtapa)
+
+    public function rechazarEtapa(Request $request)
     {
-        $etapa = Etapa::findOrFail($idEtapa);
-
-        // Variables correspondientes a la etapa.
-        $etapa->nroEtapa = $request->nroEtapa;
-        $etapa->Aprobado = $request->Aprobado;
-
-        // Etapas 
-        $etapa->procesosEtapa1 = $request->procesosEtapa1;
-        $etapa->procesosEtapa2 = $request->procesosEtapa2;
-        $etapa->procesosEtapa3 = $request->procesosEtapa3;
-        $etapa->procesosEtapa4 = $request->procesosEtapa4;
-        $etapa->procesosEtapa5 = $request->procesosEtapa5;
-
-        // Usuario que atiende la etapa.
-        $usuarioEtapa = Usuario::select('_id', 'nombre', 'apellido')->where('_id', $idUsuario)->first()->toArray();
-
-        // Flujo en caso de que no encuentre el usuario por el id.
-        if ($usuarioEtapa === null) {
-            return response()->json(['error' => 'No se encontro el usuario'], Response::HTTP_CONFLICT);
+        // Buscar la etapa actual
+        $etapa = Etapa::where('_id', $request->idEtapa)->first();
+        if (!$etapa) {
+            return response()->json(['error' => 'No se encontró la etapa actual'], 404);
         }
-        $etapa->usuarioEtapa = $usuarioEtapa;
+        $etapa->nroEtapa = "Rechazado";
+        $etapa->motivoRechazo = $request->motivoRechazo;
+        // Guardar los cambios
 
-        $etapa->save();
-
-        return response()->json(['result' => $etapa], Response::HTTP_OK);
-    }
-    public function destroy(Request $request)
-    {
-        $idsEtapas = $request->idsEtapas;
-        if (empty($idsEtapas)) { // Flujo si se entrega arreglo vacio
-            return response()->json(['result' => "No se han proporcionado IDs de Etapas para eliminar"], Response::HTTP_BAD_REQUEST);
+        try {
+            $etapa->save();
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
         }
-        Etapa::whereIn('_id', $idsEtapas)->delete(); // Eliminamos las Etapas
-        $idsString = implode(', ', $idsEtapas); // Separamos el arreglo con ", "
-        return response()->json(['result' => "Se ha(n) eliminado la(s) etapa(s) $idsString"], Response::HTTP_OK);
+        return response()->json(
+            $etapa,
+            Response::HTTP_OK
+        );
     }
 }

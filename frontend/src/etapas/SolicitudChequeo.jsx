@@ -7,15 +7,16 @@ import { useNavigate } from "react-router-dom";
 
 export const SolicitudChequeo = () => {
   const location = useLocation();
-  const item =   location.state.item;
+  const item = location.state.item;
   const { execute: executePost, response } = usePostRequest();
   const [solicitudInfo, setSolicitudInfo] = useState(null);
+  const [motivoRechazo, setMotivoRechazo] = useState("");
   const productosPorPagina = 3;
   const [paginaActual, setPaginaActual] = useState(0);
   const [numeroDePaginas, setNumeroDePaginas] = useState(0);
   const { data, error, isLoading, execute: executePut } = usePutRequest();
   const navigate = useNavigate();
-
+  const [modalOpen, setModalOpen] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {
@@ -25,6 +26,23 @@ export const SolicitudChequeo = () => {
     const url = "avanzarEtapa";
     const response = await executePut(url, data);
     navigate("/");
+  };
+
+  const handleRechazar = async (e) => {
+    e.preventDefault();
+    console.log(motivoRechazo);
+    const data = {
+      idEtapa: solicitudInfo._id, // Enviar el ID de la etapa como una cadena de texto
+      motivoRechazo: motivoRechazo,
+    };
+    const url = "rechazarEtapa";
+    const response = await executePut(url, data);
+    // Cerrar el modal manualmente
+    var myModal = document.getElementById("rechazarModal");
+    var modal = bootstrap.Modal.getInstance(myModal);
+    modal.hide();
+
+    // navigate("/");
   };
 
   const getSolicitudInfo = async () => {
@@ -171,6 +189,74 @@ export const SolicitudChequeo = () => {
                   </button>
                   <button
                     className="m-2  btn btn-danger"
+                    type="button"
+                    data-bs-toggle="modal"
+                    data-bs-target="#rechazarModal"
+                  >
+                    Rechazar
+                  </button>
+
+                  <div
+                    className="modal fade"
+                    id="rechazarModal"
+                    tabIndex="-1"
+                    aria-labelledby="exampleModalLabel"
+                    aria-hidden="true"
+                  >
+                    <div className="modal-dialog">
+                      <div className="modal-content">
+                        <div className="modal-header">
+                          <h5 className="modal-title" id="exampleModalLabel">
+                            Motivo de rechazo
+                          </h5>
+                          <button
+                            type="button"
+                            className="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                          ></button>
+                        </div>
+                        <div className="modal-body">
+                          <form>
+                            <div className="mb-3">
+                              <label
+                                htmlFor="message-text"
+                                className="col-form-label"
+                              >
+                                Motivo:
+                              </label>
+                              <textarea
+                                className="form-control"
+                                id="message-text"
+                                value={motivoRechazo}
+                                onChange={(e) =>
+                                  setMotivoRechazo(e.target.value)
+                                }
+                              ></textarea>
+                            </div>
+                          </form>
+                        </div>
+                        <div className="modal-footer">
+                          <button
+                            type="button"
+                            className="btn btn-secondary"
+                            data-bs-dismiss="modal"
+                          >
+                            Cerrar
+                          </button>
+                          <button
+                            type="submit"
+                            className="btn btn-primary"
+                            onClick={handleRechazar}
+                          >
+                            Enviar
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    className="m-2  btn btn-warning"
                     type="button"
                     onClick={(e) => e.preventDefault()}
                   >

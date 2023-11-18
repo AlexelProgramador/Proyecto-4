@@ -16,9 +16,11 @@ const usePutRequest = (initialUrl = "", initialData = {}) => {
         `http://127.0.0.1:8000/api/${newUrl}`,
         newData
       );
+      console.log(response.data); // Imprimir la respuesta del servidor
       setData(response.data);
     } catch (error) {
       setError(error);
+      console.log(error);
     } finally {
       setIsLoading(false);
     }
