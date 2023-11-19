@@ -56,8 +56,10 @@ export const Etapa1 = () => {
     <div className='w-75 h-40 mx-auto' >
       <div className='card shadow-card rounded-3 border border-0'>
         <div className='card-body'>
-          <h2 className='mx-auto p-2'>Solicitud Etapa 1</h2>
-          
+          <h2 className='mx-auto p-2 display-4'>Solicitud Etapa 1</h2>
+          <p className='display-7'>Esta Solicitud corresponde a: Pablo Contreras </p>
+          <p className='display-7'>Porfavor rellenar informacion corresponde a la etapa</p>
+          <p className='display-7'>Una vez lo considere terminado pulsar el boton "Enviar Etapa"</p>         
           
           <div className="row g-2">
             <div className="col-md">
@@ -208,14 +210,14 @@ export const Etapa1 = () => {
               <label htmlFor="floatingTextarea2">comentario</label>
             </div>
             <button className="m-2 btn btn-primary" type="submit">
-              Aceptar
+              Enviar Etapa
             </button>
             <button
               className="m-2  btn btn-danger"
               type="button"
               onClick={(e) => e.preventDefault()}
             >
-              atras
+              Atras
             </button>
           </form>
         </div>

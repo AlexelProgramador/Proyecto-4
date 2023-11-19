@@ -69,8 +69,10 @@ export const Etapa5 = () => {
           <div className="w-75 h-40 mx-auto">
             <div className="card shadow-card rounded-3 border border-0">
               <div className="card-body">
-                <h2 className="mx-auto p-2">Solicitud Etapa 5</h2>
-                <form onSubmit={handleSubmit}>
+              <h2 className='mx-auto p-2 display-4'>Solicitud Etapa 5</h2>
+          <p className='display-7'>Esta Solicitud corresponde a: Bodega</p>
+          <p className='display-7'>Porfavor rellenar informacion corresponde a la etapa</p>
+          <p className='display-7'>Una vez lo considere terminado pulsar el boton "Enviar Etapa"</p>                  <form onSubmit={handleSubmit}>
                   <div className="form-floating mt-2 g-2">
                     <input
                       type="text"

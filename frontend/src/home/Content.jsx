@@ -6,7 +6,6 @@ import { CheckCircleFill } from "react-bootstrap-icons";
 import React, { useState } from "react";
 import Cookies from "js-cookie";
 import useDeleteRequest from "../Hooks/useDeleteRequest";
-import SeccionDiasSinAtender from "./SeccionDiasSinAtender";
 function getRole(nroEtapa) {
   switch (nroEtapa) {
     case 0:
@@ -59,15 +58,10 @@ export const Content = () => {
   return (
     <>
       <div className="w-75 h-40 mx-auto">
-        <div className="card shadow-card rounded-3 mb-2 border border-0">
-          <div className="card-body">
-            <div className="d-flex justify-content-between pb-0">
-              <div className="h5 text-uppercase">
-                Solicitudes sin antender por 1 dia
-              </div>
-            </div>
-            <SeccionDiasSinAtender data={data} />
-          </div>
+        <div className="mb-3">
+          <h2 className='mx-auto p-2 display-4'>Solicitud Etapa 1</h2>
+          <p className='display-7'>Aquí puedes gestionar las solicitudes, ver detalles de cada etapa, eliminar etapas y más.</p>
+
         </div>
         <div className="card shadow-card rounded-3 border border-0">
           <div className="card-body">
