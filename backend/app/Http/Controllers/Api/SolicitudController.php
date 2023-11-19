@@ -87,4 +87,5 @@ class SolicitudController extends Controller
         $idsString = implode(', ', $idsSolicitudes); // Separamos el arreglo con ", "
         return response()->json(['result' => "Se ha(n) eliminado la(s) solicitude(s) $idsString"], Response::HTTP_OK);
     }
+    
 }

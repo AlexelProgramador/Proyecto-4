@@ -6,8 +6,9 @@ use App\Http\Controllers\Api\EtapaController;
 use App\Http\Controllers\Api\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\AApiPdfController;
 
-
+use App\Http\Controllers\Api\PdfController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -37,4 +38,9 @@ Route::controller(EtapaController::class)->group(function () {
     Route::put("/rechazarEtapa", "rechazarEtapa");
     Route::put("/avanzarEtapa", "avanzarEtapa");
     Route::delete("/eliminarEtapa", "eliminarEtapa");
+
+});
+
+Route::group(['prefix' => 'pdf', 'as' => 'pdf.'], function () {
+    Route::get('/{filename}', [AApiPdfController::class, 'show'])->name('show');
 });
