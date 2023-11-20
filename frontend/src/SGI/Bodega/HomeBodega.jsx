@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { deleteBodega, homeBodega } from './HandlerBodega';
+import { useModal } from '../../Components/Modal';
 
 export const HomeBodega = () => {
     const [data, setData] = useState([]);
     const navigate = useNavigate();
     
+    const { setModal } = useModal()
+
     const fetchData = async () => {
         try {
             const response = await homeBodega();
@@ -42,7 +45,16 @@ export const HomeBodega = () => {
                 <div className='card-body'>
                     <div className='d-flex justify-content-between pb-2'>
                         <div className='h5 text-uppercase'>Bodegas</div>
-                        <div className=''><button className='btn btn-success'>Crear <i class="fa-solid fa-plus"></i></button></div>
+                        <div className=''><button className='btn btn-success' onClick={() => { 
+                            setModal(
+                                <div className="flex flex-col justify-center items-center w-[350px] h-[350px] border-amber-400 border-4 rounded-md">
+                                
+                                <div className="flex flex-col sm:flex-row justify-center items-center">
+                                    <button onClick={()=> console.log("agrego")} className="p-2 w-32 text-base bg-blue-500 rounded-l text-center font-bold text-white hover:text-amber-300">Añadir</button>
+                                    <button onClick={() => {setModal(false)}} className="w-32 text-base bg-red-500 p-2 rounded-r text-center font-bold text-white hover:text-amber-300 ">Salir</button>
+                                </div>
+                                </div>)}}>Crear <i class="fa-solid fa-plus"></i></button>
+                            </div>
                     </div>
                     <div className='table-responsive'>
                     <table className='table'>

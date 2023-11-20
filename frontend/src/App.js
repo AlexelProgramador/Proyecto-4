@@ -27,6 +27,7 @@ import { HomeSolicitudBodega } from './SGI/Solicitud/HomeSolicitudBodega';
 import { CreateSolicitudBodega } from './SGI/Solicitud/CreateSolicitudBodega';
 import { ShowSolicitudBodega } from './SGI/Solicitud/ShowSolicitudBodega';
 import { DashboardBodega } from './SGI/Bodega/DashboardBodega';
+import { ModalProvider } from "./Components/Modal";
 import { PrimerRender } from './SGI/PDFRenderer/PrimerRender';
 
 function App() {
@@ -94,6 +95,7 @@ function App() {
         </nav>
       </aside>
       {/* CONTENIDO */}
+      <ModalProvider>
       <div className="container-fluid pt-4">
           <Routes>
             <Route path="/" element={<Dashboard />} />
@@ -130,6 +132,7 @@ function App() {
 
           </Routes>
         </div>
+        </ModalProvider>
       </main>   
       </div>  
     </Router>
