@@ -73,3 +73,22 @@ export const deleteProducto = async (id) => {
   console.error('Error al eliminar datos: ', error);
   });
 };
+
+export const pocasUnidadesProducto = async () => {
+  return axios.get(url + '/productos/sinInventario')
+    .then(response => response.data)
+    .catch(error => {
+      // Manejar el error si ocurre
+      console.error('Error al mostrar todos los datos: ', error);
+    });
+};
+
+export const vencimientoProducto = async () => {
+  return axios.get(url + '/productos/vencimientoInventario')
+    .then(response => response.data)
+    .catch(error => {
+      // Manejar el error si ocurre
+      console.error('Error al mostrar todos los datos: ', error);
+    });
+};
+

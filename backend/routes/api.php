@@ -76,6 +76,8 @@ Route::controller(ProductoController::class)->group(function () {
     Route::put("/producto/{id}/desgloce", "updateDesgloce");
     Route::put("/producto/{id}/asignacion", "updateAsignacion");
     Route::delete("/producto/{id}", "destroy");
+    Route::get("/productos/sinInventario", "pocoProducto");
+    Route::get("/productos/vencimientoInventario", "vencimientoProducto");
 });
 
 Route::controller(SolicitudBodegaController::class)->group(function () {
@@ -86,5 +88,6 @@ Route::controller(SolicitudBodegaController::class)->group(function () {
     Route::put("/solicitud_bodega/{id}/aceptar", "aceptarSolicitud");
     Route::put("/solicitud_bodega/{id}/rechazar", "rechazarSolicitud");
     Route::delete("/solicitud_bodega/{id}", "destroy");
+    Route::get("/solicitudes_bodega/contar", "contarPendiente");
 });
 //-----------------------------------------------------------------

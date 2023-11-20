@@ -47,6 +47,15 @@ export const rechazarSolicitud = async (id, solicitudData) => {
   });
 };
 
+export const contadorSolicitudPendiente = async () => {
+  return axios.get(url + '/solicitudes_bodega/contar')
+    .then(response => response.data.data)
+    .catch(error => {
+      // Manejar el error si ocurre
+      console.error('Error al mostrar todos los datos: ', error);
+    });
+};
+
 {/* Probablemente estas se tengan que ir pq no las necesitamos
 ----------------------------------------------------------------
 */}

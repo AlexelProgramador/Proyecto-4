@@ -186,8 +186,7 @@ class SolicitudBodegaController extends Controller
     $bodega->save();
 
     return response()->json(['message' => $cantidadRestante]);
-}
-
+    }
 
     public function rechazarSolicitud(request $request, $id)
     {
@@ -196,5 +195,11 @@ class SolicitudBodegaController extends Controller
             'ComentarioSolicitud' => $request->ComentarioSolicitud,
         ]);
         return response()->json(['message' => "Solicitud Rechazada", 'data' => $datos], 201);
+    }
+
+    public function contarPendiente()
+    {
+        $sPendiente = SolicitudBodega::where('EstadoSolicitud', 'Pendiente')->get();
+        return response()->json(['data' => $sPendiente]);
     }
 }

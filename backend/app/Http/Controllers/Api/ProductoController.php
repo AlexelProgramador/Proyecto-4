@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Producto;
 use App\Models\Bodega;
 use Ramsey\Uuid\Uuid;
+use Carbon\Carbon;
 
 class ProductoController extends Controller
 {
@@ -188,5 +189,54 @@ class ProductoController extends Controller
         //
         Producto::destroy($id);
         return response()->json(['message' =>  'Borrado']);
+    }
+
+    public function pocoProducto()
+    {
+        //
+        $datos = Producto::where('TotalProducto', '<=', 25)->get();
+        return response()->json($datos);
+    }
+
+    public function vencimientoProducto()
+    {
+        // Obtener todos los productos (o usar algún criterio para obtener los productos que necesitas)
+        $productos = Producto::all('DesgloceProducto'); // Reemplaza "TuModelo" con el nombre correcto de tu modelo
+
+        // Fecha actual
+        $fechaActual = Carbon::now();
+
+        // Recorrer cada producto
+        foreach ($productos as $producto) {
+            // Recorrer cada desglose del producto
+            foreach ($producto->DesgloceProducto as $desglose) {
+                $fechaVencimiento = Carbon::parse($desglose['FechaVencimientoProducto']);
+                $diferenciaEnDias = $fechaVencimiento->diffInDays($fechaActual);
+
+                // Determinar el estado del producto
+                if ($diferenciaEnDias < 0 && $desglose['EstadoProducto'] !== 'Vencido') {
+                    // Actualizar el estado del desglose a "Vencido"
+                    $desglose->update(['EstadoProducto' => 'Vencido']);
+
+                    // Puedes agregar más lógica aquí según sea necesario
+                    $inventario['vencido'][] = [
+                        'producto' => $producto,
+                        'desglose' => $desglose,
+                        'dias_restantes' => $diferenciaEnDias,
+                    ];
+
+                } elseif ($diferenciaEnDias <= 7) {
+                    // Producto por vencer en los próximos 7 días
+                    $inventario['por_vencer'][] = [
+                        'producto' => $producto,
+                        'desglose' => $desglose,
+                        'dias_restantes' => $diferenciaEnDias,
+                    ];
+                } 
+            }
+        }
+
+        // Ahora $inventario contiene la información organizada por estados
+        return response()->json($inventario);
     }
 }
