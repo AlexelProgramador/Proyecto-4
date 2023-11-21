@@ -31,11 +31,11 @@ export const ShowSolicitudBodega = () => {
             console.log(response.data);
             // Redirigir a la página deseada después de agregar una nueva solicitud
             navigate('/show-solicitud'); // Cambia '/ruta-de-redireccion' con la ruta deseada
-          })
-          .catch(error => {
+        })
+        .catch(error => {
             // Manejar el error si ocurre
             console.error('Error al rechazar solicitud: ', error, solicitud);
-          });
+        });
 
         navigate("/show-solicitud");
     };
@@ -46,18 +46,18 @@ export const ShowSolicitudBodega = () => {
             console.log(response.data);
             // Redirigir a la página deseada después de agregar una nueva solicitud
             navigate('/show-solicitud'); // Cambia '/ruta-de-redireccion' con la ruta deseada
-          })
-          .catch(error => {
+        })
+        .catch(error => {
             // Manejar el error si ocurre
             console.error('Error al rechazar solicitud: ', error, solicitud);
-          });
+        });
         navigate("/show-solicitud");
     };
 
     const handleInputChange = (e) => {
         setSolicitud({
-          ...solicitud,
-          [e.target.name]: e.target.value
+            ...solicitud,
+            [e.target.name]: e.target.value
         });
     };
     console.log(solicitud);

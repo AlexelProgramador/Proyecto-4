@@ -26,6 +26,7 @@ export const HomeBodega = () => {
         try {
             await deleteBodega(id);
             fetchData();
+            setModal(false);
         } catch (error) {
             console.error('Error al eliminar el elemento', error);
         }
@@ -49,10 +50,6 @@ export const HomeBodega = () => {
                             setModal(
                                 <div className="flex flex-col justify-center items-center w-[350px] h-[350px] border-amber-400 border-4 rounded-md">
                                 
-                                <div className="flex flex-col sm:flex-row justify-center items-center">
-                                    <button onClick={()=> console.log("agrego")} className="p-2 w-32 text-base bg-blue-500 rounded-l text-center font-bold text-white hover:text-amber-300">Añadir</button>
-                                    <button onClick={() => {setModal(false)}} className="w-32 text-base bg-red-500 p-2 rounded-r text-center font-bold text-white hover:text-amber-300 ">Salir</button>
-                                </div>
                                 </div>)}}>Crear <i class="fa-solid fa-plus"></i></button>
                             </div>
                     </div>
@@ -76,7 +73,17 @@ export const HomeBodega = () => {
                                         <div className='btn-group btn-group-sm'>
                                             <button className='btn btn-primary' onClick={() => handleShow(item._id)}><i class="fa-solid fa-eye"></i></button>
                                             <button className='btn btn-warning' onClick={() => handleEdit(item._id)}><i class="fa-solid fa-pen"></i></button>
-                                            <button className='btn btn-danger' onClick={() => handleDelete(item._id)}><i class="fa-solid fa-trash-can"></i></button>
+                                            <button className='btn btn-danger' onClick={() => { 
+                                                setModal(
+                                                    <div className=''>
+                                                        <div className='text-uppercase h6'>Confirmar</div>
+                                                        <div className='text-center pt-3'>¿Está seguro que desea eliminar este registro?</div>
+                                                        <p className='fw-semibold'>{item.NombreBodega}</p>
+                                                        <div className='text-end'>
+                                                        <button className='btn me-2' onClick={() => {setModal(false)}}>Cancelar</button>
+                                                        <button className='btn btn-danger' onClick={() => handleDelete(item._id)}>Eliminar</button>
+                                                        </div>
+                                                    </div>)}}><i class="fa-solid fa-trash-can"></i></button>
                                         </div>
                                     </td>
                                 </tr>

@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { deleteBotiquin, homeBotiquin } from './HandlerBotiquin';
+import { useModal } from '../../Components/Modal';
 
 export const HomeBotiquin = () => {
     const [data, setData] = useState([]);
     const navigate = useNavigate();
-    
+    const { setModal } = useModal()
+
     const fetchData = async () => {
         try {
             const response = await homeBotiquin();
@@ -64,8 +66,18 @@ export const HomeBotiquin = () => {
                                         <div className='btn-group btn-group-sm'>
                                             <button className='btn btn-primary' onClick={() => handleShow(item._id)}><i class="fa-solid fa-eye"></i></button>
                                             <button className='btn btn-warning' onClick={() => handleEdit(item._id)}><i class="fa-solid fa-pen"></i></button>
-                                            <button className='btn btn-danger' onClick={() => handleDelete(item._id)}><i class="fa-solid fa-trash-can"></i></button>
-                                        </div>    
+                                            <button className='btn btn-danger' onClick={() => { 
+                                                setModal(
+                                                    <div className=''>
+                                                        <div className='text-uppercase h6'>Confirmar</div>
+                                                        <div className='text-center pt-3'>¿Está seguro que desea eliminar este registro?</div>
+                                                        <p className='fw-semibold'>{item.NombreBotiquin}</p>
+                                                        <div className='text-end'>
+                                                        <button className='btn me-2' onClick={() => {setModal(false)}}>Cancelar</button>
+                                                        <button className='btn btn-danger' onClick={() => handleDelete(item._id)}>Eliminar</button>
+                                                        </div>
+                                                    </div>)}}><i class="fa-solid fa-trash-can"></i></button>
+                                        </div>   
                                     </td>
                                 </tr>
                             ))}

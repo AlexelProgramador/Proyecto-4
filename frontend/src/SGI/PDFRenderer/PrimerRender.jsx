@@ -3,7 +3,7 @@ import { PDFViewer } from '@react-pdf/renderer';
 import { PrimerPdf } from './PrimerPdf';
 
 export const PrimerRender = () => (
-  <PDFViewer>
+  <PDFViewer width="1000" height="600">
     <PrimerPdf />
   </PDFViewer>
 );

@@ -207,7 +207,7 @@ main {
 /* MODAL */
 
 .modal {
-  --spacing: 24px;
+  --spacing: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -222,7 +222,7 @@ main {
 .modal__close {
   display: block;
   position: fixed;
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(0, 0, 0, 0.5);
   border: none;
   top: 0;
   left: 0;
@@ -234,35 +234,36 @@ main {
   display: flex;
   justify-content: center;
   position: relative;
-  width: calc(var(--spacing) * 36);
+  /* width: calc(var(--spacing) ); */
   max-width: 100%;
-  padding: calc(var(--spacing) * 3) calc(var(--spacing) * 1.5);
+  padding: calc(var(--spacing)) calc(var(--spacing));
   border-radius: 5px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   background-color: #ffffff;
-  box-shadow: rgba(9, 30, 66, 0.25) 0px 20px 32px -8px;
+  /* box-shadow: rgba(9, 30, 66, 0.25) 0px 20px 32px -8px; */
 }
 
 .modal__close-btn {
   position: absolute;
-  top: var(--spacing);
-  right: var(--spacing);
+  top: 10px;
+  right: 15px;
   padding: 0;
   background: transparent;
   border: none;
   cursor: pointer;
-  color: #000000;
+  color: #444;
+  vertical-align: text-top;
 }
-
-.modal__close-btn svg {
+/* 
+.modal__close-btn {
   width: var(--spacing);
   height: var(--spacing);
   fill: currentColor;
-  opacity: 0.5;
-}
+} */
 
-.modal__close-btn:hover svg {
-  opacity: 1;
+.modal__close-btn:hover {
+  opacity: 3;
+  color: #000000;
 }
 
 

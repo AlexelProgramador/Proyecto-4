@@ -50,7 +50,7 @@ export const HomeSolicitudBodega = () => {
                                         <td>{item.InventarioSolicitud.length}</td>
                                         <td>{item.EstadoSolicitud}</td>
                                         <td>
-                                            <button onClick={() => handleShow(item._id)}>Ver Más</button>
+                                            <button className='btn btn-primary' onClick={() => handleShow(item._id)}><i class="fa-solid fa-eye"></i></button>
                                         </td>
                                     </tr>
                                 ))}

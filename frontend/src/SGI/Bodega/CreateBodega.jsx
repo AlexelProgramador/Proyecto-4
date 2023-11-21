@@ -53,7 +53,7 @@ export const CreateBodega = () => {
                 <div className='form-floating'>
                   <input className='form-control'
                     type="text"
-                    placeholder="Lugar de la Bodega"
+                    // placeholder="Lugar de la Bodega"
                     name="LugarBodega"
                     value={bodegaData.LugarBodega}
                     onChange={handleInputChange}
