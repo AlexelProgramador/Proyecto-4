@@ -10,7 +10,7 @@ export const TerminarSolicitud = ({ solicitud, handleinput, aceptar, rechazar })
                 <div className='h5 text-uppercase pb-2'>Inventario</div>
                 {solicitud.InventarioSolicitud && solicitud.InventarioSolicitud.length > 0 ? (
                 <div className='table-responsive'>
-                    <table>
+                    <table className='table'>
                         <thead>
                             <tr>
                                 <th>Nombre Producto</th>

@@ -57,7 +57,16 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: 'extralight',
     marginBottom: 4,
-  }, 
+  },
+  align: {
+    flexDirection: 'row',
+  },
+  textalign: {
+    fontSize: 12,
+    fontWeight: 'extralight',
+    marginBottom: 4,
+    flexGrow: 1,
+  },
 });
 
 // Crear componente de documento
@@ -79,9 +88,15 @@ export const PrimerPdf = ({item}) => (
         <Text style={styles.text}>BOTIQUIN N: {item.NombreBotiquin}         NOMBRE: {item.NombreSolicitanteSolicitud}       FECHA: {item.FechaSolicitud}</Text>
         <Text style={styles.text}>{item.InventarioSolicitud.length}</Text>
         <Text style={styles.text}>{item.EstadoSolicitud}</Text>
-        <Text>{item.NombreProducto}</Text>
-        <Text>{item.CantidadAsignadaProducto}</Text>
-        <Text>{item.FechaProcesoProducto}</Text>
+        <View style={{marginTop: 10}}>
+          {item.InventarioSolicitud.map((soli, index) =>
+            <View key={index} style={styles.align}> 
+              <Text style={styles.textalign}>{soli.IdProducto}</Text>
+              <Text style={styles.textalign}>{soli.NombreProducto}</Text>
+              <Text style={styles.textalign}>{soli.CantidadSolicitud}</Text>
+            </View>
+          )}
+        </View>
       </View>
     </Page>
   </Document>
