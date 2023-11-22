@@ -58,7 +58,7 @@ export const HomeSolicitudBodega = () => {
                                             <button className='btn btn-danger' onClick={() => { 
                                             setModal(
                                                 <div className=''>
-                                                    <div className='text-uppercase h6'>Confirmar</div>
+                                                    <div className='text-uppercase h6'>Generar documento pdf</div>
                                                     <div className='text-center pt-3'></div>
                                                     <PDFViewer width="1000" height="600">
                                                         <PrimerPdf item={item}/>
