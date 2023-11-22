@@ -26,9 +26,10 @@ export const ShowBotiquin = () => {
             <div className='card shadow-card rounded-0 border border-0'>
                 <div className='card-body'>
                     <div className='h5 text-uppercase pb-2'>Botiquin</div>
-                    <h3>Inventario</h3>
+                    <div className='h5 text-uppercase pb-2'>Inventario</div>
                     {botiquin.InventarioBotiquin && botiquin.InventarioBotiquin.length > 0 ? (
-                        <table>
+                    <div className='table-responsive'>
+                        <table className='table'>
                             <thead>
                                 <tr>
                                     <th>Nombre Producto</th>
@@ -46,6 +47,7 @@ export const ShowBotiquin = () => {
                                 ))}
                             </tbody>
                         </table>
+                    </div>
                     ) : (
                         <p>No hay datos de inventario disponibles</p>
                     )}
