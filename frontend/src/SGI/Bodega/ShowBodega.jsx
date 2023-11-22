@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { showBodega } from './HandlerBodega';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 export const ShowBodega = () => {
     const [bodega, setBodega] = useState({});
     const { id } = useParams();
-    const navigate = useNavigate();
     const url = `http://localhost:8000/api/bodega/${id}/edit`; // Reemplaza con la URL de tu backend
 
     useEffect(() => {
@@ -26,7 +25,6 @@ export const ShowBodega = () => {
             <div className='card shadow-card rounded-0 border border-0'>
                 <div className='card-body'>
                     <div className='h5 text-uppercase pb-2'>Bodega</div>
-                    <p>{bodega._id}</p>
                     <div className='h5 text-uppercase pb-2'>Inventario</div>
                     {bodega.InventarioBodega && bodega.InventarioBodega.length > 0 ? (
                     <div className='table-responsive'>
@@ -41,9 +39,8 @@ export const ShowBodega = () => {
                             <tbody>
                                 {bodega.InventarioBodega.map((item, index) => (
                                     <tr key={index}>
-                                        <td>{item.prueba}</td>
                                         <td>{item.NombreProducto}</td>
-                                        <td>{item.CantidadInventario}</td>
+                                        <td>{item.CantidadAsignadaProducto}</td>
                                         {/* Celdas */}
                                     </tr>
                                 ))}

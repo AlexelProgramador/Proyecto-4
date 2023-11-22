@@ -49,7 +49,7 @@ export const HomeProducto = () => {
                             <tr>
                                 <th>UUID es de prueba</th>
                                 <th>Nombre Producto</th>
-                                <th>Lugar Producto</th>
+                                <th>Cantidad Total Producto</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -58,7 +58,7 @@ export const HomeProducto = () => {
                                 <tr key={item.id}>
                                     <td>{item._id}</td>
                                     <td>{item.NombreProducto}</td>
-                                    <td>{item.LugarProducto}</td>
+                                    <td>{item.TotalProducto}</td>
                                     <td>
                                         <div className='btn-group btn-group-sm'>
                                             <button className='btn btn-primary' onClick={() => handleShow(item._id)}><i class="fa-solid fa-eye"></i></button>

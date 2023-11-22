@@ -55,7 +55,7 @@ export const NewDesgloce = ({ producto }) => {
 
     return(
         <div>
-            <div className='h5 pb-2'>Agregar Nuevo Desgloce de Producto</div>
+            <div className='h5 pb-2'>Agregar Nuevo Desglose de Producto</div>
             <div className='row'>
                 <div className='col-12 pb-4'>
                     <div className='form-floating'>
@@ -66,7 +66,7 @@ export const NewDesgloce = ({ producto }) => {
                             value={nuevoDesgloce.NombreDesgloceProducto}
                             onChange={handleInputChange}
                         />
-                        <label htmlFor="NombreDesgloceProducto">Nombre del Desgloce:</label>
+                        <label htmlFor="NombreDesgloceProducto">Nombre del Desglose:</label>
                     </div>
                 </div>
                 <div className='col-md-4 pb-4'>
@@ -133,7 +133,7 @@ export const NewDesgloce = ({ producto }) => {
                     </div>
                 </div>
                 <div className='col-md-4 pb-4'>
-                    <button className='btn btn-primary' onClick={handleAgregarDesgloce}>Agregar Desgloce</button>
+                    <button className='btn btn-primary' onClick={handleAgregarDesgloce}>Agregar Desglose</button>
                 </div>                   
             </div> 
         </div>

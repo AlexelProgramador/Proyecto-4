@@ -85,7 +85,6 @@ export const EditBotiquin = () => {
                         <tbody>
                             {botiquin.InventarioBotiquin.map((item, index) => (
                                 <tr key={index}>
-                                    <td>{item.prueba}</td>
                                     <td>{item.NombreProducto}</td>
                                     <td>{item.CantidadInventario}</td>
                                     {/* Celdas */}

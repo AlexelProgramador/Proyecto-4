@@ -91,6 +91,7 @@ export const EditProducto = () => {
                         </div>
                         <div className='col-12 pb-4 d-flex justify-content-between'>  
                             <label htmlFor="TotalProducto">Total Producto: {producto.TotalProducto}</label>
+                            <label htmlFor="TotalProducto">Total Asignado a Bodega: {producto.TotalAsignado}</label>
                             <button className='btn btn-primary' onClick={handleUpdate}>Actualizar Producto</button>
                         </div>
 

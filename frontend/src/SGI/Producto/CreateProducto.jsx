@@ -10,6 +10,7 @@ export const CreateProducto = () => {
     ContenedorProducto: 'Sin Información',
     CantidadProducto: '',
     CantidadTotalProducto: 0,
+    CantidadAsignadaProducto: 0,
     ValorUnitarioProducto: '',
     DesgloceProducto: [],
     UbicacionProducto: []

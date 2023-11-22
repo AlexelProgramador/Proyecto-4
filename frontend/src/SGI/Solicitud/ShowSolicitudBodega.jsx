@@ -60,7 +60,6 @@ export const ShowSolicitudBodega = () => {
             [e.target.name]: e.target.value
         });
     };
-    console.log(solicitud);
     return (
         <div>
             { cargandoSolicitud ? <p>CArgando Datos</p> : <TerminarSolicitud solicitud={solicitud} handleinput = {handleInputChange} aceptar = {aceptarSoli} rechazar = {rechazarSoli} />}

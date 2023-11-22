@@ -35,7 +35,7 @@ export const CreateBodega = () => {
     <div>
       <div className='card shadow-card rounded-0 border border-0'>
         <div className='card-body'>
-          <div className='h5 text-uppercase pb-2'>Nuevo Producto</div>
+        <div className='h5 text-uppercase pb-2'>Nueva Bodega</div>
           <form className='row'>
               <div className='col-md-6 pb-4'>
                 <div className='form-floating'>

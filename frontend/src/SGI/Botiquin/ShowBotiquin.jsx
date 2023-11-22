@@ -26,7 +26,6 @@ export const ShowBotiquin = () => {
             <div className='card shadow-card rounded-0 border border-0'>
                 <div className='card-body'>
                     <div className='h5 text-uppercase pb-2'>Botiquin</div>
-                    <h4>{botiquin._id}</h4>
                     <h3>Inventario</h3>
                     {botiquin.InventarioBotiquin && botiquin.InventarioBotiquin.length > 0 ? (
                         <table>
@@ -40,9 +39,8 @@ export const ShowBotiquin = () => {
                             <tbody>
                                 {botiquin.InventarioBotiquin.map((item, index) => (
                                     <tr key={index}>
-                                        <td>{item.prueba}</td>
                                         <td>{item.NombreProducto}</td>
-                                        <td>{item.CantidadInventario}</td>
+                                        <td>{item.CantidadAsignadaBotiquin}</td>
                                         {/* Celdas */}
                                     </tr>
                                 ))}
