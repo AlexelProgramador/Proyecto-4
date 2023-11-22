@@ -98,7 +98,7 @@ function App() {
       <ModalProvider>
       <div className="container-fluid pt-4">
           <Routes>
-            <Route path="/" element={<Dashboard />} />
+            <Route path="/" element={<DashboardBodega />} />
             <Route path="/crear-solicitud" element={<CrearSolicitud />} />
             <Route path="/solicitud-etapa2" element={<SolicitudEtapa2 solicitudData={datosDeEjemplo}/>} />
             <Route path="/solicitud-etapa3" element={<SolicitudEtapa3 solicitudData={datosDeEjemplo}/>} />
