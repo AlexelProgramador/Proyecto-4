@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { showBotiquin } from './HandlerBotiquin';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useModal } from '../../Components/Modal';
 
 export const ShowBotiquin = () => {
     const [botiquin, setBotiquin] = useState({});
     const { id } = useParams();
     const navigate = useNavigate();
     const url = `http://localhost:8000/api/botiquin/${id}`; // Reemplaza con la URL de tu backend
+    const { setModal } = useModal()
 
     useEffect(() => {
         const fetchBotiquin = async () => {
@@ -25,8 +27,7 @@ export const ShowBotiquin = () => {
         <div>
             <div className='card shadow-card rounded-0 border border-0'>
                 <div className='card-body'>
-                    <div className='h5 text-uppercase pb-2'>Botiquin</div>
-                    <div className='h5 text-uppercase pb-2'>Inventario</div>
+                    <div className='h5 text-uppercase pb-2'>Inventario Botiquin</div>
                     {botiquin.InventarioBotiquin && botiquin.InventarioBotiquin.length > 0 ? (
                     <div className='table-responsive'>
                         <table className='table'>
@@ -34,6 +35,7 @@ export const ShowBotiquin = () => {
                                 <tr>
                                     <th>Nombre Producto</th>
                                     <th>Cantidad Inventario</th>
+                                    <th>Acciones</th>
                                     {/* Encabezados */}
                                 </tr>
                             </thead>
@@ -42,6 +44,11 @@ export const ShowBotiquin = () => {
                                     <tr key={index}>
                                         <td>{item.NombreProducto}</td>
                                         <td>{item.CantidadAsignadaBotiquin}</td>
+                                        <td> 
+                                            <div className='btn-group btn-group-sm'>
+                                                <button className='btn btn-primary'><i class="fa-solid fa-eye"></i></button>
+                                            </div>
+                                        </td>
                                         {/* Celdas */}
                                     </tr>
                                 ))}

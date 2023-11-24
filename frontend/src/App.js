@@ -76,7 +76,7 @@ function App() {
               
               <a href='/show-bodega' className='nav-link'>
                 <i className='fas fa-hotel  nav-logo-link'></i>
-                <span>seccion1</span>
+                <span>Inventario</span>
               </a>
               <a href='/create-bodega' className='nav-link'>
                 <i className='fas fa-image nav-logo-link'></i>
