@@ -28,27 +28,21 @@ class BotiquinController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        //Faltaría ver que pasa si son iguales
-        //Nueva Forma de ver la ID (o quitarla)
 
         //Crear Nuevo Botiquin
         $botiquin = new Botiquin();
-
-        //Para establecer el IDBotiquin
-        $datos = Botiquin::all()->count();
        
         //Insercción de datos
-        $botiquin->IDBotiquin = $datos;
-        $botiquin->NombreBotiquin = $request->NombreBotiquin;
-        $botiquin->LugarBotiquin = $request->LugarBotiquin;
-        $botiquin-> InventarioBotiquin = $request->InventarioBotiquin;
+        $botiquin->Nombre = $request->Nombre;
+        $botiquin->Lugar = $request->Lugar;
+        $botiquin->Inventario = $request->Inventario;
+        $botiquin->Tipo = $request->Tipo;
         
         //Subir Datos
         $botiquin->save();
 
         //Respuesta del Backend
-        return response()->json(['message' => $datos, 'data' => $botiquin], 201);
+        return response()->json(['data' => $botiquin], 201);
     }
 
     /**
@@ -88,8 +82,8 @@ class BotiquinController extends Controller
     {
         //
         $datos = Botiquin::where("_id", $id)->update([
-            'NombreBotiquin' => $request->NombreBotiquin,
-            'LugarBotiquin' => $request->LugarBotiquin
+            'Nombre' => $request->Nombre,
+            'Lugar' => $request->Lugar
         ]);
 
 

@@ -28,26 +28,20 @@ class BodegaController extends Controller
      */
     public function store(Request $request)
     {
-        //Faltaría ver que pasa si son iguales
-        //Nueva Forma de ver la ID (o quitarla)
-
         //Crear Nueva Bodega
         $bodega = new Bodega();
 
-        //Para establecer el IDBodega
-        $datos = Bodega::all()->count();
-       
         //Insercción de datos
-        $bodega->IDBodega = $datos;
-        $bodega->NombreBodega = $request->NombreBodega;
-        $bodega->LugarBodega = $request->LugarBodega;
-        $bodega-> InventarioBodega = $request->InventarioBodega;
+        $bodega->Nombre = $request->Nombre;
+        $bodega->Lugar = $request->Lugar;
+        $bodega->Inventario = $request->Inventario;
+        $bodega->Tipo = $request->Tipo;
         
         //Subir Datos
         $bodega->save();
 
         //Respuesta del Backend
-        return response()->json(['message' => $datos, 'data' => $bodega], 201);
+        return response()->json(['data' => $bodega], 201);
 
     }
 
@@ -88,8 +82,8 @@ class BodegaController extends Controller
     {
         //
         $datos = Bodega::where("_id", $id)->update([
-            'NombreBodega' => $request->NombreBodega,
-            'LugarBodega' => $request->LugarBodega
+            'Nombre' => $request->Nombre,
+            'Lugar' => $request->Lugar
         ]);
 
 

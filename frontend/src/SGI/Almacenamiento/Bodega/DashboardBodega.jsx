@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { contadorSolicitudPendiente } from '../Solicitud/HandlerSolicitudBodega';
+import { contadorSolicitudPendiente } from '../../Solicitud/HandlerSolicitudBodega';
 import { ComponenteDashboard } from './Componente/ComponenteDashboard';
-import { pocasUnidadesProducto, vencimientoProducto } from '../Producto/HandlerProducto';
+import { pocasUnidadesProducto, vencimientoProducto } from '../../Producto/HandlerProducto';
 
 export const DashboardBodega = () => {
     const [dataSolicitudPendiente, setDataSolicitudPendiente] = useState([]);

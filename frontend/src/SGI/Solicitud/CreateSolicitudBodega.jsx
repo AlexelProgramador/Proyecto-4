@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createSolicitud } from './HandlerSolicitudBodega';
-import { homeBodega } from '../Bodega/HandlerBodega';
-import { homeBotiquin }  from '../Botiquin/HandlerBotiquin';
+import { homeBodega } from '../Almacenamiento/Bodega/HandlerBodega';
+import { homeBotiquin }  from '../Almacenamiento/Botiquin/HandlerBotiquin';
 
 export const CreateSolicitudBodega = () => {
   const [solicitudData, setSolicitudData] = useState({

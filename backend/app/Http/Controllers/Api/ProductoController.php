@@ -46,6 +46,7 @@ class ProductoController extends Controller
         $producto->UbicacionProducto = $request->UbicacionProducto;
         $producto->CantidadProducto = intval($request->CantidadProducto);
         $producto->TotalProducto = intval($request->CantidadTotalProducto);
+        $producto->TotalAsignado = intval($request->CantidadAsignadaProducto);
         $producto->ValorUnitarioProducto = intval($request->ValorUnitarioProducto);
  
         $producto->save();

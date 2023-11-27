@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
     fontWeight: 'extralight',
     marginBottom: 4,
     flexGrow: 1,
+    textAlign: 'left'
   },
 });
 
