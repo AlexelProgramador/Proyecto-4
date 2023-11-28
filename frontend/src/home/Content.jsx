@@ -41,6 +41,10 @@ export const Content = () => {
     }
   };
 
+  const sortedData = data
+    ? [...data].sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at))
+    : [];
+
   useEffect(() => {
     if (showAlert) {
       const timer = setTimeout(() => {
@@ -52,16 +56,21 @@ export const Content = () => {
   const navigate = useNavigate();
 
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const selectedItems = data
-    ? data.slice(startIndex, startIndex + ITEMS_PER_PAGE)
-    : [];
+
+  const selectedItems = sortedData.slice(
+    startIndex,
+    startIndex + ITEMS_PER_PAGE
+  );
+
   return (
     <>
       <div className="w-75 h-40 mx-auto">
         <div className="mb-3">
-          <h2 className='mx-auto p-2 display-4'>Solicitud Etapa 1</h2>
-          <p className='display-7'>Aquí puedes gestionar las solicitudes, ver detalles de cada etapa, eliminar etapas y más.</p>
-
+          <h2 className="mx-auto p-2 display-4">Solicitud Etapa 1</h2>
+          <p className="display-7">
+            Aquí puedes gestionar las solicitudes, ver detalles de cada etapa,
+            eliminar etapas y más.
+          </p>
         </div>
         <div className="card shadow-card rounded-3 border border-0">
           <div className="card-body">
@@ -120,12 +129,16 @@ export const Content = () => {
                                       >
                                         Ver Etapa
                                       </button>
-                                      <button
-                                        className="btn btn-danger"
-                                        onClick={() => handleDelete(item._id)}
-                                      >
-                                        Eliminar
-                                      </button>
+                                      {responseCookie.usuario.includes(
+                                        "Administrador"
+                                      ) && (
+                                        <button
+                                          className="btn btn-danger"
+                                          onClick={() => handleDelete(item._id)}
+                                        >
+                                          Eliminar
+                                        </button>
+                                      )}
                                     </>
                                   )}
 

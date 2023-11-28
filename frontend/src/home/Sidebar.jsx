@@ -142,7 +142,7 @@ width: "200px",
               </div>
               <div
                 onClick={() => {
-                  navigate("crearSolicitud");
+                  navigate("misSolicitudes");
                 }}
                 style={{
                   cursor: "pointer",

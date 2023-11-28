@@ -49,7 +49,7 @@ const MotivosInput = ({
 
       <div className="mb-3">
         <label htmlFor="montoEstimado" className="form-label">
-          Subir PDF con las imagenes de los productos
+          Adjuntar antecedentes del/los producto/s:
         </label>
         <input
           type="file"

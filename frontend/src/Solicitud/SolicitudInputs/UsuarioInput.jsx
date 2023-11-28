@@ -17,6 +17,7 @@ const UsuarioInput = ({
                 className="form-control"
                 value={solicitadoPor}
                 onChange={(e) => setSolicitadoPor(e.target.value)}
+                // required
               />
               <label htmlFor="floatingSelect">Solicitado por</label>
       </div>

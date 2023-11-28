@@ -69,10 +69,20 @@ export const Etapa5 = () => {
           <div className="w-75 h-40 mx-auto">
             <div className="card shadow-card rounded-3 border border-0">
               <div className="card-body">
-              <h2 className='mx-auto p-2 display-4'>Solicitud Etapa 5</h2>
-          <p className='display-7'>Esta Solicitud corresponde a: Bodega</p>
-          <p className='display-7'>Porfavor rellenar informacion corresponde a la etapa</p>
-          <p className='display-7'>Una vez lo considere terminado pulsar el boton "Enviar Etapa"</p>                  <form onSubmit={handleSubmit}>
+                <h2 className="mx-auto p-2 display-4">Solicitud Etapa 5</h2>
+                <p className="display-7">
+                  Esta Solicitud corresponde a: Bodega
+                </p>
+                <p className="display-7">
+                  Porfavor rellenar informacion corresponde a la etapa
+                </p>
+                <p className="display-7">
+                  Una vez lo considere terminado pulsar el boton "Enviar Etapa"
+                </p>
+                <p className="display-7">
+                  N° Orden de compra: {item.procesosEtapa2.nroordendecompra}
+                </p>
+                <form onSubmit={handleSubmit}>
                   <div className="form-floating mt-2 g-2">
                     <input
                       type="text"
@@ -136,13 +146,19 @@ export const Etapa5 = () => {
                   </div>
 
                   <div className="form-floating mt-2 g-2">
-                    <input
-                      type="text"
-                      className="form-control"
-                      value={aceptadassi}
+                    <select
+                      className="form-select"
+                      id="floatingSelect"
+                      aria-label="Floating label select example"
                       onChange={(e) => setAceptadassi(e.target.value)}
-                    />
-                    <label htmlFor="floatingSelect">Aceptada SII</label>
+                    >
+                      <option value="Valor por defecto">
+                        Seleccione una opcion
+                      </option>
+                      <option value="Si">Si</option>
+                      <option value="No">No</option>
+                    </select>
+                    <label for="floatingSelect">Aceptado SSI</label>
                   </div>
                   <div className="form-floating mt-2 g-2">
                     <input

@@ -2,9 +2,9 @@
 import React from "react";
 const ProductoInput = ({ index, producto, handleProductoChange }) => {
   return (
-    <div key={index} className="row">     
-      <div key={index} className="form-floating mt-3 g-3 col-6 mb-3" >
-      <input
+    <div key={index} className="row">
+      <div key={index} className="form-floating mt-3 g-3 col-6 mb-3">
+        <input
           type="text"
           className="form-control"
           value={producto.descripcion}
@@ -12,11 +12,11 @@ const ProductoInput = ({ index, producto, handleProductoChange }) => {
             handleProductoChange(index, "descripcion", e.target.value)
           }
         />
-              <label htmlFor="floatingSelect">Descripción del producto:</label>
+        <label htmlFor="floatingSelect">Descripción del producto:</label>
       </div>
 
       <div className="form-floating mt-3 g-3 col-3 mb-4">
-      <input
+        <input
           type="number"
           className="form-control"
           value={producto.cantidad}
@@ -24,23 +24,42 @@ const ProductoInput = ({ index, producto, handleProductoChange }) => {
             handleProductoChange(index, "cantidad", e.target.value)
           }
         />
-          <label htmlFor="floatingSelect">Cantidad:</label>
+        <label htmlFor="floatingSelect">Cantidad:</label>
       </div>
 
-      <div className="form-floating  mt-3 g-3 col-3 mb-4">
-      <input
-          type="text"
-          className="form-control"
-          value={producto.tipoEmpaque}
+      <div className="form-floating  mt-3 g-1 col-3 mb-4">
+        <select
+          className="form-select"
+          id="floatingSelect"
+          aria-label="Floating label select example"
           onChange={(e) =>
             handleProductoChange(index, "tipoEmpaque", e.target.value)
           }
-        />
-              <label htmlFor="floatingSelect">Tipo de empaque:</label>
+        >
+          <option value="Unidad">Unidad</option>
+          <option value="Bidon">Bidon</option>
+          <option value="Bolsa">Bolsa</option>
+          <option value="Botella">Botella</option>
+          <option value="Caja">Caja</option>
+          <option value="Docena">Docena</option>
+          <option value="Kilo">Kilo</option>
+          <option value="Litro">Litro</option>
+          <option value="Onza">Onza</option>
+          <option value="Pack">Pack</option>
+          <option value="Pallet">Pallet</option>
+          <option value="Par">Par</option>
+          <option value="Pieza">Pieza</option>
+          <option value="Plancha">Plancha</option>
+          <option value="Pliego">Pliego</option>
+          <option value="Resma">Resma</option>
+          <option value="Rollo">Rollo</option>
+          <option value="Sachet">Sachet</option>
+          <option value="Saco">Saco</option>
+        </select>
+        <label htmlFor="tiop de compra">tipo de compra</label>
       </div>
-
     </div>
   );
 };
 
-export default ProductoInput
+export default ProductoInput;

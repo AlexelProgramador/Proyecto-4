@@ -7,7 +7,7 @@ const getUnattendedRequests = (data) => {
   }
 
   const oneDayAgo = new Date();
-  oneDayAgo.setDate(oneDayAgo.getDate() - 1);
+  oneDayAgo.setDate(oneDayAgo.getDate() - 3);
   return data
     .filter((request) => new Date(request.updated_at) < oneDayAgo)
     .map((request) => ({

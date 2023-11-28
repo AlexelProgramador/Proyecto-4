@@ -13,7 +13,7 @@ export const Etapa4 = () => {
   const [fechaestprov, setFechEstProv] = useState("");
   const [estadodecomp, setEstadodeComp] = useState("");
   const [comentarios, setComentarios] = useState("");
-  
+
   const { execute: executePut } = usePutRequest();
   const navigate = useNavigate();
 
@@ -26,12 +26,11 @@ export const Etapa4 = () => {
         fechaestiprov: fechaestprov,
         estadodecomp: estadodecomp,
         comentarios: comentarios,
-
       },
     };
     const url = "avanzarEtapa";
     const response = await executePut(url, data);
-    navigate("/")
+    navigate("/");
   };
 
   const getSolicitudInfo = async () => {
@@ -51,63 +50,78 @@ export const Etapa4 = () => {
     <>
       {solicitudInfo ? (
         <>
-    <div className='w-75 h-40 mx-auto' >
-      <div className='card shadow-card rounded-3 border border-0'>
-        <div className='card-body'>
-        <h2 className='mx-auto p-2 display-4'>Solicitud Etapa 4</h2>
-          <p className='display-7'>Esta Solicitud corresponde a: Belen Diaz </p>
-          <p className='display-7'>Porfavor rellenar informacion corresponde a la etapa</p>
-          <p className='display-7'>Una vez lo considere terminado pulsar el boton "Enviar Etapa"</p>            <form onSubmit={handleSubmit}>
+          <div className="w-75 h-40 mx-auto">
+            <div className="card shadow-card rounded-3 border border-0">
+              <div className="card-body">
+                <h2 className="mx-auto p-2 display-4">Solicitud Etapa 4</h2>
+                <p className="display-7">
+                  Esta Solicitud corresponde a: Belen Diaz{" "}
+                </p>
+                <p className="display-7">
+                  Porfavor rellenar informacion corresponde a la etapa
+                </p>
+                <p className="display-7">
+                  Una vez lo considere terminado pulsar el boton "Enviar Etapa"
+                </p>{" "}
+                <form onSubmit={handleSubmit}>
+                  <div className="form-floating mt-2 g-2">
+                    <input
+                      type="date"
+                      className="form-control"
+                      value={fechaestprov}
+                      onChange={(e) => setFechEstProv(e.target.value)}
+                    />
+                    <label htmlFor="floatingSelect">
+                      Fecha estimada proveedor
+                    </label>
+                  </div>
 
-            <div className="form-floating mt-2 g-2">
-              <input
-                type="date"
-                className="form-control"
-                value={fechaestprov}
-                onChange={(e) => setFechEstProv(e.target.value)}
-              />
-              <label htmlFor="floatingSelect">Fecha estimada proveedor</label>
+                  <div className="form-floating mt-2 g-2">
+                    <select
+                      className="form-select"
+                      id="floatingSelect"
+                      aria-label="Floating label select example"
+                      onChange={(e) => setEstadodeComp(e.target.value)}
+                    >
+                      <option value="Valor por defecto">
+                        Selecciona una opcion
+                      </option>
+                      <option value="Pendiente de entrega">
+                        Pendiente de entrega
+                      </option>
+                      <option value="Recibida">Recibida</option>
+                      <option value="Rechazada">Rechazada</option>
+                    </select>
+                    <label for="floatingSelect">Estado de compra</label>
+                  </div>
+
+                  <div className="form-floating mt-2 g-2">
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={comentarios}
+                      onChange={(e) => setComentarios(e.target.value)}
+                    />
+                    <label htmlFor="floatingSelect">Comentario</label>
+                  </div>
+
+                  {/* Agrega más campos según sea necesario */}
+
+                  {/* Botones del formulario */}
+                  <button className="m-2 btn btn-primary" type="submit">
+                    Aceptar
+                  </button>
+                  <button
+                    className="m-2  btn btn-danger"
+                    type="button"
+                    onClick={() => navigate("/")}
+                  >
+                    Atrás
+                  </button>
+                </form>
+              </div>
             </div>
-
-            <div className="form-floating mt-2 g-2">
-              <input
-                type="text"
-                className="form-control"
-                value={estadodecomp}
-                onChange={(e) => setEstadodeComp(e.target.value)}
-              />
-              <label htmlFor="floatingSelect">Estado de compra</label>
-            </div>
-
-
-            <div className="form-floating mt-2 g-2">
-              <input
-                type="text"
-                className="form-control"
-                value={comentarios}
-                onChange={(e) => setComentarios(e.target.value)}
-              />
-              <label htmlFor="floatingSelect">Comentario</label>
-            </div>
-
-
-            {/* Agrega más campos según sea necesario */}
-            
-            {/* Botones del formulario */}
-            <button className="m-2 btn btn-primary" type="submit">
-              Aceptar
-            </button>
-            <button
-              className="m-2  btn btn-danger"
-              type="button"
-              onClick={() => navigate("/")}
-            >
-              Atrás
-            </button>
-          </form>
           </div>
-      </div>
-    </div>
         </>
       ) : (
         <p>Loading...</p>
