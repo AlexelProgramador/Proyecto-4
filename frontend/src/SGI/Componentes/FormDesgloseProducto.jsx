@@ -5,7 +5,7 @@ export const FormDesgloseProducto = ({productoData, cargandoDesgloce}) => {
 
   return (
     <div>
-      {productoData.Desgloce.length > 0 ? (
+      {productoData.desglose && productoData.Desgloce.length > 0 ? (
         <div className='table-responsive'>
           <table className='table'>
             <thead>

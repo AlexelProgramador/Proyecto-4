@@ -63,7 +63,7 @@ export const EditProducto = () => {
               />
               {cargandoDesgloce ? <p> CArgando datos..</p> : <NewDesgloce productoData ={productoData}/>}
               <div className='h5 pb-2'>Ubicación de los Productos</div>
-              {productoData.Ubicacion && productoData.UbicacionProducto.length > 0 ? (
+              {productoData.Ubicacion && productoData.Ubicacion.length > 0 ? (
                 <div className='table-responsive'>
                   <table className='table'>
                     <thead>
@@ -91,7 +91,7 @@ export const EditProducto = () => {
                 ) : 
                   <p>No hay datos de inventario disponibles</p>
               }
-              {cargandoAsignacion ? <p> CArgando datos..</p> : <NewAsignacion desgloseProducto = {productoData.DesgloceProducto}/>}
+              {cargandoAsignacion ? <p> CArgando datos..</p> : <NewAsignacion desglose = {productoData.Desgloce}/>}
             </div>
           </div>
         </div>
