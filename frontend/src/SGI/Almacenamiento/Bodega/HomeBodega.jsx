@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { deleteBodega, homeBodega } from './HandlerBodega';
 import { useModal } from '../../../Components/Modal';
-import { TablaInventario } from '../../Componentes/TableHomeAlmacenamiento';
+import { TablaAlmacenamiento } from '../../Componentes/TableHomeAlmacenamiento';
 
 export const HomeBodega = () => {
     const [dataBodega, setDataBodega] = useState([]);
@@ -44,10 +44,10 @@ export const HomeBodega = () => {
 
     return (
         <div>
-            <TablaInventario 
+            <TablaAlmacenamiento 
             setModal = {setModal} 
             tipoAlmacenamiento = {tipoAlmacenamiento}
-            dataInventario = {dataBodega} 
+            dataAlmacenamiento = {dataBodega} 
             handleDelete = {handleDelete} 
             handleEdit = {handleEdit}
             handleShow = {handleShow}

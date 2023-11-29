@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { deleteBotiquin, homeBotiquin } from './HandlerBotiquin';
 import { useModal } from '../../../Components/Modal';
-import { TablaInventario } from '../../Componentes/TableHomeAlmacenamiento';
+import { TablaAlmacenamiento } from '../../Componentes/TableHomeAlmacenamiento';
 
 
 export const HomeBotiquin = () => {
@@ -43,10 +43,10 @@ export const HomeBotiquin = () => {
 
     return (
         <div>
-            <TablaInventario 
+            <TablaAlmacenamiento
             setModal = {setModal} 
             tipoAlmacenamiento = {tipoAlmacenamiento}
-            dataInventario = {dataBotiquin} 
+            dataAlmacenamiento = {dataBotiquin} 
             handleDelete = {handleDelete} 
             handleEdit = {handleEdit}
             handleShow = {handleShow}

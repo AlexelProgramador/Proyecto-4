@@ -38,16 +38,16 @@ class ProductoController extends Controller
         //Para establecer el IDProducto
        
         //Insercción de datos
-        $producto->NombreProducto = $request->NombreProducto;
-        $producto->MarcaProducto = $request->MarcaProducto;
-        $producto->DescripcionProducto = $request->DescripcionProducto;
-        $producto->ContenedorProducto = $request->ContenedorProducto;
-        $producto->DesgloceProducto = $request->DesgloceProducto;
-        $producto->UbicacionProducto = $request->UbicacionProducto;
-        $producto->CantidadProducto = intval($request->CantidadProducto);
-        $producto->TotalProducto = intval($request->CantidadTotalProducto);
-        $producto->TotalAsignado = intval($request->CantidadAsignadaProducto);
-        $producto->ValorUnitarioProducto = intval($request->ValorUnitarioProducto);
+        $producto->Nombre = $request->Nombre;
+        $producto->Marca = $request->Marca;
+        $producto->Descripcion = $request->Descripcion;
+        $producto->Contenedor = $request->Contenedor;
+        $producto->Desgloce = $request->Desgloce;
+        $producto->Ubicacion = $request->Ubicacion;
+        $producto->Cantidad = $request->Cantidad;
+        $producto->CantidadTotal = $request->CantidadTotal;
+        $producto->CantidadAsignada = $request->CantidadAsignada;
+        $producto->ValorUnitario = $request->ValorUnitario;
  
         $producto->save();
 
@@ -92,11 +92,10 @@ class ProductoController extends Controller
     {
         //
         $datos = Producto::where("_id", $id)->update([
-            'NombreProducto' => $request->NombreProducto,
-            'LugarProducto' => $request->LugarProducto,
-            'MarcaProducto' => $request->MarcaProducto,
-            'DescripcionProducto' => $request->DescripcionProducto,
-
+            'Nombre' => $request->Nombre,
+            'Lugar' => $request->Lugar,
+            'Marca' => $request->Marca,
+            'Descripcion' => $request->Descripcion,
         ]);
 
         return response()->json(['message' => "llegó exitosamente", 'data' => $datos], 201);
