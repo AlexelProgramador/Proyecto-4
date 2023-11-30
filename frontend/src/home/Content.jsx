@@ -64,9 +64,9 @@ export const Content = () => {
 
   return (
     <>
-      <div className="w-75 h-40 mx-auto">
+      <div className="w-75 h-35 mx-auto">
         <div className="mb-3">
-          <h2 className="mx-auto p-2 display-4">Solicitud Etapa 1</h2>
+          <h2 className="mx-auto p-2 display-4">Solicitudes</h2>
           <p className="display-7">
             Aquí puedes gestionar las solicitudes, ver detalles de cada etapa,
             eliminar etapas y más.

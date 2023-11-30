@@ -19,10 +19,10 @@ const InfoSolicitud = ({ selected = 0, item }) => {
     <>
       <div className="contenido">
       <div className="p-5">
-      <h1 className="mb-4">Solicitud Info</h1>
+      <h1 className="mb-4 display-6">Informacion de solicitud</h1>
       <h2 className="mb-3">Fecha de la solicitud: <span className="text-primary">{item.solicitudInfo.fecha}</span></h2>
       <h2 className="mb-3">Tipo de solicitud: <span className="text-primary">{item.solicitudInfo.tipoSolicitud}</span></h2>
-      <h1 className="mb-4">Usuario info</h1>
+      <h1 className="mb-4 display-6">Informacion de usuario</h1>
       <h2 className="mb-3">Solicitada por: <span className="text-primary">{item.infoUsuario.solicitadoPor}</span></h2>
       <h2 className="mb-3">Anexo: <span className="text-primary">{item.infoUsuario.anexo}</span></h2>
       <h2 className="mb-3">
@@ -31,7 +31,8 @@ const InfoSolicitud = ({ selected = 0, item }) => {
           {item.infoUsuario.correo ? item.infoUsuario.correo : "No ingresado"}
         </span>
       </h2>
-      <h2>PDF:</h2>
+      <div className='d-flex pl-5'>
+      <h2>PDF: </h2>
       <button onClick={openPdf} className='btn btn-primary'>Abrir PDF</button>
         {file && (
           <Document file={file} onLoadSuccess={onDocumentLoadSuccess}>
@@ -40,6 +41,7 @@ const InfoSolicitud = ({ selected = 0, item }) => {
             ))}
           </Document>
         )}
+      </div>
     </div>
       </div>
     </>
