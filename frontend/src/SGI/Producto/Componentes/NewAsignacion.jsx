@@ -3,84 +3,81 @@ import { useParams } from 'react-router-dom';
 import { updateProductoAsignacion } from '../HandlerProducto';
 import { homeBodega } from '../../Almacenamiento/Bodega/HandlerBodega'
 
-
-
 export const NewAsignacion = ({desgloseProducto}) => {
+  const { id } = useParams();
+  const [dataBodega, setDataBodega] = useState([]);
+  const [nuevaAsignacion, setNuevaAsignacion] = useState({
+    IdBodega:'',
+    TipoAsignacion: 'A Bodega',
+    IdProducto: id,
+    IdUbicacion: '',
+    CantidadAsignada: 0,
+    NombreDesgloce: '',
+    IdDesgloce: '',
+    NombreUbicacion:'',
+    FechaProceso: '',
+  });
 
-    const { id } = useParams();
-    const [dataBodega, setDataBodega] = useState([]);
-    const [nuevaAsignacion, setNuevaAsignacion] = useState({
-        IdBodegaProducto:'',
-        TipoProcesoProducto: 'Asignación a Bodega',
-        IdProducto: id,
-        IdUbicacionProducto: '',
-        CantidadAsignadaProducto: 0,
-        NombreDesgloceProducto: '',
-        IdDesgloceProducto: '',
-        NombreUbicacionBodega:'',
-        FechaProcesoProducto: '',
+  const handleAgregarAsignacion = async () => {
+    try {
+      await updateProductoAsignacion(id, nuevaAsignacion);
+    } catch (error) {
+      console.error('Error al agregar la asignación', error);
+    }
+    setNuevaAsignacion({
+      IdBodega:'',
+      TipoAsignacion: 'A Bodega',
+      IdUbicacion: '',
+      IdProducto: id,
+      CantidadAsignada: 0,
+      NombreDesgloce: '',
+      IdDesgloce: '',
+      NombreUbicacion:'',
+      FechaProceso: '',
     });
+  };
 
-    const handleAgregarAsignacion = async () => {
-        try {
-            await updateProductoAsignacion(id, nuevaAsignacion);
+  const handleInputChange = (e) => {
+    setNuevaAsignacion({
+      ...nuevaAsignacion,
+      [e.target.name]: e.target.value
+    });
+  };
 
-        } catch (error) {
-            console.error('Error al agregar la asignación', error);
-        }
+  const fetchData = async () => {
+    try {
+      const response = await homeBodega();
+      setDataBodega(response);
+    } catch (error) {
+      console.error('Error al obtener datos', error);
+    }
+  };
 
-        // Reiniciar los campos del nuevo desgloce
-        setNuevaAsignacion({
-            IdBodegaProducto:'',
-            TipoProcesoProducto: 'Asignación a Bodega',
-            IdUbicacionProducto: '',
-            CantidadAsignadaProducto: 0,
-            NombreDesgloceProducto: '',
-            IdDesgloceProducto: '',
-            NombreUbicacionBodega:'',
-            FechaProcesoProducto: '',
-        });
-    };
+  const handleDesgloceChange = (e) => {
+    const selectedUuidDesgloceProducto = e.target.value;
+    const selectedDesgloce = desgloseProducto.find(option => option.UuidProducto === selectedUuidDesgloceProducto);
 
-    const handleInputChange = (e) => {
-        setNuevaAsignacion({
-          ...nuevaAsignacion,
-          [e.target.name]: e.target.value
-        });
-    };
+    if (selectedDesgloce) {
+      setNuevaAsignacion(prevState => ({
+        ...prevState,
+        NombreDesgloceProducto: selectedDesgloce.NombreDesgloceProducto,
+        IdDesgloceProducto: selectedUuidDesgloceProducto
+      }));
+    }
+  };
 
-    const fetchData = async () => {
-        try {
-            const response = await homeBodega();
-            setDataBodega(response);
-        } catch (error) {
-            console.error('Error al obtener datos', error);
-        }
-    };
-    const handleDesgloceChange = (e) => {
-        const selectedUuidDesgloceProducto = e.target.value;
-        const selectedDesgloce = desgloseProducto.find(option => option.UuidProducto === selectedUuidDesgloceProducto);
-    
-        if (selectedDesgloce) {
-            setNuevaAsignacion(prevState => ({
-                ...prevState,
-                NombreDesgloceProducto: selectedDesgloce.NombreDesgloceProducto,
-                IdDesgloceProducto: selectedUuidDesgloceProducto
-            }));
-        }
-    };
-    const handleBodegaChange = (e) => {
-        const selectedOIdUbicacionBodega = e.target.value;
-        const selectedUbicacion = dataBodega.find(option => option._id === selectedOIdUbicacionBodega);
-    
-        if (selectedUbicacion) {
-            setNuevaAsignacion(prevState => ({
-                ...prevState,
-                NombreUbicacionBodega: selectedUbicacion.NombreBodega,
-                IdUbicacionProducto: selectedOIdUbicacionBodega
-            }));
-        }
-    };
+  const handleBodegaChange = (e) => {
+    const selectedOIdUbicacionBodega = e.target.value;
+    const selectedUbicacion = dataBodega.find(option => option._id === selectedOIdUbicacionBodega);
+
+    if (selectedUbicacion) {
+      setNuevaAsignacion(prevState => ({
+        ...prevState,
+        NombreUbicacion: selectedUbicacion.NombreBodega,
+        IdUbicacion: selectedOIdUbicacionBodega
+      }));
+    }
+  };
 
     useEffect(() => {
         fetchData();
@@ -93,8 +90,8 @@ export const NewAsignacion = ({desgloseProducto}) => {
                 <div className='col-md-6 pb-4'>
                     <div className='form-floating'>
                         <select className='form-select'
-                            id="IdDesgloceProducto"
-                            name="IdDesgloceProducto"
+                            id="IdDesgloce"
+                            name="IdDesgloce"
                             value={nuevaAsignacion.IdDesgloceProducto}
                             onChange={handleDesgloceChange}
                         >
@@ -103,7 +100,7 @@ export const NewAsignacion = ({desgloseProducto}) => {
                             </option>
                             {desgloseProducto.map(option => (
                             <option key={option.UuidProducto} value={option.UuidProducto}>
-                                {option.NombreDesgloceProducto}
+                                {option.Nombre}
                             </option>
                             ))}
                         </select>
@@ -113,9 +110,9 @@ export const NewAsignacion = ({desgloseProducto}) => {
                 <div className='col-md-6 pb-4'>    
                     <div className='form-floating'>
                         <select className='form-select'
-                            id="IdUbicacionProducto"
-                            name="IdUbicacionProducto"
-                            value={nuevaAsignacion.IdUbicacionProducto}
+                            id="IdUbicacion"
+                            name="IdUbicacion"
+                            value={nuevaAsignacion.IdUbicacion}
                             onChange={handleBodegaChange}
                         >
                             <option value="Defecto">
@@ -133,22 +130,22 @@ export const NewAsignacion = ({desgloseProducto}) => {
                 <div className='col-md-4 pb-4'>
                     <div className='form-floating'>
                         <input className='form-control'
-                            type="text"
-                            id="CantidadAsignadaProducto"
-                            name="CantidadAsignadaProducto"
-                            value={nuevaAsignacion.CantidadAsignadaProducto}
+                            type="number"
+                            id="CantidadAsignada"
+                            name="CantidadAsignada"
+                            value={nuevaAsignacion.CantidadAsignada}
                             onChange={handleInputChange}
                         />
-                        <label htmlFor="CantidadAsignadaProducto">Cantidad Total:</label>
+                        <label htmlFor="CantidadAsignada">Cantidad Total:</label>
                     </div> 
                 </div>
                 <div className='col-md-4 pb-4'>
                     <div className='form-floating'>
                         <input className='form-control'
                             type="date" 
-                            id= "FechaProcesoProducto"
-                            name= "FechaProcesoProducto"
-                            value={nuevaAsignacion.FechaProcesoProducto} 
+                            id= "FechaProceso"
+                            name= "FechaProceso"
+                            value={nuevaAsignacion.FechaProceso} 
                             onChange={handleInputChange} />
                         <label>Fecha:</label>
                     </div>                

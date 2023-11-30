@@ -12,21 +12,21 @@ export const FormProductoEdit = ({productoData, setProductoData, handleUpdate}) 
           <div className='form-floating'>
             <input className='form-control'
               type="text"
-              id="NombreProducto"
-              name="NombreProducto"
-              value={productoData.NombreProducto || ''}
+              id="Nombre"
+              name="Nombre"
+              value={productoData.Nombre || ''}
               onChange={handleInputChange}
             />
-            <label htmlFor="NombreProducto">Nombre:</label>
+            <label htmlFor="Nombre">Nombre:</label>
           </div>
         </div>
         <div className='col-md-6 pb-4'>
           <div className='form-floating'>
             <input className='form-control'
                 type="text"
-                id="MarcaProducto"
-                name="MarcaProducto"
-                value={productoData.MarcaProducto || ''}
+                id="Marca"
+                name="Marca"
+                value={productoData.Marca || ''}
                 onChange={handleInputChange}
             />
             <label htmlFor="MarcaProducto">Marca:</label>
@@ -35,9 +35,8 @@ export const FormProductoEdit = ({productoData, setProductoData, handleUpdate}) 
         <div className='col-12 pb-4'>  
           <div className='form-floating'>
             <textarea className='form-control'
-              placeholder="Descripción del Producto"
-              name="DescripcionProducto"
-              value={productoData.DescripcionProducto || ''}
+              name="Descripcion"
+              value={productoData.Descripcion || ''}
               onChange={handleInputChange}
               rows={4} // Aquí puedes especificar el número de filas que deseas mostrar
               cols={50} // Aquí puedes especificar el número de columnas que deseas mostrar

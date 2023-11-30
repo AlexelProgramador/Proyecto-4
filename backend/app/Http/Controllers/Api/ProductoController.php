@@ -107,16 +107,16 @@ class ProductoController extends Controller
         $uuid = Uuid::uuid4()->toString();
         $desgloceData = array(
             'UuidProducto' => $uuid,
-            'CantidadContenedorProducto' => $request->CantidadContenedorProducto,
-            'CantidadTotalProducto' => $request->CantidadTotal,
-            'ValorTotalProducto' => $request->ValorTotal,
-            'FechaVencimientoProducto' => $request->FechaVencimientoProducto,
-            'EstadoProducto' => $request->EstadoProducto,
-            'NombreDesgloceProducto' => $request->NombreDesgloceProducto
+            'CantidadContenedor' => $request->CantidadContenedor,
+            'CantidadTotal' => $request->CantidadTotal,
+            'ValorTotal' => $request->ValorTotal,
+            'FechaVencimiento' => $request->FechaVencimiento,
+            'Estado' => $request->Estado,
+            'Nombre' => $request->Nombre
         );
         $CantidadTotal = $producto->TotalProducto + intval($request->CantidadTotal);
         $producto->TotalProducto = $CantidadTotal;
-        $producto->push('DesgloceProducto', $desgloceData);
+        $producto->push('Desgloce', $desgloceData);
         $producto->save();
         return response()->json(['message' => 'Producto actualizado con éxito'], 200);
 
@@ -128,53 +128,43 @@ class ProductoController extends Controller
         $producto = Producto::findOrFail($id);
         $asignacionData = array(
             'UuidAsignacion' => $uuid1,
-            'TipoProcesoProducto' => $request->TipoProcesoProducto,
-            'NombreUbicacionBodega' => $request->NombreUbicacionBodega,
-            'CantidadAsignadaProducto' => $request->CantidadAsignadaProducto,
-            'FechaProcesoProducto' => $request->FechaProcesoProducto
+            'TipoAsignacion' => $request->TipoAsignacion,
+            'NombreUbicacion' => $request->NombreUbicacion,
+            'CantidadAsignada' => $request->CantidadAsignada,
+            'FechaProceso' => $request->FechaProceso
         );
-        $producto->push('UbicacionProducto', $asignacionData);
+        $producto->push('Ubicacion', $asignacionData);
         $producto->save();
 
         // Buscar la bodega por su ID
-        $bodega = Bodega::findOrFail($request->IdUbicacionProducto);
+        $bodega = Bodega::findOrFail($request->IdUbicacion);
         // Verificar si el producto está en el inventarioBodega de la bodega
-        $productoEncontrado = collect($bodega['InventarioBodega'])->first(function ($producto) use ($id) {
+        $productoEncontrado = collect($bodega['Inventario'])->first(function ($producto) use ($id) {
             return $producto['IdProducto'] == $id;
         });
         if ($productoEncontrado) {
-            $inventario = $bodega->InventarioBodega;
+            $inventario = $bodega->Inventario;
             foreach ($inventario as $index => $producto) {
                 if ($producto['IdProducto'] == $id) {
-                    $inventario[$index]['CantidadAsignadaProducto'] += intval($request->CantidadAsignadaProducto);
+                    $inventario[$index]['CantidadAsignada'] += intval($request->CantidadAsignada);
                     break;
                 }
             }
-            $bodega->InventarioBodega = $inventario;
+            $bodega->Inventario = $inventario;
             $bodega->save();
             return response()->json(['message' => $inventario, 'success' => true]);
         } else {
             // El producto no está en el inventarioBodega de la bodega
             $inventarioData = array(
             'IdProducto' => $id,
-            'UuidDesgloce' =>  $request->IdDesgloceProducto,
-            'NombreProducto'=> $producto->NombreProducto,
-            'CantidadAsignadaProducto' => intval($request->CantidadAsignadaProducto),
+            'UuidDesgloce' =>  $request->IdDesgloce,
+            'NombreProducto'=> $producto->Nombre,
+            'CantidadAsignada' => intval($request->CantidadAsignada),
             );
-            $bodega->push('InventarioBodega', $inventarioData);
+            $bodega->push('Inventario', $inventarioData);
         }
         $bodega->save();
         return response()->json(['message' => 'Producto actualizado con éxito']);
-
-        // $inventarioData = array(
-        //     'NombreProducto'=> $producto->NombreProducto,
-        //     'TipoProcesoProducto' => $request->TipoProcesoProducto,
-        //     'UbicacionProducto' => $request->UbicacionProducto,
-        //     'CantidadAsignadaProducto' => $request->CantidadAsignadaProducto,
-        //     'FechaProcesoProducto' => $request->FechaProcesoProducto
-        // );
-        // $bodega->push('InventarioBodega', $inventarioData);
-        // $bodega->save();
 
     }
 

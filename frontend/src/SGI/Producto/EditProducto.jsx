@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { showProducto, updateProducto } from './HandlerProducto';
-import { NewDesgloce } from './Componentes/NewDesgloce'; 
-import NewAsignacion from './Componentes/NewAsignacion';
 import FormProductoEdit from '../Componentes/FormProductoEdit';
 import FormDesgloseProducto from '../Componentes/FormDesgloseProducto';
+import FormAsignacionProducto from '../Componentes/FormAsignacionProducto';
 
 export const EditProducto = () => {
   const [productoData, setProductoData] = useState({});
@@ -32,7 +31,6 @@ export const EditProducto = () => {
     fetchProducto();
   }, []);
 
-
   const handleUpdate = async () => {
     try {
       await updateProducto(id, productoData);
@@ -43,56 +41,37 @@ export const EditProducto = () => {
       // Manejar el error si es necesario
     }
   };
-
+  console.log(productoData);
   return (
     <div>
       <div className='card shadow-card rounded-0 border border-0'>
         <div className='card-body'>
-          {}
           <div className='h5 text-uppercase pb-2'>Editar Producto</div>
+          {cargandoProducto ? <p>Cargando Producto...</p> :
             <FormProductoEdit 
-              productoData={productoData} 
-              setProductoData={setProductoData} 
-              handleUpdate={handleUpdate} 
+            productoData={productoData} 
+            setProductoData={setProductoData} 
+            handleUpdate={handleUpdate} 
             />
-            <div className='row'>
-              <div className='h5 pb-2'>Desgloce de los Productos</div>
+          }
+          <div className='row'>
+            <div className='h5 pb-2'>Desgloce de los Productos</div>
+            {cargandoDesgloce ? <p>Cargando Desglose...</p> :
               <FormDesgloseProducto 
-                productoData={productoData}
-                cargandoDesgloce={cargandoDesgloce}
+              productoData={productoData}
+              cargandoDesgloce={cargandoDesgloce}
               />
-              {cargandoDesgloce ? <p> CArgando datos..</p> : <NewDesgloce productoData ={productoData}/>}
-              <div className='h5 pb-2'>Ubicación de los Productos</div>
-              {productoData.Ubicacion && productoData.Ubicacion.length > 0 ? (
-                <div className='table-responsive'>
-                  <table className='table'>
-                    <thead>
-                      <tr>
-                        <th>Tipo de Proceso</th>
-                        <th>Ubicación Producto</th>
-                        <th>Cantidad Asignada</th>
-                        <th>Fecha Proceso Producto</th>
-                        {/* Encabezados */}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {productoData.Ubicacion.map((item, index) => (
-                        <tr key={index}>
-                          <td>{item.TipoProcesoProducto}</td>
-                          <td>{item.NombreUbicacionBodega}</td>
-                          <td>{item.CantidadAsignadaProducto}</td>
-                          <td>{item.FechaProcesoProducto}</td>
-                          {/* Celdas */}
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-                ) : 
-                  <p>No hay datos de inventario disponibles</p>
-              }
-              {cargandoAsignacion ? <p> CArgando datos..</p> : <NewAsignacion desglose = {productoData.Desgloce}/>}
-            </div>
+            }
+            
+            <div className='h5 pb-2'>Ubicación de los Productos</div>
+            {cargandoAsignacion ? <p>Cargando Asignación...</p> :
+            
+              <FormAsignacionProducto 
+              productoData={productoData}
+              cargandoAsignacion={cargandoAsignacion}
+              />
+            }
+          </div>
           </div>
         </div>
       </div>

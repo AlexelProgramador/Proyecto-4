@@ -8,7 +8,6 @@ export const HomeProducto = () => {
   const [productoData, setDataProducto] = useState([]);
   const [cargandoProductos, setCargandoProductos] = useState(true);
   const navigate = useNavigate();
-    
   const { setModal } = useModal()
 
   const fetchData = async () => {
