@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { createSolicitud } from './HandlerSolicitudBodega';
 import { homeBodega } from '../Almacenamiento/Bodega/HandlerBodega';
 import { homeBotiquin }  from '../Almacenamiento/Botiquin/HandlerBotiquin';
+import { FormCreateSolicitudBodega } from '../Componentes/FormSolicitudBodegaCreate';
+import TableSolicitudProductoSeleccion from '../Componentes/TableSolicitudProductoSeleccion';
+import TableSolicitudSelectedItems from '../Componentes/TableSolicitudSelectedItems';
 
 export const CreateSolicitudBodega = () => {
   const [solicitudData, setSolicitudData] = useState({
@@ -182,7 +185,7 @@ export const CreateSolicitudBodega = () => {
     if (selectedBotiquin) {
         setSolicitudData(prevState => ({
             ...prevState,
-            NombreBotiquinSolicitud: selectedBotiquin.NombreBotiquin,
+            NombreBotiquinSolicitud: selectedBotiquin.Nombre,
             IdBotiquin: selectedOIdUbicacionBotiquin
         }));
     }
@@ -195,186 +198,131 @@ export const CreateSolicitudBodega = () => {
     if (selectedBodega) {
         setSolicitudData(prevState => ({
             ...prevState,
-            NombreBodegaSolicitud: selectedBodega.NombreBodega,
+            NombreBodegaSolicitud: selectedBodega.Nombre,
             IdBodega: selectedOIdUbicacionBodega
         }));
-        setInventarioBodegaData(selectedBodega ? selectedBodega.InventarioBodega : []);
+        setInventarioBodegaData(selectedBodega ? selectedBodega.Inventario : []);
     }
     
 };
 
+console.log(inventarioBodegaData);
 
   return (
     <div>
       <div className='card shadow-card rounded-0 border border-0'>
         <div className='card-body'>
-            <div className='h5 text-uppercase pb-2'>Crear solicitud</div>
-            <form className='row'>
-              <div className='col-md-4 pb-4'>
-                <div className='form-floating'>
-                  <input className='form-control'
-                    type="text"
-                    // placeholder="Variable Solicitud"
-                    name="VariableSolicitud"
-                    value={solicitudData.VariableSolicitud}
-                    onChange={handleInputChange}
-                  />
-                  <label htmlFor="Variable Solicitud">Variable Solicitud:</label>
-                </div>
+          <div className='h5 text-uppercase pb-2'>Crear solicitud</div>
+          <form className='row'>
+            <FormCreateSolicitudBodega 
+              botiquinData={botiquinData} 
+              bodegaData={bodegaData} 
+              handleBodegaChange={handleBodegaChange} 
+              handleBotiquinChange={handleBotiquinChange}
+              solicitudData={solicitudData}
+              setSolicitudData={setSolicitudData}
+            />
+            <div className='col-md-4 pb-4'>
+              <div className='form-floating'>
+                <input className='form-control'
+                  type="text"
+                  // placeholder="Variable Solicitud"
+                  name="VariableSolicitud"
+                  value={solicitudData.VariableSolicitud}
+                  onChange={handleInputChange}
+                />
+                <label htmlFor="Variable Solicitud">Variable Solicitud:</label>
               </div>
-              <div className='col-md-4 pb-4'>
-                <div className='form-floating'>
-                  <input className='form-control'
-                    type="text"
-                    // placeholder="Unidad Solicitud"
-                    name="UnidadSolicitud"
-                    value={solicitudData.UnidadSolicitud}
-                    onChange={handleInputChange}
-                  />
-                  <label htmlFor="Unidad Solicitud">Unidad Solicitud:</label>
-                </div>
-              </div>
-              <div className='col-md-4 pb-4'>
-                <div className='form-floating'>
-                  <select className='form-select'
-                    id="NombreBotiquinSolicitud"
-                    name="NombreBotiquinSolicitud"
-                    value={solicitudData.NombreBotiquinSolicitud}
-                    onChange={handleBotiquinChange}
-                  >
-                    <option value="">
-                      Selecciona un Botiquin
-                    </option>
-                    {botiquinData.map(option => (
-                    <option key={option._id} value={option._id}>
-                      {option.NombreBotiquin}
-                    </option>
-                    ))}
-                  </select>
-                  <label htmlFor="BotiquinSolicitud">Botiquin Solicitante:</label>
-                </div>
-              </div>
-              <div className='col-md-4 pb-4'>
-                <div className='form-floating'>
-                  <input className='form-control'
-                    type="text"
-                    // placeholder="Nombre Solicitante Solicitud"
-                    name="NombreSolicitanteSolicitud"
-                    value={solicitudData.NombreSolicitanteSolicitud}
-                    onChange={handleInputChange}
-                  />
-                  <label htmlFor="NombreSolicitanteSolicitud">Nombre del Solicitante:</label>
-                </div>
-              </div>
-              <div className='col-md-4 pb-4'>
-                <div className='form-floating'>
-                  <input className='form-control'
-                    type="date"
-                    // placeholder="Fecha Solicitud"
-                    name="FechaSolicitud"
-                    value={solicitudData.FechaSolicitud}
-                    onChange={handleInputChange}
-                  />
-                  <label htmlFor="FechaSolicitud">Fecha Solicitud:</label>
-                </div>
-              </div>
-              <div className='col-md-4 pb-4'>
-                <div className='form-floating'>
-                  <select className='form-select'
-                    id="NombreBodegaSolicitud"
-                    name="NombreBodegaSolicitud"
-                    value={solicitudData.NombreBodegaSolicitud}
-                    onChange={handleBodegaChange}
-                    disabled={selectedItems.length > 0}
-                  >
-                    <option value=''>
-                      Selecciona una bodega
-                    </option>
-                    {bodegaData.map(option => (
-                      <option key={option._id} value={option._id}>
-                        {option.NombreBodega}
-                      </option>
-                    ))}
-                  </select>
-                  <label htmlFor="BodegaSolicitud">Bodega a Seleccionar:</label>
-                </div>
-              </div>
-            
-
-            {/* Mostrar detalles del inventario de la bodega o mensaje si no hay datos */}
-            {inventarioBodegaData.length > 0 ? (
-              <div>
-                <div className='h5 text-uppercase pb-2'>Detalles del Inventario</div>
-                <div className='table-responsive'>
-                  <table className='table'>
-                    <thead>
-                      <tr>
-                        <th>Seleccionar</th>
-                        <th>Producto</th>
-                        <th>Cantidad</th>
-                        <th>Fecha</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {inventarioBodegaData.map((item, index) => (
-                        <tr key={index}>
-                          <td>
-                            <input className='form-check-input'
-                              type="checkbox"
-                              checked={selectedItems.includes(index)}
-                              onChange={() => handleCheckboxChange(index)}
-                            />
-                          </td>
-                          <td>{item.NombreProducto}</td>
-                          <td>{item.CantidadAsignadaProducto}</td>
-                          <td>{item.FechaProcesoProducto}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            ) : (
-              <p>No hay datos en el inventario de la bodega seleccionada.</p>
-            )}
-
-            {/* Mostrar elementos seleccionados */}
-            {selectedItems.length > 0 && (
-              <div>
-                <div className='h5 text-uppercase pb-2'>Objetos seleccionados</div>
-                <div className='table-responsive'>
-                  <table className='table'>
-                    <thead>
-                      <tr>
-                        <th>Producto</th>
-                        <th>Cantidad Actual</th>
-                        <th>Número de Inventario a Pedir</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {selectedItems.map((index) => (
-                        <tr key={index}>
-                        <td>{inventarioBodegaData[index].NombreProducto}</td>
-                        <td>{inventarioBodegaData[index].CantidadAsignadaProducto}</td>
-                        <td>
-                        <input className='form-control form-control-sm'
-                          type="text"
-                          id="CantidadProducto"
-                          name="CantidadProducto"
-                          value={detalleInventarioData[index]?.CantidadProducto || ''}
-                          onChange={(e) => handleInventarioChange(e, index)}
-                          pattern="\d*" // Asegura que solo se ingresen números
-                          title="Ingresa solo números"
-                        />
-                        </td>
-                      </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
             </div>
-          )}
-
+            <div className='col-md-4 pb-4'>
+              <div className='form-floating'>
+                <input className='form-control'
+                  type="text"
+                  // placeholder="Unidad Solicitud"
+                  name="UnidadSolicitud"
+                  value={solicitudData.UnidadSolicitud}
+                  onChange={handleInputChange}
+                />
+                <label htmlFor="Unidad Solicitud">Unidad Solicitud:</label>
+              </div>
+            </div>
+            <div className='col-md-4 pb-4'>
+              <div className='form-floating'>
+                <select className='form-select'
+                  id="NombreBotiquinSolicitud"
+                  name="NombreBotiquinSolicitud"
+                  value={solicitudData.NombreBotiquinSolicitud}
+                  onChange={handleBotiquinChange}
+                >
+                  <option value="">
+                    Selecciona un Botiquin
+                  </option>
+                  {botiquinData.map(option => (
+                  <option key={option._id} value={option._id}>
+                    {option.Nombre}
+                  </option>
+                  ))}
+                </select>
+                <label htmlFor="BotiquinSolicitud">Botiquin Solicitante:</label>
+              </div>
+            </div>
+            <div className='col-md-4 pb-4'>
+              <div className='form-floating'>
+                <input className='form-control'
+                  type="text"
+                  // placeholder="Nombre Solicitante Solicitud"
+                  name="NombreSolicitanteSolicitud"
+                  value={solicitudData.NombreSolicitanteSolicitud}
+                  onChange={handleInputChange}
+                />
+                <label htmlFor="NombreSolicitanteSolicitud">Nombre del Solicitante:</label>
+              </div>
+            </div>
+            <div className='col-md-4 pb-4'>
+              <div className='form-floating'>
+                <input className='form-control'
+                  type="date"
+                  // placeholder="Fecha Solicitud"
+                  name="FechaSolicitud"
+                  value={solicitudData.FechaSolicitud}
+                  onChange={handleInputChange}
+                />
+                <label htmlFor="FechaSolicitud">Fecha Solicitud:</label>
+              </div>
+            </div>
+            <div className='col-md-4 pb-4'>
+              <div className='form-floating'>
+                <select className='form-select'
+                  id="NombreBodegaSolicitud"
+                  name="NombreBodegaSolicitud"
+                  value={solicitudData.NombreBodegaSolicitud}
+                  onChange={handleBodegaChange}
+                  disabled={selectedItems.length > 0}
+                >
+                  <option value=''>
+                    Selecciona una bodega
+                  </option>
+                  {bodegaData.map(option => (
+                    <option key={option._id} value={option._id}>
+                      {option.Nombre}
+                    </option>
+                  ))}
+                </select>
+                <label htmlFor="BodegaSolicitud">Bodega a Seleccionar:</label>
+              </div>
+            </div>
+            {/* Mostrar detalles del inventario de la bodega o mensaje si no hay datos */}
+            <TableSolicitudProductoSeleccion 
+                  inventarioBodegaData={inventarioBodegaData}
+                  handleCheckboxChange={handleCheckboxChange}
+            />
+            {/* Mostrar elementos seleccionados */}
+            <TableSolicitudSelectedItems 
+              selectedItems={selectedItems} 
+              inventarioBodegaData={inventarioBodegaData} 
+              handleInventarioChange={handleInventarioChange}
+              detalleInventarioData={detalleInventarioData}
+            />
             <button className='btn btn-primary' type="button" onClick={handleInsert}>
               Insertar Datos de Solicitud
             </button>

@@ -29,7 +29,7 @@ export const NewAsignacion = ({desgloseProducto}) => {
       TipoAsignacion: 'A Bodega',
       IdUbicacion: '',
       IdProducto: id,
-      CantidadAsignada: 0,
+      CantidadAsignada: '',
       NombreDesgloce: '',
       IdDesgloce: '',
       NombreUbicacion:'',
@@ -120,7 +120,7 @@ export const NewAsignacion = ({desgloseProducto}) => {
                             </option>
                             {dataBodega.map(option => (
                             <option key={option._id} value={option._id}>
-                                {option.NombreBodega}
+                                {option.Nombre}
                             </option>
                             ))}
                         </select>
