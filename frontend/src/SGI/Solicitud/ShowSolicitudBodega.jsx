@@ -62,7 +62,15 @@ export const ShowSolicitudBodega = () => {
     };
     return (
         <div>
-            { cargandoSolicitud ? <p>CArgando Datos</p> : <TerminarSolicitud solicitud={solicitud} handleinput = {handleInputChange} aceptar = {aceptarSoli} rechazar = {rechazarSoli} />}
+            { cargandoSolicitud ? 
+            <div class="d-flex justify-content-center" style={{height:'200px'}}>
+                <div className='d-flex align-items-center'>
+                    <div class="spinner-border text-secondary" role="status">
+                        <span class="visually-hidden">Cargando...</span>
+                    </div>
+                </div>
+            </div>
+            : <TerminarSolicitud solicitud={solicitud} handleinput = {handleInputChange} aceptar = {aceptarSoli} rechazar = {rechazarSoli} />}
     
         </div>
     );    

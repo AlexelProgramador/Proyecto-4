@@ -32,7 +32,15 @@ export const DashboardBodega = () => {
     console.log(dataProductoVencido);
     return (
         <div>
-            {cargandoDashboard ? <p> CArgando datos..</p> : <ComponenteDashboard datosPendiente = {dataSolicitudPendiente} datosPocasUnidades = {dataPocasUnidades}/>}
+            {cargandoDashboard ? 
+            <div class="d-flex justify-content-center" style={{height:'200px'}}>
+                <div className='d-flex align-items-center'>
+                    <div class="spinner-border text-secondary" role="status">
+                        <span class="visually-hidden">Cargando...</span>
+                    </div>
+                </div>
+            </div>
+            : <ComponenteDashboard datosPendiente = {dataSolicitudPendiente} datosPocasUnidades = {dataPocasUnidades}/>}
         </div>
     );
 };

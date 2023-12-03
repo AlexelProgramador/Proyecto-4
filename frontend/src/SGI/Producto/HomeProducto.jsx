@@ -44,7 +44,15 @@ export const HomeProducto = () => {
   };
   return (
     <div>
-      {cargandoProductos ? <p>Cargando Datos</p> :
+      {cargandoProductos ? 
+        <div class="d-flex justify-content-center" style={{height:'200px'}}>
+            <div className='d-flex align-items-center'>
+                <div class="spinner-border text-secondary" role="status">
+                    <span class="visually-hidden">Cargando...</span>
+                </div>
+            </div>
+        </div>
+        :
         <TableHomeProducto 
         productoData={productoData} 
         setModal={setModal} 
