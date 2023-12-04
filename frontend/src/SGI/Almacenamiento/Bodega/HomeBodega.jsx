@@ -6,6 +6,7 @@ import { TablaAlmacenamiento } from '../../Componentes/TableHomeAlmacenamiento';
 
 export const HomeBodega = () => {
     const [dataBodega, setDataBodega] = useState([]);
+    const [cargandoProductos, setCargandoProductos] = useState(true);
     const navigate = useNavigate();
     const tipoAlmacenamiento = "Bodega";
     
@@ -17,6 +18,8 @@ export const HomeBodega = () => {
             setDataBodega(response);
         } catch (error) {
             console.error('Error al obtener datos', error);
+        } finally{
+            setCargandoProductos(false);
         }
     };
 
@@ -44,6 +47,15 @@ export const HomeBodega = () => {
 
     return (
         <div>
+            {cargandoProductos ? 
+            <div class="d-flex justify-content-center" style={{height:'200px'}}>
+                <div className='d-flex align-items-center'>
+                    <div class="spinner-border text-secondary" role="status">
+                        <span class="visually-hidden">Cargando...</span>
+                    </div>
+                </div>
+            </div>
+            :
             <TablaAlmacenamiento 
             setModal = {setModal} 
             tipoAlmacenamiento = {tipoAlmacenamiento}
@@ -52,6 +64,7 @@ export const HomeBodega = () => {
             handleEdit = {handleEdit}
             handleShow = {handleShow}
             />
+            }
         </div>
     );
 };

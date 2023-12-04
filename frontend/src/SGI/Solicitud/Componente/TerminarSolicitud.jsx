@@ -45,7 +45,7 @@ export const TerminarSolicitud = ({ solicitud, handleinput, aceptar, rechazar })
                 </div>
                 
                 <div>
-                <button className='btn btn-success' onClick={() => aceptar(solicitud._id)}>Aceptar Solicitud</button>
+                <button className='btn btn-success me-2' onClick={() => aceptar(solicitud._id)}>Aceptar Solicitud</button>
                 <button className='btn btn-danger' onClick={() => rechazar(solicitud._id)}>Rechazar Solicitud</button>
                 </div>            
             </div>

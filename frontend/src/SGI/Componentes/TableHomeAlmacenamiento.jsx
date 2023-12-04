@@ -2,6 +2,7 @@ import React from 'react';
 import DataTable from './DataTable';
 
 export const TablaAlmacenamiento = ({ setModal, tipoAlmacenamiento, dataAlmacenamiento, handleDelete, handleEdit, handleShow }) => {
+  
   let columns = [];
   let data = [];
 
@@ -67,11 +68,10 @@ export const TablaAlmacenamiento = ({ setModal, tipoAlmacenamiento, dataAlmacena
               <button className='btn btn-success' onClick={() => {
                 setModal(
                   <div>
-                    {/* Contenido del modal */}
+                    {/* creacion */}
                   </div>
                 )
-              }}>Crear
-                <i className="fa-solid fa-plus"></i>
+              }}>Crear <i className="fa-solid fa-plus"></i>
               </button>
             </div>
           </div>

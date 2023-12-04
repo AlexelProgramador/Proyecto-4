@@ -19,13 +19,23 @@ const DataTable = ({ data, columns }) => {
     // Ordenamiento
     if (sortConfig.key) {
       filtered.sort((a, b) => {
-        const aValue = a[sortConfig.key];
-        const bValue = b[sortConfig.key];
+        const aValue = a[sortConfig.key] || '';
+        const bValue = b[sortConfig.key] || '';
 
-        if (sortConfig.direction === 'ascending') {
-          return aValue.localeCompare(bValue);
+        if (typeof aValue === 'string' && typeof bValue === 'string') {
+          // Manejo normal si ambos valores son cadenas
+          if (sortConfig.direction === 'ascending') {
+            return aValue.localeCompare(bValue);
+          } else {
+            return bValue.localeCompare(aValue);
+          }
         } else {
-          return bValue.localeCompare(aValue);
+          // Manejo especial para la columna de acciones
+          if (sortConfig.direction === 'ascending') {
+            return aValue.toString().localeCompare(bValue.toString());
+          } else {
+            return bValue.toString().localeCompare(aValue.toString());
+          }
         }
       });
     }
@@ -43,6 +53,7 @@ const DataTable = ({ data, columns }) => {
     if (sortConfig.key === key && sortConfig.direction === 'ascending') {
       direction = 'descending';
     }
+    
     setSortConfig({ key, direction });
   };
 
@@ -68,7 +79,7 @@ const DataTable = ({ data, columns }) => {
         <div className='col-md-3 px-0'>
           <input className="form-control form-control-sm" type="text" placeholder="Buscar" onChange={handleSearch} />
         </div>
-        <div className='col-md row justify-content-end'>
+        <div className='col-md px-0 row justify-content-end'>
           {/* Selector de filas por paginas */}
             <div className='col-auto pe-2 align-self-center'>Mostrar</div>
             <div className='col-auto px-0'>
@@ -135,7 +146,7 @@ const Pagination = ({ itemsPerPage, totalItems, currentPage, paginate }) => {
   };
   return (
     <nav aria-label="Page navigation example">
-      <ul class="pagination justify-content-end">
+      <ul class="pagination pagination-sm justify-content-end">
         <li class="page-item">
           <a className="page-link" onClick={handlePrevious} aria-label="Previous">
             <span aria-hidden="true">&laquo;</span>

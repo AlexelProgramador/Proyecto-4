@@ -7,6 +7,7 @@ import { TablaAlmacenamiento } from '../../Componentes/TableHomeAlmacenamiento';
 
 export const HomeBotiquin = () => {
     const [dataBotiquin, setDataBotiquin] = useState([]);
+    const [cargandoProductos, setCargandoProductos] = useState(true);
     const navigate = useNavigate();
     const { setModal } = useModal()
     const tipoAlmacenamiento = "Botiquín";
@@ -17,6 +18,8 @@ export const HomeBotiquin = () => {
             setDataBotiquin(response);
         } catch (error) {
             console.error('Error al obtener datos', error);
+        } finally{
+            setCargandoProductos(false);
         }
     };
 
@@ -43,6 +46,15 @@ export const HomeBotiquin = () => {
 
     return (
         <div>
+            {cargandoProductos ? 
+            <div class="d-flex justify-content-center" style={{height:'200px'}}>
+                <div className='d-flex align-items-center'>
+                    <div class="spinner-border text-secondary" role="status">
+                        <span class="visually-hidden">Cargando...</span>
+                    </div>
+                </div>
+            </div>
+            :
             <TablaAlmacenamiento
             setModal = {setModal} 
             tipoAlmacenamiento = {tipoAlmacenamiento}
@@ -51,6 +63,7 @@ export const HomeBotiquin = () => {
             handleEdit = {handleEdit}
             handleShow = {handleShow}
             />
+            }
         </div>
     );
 };

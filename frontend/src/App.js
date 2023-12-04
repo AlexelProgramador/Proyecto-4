@@ -1,5 +1,6 @@
 import './App.css';
 import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import { Primercomponente } from './Components/Primercomponente';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Sidebar } from './Components/Sidebar';
@@ -69,23 +70,25 @@ function App() {
             </a>
             {/* ITEMS */}
             <div className='nav-list'>
-              <a href='/dashboard-bodega' className='nav-link'>
+              <NavLink to='/dashboard-bodega' className='nav-link' activeClassName='active' end>
                 <i className='fas fa-fw fa-tachometer-alt nav-logo-link'></i>
                 <span>Dashboard</span>
-              </a>
-              
-              <a href='/show-bodega' className='nav-link'>
-                <i className='fas fa-hotel  nav-logo-link'></i>
+              </NavLink>
+
+              <NavLink to='/show-bodega' className='nav-link' activeClassName='active'>
+                <i class="fa-solid fa-table-columns nav-logo-link"></i>
                 <span>Inventario</span>
-              </a>
-              <a href='/create-bodega' className='nav-link'>
+              </NavLink>
+
+              <NavLink to='/show-botiquin' className='nav-link' activeClassName='active'>
                 <i className='fas fa-image nav-logo-link'></i>
                 <span>seccion2</span>
-              </a>
-              <a href='/' className='nav-link'>
+              </NavLink>
+
+              <NavLink to='/show-producto' className='nav-link' activeClassName='active'>
                 <i className='fas fa-dollar-sign nav-logo-link'></i>
                 <span>seccion3</span>
-              </a>
+              </NavLink>
             </div>
           </div>
           <a href='/logout' className='nav-link'>
