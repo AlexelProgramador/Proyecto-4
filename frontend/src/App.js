@@ -30,6 +30,7 @@ import { ShowSolicitudBodega } from './SGI/Solicitud/ShowSolicitudBodega';
 import { DashboardBodega } from './SGI/Almacenamiento/Bodega/DashboardBodega';
 import { ModalProvider } from "./Components/Modal";
 import { PrimerRender } from './SGI/PDFRenderer/PrimerRender';
+import { CreateSolicitudBotiquin } from './SGI/SolicitudBotiquin/CreateSolicitudBotiquin';
 
 function App() {
   const [show, setShow] = useState(false);
@@ -130,6 +131,8 @@ function App() {
             <Route path="/show-solicitud" element ={<HomeSolicitudBodega/>}/>
             <Route path="/create-solicitud" element ={<CreateSolicitudBodega/>}/>
             <Route path="/show-solicitud/:id" element ={<ShowSolicitudBodega/>}/>
+
+            <Route path="/create-solicitud-botiquin" element ={<CreateSolicitudBotiquin/>}/>
             
             <Route path="/PDF" element ={<PrimerRender/>}/>
 
