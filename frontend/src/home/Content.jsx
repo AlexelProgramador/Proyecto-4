@@ -6,6 +6,7 @@ import { CheckCircleFill } from "react-bootstrap-icons";
 import React, { useState } from "react";
 import Cookies from "js-cookie";
 import useDeleteRequest from "../Hooks/useDeleteRequest";
+
 function getRole(nroEtapa) {
   switch (nroEtapa) {
     case 0:
