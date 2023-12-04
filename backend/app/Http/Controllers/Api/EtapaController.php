@@ -43,6 +43,9 @@ class EtapaController extends Controller
             case $request->has('procesosEtapa5'):
                 $etapa->procesosEtapa5 = $request->procesosEtapa5;
                 break;
+            case $request->has('procesosEtapaDea'):
+                $etapa->procesosEtapaDea = $request->procesosEtapaDea;
+                break;
         }
 
         $etapa->save();
@@ -54,7 +57,7 @@ class EtapaController extends Controller
     }
     public function verEtapa(Request $request)
     {
-        $etapa = Etapa::where('solicitudInfo.nroSolicitud', $request->nroSolicitud)->first();
+        $etapa = Etapa::where('_id', $request->_id)->first();
         if (!$etapa) {
             return response()->json(['error' => $request], Response::HTTP_CONFLICT);
         }
@@ -79,6 +82,7 @@ class EtapaController extends Controller
         $etapa->procesosEtapa3 = $data['procesosEtapa3'];
         $etapa->procesosEtapa4 = $data['procesosEtapa4'];
         $etapa->procesosEtapa5 = $data['procesosEtapa5'];
+        $etapa->procesosEtapaDea = $data['procesosEtapaDea'];
         $etapa->solicitudInfo = $data['infoSolicitud'];
         $etapa->infoUsuario = $data['infoUsuario'];
         $nombrePdf = $data['infoSolicitud']['nroSolicitud'] . '-' . $archivo->getClientOriginalName() . '.' . $archivo->getClientOriginalExtension();
@@ -133,4 +137,3 @@ class EtapaController extends Controller
         );
     }
 }
-?>

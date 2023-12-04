@@ -19,7 +19,7 @@ const useSubmitForm = (execute, setShowAlert) => {
     archivo
   ) => {
     event.preventDefault();
-    let sessionInfo = JSON.parse(Cookies.get("response"));
+    let sessionInfo = JSON.parse(localStorage.getItem("response"));
     let now = moment().tz("America/Santiago");
     let nroSolicitud = `${now.format("HHmmss")}-SOL-${now.format("DDMMYYYY")}`;
 
@@ -35,9 +35,7 @@ const useSubmitForm = (execute, setShowAlert) => {
         procesosEtapa3: {},
         procesosEtapa4: {},
         procesosEtapa5: {},
-        procesosEtapa6: {},
-        procesosEtapa7: {},
-        procesosEtapa8: {},
+        procesosEtapaDea: {},
         infoUsuario: {
           solicitadoPor: solicitadoPor,
           anexo: anexo,
@@ -55,11 +53,12 @@ const useSubmitForm = (execute, setShowAlert) => {
         },
       })
     );
-    console.log(archivo);
     const url = "crearEtapa";
     const response = await execute(formData, url);
-    setShowAlert(true);
-    navigate("/");
+    if (response) {
+      setShowAlert(true);
+      navigate("/");
+    }
   };
 
   return handleSubmit;

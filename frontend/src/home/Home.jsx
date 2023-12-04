@@ -13,18 +13,18 @@ import { Sidebar } from "./Sidebar";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
 
 import { AlertContext } from "../context/AlertContext";
 import MisSolicitudes from "../solicitud/MisSolicitudes";
 import { EtapaRechazado } from "../etapas/EtapaRechazado";
+import { EtapaDea } from "../etapas/EtapaDea";
 
 export const Home = () => {
   const [showAlert, setShowAlert] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const response = Cookies.get("response");
+    const response = JSON.parse(localStorage.getItem("response"));
     if (!response) {
       navigate("/login");
     }
@@ -49,6 +49,7 @@ export const Home = () => {
               <Route path="etapa3" element={<Etapa3 />} />
               <Route path="etapa4" element={<Etapa4 />} />
               <Route path="etapa5" element={<Etapa5 />} />
+              <Route path="etapaDea" element={<EtapaDea />} />
               <Route path="crearSolicitud" element={<CrearSolicitud />} />
               <Route path="verSolicitud" element={<VerSolicitud />} />
               <Route path="misSolicitudes" element={<MisSolicitudes />} />

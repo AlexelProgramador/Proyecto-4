@@ -42,12 +42,12 @@ export const SolicitudChequeo = () => {
     var modal = bootstrap.Modal.getInstance(myModal);
     modal.hide();
 
-    // navigate("/");
+    navigate("/");
   };
 
   const getSolicitudInfo = async () => {
     var data = {
-      nroSolicitud: item.solicitudInfo.nroSolicitud,
+      _id: item._id,
     };
     var url = "verEtapa";
     var response = await executePost(data, url);
@@ -258,7 +258,10 @@ export const SolicitudChequeo = () => {
                   <button
                     className="m-2  btn btn-warning"
                     type="button"
-                    onClick={(e) => e.preventDefault()}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigate("/");
+                    }}
                   >
                     atras
                   </button>

@@ -51,7 +51,7 @@ export const Etapa5 = () => {
 
   const getSolicitudInfo = async () => {
     var data = {
-      nroSolicitud: item.solicitudInfo.nroSolicitud,
+      _id: item._id,
     };
     var url = "verEtapa";
     var response = await executePost(data, url);

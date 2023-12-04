@@ -27,7 +27,7 @@ const MisSolicitudes = () => {
   const { data, loading, error } = useFetch("etapas");
   const { showAlert, setShowAlert } = useContext(AlertContext);
   const [currentPage, setCurrentPage] = useState(1);
-  const response = JSON.parse(Cookies.get("response"));
+  const response = JSON.parse(localStorage.getItem("response"));
   const ITEMS_PER_PAGE = 10;
   useEffect(() => {
     if (showAlert) {

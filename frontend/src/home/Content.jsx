@@ -29,7 +29,7 @@ export const Content = () => {
   const { data, loading, error } = useFetch("etapas");
   const { showAlert, setShowAlert } = useContext(AlertContext);
   const [currentPage, setCurrentPage] = useState(1);
-  const responseCookie = JSON.parse(Cookies.get("response"));
+  const responseLocalStorage = JSON.parse(localStorage.getItem("response"));
   const ITEMS_PER_PAGE = 10;
   const { execute, response } = useDeleteRequest();
   const handleDelete = async (itemId) => {
@@ -108,7 +108,7 @@ export const Content = () => {
                             <td>
                               <div className="btn-group btn-group-sm">
                                 {item.nroEtapa !== "Finalizado" &&
-                                  responseCookie.usuario.some(
+                                  responseLocalStorage.usuario.some(
                                     (role) =>
                                       role === "Administrador" ||
                                       role === getRole(item.nroEtapa)
@@ -129,7 +129,7 @@ export const Content = () => {
                                       >
                                         Ver Etapa
                                       </button>
-                                      {responseCookie.usuario.includes(
+                                      {responseLocalStorage.usuario.includes(
                                         "Administrador"
                                       ) && (
                                         <button

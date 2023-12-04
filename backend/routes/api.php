@@ -22,6 +22,7 @@ use App\Http\Controllers\Api\PdfController;
 // Controlador Autenticacion.
 Route::controller(AuthController::class)->group(function () {
     Route::post("/login", "login");
+    Route::post("/checkSession", "checkSession");
 });
 
 // Controlador Usuario.

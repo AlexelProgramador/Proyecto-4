@@ -35,7 +35,7 @@ export const Etapa3 = () => {
 
   const getSolicitudInfo = async () => {
     var data = {
-      nroSolicitud: item.solicitudInfo.nroSolicitud,
+      _id: item._id,
     };
     var url = "verEtapa";
     var response = await executePost(data, url);
@@ -102,9 +102,6 @@ export const Etapa3 = () => {
                     <label htmlFor="floatingSelect">Comentario</label>
                   </div>
 
-                  {/* Agrega más campos según sea necesario */}
-
-                  {/* Botones del formulario */}
                   <button className="m-2 btn btn-primary" type="submit">
                     Aceptar
                   </button>

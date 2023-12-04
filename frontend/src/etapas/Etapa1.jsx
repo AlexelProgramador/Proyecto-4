@@ -23,7 +23,7 @@ export const Etapa1 = () => {
     e.preventDefault();
     const data = {
       idEtapa: item._id,
-      nroEtapa: 2,
+      nroEtapa: 'Dea',
       procesosEtapa1: {
         centroDeCostos: centroDeCostos,
         verificarSaldo: verificarSaldo,

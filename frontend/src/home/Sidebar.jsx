@@ -15,7 +15,7 @@ export const Sidebar = () => {
     setShowTable(!showTable);
   };
   const handleSession = () => {
-    Cookies.remove("response");
+    localStorage.removeItem("response");
     navigate("/login");
   };
   const handleClickOutside = (event) => {
@@ -45,19 +45,19 @@ export const Sidebar = () => {
     <main className={show ? "space-toggle" : null}>
       <header className={`header ${show ? "space-toggle" : null}`}>
         <div className="header-toggle" onClick={() => setShow(!show)}>
-          <i className={`fas fa-bars ${show ? "fa-solid fa-xmark" : null}`}>
-          </i>
+          <i className={`fas fa-bars ${show ? "fa-solid fa-xmark" : null}`}></i>
         </div>
         <div
           className="notification-container"
-          style={{ position: "relative"
-
-        }}
+          style={{ position: "relative" }}
         >
-          <button 
-           style={{ borderRadius: "5px", width: "200px",         
-          }} className="btn btn-info"
-          onClick={toggleTable}>Notificaciones</button>
+          <button
+            style={{ borderRadius: "5px", width: "200px" }}
+            className="btn btn-info"
+            onClick={toggleTable}
+          >
+            Notificaciones
+          </button>
 
           {showTable && (
             <div
@@ -74,7 +74,9 @@ export const Sidebar = () => {
                 borderRadius: "5px",
               }}
             >
-              <h6 className="border-bottom">Solicitudes sin verificar por 1 dia</h6>
+              <h6 className="border-bottom">
+                Solicitudes sin verificar por 1 dia
+              </h6>
               <SeccionDiasSinAtender data={data} />
             </div>
           )}
@@ -86,10 +88,10 @@ export const Sidebar = () => {
           <div>
             {/* SIDEBAR HEADER */}
             <div>
-            <a href='/' className='nav-logo'>
-              <i className='fas fa-home-alt nav-logo-icon'/>
-              <span className='nav-logo-name'>Menu principal</span>
-            </a>
+              <a href="/" className="nav-logo">
+                <i className="fas fa-home-alt nav-logo-icon" />
+                <span className="nav-logo-name">Menu principal</span>
+              </a>
             </div>
             {/* ITEMS */}
 
@@ -176,7 +178,7 @@ export const Sidebar = () => {
                 d="M4.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H14.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"
               />
             </svg>
-                Cerrar sesion
+            Cerrar sesion
           </div>
         </nav>
       </aside>
