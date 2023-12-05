@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./Login.css";
-import usePostRequest from "../Hooks/usePostRequest";
 import { useNavigate } from "react-router-dom";
+import { loginCuenta } from "./HandlerLogin";
 
 export const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { execute, response } = usePostRequest();
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -15,8 +14,7 @@ export const Login = () => {
       username: username,
       password: password,
     };
-    const url = "login";
-    let response = await execute(data, url);
+    let response = await loginCuenta(data);
 
     if (response) {
       localStorage.setItem("response", JSON.stringify(response));

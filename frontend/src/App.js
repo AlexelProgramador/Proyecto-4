@@ -62,7 +62,7 @@ function App() {
       <ModalProvider>
       <div className="container-fluid pt-4">
           <Routes>
-            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<Login />} />
           </Routes>
         </div>
         </ModalProvider>
