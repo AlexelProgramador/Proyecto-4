@@ -168,8 +168,8 @@ class SolicitudBodegaController extends Controller
                 foreach ($inventario as $index => $producto) {
                     if ($producto['IdProducto'] == $idProducto) {
                         // Asegurarse de que la cantidad a restar no sea mayor que la cantidad actual
-                        $cantidadRestante = max(0, $producto['CantidadAsignadaProducto'] - intval($cantidadSolicitud));
-                        $inventario[$index]['CantidadAsignadaProducto'] = $cantidadRestante;
+                        $cantidadRestante = max(0, $producto['CantidadAsignada'] - intval($cantidadSolicitud));
+                        $inventario[$index]['CantidadAsignada'] = $cantidadRestante;
                         break;
                     }
                 }
