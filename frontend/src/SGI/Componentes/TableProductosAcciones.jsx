@@ -1,6 +1,7 @@
 import React from 'react';
 import AccionesProductos from './AccionesProductos';
 
+
 export const TablaProductosAcciones = ({almacenamientoData, setModal}) => {
   console.log(almacenamientoData);
   return (
@@ -22,10 +23,14 @@ export const TablaProductosAcciones = ({almacenamientoData, setModal}) => {
                 {almacenamientoData.Inventario.map((item, index) => (
                   <tr key={index}>
                     <td>{item.NombreProducto}</td>
-                    <td>{item.CantidadAsignadaProducto}</td>
+                    <td>{item.CantidadAsignada}</td>
                     <td> 
                         <div className='btn-group btn-group-sm'>
-                          {almacenamientoData.Tipo === "Bodega" ? <AccionesProductos setModal={setModal} item={item}/> :
+                          {almacenamientoData.Tipo === "Bodega" ? 
+                            <AccionesProductos  
+                              almacenamientoData={almacenamientoData} 
+                              setModal={setModal} 
+                              item={item}/> :
                           <button className='btn btn-primary'><i class="fa-solid fa-eye"></i></button>
                           }
                         </div>

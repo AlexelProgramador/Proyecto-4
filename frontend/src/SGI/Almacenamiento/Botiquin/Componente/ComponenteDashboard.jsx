@@ -2,10 +2,13 @@ import React from 'react';
 
 export const ComponenteDashboard = ({datosPendiente, datosPocasUnidades}) => {
     const aviso = [
-      {nro: datosPocasUnidades.length, tipo:'Producto por terminar', color: 'bg-warning', th1: 'Nombre', th2:'Cantidad'},
+      {nro: 0, tipo:'Producto por terminar', color: 'bg-warning', th1: 'Nombre', th2:'Cantidad'},
       {nro: 0, tipo:'Producto por vencer', color: 'bg-danger', th1: 'Nombre', th2:'Fecha'},
-      {nro: datosPendiente.length, tipo:'Solicitudes pendientes', color: 'bg-success', th1: 'Variable', th2: 'Fecha'}
+      {nro: 0, tipo:'Solicitudes pendientes', color: 'bg-success', th1: 'Variable', th2: 'Fecha'}
     ]
+    {/*
+    datosPocasUnidades.length
+    datosPendiente.length*/}
     return (
         <div>
             <div className='h5 text-uppercase pb-2'>Bienvenido Bodeguero</div>

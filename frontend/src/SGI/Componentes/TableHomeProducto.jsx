@@ -24,7 +24,7 @@ export const TableHomeProducto = ({productoData, setModal, handleShow, handleEdi
                                 {productoData.map((item) => (
                                     <tr key={item.id}>
                                         <td>{item.Nombre}</td>
-                                        <td>{item.TotalProducto}</td>
+                                        <td>{item.CantidadTotal || 0}</td>
                                         <td>
                                             <div className='btn-group btn-group-sm'>
                                             {true ? 

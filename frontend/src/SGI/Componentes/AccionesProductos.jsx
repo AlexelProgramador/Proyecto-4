@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
-export const AccionesProductos = ({item, setModal, handleShow, handleEdit, handleDelete}) => {
+export const AccionesProductos = ({item, setModal,handleShow, handleEdit, handleDelete}) => {
   return (
     <div>
       <button className='btn btn-primary' onClick={() => handleShow(item._id)}><i class="fa-solid fa-eye"></i></button>

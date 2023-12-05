@@ -19,7 +19,6 @@ console.log(inventarioBodegaData);
                   <th>Seleccionar</th>
                   <th>Producto</th>
                   <th>Cantidad</th>
-                  <th>Fecha</th>
                 </tr>
               </thead>
               <tbody>
@@ -33,8 +32,7 @@ console.log(inventarioBodegaData);
                       />
                     </td>
                     <td>{item.NombreProducto}</td>
-                    <td>{item.CantidadAsignadaProducto}</td>
-                    <td>{item.FechaProcesoProducto}</td>
+                    <td>{item.CantidadAsignada}</td>
                   </tr>
                 ))}
               </tbody>

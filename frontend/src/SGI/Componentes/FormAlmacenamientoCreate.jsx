@@ -7,7 +7,6 @@ export const FormAlmacenamientoCreate = ({almacenamientoData, setAlmacenamientoD
       [e.target.name]: e.target.value
     });
   };
-  console.log(almacenamientoData);
   return (
     <div>
       <div className='card shadow-card rounded-0 border border-0'>

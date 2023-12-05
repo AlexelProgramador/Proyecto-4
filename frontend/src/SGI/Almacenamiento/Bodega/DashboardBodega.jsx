@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { contadorSolicitudPendiente } from '../../Solicitud/HandlerSolicitudBodega';
-import { ComponenteDashboard } from './Componente/ComponenteDashboard';
+import { ComponenteDashboardBodega } from './Componente/ComponenteDashboardBodega';
 import { pocasUnidadesProducto, vencimientoProducto } from '../../Producto/HandlerProducto';
 
 export const DashboardBodega = () => {
@@ -40,7 +40,7 @@ export const DashboardBodega = () => {
                     </div>
                 </div>
             </div>
-            : <ComponenteDashboard datosPendiente = {dataSolicitudPendiente} datosPocasUnidades = {dataPocasUnidades}/>}
+            : <ComponenteDashboardBodega datosPendiente = {dataSolicitudPendiente} datosPocasUnidades = {dataPocasUnidades}/>}
         </div>
     );
 };

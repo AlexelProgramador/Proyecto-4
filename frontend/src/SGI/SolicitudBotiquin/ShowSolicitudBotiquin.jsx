@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { homeSolicitud } from './HandlerSolicitudBodega';
+import { homeSolicitud } from './HandlerSolicitudBotiquin';
 import { useModal } from '../../Components/Modal';
 import { PrimerPdf } from '../PDFRenderer/PrimerPdf';
-import { TableHomeSolicitudBodega } from '../Componentes/TableHomeSolicitudBodega';
+import { TableHomeSolicitudBotiquin } from '../Componentes/TableHomeSolicitudBotiquin';
 
-export const HomeSolicitudBodega = () => {
-  const [dataSolicitudBodega, setDataSolicitudBodega] = useState([]);
+export const ShowSolicitudBotiquin = () => {
+  const [dataSolicitudBotiquin, setDataSolicitudBotiquin] = useState([]);
   const navigate = useNavigate();
   const { setModal } = useModal()
 
   const fetchData = async () => {
     try {
       const response = await homeSolicitud();
-      setDataSolicitudBodega(response);
+      setDataSolicitudBotiquin(response);
     } catch (error) {
       console.error('Error al obtener datos', error);
     }
@@ -34,8 +34,8 @@ export const HomeSolicitudBodega = () => {
         <div className='card-body'>
           <div className='h5 text-uppercase pb-2'>Solicitudes</div>                
           <div className='table-responsive'>
-            <TableHomeSolicitudBodega 
-            dataSolicitudBodega={dataSolicitudBodega} 
+            <TableHomeSolicitudBotiquin
+            dataSolicitudBotiquin={dataSolicitudBotiquin} 
             setModal={setModal} 
             PrimerPdf={PrimerPdf}
             handleShow={handleShow}
@@ -47,4 +47,4 @@ export const HomeSolicitudBodega = () => {
   );
 };
 
-export default TableHomeSolicitudBodega;
+export default ShowSolicitudBotiquin;

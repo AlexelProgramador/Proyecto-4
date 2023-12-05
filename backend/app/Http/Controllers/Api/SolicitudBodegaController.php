@@ -127,16 +127,16 @@ class SolicitudBodegaController extends Controller
             $cantidadSolicitud = $item['CantidadSolicitud'];
 
             // Verificar si el producto está en el inventario del botiquín
-            $productoEncontrado = collect($botiquin['InventarioBotiquin'])->first(function ($producto) use ($idProducto) {
+            $productoEncontrado = collect($botiquin['Inventario'])->first(function ($producto) use ($idProducto) {
                 return $producto['IdProducto'] == $idProducto;
             });
 
             if ($productoEncontrado) {
                 // Actualizar la cantidad si el producto ya está en el inventario.
-                $inventario = $botiquin->InventarioBotiquin;
+                $inventario = $botiquin->Inventario;
                 foreach ($inventario as $index => $producto) {
                     if ($producto['IdProducto'] == $idProducto) {
-                        $inventario[$index]['CantidadAsignadaBotiquin'] += intval($cantidadSolicitud);
+                        $inventario[$index]['CantidadAsignada'] += intval($cantidadSolicitud);
                         break;
                     }
                 }
@@ -146,9 +146,9 @@ class SolicitudBodegaController extends Controller
                 $inventarioData = [
                     'IdProducto' => $idProducto,
                     'NombreProducto' => $nombreProducto,
-                    'CantidadAsignadaBotiquin' => intval($cantidadSolicitud),
+                    'CantidadAsignada' => intval($cantidadSolicitud),
                 ];
-                $botiquin->push('InventarioBotiquin', $inventarioData);
+                $botiquin->push('Inventario', $inventarioData);
             }
         
         $bodega = Bodega::findOrFail($request->IdBodega);
@@ -188,18 +188,5 @@ class SolicitudBodegaController extends Controller
     return response()->json(['message' => $cantidadRestante]);
     }
 
-    public function rechazarSolicitud(request $request, $id)
-    {
-        $datos = SolicitudBodega::where("_id", $id)->update([
-            'EstadoSolicitud' => 'Rechazado',
-            'ComentarioSolicitud' => $request->ComentarioSolicitud,
-        ]);
-        return response()->json(['message' => "Solicitud Rechazada", 'data' => $datos], 201);
-    }
 
-    public function contarPendiente()
-    {
-        $sPendiente = SolicitudBodega::where('EstadoSolicitud', 'Pendiente')->get();
-        return response()->json(['data' => $sPendiente]);
-    }
 }

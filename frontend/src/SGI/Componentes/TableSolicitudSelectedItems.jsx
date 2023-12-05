@@ -20,7 +20,7 @@ export const TableSolicitudSelectedItems = ({selectedItems, inventarioBodegaData
                 {selectedItems.map((index) => (
                   <tr key={index}>
                   <td>{inventarioBodegaData[index].NombreProducto}</td>
-                  <td>{inventarioBodegaData[index].CantidadAsignadaProducto}</td>
+                  <td>{inventarioBodegaData[index].CantidadAsignada}</td>
                   <td>
                   <input className='form-control form-control-sm'
                     type="text"

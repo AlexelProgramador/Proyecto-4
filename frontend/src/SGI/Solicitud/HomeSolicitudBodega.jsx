@@ -47,4 +47,4 @@ export const HomeSolicitudBodega = () => {
   );
 };
 
-export default TableHomeSolicitudBodega;
+export default HomeSolicitudBodega;

@@ -31,6 +31,7 @@ import { DashboardBodega } from './SGI/Almacenamiento/Bodega/DashboardBodega';
 import { ModalProvider } from "./Components/Modal";
 import { PrimerRender } from './SGI/PDFRenderer/PrimerRender';
 import { CreateSolicitudBotiquin } from './SGI/SolicitudBotiquin/CreateSolicitudBotiquin';
+import { ShowSolicitudBotiquin } from './SGI/SolicitudBotiquin/ShowSolicitudBotiquin';
 
 function App() {
   const [show, setShow] = useState(false);
@@ -133,6 +134,7 @@ function App() {
             <Route path="/show-solicitud/:id" element ={<ShowSolicitudBodega/>}/>
 
             <Route path="/create-solicitud-botiquin" element ={<CreateSolicitudBotiquin/>}/>
+            <Route path="/show-solicitud-botiquin/:id" element ={<ShowSolicitudBotiquin/>}/>
             
             <Route path="/PDF" element ={<PrimerRender/>}/>
 
