@@ -65,6 +65,21 @@ export const updateProductoAsignacion = async (id, asignacionData) => {
   });
 };
 
+export const editProductoDesgloce = async (id, desgloceData,idDes) => {
+  return axios.put(url + `/producto/${id}/editDesgloce/${idDes}`, desgloceData)
+  .then(response => {
+    const data = response.data;
+    if (data.success) {
+      console.log(data.message); // Mensaje de depuración
+      // Realizar otras acciones según sea necesario
+    } else {
+      console.error('Error en la operación:', data.message);
+      // Manejar el error de alguna manera
+    }
+   })
+}
+
+
 export const deleteProducto = async (id) => {
   return axios.delete(url + `/producto/${id}`)
   .then()

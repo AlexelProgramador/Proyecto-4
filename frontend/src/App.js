@@ -32,6 +32,7 @@ import { ModalProvider } from "./Components/Modal";
 import { PrimerRender } from './SGI/PDFRenderer/PrimerRender';
 import { CreateSolicitudBotiquin } from './SGI/SolicitudBotiquin/CreateSolicitudBotiquin';
 import { ShowSolicitudBotiquin } from './SGI/SolicitudBotiquin/ShowSolicitudBotiquin';
+import { EditDesglose } from './SGI/Producto/Componentes/EditDesglose';
 
 function App() {
   const [show, setShow] = useState(false);
@@ -129,6 +130,8 @@ function App() {
             <Route path="/create-botiquin" element ={<CreateBotiquin/>}/>
             <Route path="/edit-botiquin/:id" element ={<EditBotiquin/>}/>
             <Route path="/show-botiquin/:id" element ={<ShowBotiquin/>}/>
+
+            <Route path="/edit-producto/:id/desglose/:idDes" element={<EditDesglose />} />
 
             <Route path="/show-solicitud" element ={<HomeSolicitudBodega/>}/>
             <Route path="/create-solicitud" element ={<CreateSolicitudBodega/>}/>
