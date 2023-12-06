@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { editProductoDesgloce } from '../HandlerProducto';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 
 export const EditDesglose = () => {
@@ -10,6 +10,7 @@ export const EditDesglose = () => {
   const { productoData } = location.state || {};
   const { id } = useParams();
   const { idDes} = useParams();
+  const navigate = useNavigate();
   const productoDataDes = productoData.Desgloce;
   const dataProductoDataDes = productoDataDes.find((data) => data.UuidProducto === idDes);
   console.log(dataProductoDataDes);
@@ -25,6 +26,7 @@ export const EditDesglose = () => {
   const handleAgregarDesgloce = async () => {
     try {
       await editProductoDesgloce(id, nuevoDesgloce, idDes);
+      navigate(`/edit-producto/${id}`);
       console.log(nuevoDesgloce);
     } catch (error) {
       console.error('Error al actualizar el desgloce', error);
@@ -131,7 +133,7 @@ export const EditDesglose = () => {
           </div>
         </div>
         <div className='col-md-4 pb-4'>
-          <button className='btn btn-primary' onClick={handleAgregarDesgloce}>Agregar Desglose</button>
+          <button className='btn btn-primary' onClick={handleAgregarDesgloce}>Editar Desglose</button>
         </div>                   
       </div> 
     </div>
