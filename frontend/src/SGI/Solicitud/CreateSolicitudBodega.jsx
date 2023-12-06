@@ -323,9 +323,11 @@ console.log(inventarioBodegaData);
               handleInventarioChange={handleInventarioChange}
               detalleInventarioData={detalleInventarioData}
             />
-            <button className='btn btn-primary' type="button" onClick={handleInsert}>
-              Insertar Datos de Solicitud
-            </button>
+            <div className='col'>
+              <button className='btn btn-primary' type="button" onClick={handleInsert}>
+                Insertar Datos de Solicitud
+              </button>
+            </div>
           </form>
         </div>
       </div>

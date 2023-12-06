@@ -1,17 +1,17 @@
 import './App.css';
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Primercomponente } from './Components/Primercomponente';
+// import { Primercomponente } from './Components/Primercomponente';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { Sidebar } from './Components/Sidebar';
-import { Dashboard } from './Components/Dashboard';
-import { CrearSolicitud } from './Components/CrearSolicitud';
-import { SolicitudEtapa2 } from './Components/SolicitudEtapa2';
-import { SolicitudEtapa3 } from './Components/SolicitudEtapa3';
-import { CrearBoletacompra } from './Components/CrearBoletaCompraET4';
-import { ActualizacionSoliET5 } from './Components/ActualizacionEnvioET5';
-import { ActualizacionSoliET6 } from './Components/ActualizacionEnvioET6';
-import { FormrecepcionET7 } from './Components/FormularioRecepcionET7';
+// import { Sidebar } from './Components/Sidebar';
+// import { Dashboard } from './Components/Dashboard';
+// import { CrearSolicitud } from './Components/CrearSolicitud';
+// import { SolicitudEtapa2 } from './Components/SolicitudEtapa2';
+// import { SolicitudEtapa3 } from './Components/SolicitudEtapa3';
+// import { CrearBoletacompra } from './Components/CrearBoletaCompraET4';
+// import { ActualizacionSoliET5 } from './Components/ActualizacionEnvioET5';
+// import { ActualizacionSoliET6 } from './Components/ActualizacionEnvioET6';
+// import { FormrecepcionET7 } from './Components/FormularioRecepcionET7';
 import { HomeBodega } from './SGI/Almacenamiento/Bodega/HomeBodega';
 import { CreateBodega } from './SGI/Almacenamiento/Bodega/CreateBodega';
 import { HomeProducto } from './SGI/Producto/HomeProducto';
@@ -36,19 +36,20 @@ import { ShowSolicitudBotiquin } from './SGI/SolicitudBotiquin/ShowSolicitudBoti
 function App() {
   const [show, setShow] = useState(false);
 
-  const datosDeEjemplo = {
-    solicitadoPor: 'John Doe',
-    fecha: '2023-10-16',
-    anexo: 'Anexo 1',
-    correoElectronico: 'john@example.com',
-    objetoCompra: 'Material de oficina',
-    cantidad: 100,
-    tipoEmpaque: 'Caja',
-    motivosCompra: 'Necesidad de suministros de oficina',
-    fuenteFinanciamiento: 'Presupuesto de oficina',
-    montoEstimado: '$1000',
-    codigoCosto: '$4000'
-  };
+  
+  // const datosDeEjemplo = {
+  //   solicitadoPor: 'John Doe',
+  //   fecha: '2023-10-16',
+  //   anexo: 'Anexo 1',
+  //   correoElectronico: 'john@example.com',
+  //   objetoCompra: 'Material de oficina',
+  //   cantidad: 100,
+  //   tipoEmpaque: 'Caja',
+  //   motivosCompra: 'Necesidad de suministros de oficina',
+  //   fuenteFinanciamiento: 'Presupuesto de oficina',
+  //   montoEstimado: '$1000',
+  //   codigoCosto: '$4000'
+  // };
   return (
     <Router>
       <div>
@@ -104,13 +105,13 @@ function App() {
       <div className="container-fluid pt-4">
           <Routes>
             <Route path="/" element={<DashboardBodega />} />
-            <Route path="/crear-solicitud" element={<CrearSolicitud />} />
+            {/* <Route path="/crear-solicitud" element={<CrearSolicitud />} />
             <Route path="/solicitud-etapa2" element={<SolicitudEtapa2 solicitudData={datosDeEjemplo}/>} />
             <Route path="/solicitud-etapa3" element={<SolicitudEtapa3 solicitudData={datosDeEjemplo}/>} />
             <Route path="/solicitud-etapa4" element={<CrearBoletacompra/>}/>
             <Route path="/solicitud-etapa5" element={<ActualizacionSoliET5/>}/>
             <Route path="/solicitud-etapa6" element={<ActualizacionSoliET6/>}/>
-            <Route path="/solicitud-etapa7" element={<FormrecepcionET7/>}/>
+            <Route path="/solicitud-etapa7" element={<FormrecepcionET7/>}/> */} 
 
             {/* Rutas Sistema Inventario*/}
             <Route path="/show-bodega" element ={<HomeBodega/>}/>

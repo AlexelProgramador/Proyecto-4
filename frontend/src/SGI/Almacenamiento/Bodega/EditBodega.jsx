@@ -33,7 +33,7 @@ export const EditBodega = () => {
         })
         .catch(error => {
           // Manejar el error si ocurre
-          console.error('Error al actualizar la bodega: ', error);
+            console.error('Error al actualizar la bodega: ', error);
         });
     };
     return (
