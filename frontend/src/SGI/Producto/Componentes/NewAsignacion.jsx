@@ -17,6 +17,8 @@ export const NewAsignacion = ({desgloseProducto}) => {
     NombreUbicacion:'',
     FechaProceso: '',
   });
+  console.log(desgloseProducto);
+  const objetosBuenEstado = desgloseProducto.filter((data) => data.Estado === 'Buen Estado');
 
   const handleAgregarAsignacion = async () => {
     try {
@@ -98,7 +100,7 @@ export const NewAsignacion = ({desgloseProducto}) => {
                             <option value="Defecto">
                                 Selecciona un Desgloce
                             </option>
-                            {desgloseProducto.map(option => (
+                            {objetosBuenEstado.map(option => (
                             <option key={option.UuidProducto} value={option.UuidProducto}>
                                 {option.Nombre}
                             </option>
