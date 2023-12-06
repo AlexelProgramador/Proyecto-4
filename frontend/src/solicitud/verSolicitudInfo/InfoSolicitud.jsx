@@ -18,8 +18,9 @@ const InfoSolicitud = ({ selected = 0, item }) => {
     window.open(url, '_blank');
   };
   console.log(item.solicitudInfo.productos);
+  console.log(item);
   const productosPorPagina = 3;
-
+  
   return (
     <>
       <div className="contenido">

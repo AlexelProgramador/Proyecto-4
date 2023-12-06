@@ -54,8 +54,10 @@ export const Etapa2 = () => {
     var url = "verEtapa";
     var response = await executePost(data, url);
     setSolicitudInfo(response);
-  };
+    console.log(item);
 
+  };
+  
   useEffect(() => {
     getSolicitudInfo();
   }, []);
