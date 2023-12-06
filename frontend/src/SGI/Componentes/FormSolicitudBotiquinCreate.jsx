@@ -12,6 +12,7 @@ export const FormCreateSolicitudBotiquin = ({botiquinData, selectedItems= [], ha
 
   return (
     <div>
+      <div className='row'>
       <div className='col-md-4 pb-4'>
         <div className='form-floating'>
           <input className='form-control'
@@ -82,6 +83,7 @@ export const FormCreateSolicitudBotiquin = ({botiquinData, selectedItems= [], ha
         </div>
       </div>
     </div>
+  </div>
   );
 };
 

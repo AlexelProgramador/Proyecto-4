@@ -1,11 +1,16 @@
 import React, {useEffect} from 'react';
 import { NewDesgloce } from '../Producto/Componentes/NewDesgloce'; 
+import { useNavigate } from 'react-router-dom';
 
 export const FormDesgloseProducto = ({productoData, cargandoDesgloce}) => {
   useEffect(() => {
   }, [productoData]);
+  const navigate = useNavigate();
+  const handleEdit = (id, idDes) => {
+    navigate(`/edit-producto/${id}/desglose/${idDes}`, {state:{productoData}});
+    
+  };
 
-  console.log(productoData.Desgloce);
   return (
     <div>
       {productoData.Desgloce && productoData.Desgloce.length > 0 ? (
@@ -18,6 +23,7 @@ export const FormDesgloseProducto = ({productoData, cargandoDesgloce}) => {
                 <th>Valor Total</th>
                 <th>Fecha Vencimiento del Desglose</th>
                 <th>Estado Producto</th>
+                <th>Accion</th>
               </tr>
             </thead>
             <tbody>
@@ -28,6 +34,7 @@ export const FormDesgloseProducto = ({productoData, cargandoDesgloce}) => {
                   <td>${item.ValorTotal} Pesos</td>
                   <td>{item.FechaVencimiento}</td>
                   <td>{item.Estado}</td>
+                  <td><button className='btn btn-warning'onClick={() => handleEdit(productoData._id, item.UuidProducto)}><i class="fa-solid fa-pen"></i></button></td>
                 </tr>
                 ))
               }

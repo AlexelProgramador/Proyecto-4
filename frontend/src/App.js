@@ -1,13 +1,55 @@
 import './App.css';
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+// import { Primercomponente } from './Components/Primercomponente';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+// import { Sidebar } from './Components/Sidebar';
+// import { Dashboard } from './Components/Dashboard';
+// import { CrearSolicitud } from './Components/CrearSolicitud';
+// import { SolicitudEtapa2 } from './Components/SolicitudEtapa2';
+// import { SolicitudEtapa3 } from './Components/SolicitudEtapa3';
+// import { CrearBoletacompra } from './Components/CrearBoletaCompraET4';
+// import { ActualizacionSoliET5 } from './Components/ActualizacionEnvioET5';
+// import { ActualizacionSoliET6 } from './Components/ActualizacionEnvioET6';
+// import { FormrecepcionET7 } from './Components/FormularioRecepcionET7';
+import { HomeBodega } from './SGI/Almacenamiento/Bodega/HomeBodega';
+import { CreateBodega } from './SGI/Almacenamiento/Bodega/CreateBodega';
+import { HomeProducto } from './SGI/Producto/HomeProducto';
+import { CreateProducto } from './SGI/Producto/CreateProducto';
+import { EditBodega } from './SGI/Almacenamiento/Bodega/EditBodega';
+import { EditProducto } from './SGI/Producto/EditProducto';
+import { ShowProducto } from './SGI/Producto/ShowProducto';
+import { ShowBodega } from './SGI/Almacenamiento/Bodega/ShowBodega';
+import { HomeBotiquin } from './SGI/Almacenamiento/Botiquin/HomeBotiquin';
+import { CreateBotiquin } from './SGI/Almacenamiento/Botiquin/CreateBotiquin';
+import { EditBotiquin } from './SGI/Almacenamiento/Botiquin/EditBotiquin';
+import { ShowBotiquin } from './SGI/Almacenamiento/Botiquin/ShowBotiquin'
+import { HomeSolicitudBodega } from './SGI/Solicitud/HomeSolicitudBodega';
+import { CreateSolicitudBodega } from './SGI/Solicitud/CreateSolicitudBodega';
+import { ShowSolicitudBodega } from './SGI/Solicitud/ShowSolicitudBodega';
+import { DashboardBodega } from './SGI/Almacenamiento/Bodega/DashboardBodega';
 import { ModalProvider } from "./Components/Modal";
-import { Login } from "./SGI/Login/Login"
+import { PrimerRender } from './SGI/PDFRenderer/PrimerRender';
+import { CreateSolicitudBotiquin } from './SGI/SolicitudBotiquin/CreateSolicitudBotiquin';
+import { ShowSolicitudBotiquin } from './SGI/SolicitudBotiquin/ShowSolicitudBotiquin';
 
 function App() {
   const [show, setShow] = useState(false);
 
+  
+  // const datosDeEjemplo = {
+  //   solicitadoPor: 'John Doe',
+  //   fecha: '2023-10-16',
+  //   anexo: 'Anexo 1',
+  //   correoElectronico: 'john@example.com',
+  //   objetoCompra: 'Material de oficina',
+  //   cantidad: 100,
+  //   tipoEmpaque: 'Caja',
+  //   motivosCompra: 'Necesidad de suministros de oficina',
+  //   fuenteFinanciamiento: 'Presupuesto de oficina',
+  //   montoEstimado: '$1000',
+  //   codigoCosto: '$4000'
+  // };
   return (
     <Router>
       <div>

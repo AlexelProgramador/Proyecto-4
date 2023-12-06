@@ -12,6 +12,8 @@ export const FormCreateSolicitudBodega = ({botiquinData, bodegaData, selectedIte
 
   return (
     <div>
+      <div className='row'>
+        
       <div className='col-md-4 pb-4'>
         <div className='form-floating'>
           <input className='form-control'
@@ -100,6 +102,7 @@ export const FormCreateSolicitudBodega = ({botiquinData, bodegaData, selectedIte
           </select>
           <label htmlFor="BodegaSolicitud">Bodega a Seleccionar:</label>
         </div>
+      </div>
       </div>
     </div>
   );

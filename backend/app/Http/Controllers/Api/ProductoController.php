@@ -112,7 +112,8 @@ class ProductoController extends Controller
             'ValorTotal' => $request->ValorTotal,
             'FechaVencimiento' => $request->FechaVencimiento,
             'Estado' => $request->Estado,
-            'Nombre' => $request->Nombre
+            'Nombre' => $request->Nombre,
+            'DesgloseOriginal'=> '' 
         );
         $CantidadTotal = $producto->TotalProducto + intval($request->CantidadTotal);
         $producto->TotalProducto = $CantidadTotal;
@@ -121,6 +122,63 @@ class ProductoController extends Controller
         return response()->json(['message' => 'Producto actualizado con éxito'], 200);
 
     }
+
+    public function editDesgloce(Request $request, $id, $idDes)
+    {
+        $producto = Producto::findOrFail($id);
+        $uuid = Uuid::uuid4()->toString();
+        
+        $desgloceData = array(
+            'UuidProducto' => $uuid,
+            'CantidadContenedor' => $request->CantidadContenedor,
+            'CantidadTotal' => $request->CantidadTotal,
+            'ValorTotal' => $request->ValorTotal,
+            'FechaVencimiento' => $request->FechaVencimiento,
+            'Estado' => $request->Estado,
+            'Nombre' => $request->Nombre,
+            'DesgloseOriginal'=> $idDes
+        );
+        $producto->push('Desgloce', $desgloceData);
+        $producto->save();
+
+        $producto2 = Producto::findOrFail($id);
+        $desgloceEncontrado = collect($producto2['Desgloce'])->first(function ($desgloce) use ($idDes) {
+            return $desgloce['UuidProducto'] == $idDes;
+        });
+        if ($desgloceEncontrado) {
+            $nDesgloce = $producto2->Desgloce;
+                foreach ($nDesgloce as $index => $Uuid) {
+                    if ($Uuid['UuidProducto'] == $idDes) {
+                        // Asegurarse de que la cantidad a restar no sea mayor que la cantidad actual
+                        $cantidadContenedorRestante = max(0, intval($Uuid['CantidadContenedor']) - intval($request->CantidadContenedor));
+                        $cantidadTotalRestante = max(0, intval($Uuid['CantidadTotal']) - intval($request->CantidadTotal));
+                        $valorTotalRestante = max(0, intval($Uuid['ValorTotal']) - intval($request->ValorTotal));
+
+                        $nDesgloce[$index] = [
+                            'UuidProducto' => $Uuid['UuidProducto'],
+                            'CantidadContenedor' => $cantidadContenedorRestante ,
+                            'CantidadTotal' => $cantidadTotalRestante,
+                            'ValorTotal' => $valorTotalRestante,
+                            'FechaVencimiento' => $Uuid['FechaVencimiento'],
+                            'Estado' => $Uuid['Estado'],
+                            'Nombre' => $Uuid['Nombre'],
+                            'DesgloseOriginal' => $Uuid['DesgloseOriginal']
+                            // Otros campos si los tienes
+                        ];
+                        break;
+                    }
+                    
+                }
+                $producto2->Desgloce = $nDesgloce;
+            
+                
+        } else {
+            // El producto con el UuidProducto especificado no se encontró
+        }
+        $producto2->save();
+        return response()->json();
+    }
+
 
     public function updateAsignacion(Request $request, $id)
     {

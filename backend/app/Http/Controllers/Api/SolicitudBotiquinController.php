@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\SolicitudBotiquin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Botiquin;
 
 class SolicitudBotiquinController extends Controller
 {
@@ -52,8 +53,38 @@ class SolicitudBotiquinController extends Controller
         //Subir Datos
         $solicitud_botiquin->save();
 
+        $botiquin = Botiquin::findOrFail($request->IdBotiquin);
+        // Iterar sobre los elementos en el arreglo InventarioSolicitud
+        foreach ($request->InventarioSolicitud as $item) {
+            $idProducto = $item['IdProducto'];
+            $cantidadSolicitud = $item['CantidadSolicitud'];
+
+            // Verificar si el producto está en el inventario de la bodega
+            $productoEncontrado = collect($botiquin['Inventario'])->first(function ($producto) use ($idProducto) {
+                return $producto['IdProducto'] == $idProducto;
+            });
+
+            if ($productoEncontrado) {
+                // Restar la cantidad si el producto ya está en el inventario.
+                $inventario = $botiquin->Inventario;
+                foreach ($inventario as $index => $producto) {
+                    if ($producto['IdProducto'] == $idProducto) {
+                        // Asegurarse de que la cantidad a restar no sea mayor que la cantidad actual
+                        $cantidadRestante = max(0, $producto['CantidadAsignada'] - intval($cantidadSolicitud));
+                        $inventario[$index]['CantidadAsignada'] = $cantidadRestante;
+                        break;
+                    }
+                }
+                $botiquin->Inventario = $inventario;
+            } else {
+                // Manejar el caso en que el producto no se encuentra en el inventario de la bodega.
+                return response()->json(['error' => 'El producto no está en el inventario de la bodega.']);
+            }
+            $botiquin->save();
+        }
+
         //Respuesta del Backend
-        return response()->json(['data' => $solicitud_botiquin], 201);
+        return response()->json(201);
     }
 
     /**
@@ -102,4 +133,5 @@ class SolicitudBotiquinController extends Controller
     {
         //
     }
+
 }

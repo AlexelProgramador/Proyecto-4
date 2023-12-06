@@ -158,22 +158,22 @@ class SolicitudBodegaController extends Controller
             $cantidadSolicitud = $item['CantidadSolicitud'];
 
             // Verificar si el producto está en el inventario de la bodega
-            $productoEncontrado = collect($bodega['InventarioBodega'])->first(function ($producto) use ($idProducto) {
+            $productoEncontrado = collect($bodega['Inventario'])->first(function ($producto) use ($idProducto) {
                 return $producto['IdProducto'] == $idProducto;
             });
 
             if ($productoEncontrado) {
                 // Restar la cantidad si el producto ya está en el inventario.
-                $inventario = $bodega->InventarioBodega;
+                $inventario = $bodega->Inventario;
                 foreach ($inventario as $index => $producto) {
                     if ($producto['IdProducto'] == $idProducto) {
                         // Asegurarse de que la cantidad a restar no sea mayor que la cantidad actual
-                        $cantidadRestante = max(0, $producto['CantidadAsignadaProducto'] - intval($cantidadSolicitud));
-                        $inventario[$index]['CantidadAsignadaProducto'] = $cantidadRestante;
+                        $cantidadRestante = max(0, $producto['CantidadAsignada'] - intval($cantidadSolicitud));
+                        $inventario[$index]['CantidadAsignada'] = $cantidadRestante;
                         break;
                     }
                 }
-                $bodega->InventarioBodega = $inventario;
+                $bodega->Inventario = $inventario;
             } else {
                 // Manejar el caso en que el producto no se encuentra en el inventario de la bodega.
                 return response()->json(['error' => 'El producto no está en el inventario de la bodega.']);

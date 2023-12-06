@@ -35,6 +35,29 @@ export const FormAlmacenamientoCreate = ({almacenamientoData, setAlmacenamientoD
                   <label>Lugar:</label>
                 </div>
               </div>
+              {/* Campos de Usuario */}
+              {/* <div className='col-md-6 pb-4'>
+                <div className='form-floating'>
+                  <input className='form-control'
+                    type="text"
+                    name="Lugar"
+                    value={almacenamientoData.Lugar}
+                    onChange={handleInputChange}
+                  />
+                  <label>Nombre de Usuario:</label>
+                </div>
+              </div>
+              <div className='col-md-6 pb-4'>
+                <div className='form-floating'>
+                  <input className='form-control'
+                    type="password"
+                    name="Lugar"
+                    value={almacenamientoData.Lugar}
+                    onChange={handleInputChange}
+                  />
+                  <label>Contraseña: </label>
+                </div>
+              </div> */}
               <div class="col-12">        
                 <button className='btn btn-primary' type="button" onClick={handleInsert}>
                   Insertar Datos de {almacenamientoData.Tipo}
