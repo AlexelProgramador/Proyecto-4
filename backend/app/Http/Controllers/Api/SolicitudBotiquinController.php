@@ -134,5 +134,4 @@ class SolicitudBotiquinController extends Controller
         //
     }
 
-    
 }
