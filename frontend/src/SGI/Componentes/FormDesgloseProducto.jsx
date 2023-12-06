@@ -11,7 +11,6 @@ export const FormDesgloseProducto = ({productoData, cargandoDesgloce}) => {
     
   };
 
-  console.log(productoData.Desgloce);
   return (
     <div>
       {productoData.Desgloce && productoData.Desgloce.length > 0 ? (
