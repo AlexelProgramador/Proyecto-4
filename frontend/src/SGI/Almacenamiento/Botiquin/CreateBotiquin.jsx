@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { createBotiquin } from './HandlerBotiquin';
 import { FormAlmacenamientoCreate } from '../../Componentes/FormAlmacenamientoCreate';
 
-export const CreateBotiquin = () => {
+export const CreateBotiquin = ({ setModal, fetchData }) => {
   const [botiquinData, setBotiquinData] = useState({
     Nombre: '',
     Lugar: '',
@@ -17,8 +17,10 @@ export const CreateBotiquin = () => {
       .then(response => {
         // Manejar la respuesta si es necesario
         console.log(response.data);
+        fetchData();
+        setModal(false);
         // Redirigir a la página deseada después de agregar una nueva botiquin
-        navigate('/show-botiquin'); // Cambia '/ruta-de-redireccion' con la ruta deseada
+        // navigate('/show-botiquin'); // Cambia '/ruta-de-redireccion' con la ruta deseada
       })
       .catch(error => {
         // Manejar el error si ocurre

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { deleteBotiquin, homeBotiquin } from './HandlerBotiquin';
-import { useModal } from '../../../Components/Modal';
+import { useModal } from '../../Componentes/Modal';
 import { TablaAlmacenamiento } from '../../Componentes/TableHomeAlmacenamiento';
 
 
@@ -62,6 +62,7 @@ export const HomeBotiquin = () => {
             handleDelete = {handleDelete} 
             handleEdit = {handleEdit}
             handleShow = {handleShow}
+            fetchData = {fetchData}
             />
             }
         </div>

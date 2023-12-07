@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { showBotiquin } from './HandlerBotiquin';
 import { useParams } from 'react-router-dom';
-import { useModal } from '../../../Components/Modal';
+import { useModal } from '../../Componentes/Modal';
 import TablaProductosAcciones from '../../Componentes/TableProductosAcciones';
 
 export const ShowBotiquin = () => {

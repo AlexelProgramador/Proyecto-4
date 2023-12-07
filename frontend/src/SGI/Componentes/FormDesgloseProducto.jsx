@@ -34,7 +34,7 @@ export const FormDesgloseProducto = ({productoData, cargandoDesgloce}) => {
                   <td>${item.ValorTotal} Pesos</td>
                   <td>{item.FechaVencimiento}</td>
                   <td>{item.Estado}</td>
-                  <td><button className='btn btn-warning'onClick={() => handleEdit(productoData._id, item.UuidProducto)}><i class="fa-solid fa-pen"></i></button></td>
+                  <td><button className='btn btn-sm'onClick={() => handleEdit(productoData._id, item.UuidProducto)}><i class="fa-solid fa-pen"></i></button></td>
                 </tr>
                 ))
               }

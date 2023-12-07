@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const DataTable = ({ data, columns }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -76,10 +77,10 @@ const DataTable = ({ data, columns }) => {
     <div>
       {/* Busqueda */}
       <div className='p-3 row justify-content-between'>
-        <div className='col-md-3 px-0'>
-          <input className="form-control form-control-sm" type="text" placeholder="Buscar" onChange={handleSearch} />
+        <div className='col-sm-6 px-0 pb-1'>
+          <input className="form-control form-control-sm"  type="text" placeholder="Buscar" onChange={handleSearch} />
         </div>
-        <div className='col-md px-0 row justify-content-end'>
+        <div className='col-auto px-0 row justify-content-end'>
           {/* Selector de filas por paginas */}
             <div className='col-auto pe-2 align-self-center'>Mostrar</div>
             <div className='col-auto px-0'>
@@ -148,21 +149,21 @@ const Pagination = ({ itemsPerPage, totalItems, currentPage, paginate }) => {
     <nav aria-label="Page navigation example">
       <ul class="pagination pagination-sm justify-content-end">
         <li class="page-item">
-          <a className="page-link" onClick={handlePrevious} aria-label="Previous">
+          <Link className="page-link" onClick={handlePrevious} aria-label="Previous">
             <span aria-hidden="true">&laquo;</span>
-          </a>
+          </Link>
         </li>
         {Array.from({ length: pageNumbers }).map((_, index) => (
           <li key={index} className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}>
-            <a onClick={() => paginate(index + 1)} className='page-link'>
+            <Link onClick={() => paginate(index + 1)} className='page-link'>
               {index + 1}
-            </a>
+            </Link>
           </li>
         ))}
         <li class="page-item">
-          <a className="page-link" onClick={handleNext} aria-label="Next">
+          <Link className="page-link" onClick={handleNext} aria-label="Next">
             <span aria-hidden="true">&raquo;</span>
-          </a>
+          </Link>
         </li>
       </ul>
     </nav>

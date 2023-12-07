@@ -28,7 +28,7 @@ import { HomeSolicitudBodega } from './SGI/Solicitud/HomeSolicitudBodega';
 import { CreateSolicitudBodega } from './SGI/Solicitud/CreateSolicitudBodega';
 import { ShowSolicitudBodega } from './SGI/Solicitud/ShowSolicitudBodega';
 import { DashboardBodega } from './SGI/Almacenamiento/Bodega/DashboardBodega';
-import { ModalProvider } from "./Components/Modal";
+import { ModalProvider } from "./SGI/Componentes/Modal";
 import { PrimerRender } from './SGI/PDFRenderer/PrimerRender';
 import { CreateSolicitudBotiquin } from './SGI/SolicitudBotiquin/CreateSolicitudBotiquin';
 import { ShowSolicitudBotiquin } from './SGI/SolicitudBotiquin/ShowSolicitudBotiquin';

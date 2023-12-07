@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { deleteBodega, homeBodega } from './HandlerBodega';
-import { useModal } from '../../../Components/Modal';
+import { useModal } from '../../Componentes/Modal';
 import { TablaAlmacenamiento } from '../../Componentes/TableHomeAlmacenamiento';
 
 export const HomeBodega = () => {
@@ -63,6 +63,7 @@ export const HomeBodega = () => {
             handleDelete = {handleDelete} 
             handleEdit = {handleEdit}
             handleShow = {handleShow}
+            fetchData = {fetchData}
             />
             }
         </div>

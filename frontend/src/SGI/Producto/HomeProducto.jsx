@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { deleteProducto, homeProducto } from './HandlerProducto';
-import { useModal } from '../../Components/Modal';
+import { useModal } from '../Componentes/Modal';
 import TableHomeProducto from '../Componentes/TableHomeProducto';
 
 export const HomeProducto = () => {

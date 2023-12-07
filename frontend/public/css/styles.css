@@ -2821,7 +2821,7 @@ textarea.form-control-lg {
   --bs-btn-font-size: 14px;
   --bs-btn-font-weight: 400;
   --bs-btn-line-height: 1.5;
-  --bs-btn-color: #212529;
+  --bs-btn-color: #444;
   --bs-btn-bg: transparent;
   --bs-btn-border-width: 1px;
   --bs-btn-border-color: transparent;
@@ -4605,7 +4605,7 @@ textarea.form-control-lg {
   color: var(--bs-pagination-focus-color);
   background-color: var(--bs-pagination-focus-bg);
   outline: 0;
-  box-shadow: var(--bs-pagination-focus-box-shadow);
+  /* box-shadow: var(--bs-pagination-focus-box-shadow); */
 }
 .page-link.active, .active > .page-link {
   z-index: 3;
