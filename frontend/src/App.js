@@ -32,24 +32,11 @@ import { ModalProvider } from "./Components/Modal";
 import { PrimerRender } from './SGI/PDFRenderer/PrimerRender';
 import { CreateSolicitudBotiquin } from './SGI/SolicitudBotiquin/CreateSolicitudBotiquin';
 import { ShowSolicitudBotiquin } from './SGI/SolicitudBotiquin/ShowSolicitudBotiquin';
+import { Login } from './SGI/Login/Login'
+import ComponenteDashboardBodega from './SGI/Almacenamiento/Bodega/Componente/ComponenteDashboardBodega';
 
 function App() {
   const [show, setShow] = useState(false);
-
-  
-  // const datosDeEjemplo = {
-  //   solicitadoPor: 'John Doe',
-  //   fecha: '2023-10-16',
-  //   anexo: 'Anexo 1',
-  //   correoElectronico: 'john@example.com',
-  //   objetoCompra: 'Material de oficina',
-  //   cantidad: 100,
-  //   tipoEmpaque: 'Caja',
-  //   motivosCompra: 'Necesidad de suministros de oficina',
-  //   fuenteFinanciamiento: 'Presupuesto de oficina',
-  //   montoEstimado: '$1000',
-  //   codigoCosto: '$4000'
-  // };
   return (
     <Router>
       <div>
@@ -104,7 +91,8 @@ function App() {
       <ModalProvider>
       <div className="container-fluid pt-4">
           <Routes>
-            <Route path="/" element={<Login />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/*" element={<ComponenteDashboardBodega />} />
           </Routes>
         </div>
         </ModalProvider>
