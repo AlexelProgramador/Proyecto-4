@@ -22,7 +22,7 @@ const useSubmitForm = (execute, setShowAlert) => {
     let sessionInfo = JSON.parse(localStorage.getItem("response"));
     let now = moment().tz("America/Santiago");
     let nroSolicitud = `${now.format("HHmmss")}-SOL-${now.format("DDMMYYYY")}`;
-
+    
     const formData = new FormData();
     formData.append("archivo", archivo);
     formData.append(

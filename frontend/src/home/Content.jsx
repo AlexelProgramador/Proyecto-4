@@ -26,6 +26,21 @@ function getRole(nroEtapa) {
   }
 }
 
+const ProgressBar = ({ value }) => {
+  return (
+    <div className="progress">
+      <div
+        className="progress-bar"
+        role="progressbar"
+        style={{ width: `${value}%` }}
+        aria-valuenow={value}
+        aria-valuemin="0"
+        aria-valuemax="100"
+      ></div>
+    </div>
+  );
+};
+
 export const Content = () => {
   const { data, loading, error } = useFetch("etapas");
   const { showAlert, setShowAlert } = useContext(AlertContext);
@@ -41,7 +56,7 @@ export const Content = () => {
       console.error(error);
     }
   };
-
+  
   const sortedData = data
     ? [...data].sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at))
     : [];
@@ -62,6 +77,17 @@ export const Content = () => {
     startIndex,
     startIndex + ITEMS_PER_PAGE
   );
+
+  const etapaPorcentaje = {
+    0: 0,
+    1: 14,
+    "Dea": 28,
+    2: 42,
+    3: 57,
+    4: 71,
+    5: 85,
+    "Finalizado": 100,
+  };
 
   return (
     <>
@@ -103,7 +129,9 @@ export const Content = () => {
                         item.nroEtapa !== "Rechazado" && (
                           <tr key={item._id}>
                             <td>{item.solicitudInfo.nroSolicitud}</td>
-                            <td>{item.nroEtapa}</td>
+                            <td>
+                            {item.nroEtapa}<ProgressBar value={etapaPorcentaje[item.nroEtapa]} />
+                            </td>
                             <td>{item.infoUsuario?.solicitadoPor}</td>
                             <td>{item.etapa}</td>
                             <td>

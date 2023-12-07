@@ -65,9 +65,27 @@ export const SolicitudChequeo = () => {
         <>
           <div className="w-75 h-40 mx-auto">
             <div className="card shadow-card rounded-3 border border-0">
+            <button
+                    className="m-2 btn btn-warning rounded-pill px-3 w-10"
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigate("/");
+                    }}
+                  >
+                    Atras
+                  </button>
               <div className="card-body">
-                <h2 className="mx-auto p-2">Chequeo Solicitud</h2>
-
+              <h2 className="mx-auto p-2 display-4">Solicitud Etapa 0</h2>
+              <p className="display-7">
+                  Esta Solicitud corresponde a: Secretaria
+                </p>
+                <p className="display-7">
+                  Porfavor chequear informacion corresponde a la etapa
+                </p>
+                <p className="display-7">
+                  Una vez lo considere terminado pulsar el boton "Aceptar"
+                </p>
                 <div className="row g-2">
                   <div className="col-md">
                     <div className="form-floating">
@@ -255,16 +273,6 @@ export const SolicitudChequeo = () => {
                       </div>
                     </div>
                   </div>
-                  <button
-                    className="m-2  btn btn-warning"
-                    type="button"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      navigate("/");
-                    }}
-                  >
-                    atras
-                  </button>
                 </form>
               </div>
             </div>

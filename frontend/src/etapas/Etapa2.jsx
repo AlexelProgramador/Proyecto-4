@@ -65,6 +65,7 @@ export const Etapa2 = () => {
   return (
     <>
       {solicitudInfo ? (
+        
         <>
           <div className="w-75 h-40 mx-auto">
             <div className="card shadow-card rounded-3 border border-0">
