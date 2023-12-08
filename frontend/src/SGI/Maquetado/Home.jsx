@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 import SideBar from './SideBar';
 import NavBar from './NavBar';
-import { ModalProvider } from '../../Components/Modal';
+import { ModalProvider } from '../Componentes/Modal';
 import { HomeBodega } from '../Almacenamiento/Bodega/HomeBodega';
 import { CreateBodega } from '../Almacenamiento/Bodega/CreateBodega';
 import { HomeProducto } from '../Producto/HomeProducto';

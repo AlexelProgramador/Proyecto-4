@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../../App.css';
 import { useNavigate } from 'react-router-dom';
 import { fetchDatos } from '../Hooks/useFetchRequest';
-import { useModal } from '../Components/Modal';
+import { useModal } from '../Componentes/Modal';
 import TableHomeProducto from '../Componentes/TableHomeProducto';
 import { deleteReq } from '../Hooks/useDeleteRequest';
 
