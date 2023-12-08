@@ -59,6 +59,7 @@ export const HomeProducto = () => {
         handleShow={handleShow} 
         handleEdit={handleEdit} 
         handleDelete={handleDelete}
+        fetchData = {fetchData}
         />
       }
     </div>

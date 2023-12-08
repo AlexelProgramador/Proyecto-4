@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { createProducto } from './HandlerProducto';
 import FormProducto from '../Componentes/FormProductoCreate';
 
-export const CreateProducto = () => {
+export const CreateProducto = ({ setModal, fetchData }) => {
   const [productoData, setProductoData] = useState({
     Nombre: '',
     Marca: '',
@@ -23,7 +23,9 @@ export const CreateProducto = () => {
     createProducto(productoData)
       .then(data => {
         console.log(data);
-        navigate('/show-producto');
+        fetchData();
+        setModal(false);
+        // navigate('/show-producto');
       })
       .catch(error => {
         console.error('Error al insertar datos: ', error);
