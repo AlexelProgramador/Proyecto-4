@@ -3,18 +3,17 @@ import { NavLink } from 'react-router-dom';
 
 
 
-export const SideBar = () => {
-    const [show, setShow] = useState(false);
+export const SideBar = ({ show, setShow }) => {
     return(
-      <main className={show ? 'space-toggle' : null}>
-        <header className={`header ${show ? 'space-toggle' : null}`}>
+      <div className={show ? 'space-toggle' : null}>
+        {/* <header className={`header ${show ? 'space-toggle' : null}`}>
           <div className='header-toggle' onClick={() => setShow(!show)}>
             <i className={`fas fa-bars ${show ? 'fa-solid fa-xmark' : null}`}></i>
             <div className=''>
-              {/* <img src="https://odontologia.uchile.cl/.resources/portal-odontologia/images/logo-odontologia.svg" alt=""/> */}
+              <img src="https://odontologia.uchile.cl/.resources/portal-odontologia/images/logo-odontologia.svg" alt=""/>
             </div>
           </div>
-        </header>
+        </header> */}
         <aside className={`sidebar ${show ? 'show' : null}`}>
         <nav className='nav'>
           <div>
@@ -52,7 +51,7 @@ export const SideBar = () => {
           </a>
         </nav>
       </aside>
-    </main>
+    </div>
   );
 };
 

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import '../../App.css';
 import { useNavigate } from 'react-router-dom';
 import { deleteProducto, homeProducto } from './HandlerProducto';
 import { useModal } from '../../Components/Modal';

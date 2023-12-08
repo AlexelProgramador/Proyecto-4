@@ -1,3 +1,7 @@
+html{
+  height: 100%;
+}
+
 .App {
   text-align: center;
 }
@@ -40,6 +44,7 @@
   background-color: #808080; /* Color gris en hexadecimal */
   width: 100%; /* O el ancho que desees */
   height: 100px; /* O la altura que desees */}
+
 
 /* SIDEBAR */
 :root {
@@ -86,6 +91,9 @@ background-color: var(--white-color);
 padding: 0 1rem;
 transition: 0.5s;
 z-index: 1000; 
+}
+.bg-gris{
+  background-color: var(--white-color);
 }
 
 .header-toggle {

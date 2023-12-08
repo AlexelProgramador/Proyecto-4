@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import SideBar from './SideBar';
 import NavBar from './NavBar';
@@ -26,17 +26,15 @@ import { ShowSolicitudBotiquin } from '../SolicitudBotiquin/ShowSolicitudBotiqui
 import { EditDesglose } from '../Producto/Componentes/EditDesglose';
 
 export const Home = () => {
+  const [show, setShow] = useState(false);
+
   return(
-    <div>
-      <nav>
-        <NavBar />
-      </nav>
+    <>
       <div>
-        <div>
-          <SideBar/>
-        </div>
-      </div>
-      <div>
+        <main className={show ? 'space-toggle' : null}>
+          <NavBar show ={show} setShow={setShow}/>
+          <SideBar show={show} setShow={setShow}/>
+          
       <ModalProvider>
         <div className='container-fluid pt-4'>
           <Routes>
@@ -69,8 +67,9 @@ export const Home = () => {
           </Routes>
         </div>
       </ModalProvider>
+        </main>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 
 
-export const NavBar = () => {
-    const [show, setShow] = useState(false);
+export const NavBar = ({ show, setShow }) => {
+    // const [show, setShow] = useState(false);
     return(
       <div>
         <header className={`header ${show ? 'space-toggle' : null}`}>
