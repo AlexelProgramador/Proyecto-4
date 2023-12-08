@@ -1,17 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FormAlmacenamientoCreate } from '../../Componentes/FormAlmacenamientoCreate';
 import { postRequest } from '../../Hooks/usePostRequest';
 
-export const CreateBodega = () => {
+export const CreateBodega = ({ setModal, fetchData }) => {
   const [bodegaData, setBodegaData] = useState({
     Nombre: '',
     Lugar: '',
     Tipo: 'Bodega',
     Inventario: []
   });
+
   const navigate = useNavigate();
-  
+
+  useEffect(() => {
+      fetchData();
+  }, []);
+
+
   const handleInsert = async () => {
     const url = '/bodega';
     postRequest(url, bodegaData)
@@ -29,7 +35,7 @@ export const CreateBodega = () => {
   return (
     <div>
       <FormAlmacenamientoCreate almacenamientoData = {bodegaData} setAlmacenamientoData = {setBodegaData} 
-       handleInsert = {handleInsert}/>
+        handleInsert = {handleInsert}/>
     </div>
   );
 };

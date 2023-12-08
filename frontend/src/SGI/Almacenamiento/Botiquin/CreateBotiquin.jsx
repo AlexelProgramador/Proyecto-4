@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { postRequest } from '../../Hooks/usePostRequest';
 import { FormAlmacenamientoCreate } from '../../Componentes/FormAlmacenamientoCreate';
 
-export const CreateBotiquin = () => {
+export const CreateBotiquin = ({ setModal, fetchData }) => {
   const [botiquinData, setBotiquinData] = useState({
     Nombre: '',
     Lugar: '',

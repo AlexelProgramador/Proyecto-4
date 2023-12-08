@@ -1,7 +1,8 @@
 import React from 'react';
 import DataTable from './DataTable';
-
-export const TablaAlmacenamiento = ({ setModal, tipoAlmacenamiento, dataAlmacenamiento, handleDelete, handleEdit, handleShow }) => {
+import CreateBodega from '../Almacenamiento/Bodega/CreateBodega';
+import CreateBotiquin from '../Almacenamiento/Botiquin/CreateBotiquin';
+export const TablaAlmacenamiento = ({ setModal, tipoAlmacenamiento, dataAlmacenamiento, handleDelete, handleEdit, handleShow, fetchData }) => {
   
   let columns = [];
   let data = [];
@@ -68,7 +69,11 @@ export const TablaAlmacenamiento = ({ setModal, tipoAlmacenamiento, dataAlmacena
               <button className='btn btn-success' onClick={() => {
                 setModal(
                   <div>
-                    {/* creacion */}
+                    {tipoAlmacenamiento === "Botiquín" ? 
+                      <CreateBotiquin setModal={setModal} fetchData={fetchData}/>
+                    : 
+                      <CreateBodega setModal={setModal} fetchData={fetchData}/>
+                    }
                   </div>
                 )
               }}>Crear <i className="fa-solid fa-plus"></i>

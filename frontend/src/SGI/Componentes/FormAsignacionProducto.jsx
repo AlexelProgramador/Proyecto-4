@@ -32,7 +32,7 @@ export const FormAsignacionProducto = ({productoData, cargandoAsignacion}) => {
         ) : 
           <p>No hay datos de inventario disponibles</p>
       }
-      {cargandoAsignacion ? <p> CArgando datos..</p> : <NewAsignacion desgloseProducto = {productoData.Desgloce}/>}
+      {cargandoAsignacion ? <p> Cargando datos..</p> : <NewAsignacion desgloseProducto = {productoData.Desgloce}/>}
     </div>
   );
 };

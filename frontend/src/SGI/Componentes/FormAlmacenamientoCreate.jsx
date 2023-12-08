@@ -9,8 +9,7 @@ export const FormAlmacenamientoCreate = ({almacenamientoData, setAlmacenamientoD
   };
   return (
     <div>
-      <div className='card shadow-card rounded-0 border border-0'>
-        <div className='card-body'>
+        <div className='p-0'>
           <div className='h5 text-uppercase pb-2'>{almacenamientoData.Tipo === "Botiquin" ? "Nuevo Botiquin": "Nueva Bodega"}</div>
           <form className='row'>
               <div className='col-md-6 pb-4'>
@@ -66,7 +65,6 @@ export const FormAlmacenamientoCreate = ({almacenamientoData, setAlmacenamientoD
           </form>
         </div>
       </div>
-    </div>
   );
 };
 

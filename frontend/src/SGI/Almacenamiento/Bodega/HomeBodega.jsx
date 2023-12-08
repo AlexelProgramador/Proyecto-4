@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useModal } from '../../../Components/Modal';
+import { useModal } from '../../Components/Modal';
 import { TablaAlmacenamiento } from '../../Componentes/TableHomeAlmacenamiento';
 import { fetchDatos } from '../../Hooks/useFetchRequest';
 import { deleteReq } from '../../Hooks/useDeleteRequest';
@@ -66,6 +66,7 @@ export const HomeBodega = () => {
             handleDelete = {handleDelete} 
             handleEdit = {handleEdit}
             handleShow = {handleShow}
+            fetchData = {fetchData}
             />
             }
         </div>
