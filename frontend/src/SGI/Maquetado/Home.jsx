@@ -45,7 +45,7 @@ export const Home = () => {
       <ModalProvider>
         <div className='container-fluid pt-4'>
           <Routes>
-            <Route path="/dashboard-bodega" element={<ComponenteDashboardBodega />} />
+            <Route path="/" element={<ComponenteDashboardBodega />} />
             <Route path="/show-bodega" element ={<HomeBodega/>}/>
             <Route path="/create-bodega" element ={<CreateBodega/>}/>
             <Route path="/edit-bodega/:id" element ={<EditBodega/>}/>

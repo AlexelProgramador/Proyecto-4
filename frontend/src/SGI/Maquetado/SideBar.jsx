@@ -1,9 +1,14 @@
 import React, {useState} from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 
 
 export const SideBar = ({ show, setShow }) => {
+    const navigate = useNavigate();
+    const handleSession = () => {
+    localStorage.removeItem("response");
+    navigate("/login");
+    };
     return(
       <div className={show ? 'space-toggle' : null}>
         {/* <header className={`header ${show ? 'space-toggle' : null}`}>
@@ -45,7 +50,7 @@ export const SideBar = ({ show, setShow }) => {
               </NavLink>
             </div>
           </div>
-          <a href='/logout' className='nav-link'>
+          <a className='nav-link'onClick={handleSession}>
             <i className='fas fa-sign-out nav-logo-link'></i>
             <span>Logout</span>
           </a>
