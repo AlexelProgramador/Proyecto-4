@@ -88,11 +88,9 @@ export const CreateSolicitudBotiquin = () => {
       }
       const response = await postRequest(url, data);
   
-      // Manejar la respuesta si es necesario
-      console.log(response.data);
-      
-      // Redirigir a la página deseada después de agregar una nueva solicitud
-      navigate('/show-solicitud'); // Cambia '/ruta-de-redireccion' con la ruta deseada
+      if (response.status === 200 || response.statusCode === 200) {
+        navigate('/show-solicitud');
+    }
     } catch (error) {
       // Manejar el error si ocurre
       console.error('Error al insertar datos: ', error, solicitudData);

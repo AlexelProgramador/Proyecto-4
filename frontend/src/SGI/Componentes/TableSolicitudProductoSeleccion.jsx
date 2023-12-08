@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
-export const TableSolicitudProductoSeleccion = ({inventarioBodegaData, handleCheckboxChange}) => {
-  const [selectedItems, setSelectedItems] = useState([]);
+export const TableSolicitudProductoSeleccion = ({inventarioBodegaData, handleCheckboxChange,selectedItems}) => {
 
 console.log(inventarioBodegaData);
   

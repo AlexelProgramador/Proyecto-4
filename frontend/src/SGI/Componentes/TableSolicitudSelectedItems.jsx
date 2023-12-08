@@ -1,6 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 export const TableSolicitudSelectedItems = ({selectedItems, inventarioBodegaData, handleInventarioChange, detalleInventarioData}) => {
+
+  const showAlert = () => {
+    alert('La cantidad no puede exceder la cantidad asignada');
+  };
 
   return (
     <div>
@@ -23,13 +27,18 @@ export const TableSolicitudSelectedItems = ({selectedItems, inventarioBodegaData
                   <td>{inventarioBodegaData[index].CantidadAsignada}</td>
                   <td>
                   <input className='form-control form-control-sm'
-                    type="text"
+                    type="number"
                     id="CantidadProducto"
                     name="CantidadProducto"
                     value={detalleInventarioData[index]?.CantidadProducto || ''}
-                    onChange={(e) => handleInventarioChange(e, index)}
-                    pattern="\d*" // Asegura que solo se ingresen números
-                    title="Ingresa solo números"
+                    onChange={(e) => {
+                      if (e.target.value > inventarioBodegaData[index].CantidadAsignada) {
+                        showAlert();
+                      } else {
+                        handleInventarioChange(e, index);
+                      }
+                    }}
+                    max={inventarioBodegaData[index].CantidadAsignada}
                   />
                   </td>
                 </tr>

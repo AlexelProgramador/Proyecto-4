@@ -37,8 +37,9 @@ export const EditProducto = () => {
       const url = `/producto/${id}`;
       putReq(url, productoData)
       .then(data => {
-        console.log(data);
-        navigate('/show-producto');
+        if (data.status === 200 || data.statusCode === 200) {
+          navigate('/show-producto');
+        }
       })
       .catch(error => {
         console.error('Error al actualizar producto: ', error);

@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { putReq } from '../../Hooks/usePutRequest';
 import { fetchDatos } from '../../Hooks/useFetchRequest';
 
+
 export const NewAsignacion = ({desgloseProducto}) => {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const [selectedDesgloce, setSelectedDesgloce] = useState(null);
   const [dataBodega, setDataBodega] = useState([]);
   const [nuevaAsignacion, setNuevaAsignacion] = useState({
     IdBodega:'',
@@ -23,7 +26,10 @@ export const NewAsignacion = ({desgloseProducto}) => {
   const handleAgregarAsignacion = async () => {
     try {
       const url = `/producto/${id}/asignacion`;
-      await putReq(url, nuevaAsignacion);
+      const data = await putReq(url, nuevaAsignacion);
+      if (data.status === 200 || data.statusCode === 200) {
+        navigate(`/edit-producto/${id}`);
+      }
     } catch (error) {
       console.error('Error al agregar la asignación', error);
     }
@@ -57,15 +63,20 @@ export const NewAsignacion = ({desgloseProducto}) => {
     }
   };
 
+  const showAlert = () => {
+    alert('La cantidad asignada no puede superar la cantidad total.'); // Puedes personalizar esto según tus necesidades (por ejemplo, usando un componente de alerta)
+  };
+
   const handleDesgloceChange = (e) => {
     const selectedUuidDesgloceProducto = e.target.value;
-    const selectedDesgloce = desgloseProducto.find(option => option.UuidProducto === selectedUuidDesgloceProducto);
+    const selectedDesgloce = desgloseProducto.find((option) => option.UuidProducto === selectedUuidDesgloceProducto);
 
     if (selectedDesgloce) {
-      setNuevaAsignacion(prevState => ({
+      setSelectedDesgloce(selectedDesgloce); // Almacena el desglose seleccionado en el estado
+      setNuevaAsignacion((prevState) => ({
         ...prevState,
         NombreDesgloceProducto: selectedDesgloce.NombreDesgloceProducto,
-        IdDesgloceProducto: selectedUuidDesgloceProducto
+        IdDesgloceProducto: selectedUuidDesgloceProducto,
       }));
     }
   };
@@ -138,7 +149,13 @@ export const NewAsignacion = ({desgloseProducto}) => {
                             id="CantidadAsignada"
                             name="CantidadAsignada"
                             value={nuevaAsignacion.CantidadAsignada}
-                            onChange={handleInputChange}
+                            onChange={(e) => {
+                              if (e.target.value > selectedDesgloce.CantidadTotal) {
+                                showAlert();
+                              } else {
+                                handleInputChange(e);
+                              }
+                            }}
                         />
                         <label htmlFor="CantidadAsignada">Cantidad Total:</label>
                     </div> 

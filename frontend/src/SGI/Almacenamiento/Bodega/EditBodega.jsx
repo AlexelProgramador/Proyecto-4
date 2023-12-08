@@ -33,7 +33,7 @@ export const EditBodega = () => {
         .then(data => {
             if (data.status === 200 || data.statusCode === 200) {
                 navigate('/show-bodega');
-              }
+            }
         })
         .catch(error => {
           // Manejar el error si ocurre

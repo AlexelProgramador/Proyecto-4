@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { putReq } from '../../Hooks/usePutRequest';
 
 
 export const NewDesgloce = ({ productoData }) => {
 
   const { id } = useParams();
+  const navigate = useNavigate();
   const [nuevoDesgloce, setNuevoDesgloce] = useState({
     CantidadContenedor: '',
     CantidadTotal: '',
@@ -18,8 +19,10 @@ export const NewDesgloce = ({ productoData }) => {
   const handleAgregarDesgloce = async () => {
     try {
       const url = `/producto/${id}/desgloce`
-      await putReq(url, nuevoDesgloce);
-      console.log(nuevoDesgloce);
+      const data = await putReq(url, nuevoDesgloce);
+      if (data.status === 200 || data.statusCode === 200) {
+        navigate(`/edit-producto/${id}`);
+    }
     } catch (error) {
       console.error('Error al actualizar el desgloce', error);
     }

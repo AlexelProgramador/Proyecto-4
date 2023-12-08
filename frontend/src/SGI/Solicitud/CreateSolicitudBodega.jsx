@@ -79,6 +79,10 @@ export const CreateSolicitudBodega = () => {
 
   const handleInsert = async () => {
     try {
+      if (Object.keys(inventarioSolicitud).length === 0) {
+        alert('El inventario de la solicitud está vacío. Agrega productos antes de enviar la solicitud.');
+        return;
+      }
       // Insertar directamente los datos de InventarioSolicitud
       const url = '/solicitud_bodega';
       const data = {
@@ -91,11 +95,9 @@ export const CreateSolicitudBodega = () => {
       }
       const response = await postRequest(url, data);
   
-      // Manejar la respuesta si es necesario
-      console.log(response.data);
-      
-      // Redirigir a la página deseada después de agregar una nueva solicitud
-      navigate('/show-solicitud'); // Cambia '/ruta-de-redireccion' con la ruta deseada
+      if (response.status === 201 || response.statusCode === 201) {
+        navigate('/show-solicitud');
+      }
     } catch (error) {
       // Manejar el error si ocurre
       console.error('Error al insertar datos: ', error, solicitudData);
@@ -105,7 +107,9 @@ export const CreateSolicitudBodega = () => {
   const handleInventarioChange = (e, index) => {
     setSolicitudData((prevData) => {
       const updatedInventario = [...prevData.InventarioSolicitud];
+      const inputValue = e.target.value;
       const productId = inventarioBodegaData[index].IdProducto;
+      const cantidadAsignada = inventarioBodegaData[index].CantidadAsignada;
   
       // Buscar el producto por IdProducto en el InventarioSolicitud
       const existingProductIndex = updatedInventario.findIndex(item => item.IdProducto === productId);
@@ -182,13 +186,14 @@ export const CreateSolicitudBodega = () => {
   }, [inventarioSolicitud]);
 
   const handleBotiquinChange = (e) => {
+    console.log("Selected Botiquin ID:", e.target.value);
     const selectedOIdUbicacionBotiquin = e.target.value;
     const selectedBotiquin = botiquinData.find(option => option._id === selectedOIdUbicacionBotiquin);
 
     if (selectedBotiquin) {
         setSolicitudData(prevState => ({
             ...prevState,
-            NombreBotiquinSolicitud: selectedBotiquin.Nombre,
+            [e.target.name]: selectedBotiquin.Nombre,
             IdBotiquin: selectedOIdUbicacionBotiquin
         }));
     }
@@ -201,7 +206,7 @@ export const CreateSolicitudBodega = () => {
     if (selectedBodega) {
         setSolicitudData(prevState => ({
             ...prevState,
-            NombreBodegaSolicitud: selectedBodega.Nombre,
+            [e.target.name]: selectedBodega.Nombre,
             IdBodega: selectedOIdUbicacionBodega
         }));
         setInventarioBodegaData(selectedBodega ? selectedBodega.Inventario : []);
@@ -225,99 +230,11 @@ console.log(inventarioBodegaData);
               solicitudData={solicitudData}
               setSolicitudData={setSolicitudData}
             />
-            <div className='col-md-4 pb-4'>
-              <div className='form-floating'>
-                <input className='form-control'
-                  type="text"
-                  // placeholder="Variable Solicitud"
-                  name="VariableSolicitud"
-                  value={solicitudData.VariableSolicitud}
-                  onChange={handleInputChange}
-                />
-                <label htmlFor="Variable Solicitud">Variable Solicitud:</label>
-              </div>
-            </div>
-            <div className='col-md-4 pb-4'>
-              <div className='form-floating'>
-                <input className='form-control'
-                  type="text"
-                  // placeholder="Unidad Solicitud"
-                  name="UnidadSolicitud"
-                  value={solicitudData.UnidadSolicitud}
-                  onChange={handleInputChange}
-                />
-                <label htmlFor="Unidad Solicitud">Unidad Solicitud:</label>
-              </div>
-            </div>
-            <div className='col-md-4 pb-4'>
-              <div className='form-floating'>
-                <select className='form-select'
-                  id="NombreBotiquinSolicitud"
-                  name="NombreBotiquinSolicitud"
-                  value={solicitudData.NombreBotiquinSolicitud}
-                  onChange={handleBotiquinChange}
-                >
-                  <option value="">
-                    Selecciona un Botiquin
-                  </option>
-                  {botiquinData.map(option => (
-                  <option key={option._id} value={option._id}>
-                    {option.Nombre}
-                  </option>
-                  ))}
-                </select>
-                <label htmlFor="BotiquinSolicitud">Botiquin Solicitante:</label>
-              </div>
-            </div>
-            <div className='col-md-4 pb-4'>
-              <div className='form-floating'>
-                <input className='form-control'
-                  type="text"
-                  // placeholder="Nombre Solicitante Solicitud"
-                  name="NombreSolicitanteSolicitud"
-                  value={solicitudData.NombreSolicitanteSolicitud}
-                  onChange={handleInputChange}
-                />
-                <label htmlFor="NombreSolicitanteSolicitud">Nombre del Solicitante:</label>
-              </div>
-            </div>
-            <div className='col-md-4 pb-4'>
-              <div className='form-floating'>
-                <input className='form-control'
-                  type="date"
-                  // placeholder="Fecha Solicitud"
-                  name="FechaSolicitud"
-                  value={solicitudData.FechaSolicitud}
-                  onChange={handleInputChange}
-                />
-                <label htmlFor="FechaSolicitud">Fecha Solicitud:</label>
-              </div>
-            </div>
-            <div className='col-md-4 pb-4'>
-              <div className='form-floating'>
-                <select className='form-select'
-                  id="NombreBodegaSolicitud"
-                  name="NombreBodegaSolicitud"
-                  value={solicitudData.NombreBodegaSolicitud}
-                  onChange={handleBodegaChange}
-                  disabled={selectedItems.length > 0}
-                >
-                  <option value=''>
-                    Selecciona una bodega
-                  </option>
-                  {bodegaData.map(option => (
-                    <option key={option._id} value={option._id}>
-                      {option.Nombre}
-                    </option>
-                  ))}
-                </select>
-                <label htmlFor="BodegaSolicitud">Bodega a Seleccionar:</label>
-              </div>
-            </div>
             {/* Mostrar detalles del inventario de la bodega o mensaje si no hay datos */}
             <TableSolicitudProductoSeleccion 
                   inventarioBodegaData={inventarioBodegaData}
                   handleCheckboxChange={handleCheckboxChange}
+                  selectedItems={selectedItems}
             />
             {/* Mostrar elementos seleccionados */}
             <TableSolicitudSelectedItems 
