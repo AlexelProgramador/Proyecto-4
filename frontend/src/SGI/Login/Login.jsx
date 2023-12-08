@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginCuenta } from "./HandlerLogin";
+import {postRequest} from "../Hooks/usePostRequest";
 import logo from "../../img/logo-odontologia-universidad-de-chile.png"
 import img from "../../img/imgclinic.jpg"
 
@@ -8,15 +9,14 @@ export const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = {
       username: username,
       password: password,
     };
-    let response = await loginCuenta(data);
-
+    const url = '/login'
+    const response = await postRequest(url, data);
     if (response) {
       localStorage.setItem("response", JSON.stringify(response));
       console.log("Login success");

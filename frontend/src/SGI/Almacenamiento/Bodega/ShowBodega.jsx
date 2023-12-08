@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { showBodega } from './HandlerBodega';
 import { useParams } from 'react-router-dom';
 import { useModal } from '../../../Components/Modal';
 import TablaProductosAcciones from '../../Componentes/TableProductosAcciones';
+import { fetchDatos } from '../../Hooks/useFetchRequest';
 
 export const ShowBodega = () => {
     const [bodegaData, setBodegaData] = useState({});
@@ -15,8 +15,9 @@ export const ShowBodega = () => {
     useEffect(() => {
         const fetchBodega = async () => {
             try {
-                const data = await showBodega(id);
-                setBodegaData(data);
+                const url = `/bodega/${id}`;
+                const data = await fetchDatos(url);
+                setBodegaData(data.data);
             } catch (error) {
                 console.error('Error al obtener la información de la bodega', error);
             } finally{

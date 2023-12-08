@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { homeSolicitud } from './HandlerSolicitudBotiquin';
 import { useModal } from '../../Components/Modal';
 import { PrimerPdf } from '../PDFRenderer/PrimerPdf';
 import { TableHomeSolicitudBotiquin } from '../Componentes/TableHomeSolicitudBotiquin';
+import { fetchDatos } from '../Hooks/useFetchRequest';
 
 export const HomeSolicitudBotiquin = () => {
   const [dataSolicitudBotiquin, setDataSolicitudBotiquin] = useState([]);
@@ -12,7 +12,8 @@ export const HomeSolicitudBotiquin = () => {
 
   const fetchData = async () => {
     try {
-      const response = await homeSolicitud();
+      const url = '/solicitudes_botiquin';
+      const response = await fetchDatos(url);
       setDataSolicitudBotiquin(response);
     } catch (error) {
       console.error('Error al obtener datos', error);

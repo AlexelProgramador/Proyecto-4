@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { createSolicitud } from './HandlerSolicitudBotiquin';
-import { homeBotiquin }  from '../Almacenamiento/Botiquin/HandlerBotiquin';
 import {TableSolicitudProductoSeleccion} from '../Componentes/TableSolicitudProductoSeleccion';
 import {TableSolicitudSelectedItems} from '../Componentes/TableSolicitudSelectedItems';
 import {FormCreateSolicitudBotiquin} from '../Componentes/FormSolicitudBotiquinCreate';
+import { postRequest } from '../Hooks/usePostRequest';
+import { fetchDatos } from '../Hooks/useFetchRequest';
 
 export const CreateSolicitudBotiquin = () => {
   const [solicitudData, setSolicitudData] = useState({
@@ -77,14 +77,16 @@ export const CreateSolicitudBotiquin = () => {
   const handleInsert = async () => {
     try {
       // Insertar directamente los datos de InventarioSolicitud
-      const response = await createSolicitud({
+      const url = '/solicitud_botiquin';
+      const data = {
         ...solicitudData,
         InventarioSolicitud: solicitudData.InventarioSolicitud.map(productoSeleccionado => ({
           IdProducto: productoSeleccionado.IdProducto,
           NombreProducto: productoSeleccionado.NombreProducto,
           CantidadSolicitud: productoSeleccionado.CantidadSolicitud || 0,
         })),
-      });
+      }
+      const response = await postRequest(url, data);
   
       // Manejar la respuesta si es necesario
       console.log(response.data);
@@ -161,7 +163,8 @@ export const CreateSolicitudBotiquin = () => {
 
   const fetchData = async () => {
     try {
-        const responseBotiquin =await homeBotiquin();
+      const urlBot = '/botiquines';
+      const responseBotiquin =await fetchDatos(urlBot);
         setBotiquinData(responseBotiquin);
     } catch (error) {
         console.error('Error al obtener datos', error);

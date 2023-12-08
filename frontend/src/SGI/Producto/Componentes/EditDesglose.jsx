@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { editProductoDesgloce } from '../HandlerProducto';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { putReq } from '../../Hooks/usePutRequest';
 
 
 export const EditDesglose = () => {
@@ -25,9 +25,11 @@ export const EditDesglose = () => {
   });
   const handleAgregarDesgloce = async () => {
     try {
-      await editProductoDesgloce(id, nuevoDesgloce, idDes);
-      navigate(`/edit-producto/${id}`);
-      console.log(nuevoDesgloce);
+      const url = `/producto/${id}/editDesgloce/${idDes}`
+      const data = await putReq(url, nuevoDesgloce, idDes);
+      if (data.status === 200 || data.statusCode === 200) {
+        navigate(`/edit-producto/${id}`);
+      }
     } catch (error) {
       console.error('Error al actualizar el desgloce', error);
     }

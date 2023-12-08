@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-route
 import SideBar from './SideBar';
 import NavBar from './NavBar';
 import { ModalProvider } from '../../Components/Modal';
-import {ComponenteDashboardBodega } from '../Almacenamiento/Bodega/Componente/ComponenteDashboardBodega';
 import { HomeBodega } from '../Almacenamiento/Bodega/HomeBodega';
 import { CreateBodega } from '../Almacenamiento/Bodega/CreateBodega';
 import { HomeProducto } from '../Producto/HomeProducto';

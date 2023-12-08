@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { createSolicitud } from './HandlerSolicitudBodega';
-import { homeBodega } from '../Almacenamiento/Bodega/HandlerBodega';
-import { homeBotiquin }  from '../Almacenamiento/Botiquin/HandlerBotiquin';
 import { FormCreateSolicitudBodega } from '../Componentes/FormSolicitudBodegaCreate';
 import TableSolicitudProductoSeleccion from '../Componentes/TableSolicitudProductoSeleccion';
 import TableSolicitudSelectedItems from '../Componentes/TableSolicitudSelectedItems';
+import { postRequest } from '../Hooks/usePostRequest';
+import { fetchDatos } from '../Hooks/useFetchRequest';
 
 export const CreateSolicitudBodega = () => {
   const [solicitudData, setSolicitudData] = useState({
@@ -81,14 +80,16 @@ export const CreateSolicitudBodega = () => {
   const handleInsert = async () => {
     try {
       // Insertar directamente los datos de InventarioSolicitud
-      const response = await createSolicitud({
+      const url = '/solicitud_bodega';
+      const data = {
         ...solicitudData,
         InventarioSolicitud: solicitudData.InventarioSolicitud.map(productoSeleccionado => ({
           IdProducto: productoSeleccionado.IdProducto,
           NombreProducto: productoSeleccionado.NombreProducto,
           CantidadSolicitud: productoSeleccionado.CantidadSolicitud || 0,
         })),
-      });
+      }
+      const response = await postRequest(url, data);
   
       // Manejar la respuesta si es necesario
       console.log(response.data);
@@ -165,8 +166,10 @@ export const CreateSolicitudBodega = () => {
 
   const fetchData = async () => {
     try {
-        const responseBodega = await homeBodega();
-        const responseBotiquin =await homeBotiquin();
+        const urlBod = '/bodegas';
+        const urlBot = '/botiquines';
+        const responseBodega = await fetchDatos(urlBod);
+        const responseBotiquin =await fetchDatos(urlBot);
         setBodegaData(responseBodega);
         setBotiquinData(responseBotiquin);
     } catch (error) {

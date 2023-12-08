@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { showProducto, updateProducto } from './HandlerProducto';
+import { fetchDatos } from '../Hooks/useFetchRequest';
+import { putReq } from '../Hooks/usePutRequest';
 import FormProductoEdit from '../Componentes/FormProductoEdit';
 import FormDesgloseProducto from '../Componentes/FormDesgloseProducto';
 import FormAsignacionProducto from '../Componentes/FormAsignacionProducto';
@@ -16,8 +17,9 @@ export const EditProducto = () => {
     
   const fetchProducto = async () => {
     try {
-      const data = await showProducto(id);
-      setProductoData(data); 
+      const url = `/producto/${id}`;
+      const data = await fetchDatos(url);
+      setProductoData(data.data); 
     } catch (error) {
       console.error('Error al obtener la información del producto', error);
     } finally {
@@ -32,14 +34,15 @@ export const EditProducto = () => {
   }, []);
 
   const handleUpdate = async () => {
-    try {
-      await updateProducto(id, productoData);
-      navigate('/show-producto');
-      // Manejar la respuesta si es necesario
-    } catch (error) {
-      console.error('Error al actualizar el producto', error);
-      // Manejar el error si es necesario
-    }
+      const url = `/producto/${id}`;
+      putReq(url, productoData)
+      .then(data => {
+        console.log(data);
+        navigate('/show-producto');
+      })
+      .catch(error => {
+        console.error('Error al actualizar producto: ', error);
+      });
   };
   console.log(productoData);
   return (

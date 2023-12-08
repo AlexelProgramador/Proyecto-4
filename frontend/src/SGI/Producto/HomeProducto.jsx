@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import '../../App.css';
 import { useNavigate } from 'react-router-dom';
-import { deleteProducto, homeProducto } from './HandlerProducto';
+import { fetchDatos } from '../Hooks/useFetchRequest';
 import { useModal } from '../../Components/Modal';
 import TableHomeProducto from '../Componentes/TableHomeProducto';
+import { deleteReq } from '../Hooks/useDeleteRequest';
 
 export const HomeProducto = () => {
   const [productoData, setDataProducto] = useState([]);
@@ -13,7 +14,8 @@ export const HomeProducto = () => {
 
   const fetchData = async () => {
     try {
-      const response = await homeProducto();
+      const url = '/productos';
+      const response = await fetchDatos(url);
       setDataProducto(response);
     } catch (error) {
         console.error('Error al obtener datos', error);
@@ -28,7 +30,8 @@ export const HomeProducto = () => {
 
   const handleDelete = async (id) => {
     try {
-      await deleteProducto(id);
+      const url = `/producto/${id}`;
+      await deleteReq(url);
       fetchData();
       setModal(false);
     } catch (error) {

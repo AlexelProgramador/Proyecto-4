@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { contadorSolicitudPendiente } from '../../Solicitud/HandlerSolicitudBodega';
 import { ComponenteDashboardBodega } from './Componente/ComponenteDashboardBodega';
-import { pocasUnidadesProducto, vencimientoProducto } from '../../Producto/HandlerProducto';
+import { fetchDatos } from '../../Hooks/useFetchRequest';
 
 export const DashboardBodega = () => {
     const [dataSolicitudPendiente, setDataSolicitudPendiente] = useState([]);
@@ -9,16 +9,18 @@ export const DashboardBodega = () => {
     const [dataProductoVencido, setDataProductoVencido] = useState([]);
     const [cargandoDashboard, setCargandoDashboard] = useState(true);
     
-
-    const fetchDatos = async () => {
+    const fetchData = async () => {
         try {
-            const responsePendiente = await contadorSolicitudPendiente();
-            const responsePocoProd = await pocasUnidadesProducto();
-            const responseVencimientoProducto = await vencimientoProducto();
+            const urlInventario = '/productos/sinInventario';
+            const urlVencimiento = '/productos/venciminetoInventario';
+            //const urlPendientes;
+            const responsePendiente = await fetchDatos(urlVencimiento);
+            const responsePocoProd = await fetchDatos(urlInventario);
+            // const responseVencimientoProducto = await vencimientoProducto();
             setDataSolicitudPendiente(responsePendiente);
             setDataPocasUnidades(responsePocoProd);
-            setDataProductoVencido(responseVencimientoProducto);
-            console.log(dataProductoVencido);
+            // setDataProductoVencido(responseVencimientoProducto);
+            // console.log(dataProductoVencido);
         } catch (error) {
             console.error('Error al obtener datos', error);
         } finally{
@@ -27,9 +29,9 @@ export const DashboardBodega = () => {
     };
 
     useEffect(() => {
-        fetchDatos();
+        fetchData();
     }, []);
-    console.log(dataProductoVencido);
+    console.log(dataPocasUnidades);
     return (
         <div>
             {cargandoDashboard ? 

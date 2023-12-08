@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { updateProductoAsignacion } from '../HandlerProducto';
-import { homeBodega } from '../../Almacenamiento/Bodega/HandlerBodega'
+import { putReq } from '../../Hooks/usePutRequest';
+import { fetchDatos } from '../../Hooks/useFetchRequest';
 
 export const NewAsignacion = ({desgloseProducto}) => {
   const { id } = useParams();
@@ -22,7 +22,8 @@ export const NewAsignacion = ({desgloseProducto}) => {
 
   const handleAgregarAsignacion = async () => {
     try {
-      await updateProductoAsignacion(id, nuevaAsignacion);
+      const url = `/producto/${id}/asignacion`;
+      await putReq(url, nuevaAsignacion);
     } catch (error) {
       console.error('Error al agregar la asignación', error);
     }
@@ -48,7 +49,8 @@ export const NewAsignacion = ({desgloseProducto}) => {
 
   const fetchData = async () => {
     try {
-      const response = await homeBodega();
+      const url ='/bodegas';
+      const response = await fetchDatos(url);
       setDataBodega(response);
     } catch (error) {
       console.error('Error al obtener datos', error);
@@ -75,7 +77,7 @@ export const NewAsignacion = ({desgloseProducto}) => {
     if (selectedUbicacion) {
       setNuevaAsignacion(prevState => ({
         ...prevState,
-        NombreUbicacion: selectedUbicacion.NombreBodega,
+        NombreUbicacion: selectedUbicacion.Nombre,
         IdUbicacion: selectedOIdUbicacionBodega
       }));
     }

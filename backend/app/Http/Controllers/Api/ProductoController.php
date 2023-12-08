@@ -35,7 +35,14 @@ class ProductoController extends Controller
         //Crear Nuevo Producto
         $producto = new Producto();
 
-        //Para establecer el IDProducto
+        $rules = [
+            'Nombre' => 'required',
+            'Marca' => 'required',
+            'Cantidad' => 'required',
+            'ValorUnitario' => 'required',
+        ];
+    
+        $request->validate($rules);
        
         //Insercción de datos
         $producto->Nombre = $request->Nombre;
@@ -52,7 +59,7 @@ class ProductoController extends Controller
         $producto->save();
 
         //Respuesta del Backend
-        return response()->json(['data' => $producto], 201);
+        return response()->json(['status' => 201]);
     }
 
     /**
@@ -65,7 +72,7 @@ class ProductoController extends Controller
     {
         //
         $datos = Producto::where("_id", $id)->first();
-        return response()->json(['message' => "envio de datos exitoso", 'data' => $datos], 201);
+        return response()->json(['status' => 200, 'data' => $datos]);
     }
 
     /**
@@ -90,6 +97,11 @@ class ProductoController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $rules = [
+            'Nombre' => 'required',
+            'Marca' => 'required',
+        ];
+        $request->validate($rules);
         //
         $datos = Producto::where("_id", $id)->update([
             'Nombre' => $request->Nombre,
@@ -98,13 +110,26 @@ class ProductoController extends Controller
             'Descripcion' => $request->Descripcion,
         ]);
 
-        return response()->json(['message' => "llegó exitosamente", 'data' => $datos], 201);
+        return response()->json(['status' => 200]);
     }
 
     public function updateDesgloce(Request $request, $id)
     {
         $producto = Producto::findOrFail($id);
         $uuid = Uuid::uuid4()->toString();
+
+        $rules = [
+            'UuidProducto' => 'required',
+            'CantidadContenedor' => 'required',
+            'CantidadTotal' => 'required',
+            'ValorTotal' => 'required',
+            'FechaVencimiento' => 'required',
+            'Estado' => 'required',
+            'Nombre' => 'required',
+        ];
+    
+        $request->validate($rules);
+
         $desgloceData = array(
             'UuidProducto' => $uuid,
             'CantidadContenedor' => $request->CantidadContenedor,
@@ -119,12 +144,25 @@ class ProductoController extends Controller
         $producto->TotalProducto = $CantidadTotal;
         $producto->push('Desgloce', $desgloceData);
         $producto->save();
-        return response()->json(['message' => 'Producto actualizado con éxito'], 200);
+        return response()->json(['status' => 200]);
 
     }
 
     public function editDesgloce(Request $request, $id, $idDes)
     {
+
+        $rules = [
+            'UuidProducto' => 'required',
+            'CantidadContenedor' => 'required',
+            'CantidadTotal' => 'required',
+            'ValorTotal' => 'required',
+            'FechaVencimiento' => 'required',
+            'Estado' => 'required',
+            'Nombre' => 'required',
+            'DesgloseOriginal'=> 'required'
+        ];
+    
+        $request->validate($rules);
         $producto = Producto::findOrFail($id);
         $uuid = Uuid::uuid4()->toString();
         
@@ -176,12 +214,22 @@ class ProductoController extends Controller
             // El producto con el UuidProducto especificado no se encontró
         }
         $producto2->save();
-        return response()->json();
+        return response()->json(['status' => 200]);
     }
 
 
     public function updateAsignacion(Request $request, $id)
     {
+
+        $rules = [
+            'UuidAsignacion' => 'required',
+            'TipoAsignacion' => 'required',
+            'NombreUbicacion' => 'required',
+            'CantidadAsignada' => 'required',
+            'FechaProceso' => 'required',
+        ];
+    
+        $request->validate($rules);
         $uuid1 = Uuid::uuid4()->toString();
         $producto = Producto::findOrFail($id);
         $asignacionData = array(
@@ -222,7 +270,7 @@ class ProductoController extends Controller
             $bodega->push('Inventario', $inventarioData);
         }
         $bodega->save();
-        return response()->json(['message' => 'Producto actualizado con éxito']);
+        return response()->json(['status' => 200]);
 
     }
 
@@ -236,14 +284,14 @@ class ProductoController extends Controller
     {
         //
         Producto::destroy($id);
-        return response()->json(['message' =>  'Borrado']);
+        return response()->json(['status' => 204]);
     }
 
     public function pocoProducto()
     {
         //
-        $datos = Producto::where('TotalProducto', '<=', 25)->get();
-        return response()->json($datos);
+        $datos = Producto::where('TotalProducto', '<=', 100)->get();
+        return response()->json(['status' => 200, 'data' => $datos]);
     }
 
     public function vencimientoProducto()
@@ -283,8 +331,9 @@ class ProductoController extends Controller
                 } 
             }
         }
+        $producto->save();
 
         // Ahora $inventario contiene la información organizada por estados
-        return response()->json($inventario);
+        return response()->json(['status' => 200, 'data' => $inventario]);
     }
 }

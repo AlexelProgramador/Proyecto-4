@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { createProducto } from './HandlerProducto';
+import { postRequest } from '../Hooks/usePostRequest';
 import FormProducto from '../Componentes/FormProductoCreate';
 
 export const CreateProducto = () => {
@@ -20,10 +20,12 @@ export const CreateProducto = () => {
   const navigate = useNavigate();
 
   const handleInsert = async () => {
-    createProducto(productoData)
+      const url = '/producto';
+      postRequest(url, productoData)
       .then(data => {
-        console.log(data);
-        navigate('/show-producto');
+        if (data.status === 201 || data.statusCode === 201) {
+          navigate('/show-producto');
+        }
       })
       .catch(error => {
         console.error('Error al insertar datos: ', error);

@@ -23,17 +23,6 @@ class SolicitudBodegaController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-        
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -43,6 +32,18 @@ class SolicitudBodegaController extends Controller
     {
         //
         $solicitud_bodega = new SolicitudBodega();
+
+        $rules = [
+            'NombreBotiquinSolicitud' => 'required',
+            'NombreBodegaSolicitud' => 'required',
+            'IdBotiquin' => 'required',
+            'IdBodega' => 'required',
+            'NombreSolicitanteSolicitud' => 'required',
+            'FechaSolicitud' => 'required',
+            'InventarioSolicitud'=> 'required'
+        ];
+    
+        $request->validate($rules);
        
         //Insercción de datos
         $solicitud_bodega->VariableSolicitud = $request->VariableSolicitud;
@@ -59,7 +60,7 @@ class SolicitudBodegaController extends Controller
         $solicitud_bodega->save();
 
         //Respuesta del Backend
-        return response()->json(['data' => $solicitud_bodega], 201);
+        return response()->json(['status' => 201]);
     }
 
     /**
@@ -72,42 +73,8 @@ class SolicitudBodegaController extends Controller
     {
         //
         $datos = SolicitudBodega::where("_id", $id)->first();
-        return response()->json(['message' => "envio de datos exitoso", 'data' => $datos], 201);
+        return response()->json(['status' => 200, 'data' => $datos]);
         
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 
     public function aceptarSolicitud(request $request, $id)
@@ -185,7 +152,7 @@ class SolicitudBodegaController extends Controller
     $botiquin->save();
     $bodega->save();
 
-    return response()->json(['message' => $cantidadRestante]);
+    return response()->json(['status' => 200]);
     }
 
 

@@ -1,24 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import DashboardBodega from '../Almacenamiento/Bodega/DashboardBodega';
 import DashboardBotiquin from '../Almacenamiento/Botiquin/DashboardBotiquin';
+import DashboardAdministrador from '../Administrador/DashboardAdministrador';
 
 export const DashboardHome = () => {
   const response = JSON.parse(localStorage.getItem("response"));
-  const roles = response.usuario;
-  console.log(roles);
-  const isAdminOrBodeguero = response && response.usuario && (
-    response.usuario.includes("Administrador") || response.usuario.includes("Bodeguero")
-  );
-  console.log(isAdminOrBodeguero);
+  const isAdmin = response && response.usuario && response.usuario.includes("Administrador") ;
+  const isBodeguero = response && response.usuario && response.usuario.includes("Bodeguero");
   const isBotiquinero = response && response.usuario && response.usuario.includes("Botiquinero");
   return (
       <div>
-        {isAdminOrBodeguero && (
+        {isAdmin && (
+          <div>
+            <DashboardAdministrador/>
+          </div>
+        )}
+        {isBodeguero && (
           <div>
             <DashboardBodega/>
           </div>
         )}
-        {!isAdminOrBodeguero && isBotiquinero && (
+        {isBotiquinero && (
           <div>
             <DashboardBotiquin/>
           </div>

@@ -28,6 +28,12 @@ class BotiquinController extends Controller
      */
     public function store(Request $request)
     {
+        $rules = [
+            'Nombre' => 'required',
+            'Lugar' => 'required',
+        ];
+    
+        $request->validate($rules);
 
         //Crear Nuevo Botiquin
         $botiquin = new Botiquin();
@@ -42,7 +48,7 @@ class BotiquinController extends Controller
         $botiquin->save();
 
         //Respuesta del Backend
-        return response()->json(['data' => $botiquin], 201);
+        return response()->json(['status' => 201]);
     }
 
     /**
@@ -55,7 +61,7 @@ class BotiquinController extends Controller
     {
         //
         $datos = Botiquin::where("_id", $id)->first();
-        return response()->json(['message' => "envio de datos exitoso", 'data' => $datos], 201);
+        return response()->json(['status' => 200, 'data' => $datos]);
     }
 
     /**
@@ -68,7 +74,7 @@ class BotiquinController extends Controller
     {
         //
         $datos = Botiquin::where("_id", $id)->first();
-        return response()->json(['message' => "envio de datos exitoso", 'data' => $datos], 201);
+        return response()->json(['status' => 200]);
     }
 
     /**
@@ -87,7 +93,7 @@ class BotiquinController extends Controller
         ]);
 
 
-        return response()->json(['message' => "llegó exitosamente", 'data' => $datos], 201);
+        return response()->json(['status' => 200]);
     }
 
     /**
@@ -100,6 +106,6 @@ class BotiquinController extends Controller
     {
         //
         Botiquin::destroy($id);
-        return response()->json(['message' =>  'Borrado']);
+        return response()->json(['status' => 204]);
     }
 }

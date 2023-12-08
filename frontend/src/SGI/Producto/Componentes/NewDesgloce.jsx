@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { updateProductoDesgloce } from '../HandlerProducto';
+import { putReq } from '../../Hooks/usePutRequest';
 
 
 export const NewDesgloce = ({ productoData }) => {
@@ -17,7 +17,8 @@ export const NewDesgloce = ({ productoData }) => {
 
   const handleAgregarDesgloce = async () => {
     try {
-      await updateProductoDesgloce(id, nuevoDesgloce);
+      const url = `/producto/${id}/desgloce`
+      await putReq(url, nuevoDesgloce);
       console.log(nuevoDesgloce);
     } catch (error) {
       console.error('Error al actualizar el desgloce', error);
@@ -65,6 +66,7 @@ export const NewDesgloce = ({ productoData }) => {
               name="Nombre"
               value={nuevoDesgloce.Nombre}
               onChange={handleInputChange}
+              required
             />
             <label htmlFor="NombreDesgloce">Nombre del Desglose:</label>
           </div>
@@ -77,6 +79,7 @@ export const NewDesgloce = ({ productoData }) => {
               name="CantidadContenedor"
               value={nuevoDesgloce.CantidadContenedor}
               onChange={handleCantidadContenedorChange}
+              required
             />
             <label htmlFor="CantidadContenedor">Cantidad Contenedor Producto:</label>
           </div>
@@ -89,6 +92,7 @@ export const NewDesgloce = ({ productoData }) => {
               name="CantidadTotal"
               value={nuevoDesgloce.CantidadTotal}
               onChange={handleInputChange}
+              readOnly
             />
             <label htmlFor="CantidadTotal">Cantidad Total:</label>
           </div>
@@ -101,6 +105,7 @@ export const NewDesgloce = ({ productoData }) => {
               name="ValorTotal"
               value={nuevoDesgloce.ValorTotal}
               onChange={handleInputChange}
+              readOnly
             />
             <label htmlFor="ValorTotal">Valor Total:</label>
           </div>
@@ -113,6 +118,7 @@ export const NewDesgloce = ({ productoData }) => {
               name="FechaVencimiento"
               value={nuevoDesgloce.FechaVencimiento}
               onChange={handleInputChange}
+              required
             />
             <label htmlFor="FechaVencimiento">Fecha Vencimiento Producto:</label>
           </div>
@@ -124,6 +130,7 @@ export const NewDesgloce = ({ productoData }) => {
               name="Estado"
               value={nuevoDesgloce.Estado}
               onChange={handleInputChange}
+              required
             >
               <option value="Sin información">Sin información</option>
               <option value="Buen Estado">Buen Estado</option>

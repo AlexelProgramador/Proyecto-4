@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { fetchDatos } from '../../Hooks/useFetchRequest';
-import { ComponenteDashboardBotiquin } from './Componente/ComponenteDashboardBotiquin';
+//import { contadorSolicitudPendiente } from '../../Solicitud/HandlerSolicitudBodega';
+import { ComponenteDashboardAdministrador } from './ComponenteDashboardAdministrador';
+//import { pocasUnidadesProducto, vencimientoProducto } from '../../Producto/HandlerProducto';
+import { fetchDatos } from '../Hooks/useFetchRequest';
 
-export const DashboardBotiquin = () => {
+export const DashboardAdministrador = () => {
     const [dataSolicitudPendiente, setDataSolicitudPendiente] = useState([]);
     const [dataPocasUnidades, setDataPocasUnidades] = useState([]);
     const [dataProductoVencido, setDataProductoVencido] = useState([]);
     const [cargandoDashboard, setCargandoDashboard] = useState(true);
+    
 
     const fetchData = async () => {
         try {
@@ -16,7 +19,7 @@ export const DashboardBotiquin = () => {
             const responsePendiente = await fetchDatos(urlVencimiento);
             const responsePocoProd = await fetchDatos(urlInventario);
             // const responseVencimientoProducto = await vencimientoProducto();
-            setDataSolicitudPendiente(responsePendiente);
+            // setDataSolicitudPendiente(responsePendiente);
             setDataPocasUnidades(responsePocoProd);
             // setDataProductoVencido(responseVencimientoProducto);
             // console.log(dataProductoVencido);
@@ -30,7 +33,7 @@ export const DashboardBotiquin = () => {
     useEffect(() => {
         fetchData();
     }, []);
-    console.log(dataProductoVencido);
+    console.log(dataPocasUnidades);
     return (
         <div>
             {cargandoDashboard ? 
@@ -41,8 +44,8 @@ export const DashboardBotiquin = () => {
                     </div>
                 </div>
             </div>
-            : <ComponenteDashboardBotiquin datosPendiente = {dataSolicitudPendiente} datosPocasUnidades = {dataPocasUnidades}/>}
+            : <ComponenteDashboardAdministrador datosPendiente = {dataSolicitudPendiente} datosPocasUnidades = {dataPocasUnidades}/>}
         </div>
     );
 };
-export default DashboardBotiquin;
+export default DashboardAdministrador;

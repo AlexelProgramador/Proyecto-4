@@ -1,35 +1,39 @@
 import React, { useState, useEffect } from 'react';
-import { showBodega, updateBodega } from './HandlerBodega';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FormAlmacenamientoUpdate } from '../../Componentes/FormAlmacenamientoUpdate';
+import { fetchDatos } from '../../Hooks/useFetchRequest';
+import { putReq } from '../../Hooks/usePutRequest';
 
 export const EditBodega = () => {
     const [bodegaData, setBodegaData] = useState({});
     const [cargandoBodega, setCargandoBodega] = useState(true);
     const { id } = useParams();
     const navigate = useNavigate();
-    const url = `http://localhost:8000/api/bodega/${id}/edit`; // Reemplaza con la URL de tu backend
 
     useEffect(() => {
         fetchBodega();
-    }, [url]);
+    }, [cargandoBodega]);
 
     const fetchBodega = async () => {
         try {
-            const data = await showBodega(id);
-            setBodegaData(data);
+            const url = `/bodega/${id}`;
+            const data = await fetchDatos(url);
+            setBodegaData(data.data);
         } catch (error) {
             console.error('Error al obtener la información de la bodega', error);
         } finally{
             setCargandoBodega(false);
         }
     };
+    
 
     const handleUpdate = async () => {
-        updateBodega(id,bodegaData)
-        .then(response => {
-            console.log("llego aquí");
-            navigate('/show-bodega'); // Cambia '/ruta-de-redireccion' con la ruta deseada
+        const url = `/bodega/${id}`;
+        putReq(url,bodegaData)
+        .then(data => {
+            if (data.status === 200 || data.statusCode === 200) {
+                navigate('/show-bodega');
+              }
         })
         .catch(error => {
           // Manejar el error si ocurre

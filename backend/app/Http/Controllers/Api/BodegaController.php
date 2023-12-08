@@ -28,6 +28,12 @@ class BodegaController extends Controller
      */
     public function store(Request $request)
     {
+        $rules = [
+            'Nombre' => 'required',
+            'Lugar' => 'required',
+        ];
+    
+        $request->validate($rules);
         //Crear Nueva Bodega
         $bodega = new Bodega();
 
@@ -41,7 +47,7 @@ class BodegaController extends Controller
         $bodega->save();
 
         //Respuesta del Backend
-        return response()->json(['data' => $bodega], 201);
+        return response()->json(['status' => 201]);
 
     }
 
@@ -55,7 +61,7 @@ class BodegaController extends Controller
     {
         //
         $datos = Bodega::where("_id", $id)->first();
-        return response()->json(['message' => "envio de datos exitoso", 'data' => $datos], 201);
+        return response()->json(['status' => 200, 'data' => $datos]);
     }
 
     /**
@@ -87,7 +93,7 @@ class BodegaController extends Controller
         ]);
 
 
-        return response()->json(['message' => "llegó exitosamente", 'data' => $datos], 201);
+        return response()->json(['status' => 200]);
     }
 
     /**
@@ -100,6 +106,16 @@ class BodegaController extends Controller
     {
         //
         Bodega::destroy($id);
-        return response()->json(['message' =>  'Borrado']);
+        return response()->json(['status' => 204]);
+    }
+
+    public function pocoProductoBodega($id)
+    {
+        $umbral = 50;
+        $productoAgotandose = Bodega::where('_id',$id)
+        ->where('Inventario.CantidadAsignada', '<', $umbral)
+        ->get(['Inventario.IdProducto', 'Inventario.NombreProducto', 'Inventario.CantidadAsignada']);
+        
+        return response()->json(['status' => 200, 'data' => $productoAgotandose]);
     }
 }

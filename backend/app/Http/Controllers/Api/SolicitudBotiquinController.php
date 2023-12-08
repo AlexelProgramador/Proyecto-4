@@ -23,16 +23,6 @@ class SolicitudBotiquinController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -41,6 +31,15 @@ class SolicitudBotiquinController extends Controller
     public function store(Request $request)
     {
         $solicitud_botiquin = new SolicitudBotiquin();
+
+        $rules = [
+            'IdBotiquin' => 'required',
+            'NombreSolicitanteSolicitud' => 'required',
+            'FechaSolicitud' => 'required',
+            'InventarioSolicitud'=> 'required'
+        ];
+    
+        $request->validate($rules);
        
         //Insercción de datos
         $solicitud_botiquin->VariableSolicitud = $request->VariableSolicitud;
@@ -84,7 +83,7 @@ class SolicitudBotiquinController extends Controller
         }
 
         //Respuesta del Backend
-        return response()->json(201);
+        return response()->json(['status' => 201]);
     }
 
     /**
@@ -97,41 +96,7 @@ class SolicitudBotiquinController extends Controller
     {
         
         $datos = SolicitudBotiquin::where("_id", $id)->first();
-        return response()->json(['message' => "envio de datos exitoso", 'data' => $datos], 201);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\SolicitudBotiquin  $solicitudBotiquin
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(SolicitudBotiquin $solicitudBotiquin)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\SolicitudBotiquin  $solicitudBotiquin
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, SolicitudBotiquin $solicitudBotiquin)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\SolicitudBotiquin  $solicitudBotiquin
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(SolicitudBotiquin $solicitudBotiquin)
-    {
-        //
+        return response()->json(['status' => 200, 'data' => $datos]);
     }
 
 }

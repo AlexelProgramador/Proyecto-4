@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { showBotiquin } from './HandlerBotiquin';
 import { useParams } from 'react-router-dom';
 import { useModal } from '../../../Components/Modal';
 import TablaProductosAcciones from '../../Componentes/TableProductosAcciones';
+import { fetchDatos } from '../../Hooks/useFetchRequest';
 
 export const ShowBotiquin = () => {
     const [botiquinData, setBotiquinData] = useState({});
     const [cargandoBotiquin, setCargandoBotiquin] = useState(true);
     const { id } = useParams();
-    const url = `http://localhost:8000/api/botiquin/${id}`; // Reemplaza con la URL de tu backend
     const { setModal } = useModal()
 
     useEffect(() => {
         const fetchBotiquin = async () => {
             try {
-                const data = await showBotiquin(id);
-                setBotiquinData(data);
+                const url = `/botiquin/${id}`;
+                const data = await fetchDatos(url);
+                setBotiquinData(data.data);
             } catch (error) {
                 console.error('Error al obtener la información de la botiquin', error);
             } finally{
@@ -24,7 +24,7 @@ export const ShowBotiquin = () => {
         };
 
         fetchBotiquin();
-    }, [url]);
+    }, [cargandoBotiquin]);
 
     return (
         <div>

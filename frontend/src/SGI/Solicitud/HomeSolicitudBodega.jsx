@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { homeSolicitud } from './HandlerSolicitudBodega';
 import { useModal } from '../../Components/Modal';
 import { PrimerPdf } from '../PDFRenderer/PrimerPdf';
 import { TableHomeSolicitudBodega } from '../Componentes/TableHomeSolicitudBodega';
+import { fetchDatos } from '../Hooks/useFetchRequest';
 
 export const HomeSolicitudBodega = () => {
   const [dataSolicitudBodega, setDataSolicitudBodega] = useState([]);
@@ -12,7 +12,8 @@ export const HomeSolicitudBodega = () => {
 
   const fetchData = async () => {
     try {
-      const response = await homeSolicitud();
+      const url = '/solicitudes_bodega';
+      const response = await fetchDatos(url);
       setDataSolicitudBodega(response);
     } catch (error) {
       console.error('Error al obtener datos', error);

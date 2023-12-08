@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { deleteBodega, homeBodega } from './HandlerBodega';
 import { useModal } from '../../../Components/Modal';
 import { TablaAlmacenamiento } from '../../Componentes/TableHomeAlmacenamiento';
+import { fetchDatos } from '../../Hooks/useFetchRequest';
+import { deleteReq } from '../../Hooks/useDeleteRequest';
 
 export const HomeBodega = () => {
     const [dataBodega, setDataBodega] = useState([]);
@@ -14,7 +15,8 @@ export const HomeBodega = () => {
 
     const fetchData = async () => {
         try {
-            const response = await homeBodega();
+            const url = '/bodegas';
+            const response = await fetchDatos(url);
             setDataBodega(response);
         } catch (error) {
             console.error('Error al obtener datos', error);
@@ -29,7 +31,8 @@ export const HomeBodega = () => {
 
     const handleDelete = async (id) => {
         try {
-            await deleteBodega(id);
+            const url = `/bodega/${id}`;
+            await deleteReq(url);
             fetchData();
             setModal(false);
         } catch (error) {

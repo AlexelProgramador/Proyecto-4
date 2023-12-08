@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { createBotiquin } from './HandlerBotiquin';
+import { postRequest } from '../../Hooks/usePostRequest';
 import { FormAlmacenamientoCreate } from '../../Componentes/FormAlmacenamientoCreate';
 
 export const CreateBotiquin = () => {
@@ -13,16 +13,16 @@ export const CreateBotiquin = () => {
   const navigate = useNavigate();
 
   const handleInsert = async () => {
-    createBotiquin(botiquinData)
-      .then(response => {
-        // Manejar la respuesta si es necesario
-        console.log(response.data);
-        // Redirigir a la página deseada después de agregar una nueva botiquin
-        navigate('/show-botiquin'); // Cambia '/ruta-de-redireccion' con la ruta deseada
+    const url = '/botiquin';
+    postRequest(url, botiquinData)
+      .then(data => {
+        if (data.status === 201 || data.statusCode === 201) {
+          navigate('/show-botiquin');
+        }
       })
       .catch(error => {
         // Manejar el error si ocurre
-        console.error('Error al insertar datos: ', error, botiquinData);
+        console.error('Error al insertar datos: ', error);
       });
   };
 

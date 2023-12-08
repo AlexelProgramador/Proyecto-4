@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { showBotiquin, updateBotiquin } from './HandlerBotiquin';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FormAlmacenamientoUpdate } from '../../Componentes/FormAlmacenamientoUpdate';
+import { fetchDatos } from '../../Hooks/useFetchRequest';
+import { putReq } from '../../Hooks/usePutRequest';
 
 export const EditBotiquin = () => {
     const [botiquinData, setBotiquinData] = useState({});
@@ -16,24 +17,28 @@ export const EditBotiquin = () => {
 
     const fetchBotiquin = async () => {
         try {
-            const data = await showBotiquin(id);
-            setBotiquinData(data);
+            const url = `/botiquin/${id}`;
+            const data = await fetchDatos(url);
+            setBotiquinData(data.data);
         } catch (error) {
-            console.error('Error al obtener la información de la botiquin', error);
+            console.error('Error al obtener la información del botiquin', error);
         } finally{
             setCargandoBotiquin(false);
         }
     };
 
     const handleUpdate = async () => {
-        try {
-            await updateBotiquin(id, botiquinData);
-            navigate('/show-botiquin');
-            // Manejar la respuesta si es necesario
-        } catch (error) {
-            console.error('Error al actualizar la botiquin', error);
-            // Manejar el error si es necesario
-        }
+        const url = `/botiquin/${id}`;
+        putReq(url,botiquinData)
+        .then(data => {
+            if (data.status === 200 || data.statusCode === 200) {
+                navigate('/show-botiquin');
+            }
+        })
+        .catch(error => {
+          // Manejar el error si ocurre
+            console.error('Error al actualizar el botiquín: ', error);
+        });
     };
 
     return (

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { rechazarSolicitud, showSolicitud, aceptarSolicitud } from './HandlerSolicitudBodega';
 import { useParams, useNavigate } from 'react-router-dom';
 import { TerminarSolicitud } from './Componente/TerminarSolicitud';
+import { fetchDatos } from '../Hooks/useFetchRequest';
+import { putReq } from '../Hooks/usePutRequest';
 
 export const ShowSolicitudBodega = () => {
     const [solicitud, setSolicitud] = useState({});
@@ -12,7 +13,8 @@ export const ShowSolicitudBodega = () => {
 
     const fetchSolicitud = async () => {
         try {
-            const data = await showSolicitud(id);
+            const url = `/solicitud_bodega/${id}`; 
+            const data = await fetchDatos(url);
             setSolicitud(data);
         } catch (error) {
             console.error('Error al obtener la información de la solicitud', error);
@@ -25,7 +27,8 @@ export const ShowSolicitudBodega = () => {
     }, []);
 
     const aceptarSoli  = async (id) => {
-        aceptarSolicitud(id, solicitud)
+        const url = `/solicitud_bodega/${id}/aceptar`;
+        putReq(url, solicitud)
         .then(response => {
             // Manejar la respuesta si es necesario
             console.log(response.data);
@@ -40,7 +43,8 @@ export const ShowSolicitudBodega = () => {
         navigate("/show-solicitud");
     };
     const rechazarSoli = (id) => {
-        rechazarSolicitud(id, solicitud)
+        const url = `/solicitud_bodega/${id}/rechazar`;
+        putReq(url, solicitud)
         .then(response => {
             // Manejar la respuesta si es necesario
             console.log(response.data);

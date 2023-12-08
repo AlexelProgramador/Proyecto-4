@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { deleteBotiquin, homeBotiquin } from './HandlerBotiquin';
 import { useModal } from '../../../Components/Modal';
 import { TablaAlmacenamiento } from '../../Componentes/TableHomeAlmacenamiento';
+import { fetchDatos } from '../../Hooks/useFetchRequest';
+import { deleteReq } from '../../Hooks/useDeleteRequest';
 
 
 export const HomeBotiquin = () => {
@@ -14,7 +15,8 @@ export const HomeBotiquin = () => {
 
     const fetchData = async () => {
         try {
-            const response = await homeBotiquin();
+            const url = '/botiquines';
+            const response = await fetchDatos(url);
             setDataBotiquin(response);
         } catch (error) {
             console.error('Error al obtener datos', error);
@@ -29,7 +31,8 @@ export const HomeBotiquin = () => {
 
     const handleDelete = async (id) => {
         try {
-            await deleteBotiquin(id);
+            const url = `/botiquin/${id}`;
+            await deleteReq(url);
             fetchData();
         } catch (error) {
             console.error('Error al eliminar el elemento', error);

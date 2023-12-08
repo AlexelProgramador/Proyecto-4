@@ -11,7 +11,7 @@ export const ComponenteDashboardBotiquin = ({datosPendiente, datosPocasUnidades}
     datosPendiente.length*/}
     return (
         <div>
-            <div className='h5 text-uppercase pb-2'>Bienvenido Bodeguero</div>
+            <div className='h5 text-uppercase pb-2'>Bienvenido Botiquinero</div>
             <div className='row'>
             {aviso.map((avi,index) => {
             return (
