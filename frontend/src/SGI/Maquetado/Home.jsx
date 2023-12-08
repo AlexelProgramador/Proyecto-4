@@ -24,6 +24,7 @@ import { PrimerRender } from '../PDFRenderer/PrimerRender';
 import { CreateSolicitudBotiquin } from '../SolicitudBotiquin/CreateSolicitudBotiquin';
 import { ShowSolicitudBotiquin } from '../SolicitudBotiquin/ShowSolicitudBotiquin';
 import { EditDesglose } from '../Producto/Componentes/EditDesglose';
+import { DashboardHome } from '../Dashboard/Dashboard';
 
 export const Home = () => {
   const [show, setShow] = useState(false);
@@ -45,7 +46,7 @@ export const Home = () => {
       <ModalProvider>
         <div className='container-fluid pt-4'>
           <Routes>
-            <Route path="/" element={<ComponenteDashboardBodega />} />
+            <Route path="/" element={<DashboardHome />} />
             <Route path="/show-bodega" element ={<HomeBodega/>}/>
             <Route path="/create-bodega" element ={<CreateBodega/>}/>
             <Route path="/edit-bodega/:id" element ={<EditBodega/>}/>

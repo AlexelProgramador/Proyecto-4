@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const ComponenteDashboard = ({datosPendiente, datosPocasUnidades}) => {
+export const ComponenteDashboardBotiquin = ({datosPendiente, datosPocasUnidades}) => {
     const aviso = [
       {nro: 0, tipo:'Producto por terminar', color: 'bg-warning', th1: 'Nombre', th2:'Cantidad'},
       {nro: 0, tipo:'Producto por vencer', color: 'bg-danger', th1: 'Nombre', th2:'Fecha'},
@@ -53,4 +53,4 @@ export const ComponenteDashboard = ({datosPendiente, datosPocasUnidades}) => {
         </div>
     );
 };
-export default ComponenteDashboard;
+export default ComponenteDashboardBotiquin;
