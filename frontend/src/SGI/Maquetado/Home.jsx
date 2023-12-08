@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 import SideBar from './SideBar';
 import NavBar from './NavBar';
 import { ModalProvider } from '../../Components/Modal';
@@ -27,6 +27,13 @@ import { EditDesglose } from '../Producto/Componentes/EditDesglose';
 
 export const Home = () => {
   const [show, setShow] = useState(false);
+  // const navigate = useNavigate();
+  // useEffect(() => {
+  //   const response = JSON.parse(localStorage.getItem("response"));
+  //   if (!response) {
+  //     navigate("/login");
+  //   }
+  // }, []);
 
   return(
     <>

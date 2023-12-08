@@ -20,7 +20,6 @@ class AuthController extends Controller
             ], Response::HTTP_UNAUTHORIZED);
         }
         $response = [
-
             'usuarioId' => $usuario->_id,
             'usuario' => $usuario->rol,
         ];
