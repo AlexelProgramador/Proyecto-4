@@ -27,13 +27,13 @@ import { EditDesglose } from '../Producto/Componentes/EditDesglose';
 
 export const Home = () => {
   const [show, setShow] = useState(false);
-  // const navigate = useNavigate();
-  // useEffect(() => {
-  //   const response = JSON.parse(localStorage.getItem("response"));
-  //   if (!response) {
-  //     navigate("/login");
-  //   }
-  // }, []);
+  const navigate = useNavigate();
+  useEffect(() => {
+    const response = JSON.parse(localStorage.getItem("response"));
+    if (!response) {
+      navigate("/login");
+    }
+  }, []);
 
   return(
     <>
