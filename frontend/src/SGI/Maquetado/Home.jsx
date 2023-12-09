@@ -24,6 +24,7 @@ import { CreateSolicitudBotiquin } from '../SolicitudBotiquin/CreateSolicitudBot
 import { ShowSolicitudBotiquin } from '../SolicitudBotiquin/ShowSolicitudBotiquin';
 import { EditDesglose } from '../Producto/Componentes/EditDesglose';
 import { DashboardHome } from '../Dashboard/Dashboard';
+import Error from './Error';
 
 export const Home = () => {
   const [show, setShow] = useState(false);
@@ -72,6 +73,7 @@ export const Home = () => {
             <Route path="/create-solicitud-botiquin" element ={<CreateSolicitudBotiquin/>}/>
             <Route path="/show-solicitud-botiquin/:id" element ={<ShowSolicitudBotiquin/>}/>
 
+            <Route path="*" element={<Error />} />
           </Routes>
         </div>
       </ModalProvider>

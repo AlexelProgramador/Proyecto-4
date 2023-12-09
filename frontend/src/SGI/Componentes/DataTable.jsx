@@ -27,15 +27,16 @@ const DataTable = ({ data, columns }) => {
         const aValue = a[sortConfig.key] || '';
         const bValue = b[sortConfig.key] || '';
 
+        const aRealValue = typeof aValue === 'string' ? aValue.replace(/<\/?[^>]+(>|$)/g, '') : aValue;
+        const bRealValue = typeof bValue === 'string' ? bValue.replace(/<\/?[^>]+(>|$)/g, '') : bValue;
+
         if (typeof aValue === 'string' && typeof bValue === 'string') {
-          // Manejo normal si ambos valores son cadenas
           if (sortConfig.direction === 'ascending') {
-            return aValue.localeCompare(bValue);
+            return aRealValue.localeCompare(bRealValue);
           } else {
-            return bValue.localeCompare(aValue);
+            return bRealValue.localeCompare(aRealValue);
           }
         } else {
-          // Manejo especial para la columna de acciones
           if (sortConfig.direction === 'ascending') {
             return aValue.toString().localeCompare(bValue.toString());
           } else {

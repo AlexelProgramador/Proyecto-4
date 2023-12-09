@@ -138,7 +138,7 @@ export const PrimerPdf = ({item}) => (
     <Page size="A4">
       <View style={{ padding: '15px' }}>
         <View style= {{ display: 'flex', flexDirection: 'row'}}>
-          <View style={{ flex: 1, marginHorizontal: '26px', marginBottom: '26px', marginTop: '2px', maxWidth: '130px' }}>
+          <View style={{ flex: 1, marginHorizontal: '20px', marginBottom: '26px', marginTop: '2px', maxWidth: '130px' }}>
             <Image src={logo} style={{ width: '100%', height: 'auto'}}/>
           </View>
           <View style={{ flexGrow: 1, marginTop: 24, padding: 16, alignItems: 'flex-end'}}>
