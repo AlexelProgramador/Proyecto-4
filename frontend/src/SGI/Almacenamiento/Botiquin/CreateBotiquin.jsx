@@ -29,7 +29,7 @@ export const CreateBotiquin = ({ setModal, fetchData }) => {
   return (
     <div>
       <FormAlmacenamientoCreate almacenamientoData = {botiquinData} setAlmacenamientoData = {setBotiquinData} 
-       handleInsert = {handleInsert}/>
+        handleInsert = {handleInsert}/>
     </div>
   );
 };

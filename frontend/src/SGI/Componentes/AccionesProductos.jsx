@@ -3,7 +3,8 @@ import React, {useEffect} from 'react';
 export const AccionesProductos = ({item, setModal,handleShow, handleEdit, handleDelete}) => {
   return (
     <div>
-      <button className='btn btn-primary' onClick={() => handleShow(item._id)}><i class="fa-solid fa-eye"></i></button>
+      <div className='btn-group btn-group-sm'>
+        <button className='btn btn-primary' onClick={() => handleShow(item._id)}><i class="fa-solid fa-eye"></i></button>
         <button className='btn btn-warning'onClick={() => handleEdit(item._id)}><i class="fa-solid fa-pen"></i></button>
         <button className='btn btn-danger' onClick={() => { 
           setModal(
@@ -18,6 +19,7 @@ export const AccionesProductos = ({item, setModal,handleShow, handleEdit, handle
             </div>
           )
         }}><i class="fa-solid fa-trash-can"></i></button>
+      </div>
     </div>
   );
 };

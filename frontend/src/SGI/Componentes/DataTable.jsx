@@ -12,9 +12,13 @@ const DataTable = ({ data, columns }) => {
     // Busqueda y filtrado 
     const filtered = data.filter((item) =>
       Object.values(item).some((value) => {
-      // Verifica si el valor es una cadena
-      return typeof value === 'string' && value.toLowerCase().includes(searchTerm.toLowerCase());
-    })
+        if (typeof value === 'string') {
+          return value.toLowerCase().includes(searchTerm.toLowerCase());
+        } else if (typeof value === 'number') {
+          return value.toString().includes(searchTerm);
+        }
+        return false;
+      })
     );
 
     // Ordenamiento
@@ -116,7 +120,8 @@ const DataTable = ({ data, columns }) => {
                   <td key={column.key}>{item[column.key]}</td>
                 ))}
               </tr>
-            ))}
+              )
+            )}
           </tbody>
         </table>
       </div>

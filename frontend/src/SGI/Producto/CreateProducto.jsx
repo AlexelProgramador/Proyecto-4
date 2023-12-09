@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { postRequest } from '../Hooks/usePostRequest';
 import FormProducto from '../Componentes/FormProductoCreate';
 
-export const CreateProducto = () => {
+export const CreateProducto = ({ setModal, fetchData }) => {
   const [productoData, setProductoData] = useState({
     Nombre: '',
     Marca: '',
@@ -24,7 +24,10 @@ export const CreateProducto = () => {
       postRequest(url, productoData)
       .then(data => {
         if (data.status === 201 || data.statusCode === 201) {
-          navigate('/show-producto');
+          // navigate('/show-producto');
+          console.log(data);
+          fetchData();
+          setModal(false);
         }
       })
       .catch(error => {
