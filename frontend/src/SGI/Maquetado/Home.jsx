@@ -19,7 +19,7 @@ import { HomeSolicitudBodega } from '../Solicitud/HomeSolicitudBodega';
 import { CreateSolicitudBodega } from '../Solicitud/CreateSolicitudBodega';
 import { ShowSolicitudBodega } from '../Solicitud/ShowSolicitudBodega';
 import { DashboardBodega } from '../Almacenamiento/Bodega/DashboardBodega';
-import { PrimerRender } from '../PDFRenderer/PrimerRender';
+// import { PrimerRender } from '../PDFRenderer/PrimerRender';
 import { CreateSolicitudBotiquin } from '../SolicitudBotiquin/CreateSolicitudBotiquin';
 import { ShowSolicitudBotiquin } from '../SolicitudBotiquin/ShowSolicitudBotiquin';
 import { EditDesglose } from '../Producto/Componentes/EditDesglose';
@@ -28,6 +28,7 @@ import { DashboardHome } from '../Dashboard/Dashboard';
 export const Home = () => {
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
+
   useEffect(() => {
     const response = JSON.parse(localStorage.getItem("response"));
     if (!response) {
@@ -39,7 +40,7 @@ export const Home = () => {
     <>
       <div>
         <main className={show ? 'space-toggle' : null}>
-          <NavBar show ={show} setShow={setShow}/>
+          <NavBar show={show} setShow={setShow} />
           <SideBar show={show} setShow={setShow}/>
           
       <ModalProvider>
