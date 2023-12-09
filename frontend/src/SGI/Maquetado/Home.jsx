@@ -49,18 +49,18 @@ export const Home = () => {
           <Routes>
             <Route path="/" element={<DashboardHome />} />
             <Route path="/show-bodega" element ={<HomeBodega/>}/>
-            <Route path="/create-bodega" element ={<CreateBodega/>}/>
+            {/* <Route path="/create-bodega" element ={<CreateBodega/>}/> */}
             <Route path="/edit-bodega/:id" element ={<EditBodega/>}/>
             <Route path="/show-bodega/:id" element ={<ShowBodega/>}/>
             <Route path="/dashboard-bodega" element ={<DashboardBodega/>}/>
 
             <Route path="/show-producto" element ={<HomeProducto/>}/>
-            <Route path="/create-producto" element ={<CreateProducto/>}/>
+            {/* <Route path="/create-producto" element ={<CreateProducto/>}/> */}
             <Route path="/edit-producto/:id" element ={<EditProducto/>}/>
             <Route path="/show-producto/:id" element ={<ShowProducto/>}/>
             
             <Route path="/show-botiquin" element ={<HomeBotiquin/>}/>
-            <Route path="/create-botiquin" element ={<CreateBotiquin/>}/>
+            {/* <Route path="/create-botiquin" element ={<CreateBotiquin/>}/> */}
             <Route path="/edit-botiquin/:id" element ={<EditBotiquin/>}/>
             <Route path="/show-botiquin/:id" element ={<ShowBotiquin/>}/>
 
@@ -68,7 +68,7 @@ export const Home = () => {
 
             <Route path="/show-solicitud" element ={<HomeSolicitudBodega/>}/>
             <Route path="/create-solicitud" element ={<CreateSolicitudBodega/>}/>
-            <Route path="/show-solicitud/:id" element ={<ShowSolicitudBodega/>}/>
+            {/* <Route path="/show-solicitud/:id" element ={<ShowSolicitudBodega/>}/> */}
 
             <Route path="/create-solicitud-botiquin" element ={<CreateSolicitudBotiquin/>}/>
             <Route path="/show-solicitud-botiquin/:id" element ={<ShowSolicitudBotiquin/>}/>

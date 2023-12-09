@@ -1,8 +1,10 @@
 import React from 'react';
 import DataTable from './DataTable';
 import { PDFViewer } from '@react-pdf/renderer';
+// import TerminarSolicitud from '../Solicitud/Componente/TerminarSolicitud';
+import ShowSolicitudBodega from '../Solicitud/ShowSolicitudBodega';
 
-export const TableHomeSolicitudBodega = ({dataSolicitudBodega, setModal, PrimerPdf,handleShow}) => {
+export const TableHomeSolicitudBodega = ({dataSolicitudBodega, setModal, PrimerPdf, handleShow, fetchData}) => {
   let columns = [];
   let data = [];
 
@@ -37,7 +39,7 @@ export const TableHomeSolicitudBodega = ({dataSolicitudBodega, setModal, PrimerP
         est: <span className={`badge rounded-pill text-${getClassByEstado(item.EstadoSolicitud)}`}>{item.EstadoSolicitud}</span>,
         acciones: (
           <div>
-            <button className='btn btn-primary' onClick={() => handleShow(item._id)}><i class="fa-solid fa-eye"></i></button>
+            <button className='btn btn-primary' onClick={() => setModal(<ShowSolicitudBodega setModal={setModal} solicitud={item} setSolicitud={dataSolicitudBodega} fetchData={fetchData}/>)}><i class="fa-solid fa-eye"></i></button>
             <button className='btn btn-danger' onClick={() => { 
             setModal(
               <div style={{width:'900px'}}>

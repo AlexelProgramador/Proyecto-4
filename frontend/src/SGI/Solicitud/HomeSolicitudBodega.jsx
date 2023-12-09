@@ -48,6 +48,7 @@ export const HomeSolicitudBodega = () => {
           setModal={setModal} 
           PrimerPdf={PrimerPdf}
           handleShow={handleShow}
+          fetchData={fetchData}
           />
         </div>
       </div>
