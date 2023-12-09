@@ -1,6 +1,8 @@
 import React from 'react';
 
 export const TerminarSolicitud = ({ solicitud, handleinput, aceptar, rechazar }) => {
+    // console.log(solicitud.data.EstadoSolicitud);
+
     return(
     <div>
         <div className='card shadow-card rounded-0 border border-0'>
@@ -32,22 +34,30 @@ export const TerminarSolicitud = ({ solicitud, handleinput, aceptar, rechazar })
                 ) : (
                     <p>No hay datos de inventario disponibles</p>
                 )}
-                <div className='form-floating pb-4'>
-                    <textarea className='form-control'
-                        //placeholder="Descripción del Producto"
-                        name="ComentarioSolicitud"
-                        value={solicitud.ComentarioSolicitud}
-                        onChange={handleinput}
-                        rows={4} // Aquí puedes especificar el número de filas que deseas mostrar
-                        cols={50} // Aquí puedes especificar el número de columnas que deseas mostrar
-                    />
-                    <label htmlFor="">Comentarios:</label>
-                </div>
-                
                 <div>
-                <button className='btn btn-success me-2' onClick={() => aceptar(solicitud._id)}>Aceptar Solicitud</button>
-                <button className='btn btn-danger' onClick={() => rechazar(solicitud._id)}>Rechazar Solicitud</button>
-                </div>            
+
+                {solicitud.data.EstadoSolicitud === "Aceptado" || solicitud.data.EstadoSolicitud === "Rechazado" ? (
+                    <button className='btn me-2'>Atras</button>
+                ) : (
+                    <div>
+                        <div className='form-floating pb-4'>
+                            <textarea className='form-control'
+                                //placeholder="Descripción del Producto"
+                                name="ComentarioSolicitud"
+                                value={solicitud.ComentarioSolicitud}
+                                onChange={handleinput}
+                                rows={4} // Aquí puedes especificar el número de filas que deseas mostrar
+                                cols={50} // Aquí puedes especificar el número de columnas que deseas mostrar
+                            />
+                            <label htmlFor="">Comentarios:</label>
+                        </div>
+                        <div>
+                        <button className='btn btn-success me-2' onClick={() => aceptar(solicitud._id)}>Aceptar Solicitud</button>
+                        <button className='btn btn-danger' onClick={() => rechazar(solicitud._id)}>Rechazar Solicitud</button>
+                        </div>
+                    </div>
+                )} 
+                </div>
             </div>
         </div>
     </div>

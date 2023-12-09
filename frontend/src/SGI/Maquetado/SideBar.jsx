@@ -24,7 +24,7 @@ export const SideBar = ({ show, setShow }) => {
           <div>
             {/* SIDEBAR HEADER */}
             <a href='/' className='nav-logo'>
-              <i className='fas fa-home-alt nav-logo-icon'/>
+              <i className='fi fi-rr-house-blank nav-logo-icon'/>
               <span className='nav-logo-name'>CASITA</span>
             </a>
             {/* ITEMS */}
@@ -35,7 +35,7 @@ export const SideBar = ({ show, setShow }) => {
               </NavLink>
 
               <NavLink to='/show-bodega' className='nav-link' activeClassName='active'>
-                <i class="fa-solid fa-table-columns nav-logo-link"></i>
+                <i class="fi fi-rr-table-columns nav-logo-link"></i>
                 <span>Inventario</span>
               </NavLink>
 

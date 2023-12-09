@@ -31,6 +31,15 @@ export const HomeSolicitudBodega = () => {
 
   return (
     <div>
+      {dataSolicitudBodega.length === 0 ? (
+        <div class="d-flex justify-content-center" style={{ height: '200px' }}>
+          <div className='d-flex align-items-center'>
+            <div class="spinner-border text-secondary" role="status">
+              <span class="visually-hidden">Cargando...</span>
+            </div>
+          </div>
+        </div>
+      ) : (
       <div className='card shadow-card rounded-0 border border-0'>
         <div className='card-body'>
           <div className='h5 text-uppercase pb-2'>Solicitudes</div>
@@ -42,6 +51,7 @@ export const HomeSolicitudBodega = () => {
           />
         </div>
       </div>
+      )}
     </div>
   );
 };

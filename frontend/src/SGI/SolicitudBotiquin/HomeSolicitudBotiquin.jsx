@@ -48,4 +48,4 @@ export const HomeSolicitudBotiquin = () => {
   );
 };
 
-export default TableHomeSolicitudBodega;
+export default HomeSolicitudBotiquin;
