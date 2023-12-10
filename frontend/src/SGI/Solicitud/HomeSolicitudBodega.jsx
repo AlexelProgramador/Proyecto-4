@@ -7,14 +7,30 @@ import { fetchDatos } from '../Hooks/useFetchRequest';
 
 export const HomeSolicitudBodega = () => {
   const [dataSolicitudBodega, setDataSolicitudBodega] = useState([]);
+  const response = JSON.parse(localStorage.getItem("response"));
   const navigate = useNavigate();
-  const { setModal } = useModal()
+  const { setModal } = useModal();
+  const isBodeguero = response && response.usuario && response.usuario.includes("Bodeguero");
+  const isBotiquinero = response && response.usuario && response.usuario.includes("Botiquinero");
+
 
   const fetchData = async () => {
     try {
-      const url = '/solicitudes_bodega';
-      const response = await fetchDatos(url);
-      setDataSolicitudBodega(response);
+      const idAlm = response.almacenamiento;
+      //Mostrar solicitudes según rol
+      if (isBodeguero){
+        const url = `/solicitudes_bodega/${idAlm}/bodega`;
+        const response = await fetchDatos(url);
+        setDataSolicitudBodega(response);
+      } else if (isBotiquinero){
+        const url = `/solicitudes_bodega/${idAlm}/botiquin`;
+        const response = await fetchDatos(url);
+        setDataSolicitudBodega(response);
+      } else{
+        const url = '/solicitudes_bodega';
+        const response = await fetchDatos(url);
+        setDataSolicitudBodega(response);
+      }
     } catch (error) {
       console.error('Error al obtener datos', error);
     }
@@ -49,6 +65,8 @@ export const HomeSolicitudBodega = () => {
           PrimerPdf={PrimerPdf}
           handleShow={handleShow}
           fetchData={fetchData}
+          isBodeguero={isBodeguero}
+          isBotiquinero={isBotiquinero}
           />
         </div>
       </div>

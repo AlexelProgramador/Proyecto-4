@@ -22,6 +22,16 @@ class SolicitudBodegaController extends Controller
         return response()->json($datos);
     }
 
+    public function indexBotiquin($id){
+        $datos = SolicitudBodega::where('IdBotiquin', $id)->get();
+        return response()->json($datos);
+    }
+
+    public function indexBodega($id){
+        $datos = SolicitudBodega::where('IdBodega', $id)->get();
+        return response()->json($datos);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -82,6 +92,15 @@ class SolicitudBodegaController extends Controller
         $datos = SolicitudBodega::where("_id", $id)->update([
             'EstadoSolicitud' => 'Aceptado',
             'ComentarioSolicitud' => $request->ComentarioSolicitud,
+        ]);
+
+        return response()->json(['status' => 200]);
+    }
+
+    public function aceptarSolicitudBotiquin(request $request, $id)
+    {
+        $datos = SolicitudBodega::where("_id", $id)->update([
+            'EstadoSolicitud' => 'Recibido',
         ]);
 
         // Buscar la bodega por su ID
@@ -154,6 +173,30 @@ class SolicitudBodegaController extends Controller
 
     return response()->json(['status' => 200]);
     }
+
+    public function rechazarSolicitud (request $request, $id)
+    {
+        $datos = SolicitudBodega::where("_id", $id)->update([
+            'EstadoSolicitud' => 'Rechazado',
+            'ComentarioSolicitud' => $request->ComentarioSolicitud,
+        ]);
+
+        return response()->json(['status' => 200]);
+
+    }
+
+    public function rechazarSolicitudBotiquin(request $request, $id)
+    {
+        $datos = SolicitudBodega::where("_id", $id)->update([
+            'EstadoSolicitud' => 'Pendiente',
+            'ComentarioSolicitud' => $request->ComentarioSolicitud,
+        ]);
+
+        return response()->json(['status' => 200]);
+
+    }
+
+
 
 
 }

@@ -90,11 +90,15 @@ Route::controller(ProductoController::class)->group(function () {
 
 Route::controller(SolicitudBodegaController::class)->group(function () {
     Route::get("/solicitudes_bodega", "index");
+    Route::get("/solicitudes_bodega/{id}/bodega", "indexBodega");
+    Route::get("/solicitudes_bodega/{id}/botiquin", "indexBotiquin");
     Route::post("/solicitud_bodega", "store");
     Route::get("/solicitud_bodega/{id}", "show");
     Route::put("/solicitud_bodega/{id}", "update");
     Route::put("/solicitud_bodega/{id}/aceptar", "aceptarSolicitud");
+    Route::put("/solicitud_bodega/{id}/aceptarBotiquin", "aceptarSolicitudBotiquin");
     Route::put("/solicitud_bodega/{id}/rechazar", "rechazarSolicitud");
+    Route::put("/solicitud_bodega/{id}/rechazarBotiquin", "rechazarSolicitudBotiquin");
     Route::delete("/solicitud_bodega/{id}", "destroy");
     Route::get("/solicitudes_bodega/contar", "contarPendiente");
 });

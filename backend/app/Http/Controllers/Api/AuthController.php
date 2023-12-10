@@ -22,6 +22,7 @@ class AuthController extends Controller
         $response = [
             'usuarioId' => $usuario->_id,
             'usuario' => $usuario->rol,
+            'almacenamiento' =>$usuario->almacenamiento
         ];
         return response($response, Response::HTTP_OK);
     }

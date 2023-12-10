@@ -4,7 +4,7 @@ import { TerminarSolicitud } from './Componente/TerminarSolicitud';
 import { fetchDatos } from '../Hooks/useFetchRequest';
 import { putReq } from '../Hooks/usePutRequest';
 
-export const ShowSolicitudBodega = ({ setModal, solicitud, setSolicitud, fetchData }) => {
+export const ShowSolicitudBodega = ({ setModal, solicitud, setSolicitud, fetchData, isBodeguero, isBotiquinero }) => {
     // const [solicitud, setSolicitud] = useState({});
     const [cargandoSolicitud, setCargandoSolicitud] = useState(true);
     // const { id } = useParams();
@@ -30,12 +30,9 @@ export const ShowSolicitudBodega = ({ setModal, solicitud, setSolicitud, fetchDa
         const url = `/solicitud_bodega/${solicitud._id}/aceptar`;
         putReq(url, solicitud)
         .then(response => {
-            // Manejar la respuesta si es necesario
             console.log(response.data);
             fetchData();
             setModal(false);
-            // Redirigir a la página deseada después de agregar una nueva solicitud
-            // navigate('/show-solicitud'); // Cambia '/ruta-de-redireccion' con la ruta deseada
         })
         .catch(error => {
             // Manejar el error si ocurre
@@ -54,11 +51,40 @@ export const ShowSolicitudBodega = ({ setModal, solicitud, setSolicitud, fetchDa
             console.log(response.data);
             fetchData();
             setModal(false);
-            // Redirigir a la página deseada después de agregar una nueva solicitud
-            // navigate('/show-solicitud'); // Cambia '/ruta-de-redireccion' con la ruta deseada
+        })
+        .catch(error => {
+            console.error('Error al rechazar solicitud: ', error, solicitud);
+        });
+        navigate("/show-solicitud");
+    };
+
+    const aceptarSoliBotiquin  = async (id) => {
+        const url = `/solicitud_bodega/${solicitud._id}/aceptarBotiquin`;
+        putReq(url, solicitud)
+        .then(response => {
+            console.log(response.data);
+            fetchData();
+            setModal(false);
         })
         .catch(error => {
             // Manejar el error si ocurre
+            console.error('Error al rechazar solicitud: ', error, solicitud);
+        });
+
+        fetchData();
+            setModal(false);
+        // navigate("/show-solicitud");
+    };
+    const rechazarSoliBotiquin = (id) => {
+        const url = `/solicitud_bodega/${solicitud._id}/rechazarBotiquin`;
+        putReq(url, solicitud)
+        .then(response => {
+            // Manejar la respuesta si es necesario
+            console.log(response.data);
+            fetchData();
+            setModal(false);
+        })
+        .catch(error => {
             console.error('Error al rechazar solicitud: ', error, solicitud);
         });
         navigate("/show-solicitud");
@@ -72,9 +98,13 @@ export const ShowSolicitudBodega = ({ setModal, solicitud, setSolicitud, fetchDa
     };
     return (
         <div>
-            
+            {isBodeguero &&
             <TerminarSolicitud solicitud={solicitud} handleinput = {handleInputChange} aceptar = {aceptarSoli} rechazar = {rechazarSoli} setModal={setModal} />
-    
+            }
+
+            {isBotiquinero &&
+            <TerminarSolicitud solicitud={solicitud} handleinput = {handleInputChange} aceptar = {aceptarSoliBotiquin} rechazar = {rechazarSoliBotiquin} setModal={setModal} />
+            }
         </div>
     );    
 };
