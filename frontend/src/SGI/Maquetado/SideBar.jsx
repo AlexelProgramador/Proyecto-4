@@ -4,9 +4,15 @@ import { NavLink, useNavigate } from 'react-router-dom';
 
 
 export const SideBar = ({ show, setShow }) => {
-    const navigate = useNavigate();
+  const response = JSON.parse(localStorage.getItem("response"));
+  const isAdmin = response && response.usuario && response.usuario.includes("Administrador") ;
+  const isBodeguero = response && response.usuario && response.usuario.includes("Bodeguero");
+  const isBotiquinero = response && response.usuario && response.usuario.includes("Botiquinero");
+
+  const navigate = useNavigate();
     const handleSession = () => {
     localStorage.removeItem("response");
+
     navigate("/login");
     };
     return(
@@ -29,30 +35,39 @@ export const SideBar = ({ show, setShow }) => {
             </a>
             {/* ITEMS */}
             <div className='nav-list'>
-              <NavLink to='/dashboard-bodega' className='nav-link' activeClassName='active' end>
-                <i className='fas fa-fw fa-tachometer-alt nav-logo-link'></i>
+              <NavLink to='/' className='nav-link' activeClassName='active' end>
+                <i className='fi fi-rr-tachometer nav-logo-link'></i>
                 <span>Dashboard</span>
               </NavLink>
-
+              {isBodeguero || isAdmin ? (
               <NavLink to='/show-bodega' className='nav-link' activeClassName='active'>
-                <i class="fi fi-rr-table-columns nav-logo-link"></i>
+                <i class="fi fi-rr-box-alt nav-logo-link"></i>
+                <span>Bodegas</span>
+              </NavLink>
+              ): null}
+              {isBotiquinero || isAdmin ? (
+              <NavLink to='/show-botiquin' className='nav-link' activeClassName='active'>
+                <i className='fi fi-rr-doctor nav-logo-link'></i>
+                <span>Botiquines</span>
+              </NavLink>
+              ): null}
+              {isBodeguero || isBotiquinero || isAdmin ? (
+              <NavLink to='/show-producto' className='nav-link' activeClassName='active'>
+                <i className='fi fi-rr-table-columns nav-logo-link'></i>
                 <span>Inventario</span>
               </NavLink>
-
-              <NavLink to='/show-botiquin' className='nav-link' activeClassName='active'>
-                <i className='fas fa-image nav-logo-link'></i>
-                <span>seccion2</span>
+              ): null}
+              {isAdmin && (
+              <NavLink to='/show-solicitud' className='nav-link' activeClassName='active'>
+                <i class="fi fi-rr-ballot nav-logo-link"></i>
+                <span>Solicitudes</span>
               </NavLink>
-
-              <NavLink to='/show-producto' className='nav-link' activeClassName='active'>
-                <i className='fas fa-dollar-sign nav-logo-link'></i>
-                <span>seccion3</span>
-              </NavLink>
+              )}
             </div>
           </div>
           <a className='nav-link'onClick={handleSession}>
-            <i className='fas fa-sign-out nav-logo-link'></i>
-            <span>Logout</span>
+            <i className='fi fi-rr-sign-out-alt nav-logo-link'></i>
+            <span>Salir</span>
           </a>
         </nav>
       </aside>
