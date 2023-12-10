@@ -10,18 +10,18 @@ export const TableAsignacionShowProducto = ({productoData}) => {
         <table className='table'>
           <thead>
             <tr>
-              <th>Tipo de Proceso</th>
+              <th>Lugar Asignado</th>
               <th>Cantidad Asignada</th>
               <th>Fecha Proceso</th>
               {/* Encabezados */}
             </tr>
           </thead>
           <tbody>
-            {productoData.UbicacionProducto.map((item, index) => (
+            {productoData.Ubicacion.map((item, index) => (
               <tr key={index}>
-                <td>{item.TipoProceso}</td>
-                <td>{item.CantidadAsi}</td>
-                <td>{item.CantidadInventario}</td>
+                <td>{item.NombreUbicacion}</td>
+                <td>{item.CantidadAsignada}</td>
+                <td>{item.FechaProceso}</td>
                 {/* Celdas */}
               </tr>
             ))}

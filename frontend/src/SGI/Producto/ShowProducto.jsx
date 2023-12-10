@@ -15,12 +15,12 @@ export const ShowProducto = () => {
       try {
         const url = `/producto/${id}`;
         const data = await fetchDatos(url);
-        setProductoData(data);
+        const datos = data.data;
+        setProductoData(datos);
       } catch (error) {
         console.error('Error al obtener la información del producto', error);
       }
     };
-
     fetchProducto();
   }, [url]);
 

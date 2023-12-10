@@ -139,7 +139,7 @@ class ProductoController extends Controller
             'DesgloseOriginal'=> '' 
         );
         $CantidadTotal = $producto->TotalProducto + intval($request->CantidadTotal);
-        $producto->TotalProducto = $CantidadTotal;
+        $producto->CantidadTotal = $CantidadTotal;
         $producto->push('Desgloce', $desgloceData);
         $producto->save();
         return response()->json(['status' => 200]);
@@ -276,21 +276,8 @@ class ProductoController extends Controller
         $bodega->save();
 
         $producto1 = Producto::findOrFail($id);
-        $idDesgloce = $request->UuidProducto;
-        $desgloseEncontrado = collect($producto1['Desgloce'])->first(function ($desgloce) use ($idDesgloce) {
-            return $desgloce['UuidProducto'] == $id;
-        });
-        if ($desgloseEncontrado) {
-            $desgloce = $producto1->Desgloce;
-            foreach ($desgloce as $index => $Uuid) {
-                if ($Uuid['UuidProducto'] == $idDesgloce) {
-                    $desgloce[$index]['CantidadAsignada'] += intval($request->CantidadAsignada);
-                    break;
-                }
-            }
-            
-        }
-        $producto1->Desgloce = $desgloce;
+        $cantidadAsig = $producto1->CantidadAsignada + intval($request->CantidadAsignada);
+        $producto1->CantidadAsignada = $cantidadAsig;
         $producto1->save();
         return response()->json(['status' => 200]);
 
@@ -312,7 +299,7 @@ class ProductoController extends Controller
     public function pocoProducto()
     {
         //
-        $datos = Producto::where('TotalProducto', '<=', 100)->get();
+        $datos = Producto::where('CantidadTotal', '<=', 75)->get();
         return response()->json(['status' => 200, 'data' => $datos]);
     }
 

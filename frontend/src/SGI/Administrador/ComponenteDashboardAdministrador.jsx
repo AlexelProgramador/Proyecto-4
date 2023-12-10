@@ -2,10 +2,11 @@ import React from 'react';
 
 export const ComponenteDashboardAdministrador = ({datosPendiente, datosPocasUnidades}) => {
     const aviso = [
-      {nro: datosPocasUnidades.length, tipo:'Producto por terminar', color: 'bg-warning', th1: 'Nombre', th2:'Cantidad'},
+      {nro: datosPocasUnidades.length, tipo:'Producto por terminar', color: 'bg-warning', th1: 'Nombre', th2:'CantidadTotal', th3: datosPocasUnidades.Nombre, th4: datosPocasUnidades.CantidadTotal},
       {nro: 0, tipo:'Producto por vencer', color: 'bg-danger', th1: 'Nombre', th2:'Fecha'},
       {nro: 0, tipo:'Solicitudes pendientes', color: 'bg-success', th1: 'Variable', th2: 'Fecha'}
     ]
+    console.log(datosPocasUnidades);
     {/*
     
     datosPendiente.length*/}
@@ -32,8 +33,8 @@ export const ComponenteDashboardAdministrador = ({datosPendiente, datosPocasUnid
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td className='px-3'></td>
-                                        <td className='px-3 text-end'></td>
+                                        <td className='px-3'>{avi.th3}</td>
+                                        <td className='px-3 text-end'>{avi.th4}</td>
                                     </tr>
                                 </tbody>
                             </table>

@@ -45,8 +45,8 @@ export const FormProductoEdit = ({productoData, setProductoData, handleUpdate}) 
           </div>
         </div>
         <div className='col-12 pb-4 d-flex justify-content-between'>  
-          <label htmlFor="TotalProducto">Total Producto: {productoData.TotalProducto}</label>
-          <label htmlFor="TotalProducto">Total Asignado a Bodega: {productoData.TotalAsignado}</label>
+          <label htmlFor="TotalProducto">Total Producto: {productoData.CantidadTotal}</label>
+          <label htmlFor="TotalProducto">Total Asignado a Bodega: {productoData.CantidadAsignada}</label>
           <button className='btn btn-primary' onClick={handleUpdate}>Actualizar Producto</button>
         </div>
       </div>

@@ -18,9 +18,10 @@ export const DashboardAdministrador = () => {
             //const urlPendientes;
             const responsePendiente = await fetchDatos(urlVencimiento);
             const responsePocoProd = await fetchDatos(urlInventario);
+            const data = responsePocoProd.data;
             // const responseVencimientoProducto = await vencimientoProducto();
             // setDataSolicitudPendiente(responsePendiente);
-            setDataPocasUnidades(responsePocoProd);
+            setDataPocasUnidades(data);
             // setDataProductoVencido(responseVencimientoProducto);
             // console.log(dataProductoVencido);
         } catch (error) {
