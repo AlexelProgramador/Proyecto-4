@@ -7,8 +7,12 @@ export const TerminarSolicitud = ({ solicitud, handleinput, aceptar, rechazar, s
     <div>
         {/* <div className='card shadow-card rounded-0 border border-0'> */}
             <div className='vw-100' style={{maxWidth:'700px'}}>
-                <div className='h5 text-uppercase pb-2'>Solicitud</div>
-                <p>{solicitud._id}</p>
+                <div className='h5 text-uppercase pb-2'>Solicitud #{solicitud._id.substring(0, 6)}</div>
+                <div className='row justify-content-between'>
+                    <p className='col-md-4'>{solicitud.NombreSolicitanteSolicitud}</p>
+                    <p className='col-md-4'>{solicitud.NombreBotiquin}</p>
+                    <p className='col-md-4'>{solicitud.FechaSolicitud}</p>
+                </div>
                 <div className='h5 text-uppercase pb-2'>Inventario</div>
                 {solicitud.InventarioSolicitud && solicitud.InventarioSolicitud.length > 0 ? (
                 <div className='table-responsive'>
@@ -41,7 +45,7 @@ export const TerminarSolicitud = ({ solicitud, handleinput, aceptar, rechazar, s
                         <button className='btn me-2' onClick={() => setModal(false)}>Atras</button>
                     </div>
                 ) : (
-                    <div>
+                    <div className='pt-2'>
                         <div className='form-floating pb-4'>
                             <textarea className='form-control'
                                 //placeholder="Descripción del Producto"
@@ -53,9 +57,10 @@ export const TerminarSolicitud = ({ solicitud, handleinput, aceptar, rechazar, s
                             />
                             <label htmlFor="">Comentarios:</label>
                         </div>
-                        <div>
-                        <button className='btn btn-success me-2' onClick={() => aceptar(solicitud)}>Aceptar Solicitud</button>
-                        <button className='btn btn-danger' onClick={() => rechazar(solicitud)}>Rechazar Solicitud</button>
+                        <div className='text-end'>
+                            <button className='btn me-2' onClick={() => setModal(false)}>Atras</button>
+                            <button className='btn me-2' onClick={() => aceptar(solicitud)}>Aceptar Solicitud</button>
+                            <button className='btn ' onClick={() => rechazar(solicitud)}>Rechazar Solicitud</button>
                         </div>
                     </div>
                 )} 

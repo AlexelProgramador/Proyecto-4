@@ -32,7 +32,7 @@ export const TableHomeSolicitudBodega = ({dataSolicitudBodega, setModal, PrimerP
     }
 
     data = dataSolicitudBodega.map((item) => ({
-        uuid: item._id,
+        uuid: item._id.substring(0, 6),
         nombre: item.NombreSolicitanteSolicitud,
         destino: item.NombreBotiquin,
         cant: item.InventarioSolicitud.length,

@@ -8,7 +8,9 @@ export const TablaProductosAcciones = ({almacenamientoData, setModal}) => {
     <div>
       <div className='card shadow-card rounded-0 border border-0'>
         <div className='card-body'>
-          <div className='h5 text-uppercase pb-2'>Inventario Bodega</div>
+          <div className='h5 text-uppercase pb-2'>
+          {almacenamientoData.Tipo === "Botiquín" || "Botiquin" ? "Inventario Botiquin" : "Invetario Bodega"}
+            </div>
           {almacenamientoData.Inventario.length > 0 ? (
           <div className='table-responsive'>
             <table className='table'>
