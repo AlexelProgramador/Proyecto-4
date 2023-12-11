@@ -63,6 +63,7 @@ Route::controller(BodegaController::class)->group(function () {
     Route::get("/bodega/{id}", "show");
     Route::put("/bodega/{id}", "update");
     Route::delete("/bodega/{id}", "destroy");
+    Route::get("/bodega/{id}/pocoProducto", "pocoProductoBodega");
 });
 
 //Controlador Botiquin.
@@ -72,6 +73,7 @@ Route::controller(BotiquinController::class)->group(function () {
     Route::get("/botiquin/{id}", "show");
     Route::put("/botiquin/{id}", "update");
     Route::delete("/botiquin/{id}", "destroy");
+    Route::get("/botiquin/{id}/pocoProducto", "pocoProductoBotiquin");
 });
 
 //Controlador Producto.

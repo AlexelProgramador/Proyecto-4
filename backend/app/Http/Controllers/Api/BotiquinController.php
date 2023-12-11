@@ -108,4 +108,16 @@ class BotiquinController extends Controller
         Botiquin::destroy($id);
         return response()->json(['status' => 204]);
     }
+
+    public function pocoProductoBotiquin($id)
+    {
+        $umbral = 50;
+
+
+        $productoAgotandose = Botiquin::select('Inventario')->where('Inventario.CantidadAsignada', '<', $umbral)->get();
+
+        $inventario = $productoAgotandose->pluck('Inventario')->toArray();
+        
+        return response()->json(['status' => 200, 'data' => $inventario]);
+    }
 }

@@ -8,10 +8,12 @@ export const DashboardBodega = () => {
     const [dataPocasUnidades, setDataPocasUnidades] = useState([]);
     const [dataProductoVencido, setDataProductoVencido] = useState([]);
     const [cargandoDashboard, setCargandoDashboard] = useState(true);
+    const response = JSON.parse(localStorage.getItem("response"));
     
     const fetchData = async () => {
         try {
-            const urlInventario = '/productos/sinInventario';
+            const idAlm = response.almacenamiento;
+            const urlInventario = `/bodega/${idAlm}/pocoProducto`;
             const urlVencimiento = '/productos/venciminetoInventario';
             //const urlPendientes;
             const responsePendiente = await fetchDatos(urlVencimiento);
