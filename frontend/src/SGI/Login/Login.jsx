@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {postRequest} from "../Hooks/usePostRequest";
 import logo from "../../img/logo-odontologia-universidad-de-chile.png"
-import img from "../../img/imgclinic.jpg"
+import img from "../../img/facultad-odontologia.jpg"
 
 export const Login = () => {
   const [username, setUsername] = useState("");

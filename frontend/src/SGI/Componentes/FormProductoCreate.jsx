@@ -62,7 +62,7 @@ export const FormProducto = ({productoData, setProductoData, handleInsert}) => {
                 <option value="Pote">Pote</option>
                 <option value="Frasco">Frasco</option>
               </select>
-              <label>Seleccione:</label>               
+              <label>Seleccione presentación:</label>               
             </div>
           </div>
           <div className='col-md-3 pb-4'>
@@ -73,7 +73,7 @@ export const FormProducto = ({productoData, setProductoData, handleInsert}) => {
                 value={productoData.Cantidad}
                 onChange={handleInputChange}
               />
-              <label>Cantidad del Producto:</label>
+              <label>Cantidad por presentación:</label>
             </div>
           </div>
           <div className='col-md-3 pb-4'>

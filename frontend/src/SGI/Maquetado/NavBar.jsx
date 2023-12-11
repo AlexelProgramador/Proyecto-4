@@ -1,20 +1,22 @@
 import React, {useState} from 'react';
-
+import logo from '../../img/logo-odontologia-universidad-de-chile.png';
 
 export const NavBar = ({ show, setShow }) => {
     // const [show, setShow] = useState(false);
+    const response = JSON.parse(localStorage.getItem("response"));
 
     return(
       <div>
         <header className={`header ${show ? 'space-toggle' : null}`}>
           <div className='header-toggle' onClick={() => setShow(!show)}>
             <i className={`fas fa-bars ${show ? 'fa-solid fa-xmark' : null}`}></i>
-            <div className=''>
-              {/* <img src="https://odontologia.uchile.cl/.resources/portal-odontologia/images/logo-odontologia.svg" alt=""/> */}
-            </div>
-            <div>
-              {/* username aqui */}
-            </div>
+          </div>
+          <div className='h-100 text-end d-flex align-items-center' style={{ color: '#1E4162', fontSize: '14px' }}>
+              {/* <img src={logo} alt="" className='h-100'/> */}
+            {/* <p className='m-0'>Sistema de Inventario y</p>
+            <p className='m-0'>Gestión de Stock</p> */}
+            <p className='m-0 d-flex align-items-center px-1 pt-1' style={{fontSize: '12px'}}><i class="fi fi-sr-user"></i></p>
+            <p className='m-0 '>{response.username}</p>
           </div>
         </header>
       </div>

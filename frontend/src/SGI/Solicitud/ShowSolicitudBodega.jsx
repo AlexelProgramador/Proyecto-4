@@ -99,11 +99,11 @@ export const ShowSolicitudBodega = ({ setModal, solicitud, setSolicitud, fetchDa
     return (
         <div>
             {isBodeguero &&
-            <TerminarSolicitud solicitud={solicitud} handleinput = {handleInputChange} aceptar = {aceptarSoli} rechazar = {rechazarSoli} setModal={setModal} />
+            <TerminarSolicitud solicitud={solicitud} handleinput = {handleInputChange} aceptar = {aceptarSoli} rechazar = {rechazarSoli} setModal={setModal} isBodeguero={isBodeguero} isBotiquinero={isBotiquinero}/>
             }
 
             {isBotiquinero &&
-            <TerminarSolicitud solicitud={solicitud} handleinput = {handleInputChange} aceptar = {aceptarSoliBotiquin} rechazar = {rechazarSoliBotiquin} setModal={setModal} />
+            <TerminarSolicitud solicitud={solicitud} handleinput = {handleInputChange} aceptar = {aceptarSoliBotiquin} rechazar = {rechazarSoliBotiquin} setModal={setModal} isBodeguero={isBodeguero} isBotiquinero={isBotiquinero}/>
             }
         </div>
     );    

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-
+import logo from '../../img/logo-solo.png';
 
 
 export const SideBar = ({ show, setShow }) => {
@@ -17,14 +17,6 @@ export const SideBar = ({ show, setShow }) => {
     };
     return(
       <div className={show ? 'space-toggle' : null}>
-        {/* <header className={`header ${show ? 'space-toggle' : null}`}>
-          <div className='header-toggle' onClick={() => setShow(!show)}>
-            <i className={`fas fa-bars ${show ? 'fa-solid fa-xmark' : null}`}></i>
-            <div className=''>
-              <img src="https://odontologia.uchile.cl/.resources/portal-odontologia/images/logo-odontologia.svg" alt=""/>
-            </div>
-          </div>
-        </header> */}
         <aside className={`sidebar ${show ? 'show' : null}`}>
         <nav className='nav'>
           <div>
@@ -57,15 +49,26 @@ export const SideBar = ({ show, setShow }) => {
                 <span>Inventario</span>
               </NavLink>
               ): null}
-              {isAdmin && (
+              {isBodeguero || isAdmin || isBotiquinero ? (              
               <NavLink to='/show-solicitud' className='nav-link' activeClassName='active'>
                 <i class="fi fi-rr-ballot nav-logo-link"></i>
                 <span>Solicitudes</span>
               </NavLink>
-              )}
+              ): null}
+              
             </div>
           </div>
-          <a className='nav-link'onClick={handleSession}>
+          {/* <div style={{ position: 'relative', color: '#fff', fontFamily: 'Raleway, sans-serif', display: 'grid', gridTemplateColumns: 'max-content max-content', columnGap: '2rem', padding: '0.5rem 0 0.5rem 1.5rem' }}>
+            <div style={{ width: '25px',textAlign: 'center', margin: 'auto' }}>
+              <img src={logo} alt="" className='w-100'/>
+            </div>
+            <div className="d-flex align-items-end">
+              <span style={{ fontSize: '14px', margin: 0 }}>Facultad de Odontología<br></br>
+                <span className='text-uppercase' style={{ fontSize: '10px' }}>Universidad de Chile</span>
+              </span> 
+            </div>            
+          </div> */}
+          <a className='nav-link' onClick={handleSession}>
             <i className='fi fi-rr-sign-out-alt nav-logo-link'></i>
             <span>Salir</span>
           </a>

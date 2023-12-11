@@ -1,6 +1,7 @@
 import React from 'react';
 
 export const FormCreateSolicitudBodega = ({botiquinData, bodegaData, selectedItems= [], handleBodegaChange, handleBotiquinChange, solicitudData, setSolicitudData}) => {
+  
   const handleInputChange = (e) => {
     
     setSolicitudData({
@@ -8,7 +9,8 @@ export const FormCreateSolicitudBodega = ({botiquinData, bodegaData, selectedIte
       [e.target.name]: e.target.value
     });
   };
-  console.log(botiquinData);
+
+  console.log('datos',bodegaData);
 
   return (
     <div>
@@ -43,11 +45,9 @@ export const FormCreateSolicitudBodega = ({botiquinData, bodegaData, selectedIte
               id="NombreBotiquinSolicitud"
               name="NombreBotiquinSolicitud"
               value={solicitudData.NombreBotiquinSolicitud}
-              onChange={handleBotiquinChange}
+              onChange={(e) => handleBotiquinChange(e)}
             >
-              <option value="">
-                Selecciona un Botiquin
-              </option>
+              <option value="">Selecciona un Botiquin</option>
               {botiquinData.map(option => (
               <option key={option._id} value={option._id}>
                 {option.Nombre}
@@ -87,16 +87,14 @@ export const FormCreateSolicitudBodega = ({botiquinData, bodegaData, selectedIte
               id="NombreBodegaSolicitud"
               name="NombreBodegaSolicitud"
               value={solicitudData.NombreBodegaSolicitud}
-              onChange={handleBodegaChange}
+              onChange={(e) => handleBodegaChange(e)}
               disabled={selectedItems.length > 0}
             >
-              <option value=''>
-                Selecciona una bodega
-              </option>
+              <option value=''>Selecciona una bodega</option>
               {bodegaData.map(option => (
-                <option key={option._id} value={option._id}>
-                  {option.Nombre}
-                </option>
+              <option key={option._id} value={option._id}>
+                {option.Nombre}
+              </option>
               ))}
             </select>
             <label htmlFor="BodegaSolicitud">Bodega a Seleccionar:</label>

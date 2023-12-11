@@ -57,6 +57,7 @@ Route::controller(EtapaController::class)->group(function () {
 
 //-------------------------- Rutas SGI ----------------------------
 //Controlador Bodega.
+// Revisar para usuarios
 Route::controller(BodegaController::class)->group(function () {
     Route::get("/bodegas", "index");
     Route::post("/bodega", "store");

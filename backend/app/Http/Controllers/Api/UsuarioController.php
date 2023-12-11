@@ -23,7 +23,7 @@ class UsuarioController extends Controller
         $request->validate([
             'nombre' => 'required|string|regex:/^[a-zA-Z]+$/',
             'apellido' => 'required|string|regex:/^[a-zA-Z]+$/',
-            'password' => 'required|min:8|regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[^\s]+$/',
+            'password' => 'required|min:6|regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[/@$!%*?&\\])[^\s]+$/',
             'rol' => 'required',
         ]);
 
@@ -42,6 +42,7 @@ class UsuarioController extends Controller
         $usuario->usuario =  strtoupper(substr($request->nombre, 0, 1)) . $request->apellido;
         $usuario->password =  Hash::make($request->password);
         $usuario->rol =  $request->rol;
+        $usuario->almacenamiento =  $request->almacenamiento; //Revisar para usuarios
 
         $usuario->save();
 

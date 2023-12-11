@@ -37,9 +37,9 @@ export const TerminarSolicitud = ({ solicitud, handleinput, aceptar, rechazar, s
             <p>No hay datos de inventario disponibles</p>
         )}
         <div>
-        {isBotiquinero && (solicitud.EstadoSolicitud === "Aceptado" || solicitud.EstadoSolicitud === "Rechazado") ? (
+        {isBotiquinero && (solicitud.EstadoSolicitud === "Recibido" || solicitud.EstadoSolicitud === "Rechazado") ? (
           <div className='text-end'>
-            <button className='btn me-2' onClick={() => setModal(false)}>Atras</button>
+            <button className='btn me-2' onClick={() => setModal(false)}>Cancelar</button>
           </div>
         ) : (
           <div className='pt-2'>
@@ -55,9 +55,18 @@ export const TerminarSolicitud = ({ solicitud, handleinput, aceptar, rechazar, s
                 <label htmlFor="">Comentarios:</label>
             </div>
             <div className='text-end'>
-              <button className='btn me-2' onClick={() => setModal(false)}>Atras</button>
-              <button className='btn me-2' onClick={() => aceptar(solicitud)}>Aceptar Solicitud</button>
-              <button className='btn ' onClick={() => rechazar(solicitud)}>Rechazar Solicitud</button>
+              <button className='btn me-2' onClick={() => setModal(false)}>Cancelar</button>
+              {isBotiquinero &&
+                <>
+                <button className='btn me-2' onClick={() => aceptar(solicitud)}>Recibi conforme</button>
+                <button className='btn ' onClick={() => rechazar(solicitud)}>No recibí</button>
+                </>
+              }{isBodeguero &&
+                <>
+                <button className='btn me-2' onClick={() => aceptar(solicitud)}>Aceptar solicitud</button>
+                <button className='btn ' onClick={() => rechazar(solicitud)}>Rechazar solicitud</button>
+                </>
+                }
             </div>
           </div>
         )} 
