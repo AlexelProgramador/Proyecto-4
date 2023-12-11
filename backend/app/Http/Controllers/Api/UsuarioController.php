@@ -23,7 +23,7 @@ class UsuarioController extends Controller
         $request->validate([
             'nombre' => 'required|string|regex:/^[a-zA-Z]+$/',
             'apellido' => 'required|string|regex:/^[a-zA-Z]+$/',
-            'password' => 'required|min:6|regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[/@$!%*?&\\])[^\s]+$/',
+            'password' => 'required|min:6|regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&\\/])[^\s]+$/',
             'rol' => 'required',
         ]);
 
@@ -56,7 +56,7 @@ class UsuarioController extends Controller
         $request->validate([
             'nombre' => 'required|string|regex:/^[a-zA-Z]+$/',
             'apellido' => 'required|string|regex:/^[a-zA-Z]+$/',
-            'password' => 'required|min:8|regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[^\s]+$/',
+            'password' => 'required|min:8|regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&\\/])[^\s]+$/',
             'rol' => 'required',
         ]);
 
