@@ -20,7 +20,7 @@ export const NewAsignacion = ({desgloseProducto}) => {
     NombreUbicacion:'',
     FechaProceso: '',
   });
-  console.log(desgloseProducto);
+  console.log(nuevaAsignacion);
   const objetosBuenEstado = desgloseProducto.filter((data) => data.Estado === 'Buen Estado');
 
   const handleAgregarAsignacion = async () => {
@@ -64,7 +64,7 @@ export const NewAsignacion = ({desgloseProducto}) => {
   };
 
   const showAlert = () => {
-    alert('La cantidad asignada no puede superar la cantidad total.'); // Puedes personalizar esto según tus necesidades (por ejemplo, usando un componente de alerta)
+    alert('La cantidad asignada no puede superar la cantidad total.');
   };
 
   const handleDesgloceChange = (e) => {
@@ -75,8 +75,8 @@ export const NewAsignacion = ({desgloseProducto}) => {
       setSelectedDesgloce(selectedDesgloce); // Almacena el desglose seleccionado en el estado
       setNuevaAsignacion((prevState) => ({
         ...prevState,
-        NombreDesgloceProducto: selectedDesgloce.NombreDesgloceProducto,
-        IdDesgloceProducto: selectedUuidDesgloceProducto,
+        NombreDesgloce: selectedDesgloce.NombreDesgloceProducto,
+        IdDesgloce: selectedUuidDesgloceProducto,
       }));
     }
   };

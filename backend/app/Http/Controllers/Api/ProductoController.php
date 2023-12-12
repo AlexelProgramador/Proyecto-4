@@ -157,7 +157,6 @@ class ProductoController extends Controller
             'FechaVencimiento' => 'required',
             'Estado' => 'required',
             'Nombre' => 'required',
-            'DesgloseOriginal'=> 'required'
         ];
     
         $request->validate($rules);
@@ -194,7 +193,7 @@ class ProductoController extends Controller
 
                         $nDesgloce[$index] = [
                             'UuidProducto' => $Uuid['UuidProducto'],
-                            'CantidadContenedor' => $cantidadContenedorRestante ,
+                            'CantidadContenedor' => $cantidadContenedorRestante,
                             'CantidadTotal' => $cantidadTotalRestante,
                             'ValorTotal' => $valorTotalRestante,
                             'FechaVencimiento' => $Uuid['FechaVencimiento'],
@@ -248,10 +247,6 @@ class ProductoController extends Controller
         $productoEncontrado = collect($bodega['Inventario'])->first(function ($producto) use ($id) {
             return $producto['IdProducto'] == $id;
         });
-
-        $productoEncontrado = collect($bodega['Inventario'])->first(function ($producto) use ($id) {
-            return $producto['IdProducto'] == $id;
-        });
         if ($productoEncontrado) {
             $inventario = $bodega->Inventario;
             foreach ($inventario as $index => $producto) {
@@ -262,7 +257,25 @@ class ProductoController extends Controller
             }
             $bodega->Inventario = $inventario;
             $bodega->save();
-            return response()->json(['status' => 200]);
+
+            $producto2 = Producto::findOrFail($id);
+            $IdDesglose = $request->IdDesgloce;
+            $desgloseEncontrado = collect($producto2['Desgloce'])->first(function ($item) use ($IdDesglose) {
+                return $item['UuidProducto'] == $IdDesglose;
+            });
+            if ($desgloseEncontrado) {
+                $desglose = $producto2->Desgloce;
+                foreach ($desglose as $index => $Uuid) {
+                    if ($Uuid['UuidProducto'] == $IdDesglose) {
+                        $desglose[$index]['CantidadTotal'] -= intval($request->CantidadAsignada);
+                        break;
+                    }
+                }
+                $producto2->Desgloce = $desglose;
+                $producto2->save();
+            }
+             
+        return response()->json(['status' => 200]);
         } else {
             // El producto no está en el inventarioBodega de la bodega
             $inventarioData = array(
@@ -279,6 +292,24 @@ class ProductoController extends Controller
         $cantidadAsig = $producto1->CantidadAsignada + intval($request->CantidadAsignada);
         $producto1->CantidadAsignada = $cantidadAsig;
         $producto1->save();
+
+        
+        // $producto2 = Producto::findOrFail($id);
+        // $IdDesglose = $request->IdDesgloce;
+        // $desgloseEncontrado = collect($producto2['Desgloce'])->first(function ($producto) use ($IdDesglose) {
+        //     return $producto2['UuidProducto'] == $IdDesglose;
+        // });
+        // if ($desgloseEncontrado) {
+        //     $desglose = $producto2->Desgloce;
+        //     foreach ($desgloce as $index => $Uuid) {
+        //         if ($Uuid['UuidProducto'] == $IdDesglose) {
+        //             $Uuid[$index]['CantidadTotal'] -= intval($request->CantidadAsignada);
+        //             break;
+        //         }
+        //     }
+        //     $producto2->Desgloce = $desglose;
+        // }
+        // $producto2->save(); 
         return response()->json(['status' => 200]);
 
     }
