@@ -12,10 +12,12 @@ class UsuarioController extends Controller
 {
     public function index()
     {
-        $usuarios = Usuario::all();
-        return response()->json([
-            "results" => $usuarios
-        ], Response::HTTP_OK);
+        // $usuarios = Usuario::all();
+        // return response()->json([
+        //     "results" => $usuarios
+        // ], Response::HTTP_OK);
+        $datos = Usuario::all();
+        return response()->json($datos);
     }
     public function store(Request $request)
     {
@@ -46,7 +48,8 @@ class UsuarioController extends Controller
 
         $usuario->save();
 
-        return response()->json(['result' => $usuario], Response::HTTP_CREATED);
+        // return response()->json(['result' => $usuario], Response::HTTP_CREATED);
+        return response()->json(['status' => 201]);
     }
 
     public function update(Request $request, $id)
@@ -71,11 +74,23 @@ class UsuarioController extends Controller
 
         $usuario->save();
 
-        return response()->json(['result' => $usuario], Response::HTTP_OK);
+        // return response()->json(['result' => $usuario], Response::HTTP_OK);
+        $datos = Usuario::where("_id", $id)->first();
+        return response()->json(['message' => "envio de datos exitoso", 'data' => $datos], 201);
+        }
+
+    public function show($id)
+    {
+        //
+        $datos = Usuario::where("_id", $id)->first();
+        return response()->json(['status' => 200, 'data' => $datos]);
     }
+
     public function destroy($id)
     {
         Usuario::destroy($id);
-        return response()->json(['result' => "Usuario $id eliminado"], Response::HTTP_OK);
+        // return response()->json(['result' => "Usuario $id eliminado"], Response::HTTP_OK);
+        return response()->json(['status' => 204]);
+
     }
 }

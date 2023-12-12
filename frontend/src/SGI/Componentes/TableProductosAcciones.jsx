@@ -3,7 +3,7 @@ import AccionesProductos from './AccionesProductos';
 
 
 export const TablaProductosAcciones = ({almacenamientoData, setModal}) => {
-  console.log(almacenamientoData);
+  // console.log(almacenamientoData);
   return (
     <div>
       <div className='card shadow-card rounded-0 border border-0'>

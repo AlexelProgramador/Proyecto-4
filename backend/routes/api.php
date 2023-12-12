@@ -36,6 +36,7 @@ Route::controller(UsuarioController::class)->group(function () {
     Route::post("/usuario", "store");
     Route::put("/usuario/{idUsuario}", "update");
     Route::delete("/usuario/{idUsuario}", "destroy");
+    Route::get("/usuario/{id}", "show");
 });
 
 // Controlador Solicitud.

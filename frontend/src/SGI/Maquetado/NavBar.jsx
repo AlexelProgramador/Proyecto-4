@@ -1,9 +1,21 @@
-import React, {useState} from 'react';
-import logo from '../../img/logo-odontologia-universidad-de-chile.png';
+import React, { useEffect} from 'react';
+import { useNavigate } from 'react-router-dom';
+// import logo from '../../img/logo-odontologia-universidad-de-chile.png';
 
 export const NavBar = ({ show, setShow }) => {
     // const [show, setShow] = useState(false);
+    const navigate = useNavigate();
+
     const response = JSON.parse(localStorage.getItem("response"));
+    const user = response && response.username
+
+    useEffect(() => {
+      const response = JSON.parse(localStorage.getItem("response"));
+      if (!response || !response.username) {
+        navigate("/login");
+      }
+    }, [navigate]);  
+
 
     return(
       <div>
@@ -16,7 +28,7 @@ export const NavBar = ({ show, setShow }) => {
             {/* <p className='m-0'>Sistema de Inventario y</p>
             <p className='m-0'>Gestión de Stock</p> */}
             <p className='m-0 d-flex align-items-center px-1 pt-1' style={{fontSize: '12px'}}><i class="fi fi-sr-user"></i></p>
-            <p className='m-0 '>{response.username}</p>
+            <p className='m-0 '>{user && (<>{response.username}</>)}</p>
           </div>
         </header>
       </div>

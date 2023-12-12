@@ -31,6 +31,12 @@ export const SideBar = ({ show, setShow }) => {
                 <i className='fi fi-rr-tachometer nav-logo-link'></i>
                 <span>Dashboard</span>
               </NavLink>
+              {isAdmin ? (
+              <NavLink to='/show-usuario' className='nav-link' activeClassName='active'>
+                <i class="fi fi-rr-users-alt nav-logo-link"></i>
+                <span>Usuarios</span>
+              </NavLink>
+              ): null}
               {isBodeguero || isAdmin ? (
               <NavLink to='/show-bodega' className='nav-link' activeClassName='active'>
                 <i class="fi fi-rr-box-alt nav-logo-link"></i>

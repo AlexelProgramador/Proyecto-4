@@ -24,24 +24,28 @@ import { CreateSolicitudBotiquin } from '../SolicitudBotiquin/CreateSolicitudBot
 import { ShowSolicitudBotiquin } from '../SolicitudBotiquin/ShowSolicitudBotiquin';
 import { EditDesglose } from '../Producto/Componentes/EditDesglose';
 import { DashboardHome } from '../Dashboard/Dashboard';
+import { HomeUsuario } from '../Usuario/HomeUsuario';
+import { ShowUsuario } from '../Usuario/ShowUsuario';
 import Error from './Error';
 
 export const Home = () => {
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
+  // const response = JSON.parse(localStorage.getItem("response"));
+  // const username = response.username;
 
   useEffect(() => {
     const response = JSON.parse(localStorage.getItem("response"));
-    if (!response) {
+    if (!response || !response.username) {
       navigate("/login");
     }
-  }, []);
+  }, [navigate]);
 
   return(
     <>
       <div>
         <main className={show ? 'space-toggle' : null}>
-          <NavBar show={show} setShow={setShow} />
+          <NavBar show={show} setShow={setShow}/>
           <SideBar show={show} setShow={setShow}/>
           
       <ModalProvider>
@@ -72,6 +76,9 @@ export const Home = () => {
 
             <Route path="/create-solicitud-botiquin" element ={<CreateSolicitudBotiquin/>}/>
             <Route path="/show-solicitud-botiquin/:id" element ={<ShowSolicitudBotiquin/>}/>
+
+            <Route path='/show-usuario' element ={<HomeUsuario/>}/>
+            <Route path="/show-usuario/:id" element ={<ShowUsuario/>}/>
 
             <Route path="*" element={<Error />} />
           </Routes>

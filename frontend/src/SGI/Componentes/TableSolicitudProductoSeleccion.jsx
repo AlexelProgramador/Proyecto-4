@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 
 export const TableSolicitudProductoSeleccion = ({inventarioBodegaData, handleCheckboxChange,selectedItems}) => {
 
-console.log(inventarioBodegaData);
-  
+  // console.log(inventarioBodegaData);
 
   return (
     <div>
