@@ -285,6 +285,23 @@ class ProductoController extends Controller
             'CantidadAsignada' => intval($request->CantidadAsignada),
             );
             $bodega->push('Inventario', $inventarioData);
+
+            $producto2 = Producto::findOrFail($id);
+            $IdDesglose = $request->IdDesgloce;
+            $desgloseEncontrado = collect($producto2['Desgloce'])->first(function ($item) use ($IdDesglose) {
+                return $item['UuidProducto'] == $IdDesglose;
+            });
+            if ($desgloseEncontrado) {
+                $desglose = $producto2->Desgloce;
+                foreach ($desglose as $index => $Uuid) {
+                    if ($Uuid['UuidProducto'] == $IdDesglose) {
+                        $desglose[$index]['CantidadTotal'] -= intval($request->CantidadAsignada);
+                        break;
+                    }
+                }
+                $producto2->Desgloce = $desglose;
+                $producto2->save();
+            }
         }
         $bodega->save();
 
