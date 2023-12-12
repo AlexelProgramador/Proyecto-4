@@ -116,7 +116,7 @@ export const Etapa2 = () => {
                       class="form-select"
                       id="floatingSelect"
                       aria-label="Floating label select example"
-                      onChange={(e) => setTipoCompra(e.target.value)}
+                      onChange={(e) => setEstado(e.target.value)}
                     >
                       <option selected>Seleccione una opcion</option>
                       <option value="Guardada">Guardada</option>
