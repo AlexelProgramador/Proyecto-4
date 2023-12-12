@@ -310,23 +310,6 @@ class ProductoController extends Controller
         $producto1->CantidadAsignada = $cantidadAsig;
         $producto1->save();
 
-        
-        // $producto2 = Producto::findOrFail($id);
-        // $IdDesglose = $request->IdDesgloce;
-        // $desgloseEncontrado = collect($producto2['Desgloce'])->first(function ($producto) use ($IdDesglose) {
-        //     return $producto2['UuidProducto'] == $IdDesglose;
-        // });
-        // if ($desgloseEncontrado) {
-        //     $desglose = $producto2->Desgloce;
-        //     foreach ($desgloce as $index => $Uuid) {
-        //         if ($Uuid['UuidProducto'] == $IdDesglose) {
-        //             $Uuid[$index]['CantidadTotal'] -= intval($request->CantidadAsignada);
-        //             break;
-        //         }
-        //     }
-        //     $producto2->Desgloce = $desglose;
-        // }
-        // $producto2->save(); 
         return response()->json(['status' => 200]);
 
     }
