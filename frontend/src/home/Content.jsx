@@ -21,6 +21,8 @@ function getRole(nroEtapa) {
       return "Subdirectora";
     case 5:
       return "Bodeguero";
+    case 'Dea':
+      return "Dea";
     default:
       return null;
   }
@@ -56,7 +58,7 @@ export const Content = () => {
       console.error(error);
     }
   };
-  
+
   const sortedData = data
     ? [...data].sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at))
     : [];
@@ -81,12 +83,12 @@ export const Content = () => {
   const etapaPorcentaje = {
     0: 0,
     1: 14,
-    "Dea": 28,
+    Dea: 28,
     2: 42,
     3: 57,
     4: 71,
     5: 85,
-    "Finalizado": 100,
+    Finalizado: 100,
   };
 
   return (
@@ -118,7 +120,8 @@ export const Content = () => {
                       <th scope="col">N° Solicitud</th>
                       <th scope="col">Etapa</th>
                       <th scope="col">Solicitado por</th>
-                      <th scope="col"></th>
+                      <th scope="col">Encargado</th>
+                      <th></th>
                       <th scope="col">Accion</th>
                     </tr>
                   </thead>
@@ -130,9 +133,13 @@ export const Content = () => {
                           <tr key={item._id}>
                             <td>{item.solicitudInfo.nroSolicitud}</td>
                             <td>
-                            {item.nroEtapa}<ProgressBar value={etapaPorcentaje[item.nroEtapa]} />
+                              {item.nroEtapa}
+                              <ProgressBar
+                                value={etapaPorcentaje[item.nroEtapa]}
+                              />
                             </td>
                             <td>{item.infoUsuario?.solicitadoPor}</td>
+                            <td>{getRole(item.nroEtapa)}</td>
                             <td>{item.etapa}</td>
                             <td>
                               <div className="btn-group btn-group-sm">
