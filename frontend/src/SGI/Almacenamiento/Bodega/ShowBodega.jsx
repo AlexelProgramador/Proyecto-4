@@ -31,10 +31,10 @@ export const ShowBodega = () => {
     return (
         <div>
             {cargandoBodega ? 
-            <div class="d-flex justify-content-center" style={{height:'200px'}}>
+            <div className="d-flex justify-content-center" style={{height:'200px'}}>
                 <div className='d-flex align-items-center'>
-                    <div class="spinner-border text-secondary" role="status">
-                        <span class="visually-hidden">Cargando...</span>
+                    <div className="spinner-border text-secondary" role="status">
+                        <span className="visually-hidden">Cargando...</span>
                     </div>
                 </div>
             </div>

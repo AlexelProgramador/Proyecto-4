@@ -12,6 +12,7 @@ export const HomeSolicitudBodega = () => {
   const { setModal } = useModal();
   const isBodeguero = response && response.usuario && response.usuario.includes("Bodeguero");
   const isBotiquinero = response && response.usuario && response.usuario.includes("Botiquinero");
+  const isAdmin = response && response.usuario && response.usuario.includes("Administrador");
 
 
   const fetchData = async () => {
@@ -48,10 +49,10 @@ export const HomeSolicitudBodega = () => {
   return (
     <div>
       {dataSolicitudBodega.length === 0 ? (
-        <div class="d-flex justify-content-center" style={{ height: '200px' }}>
+        <div className="d-flex justify-content-center" style={{ height: '200px' }}>
           <div className='d-flex align-items-center'>
-            <div class="spinner-border text-secondary" role="status">
-              <span class="visually-hidden">Cargando...</span>
+            <div className="spinner-border text-secondary" role="status">
+              <span className="visually-hidden">Cargando...</span>
             </div>
           </div>
         </div>
@@ -67,6 +68,7 @@ export const HomeSolicitudBodega = () => {
           fetchData={fetchData}
           isBodeguero={isBodeguero}
           isBotiquinero={isBotiquinero}
+          isAdmin={isAdmin}
           />
         </div>
       </div>

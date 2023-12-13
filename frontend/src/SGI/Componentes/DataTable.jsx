@@ -153,8 +153,8 @@ const Pagination = ({ itemsPerPage, totalItems, currentPage, paginate }) => {
   };
   return (
     <nav aria-label="Page navigation example">
-      <ul class="pagination pagination-sm justify-content-end">
-        <li class="page-item">
+      <ul className="pagination pagination-sm justify-content-end">
+        <li className="page-item">
           <Link className="page-link" onClick={handlePrevious} aria-label="Previous">
             <span aria-hidden="true">&laquo;</span>
           </Link>
@@ -166,7 +166,7 @@ const Pagination = ({ itemsPerPage, totalItems, currentPage, paginate }) => {
             </Link>
           </li>
         ))}
-        <li class="page-item">
+        <li className="page-item">
           <Link className="page-link" onClick={handleNext} aria-label="Next">
             <span aria-hidden="true">&raquo;</span>
           </Link>

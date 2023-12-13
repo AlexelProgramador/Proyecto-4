@@ -49,7 +49,7 @@ const Modal = ({ modal, unSetModal }) => {
       <button className="modal__close" onClick={unSetModal} />
       <div className="modal__inner">
         <button className="modal__close-btn" onClick={unSetModal}>
-        <i class="fa-solid fa-xmark"></i>
+        <i className="fa-solid fa-xmark"></i>
         </button>
         {modal}
       </div>

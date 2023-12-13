@@ -27,7 +27,7 @@ export const NavBar = ({ show, setShow }) => {
               {/* <img src={logo} alt="" className='h-100'/> */}
             {/* <p className='m-0'>Sistema de Inventario y</p>
             <p className='m-0'>Gestión de Stock</p> */}
-            <p className='m-0 d-flex align-items-center px-1 pt-1' style={{fontSize: '12px'}}><i class="fi fi-sr-user"></i></p>
+            <p className='m-0 d-flex align-items-center px-1 pt-1' style={{fontSize: '12px'}}><i className="fi fi-sr-user"></i></p>
             <p className='m-0 '>{user && (<>{response.username}</>)}</p>
           </div>
         </header>

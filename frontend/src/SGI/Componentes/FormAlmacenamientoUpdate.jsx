@@ -42,7 +42,7 @@ export const FormAlmacenamientoUpdate = ({almacenamientoData, setAlmacenamientoD
                 <label>Lugar:</label>
               </div>
             </div>
-            <div class="col-12">        
+            <div className="col-12">        
               <div className='col-12 pb-4'>
                   <button 
                   className='btn btn-primary' 

@@ -34,7 +34,7 @@ export const FormDesgloseProducto = ({productoData, cargandoDesgloce}) => {
                   <td>${item.ValorTotal} Pesos</td>
                   <td>{item.FechaVencimiento}</td>
                   <td>{item.Estado}</td>
-                  <td><button className='btn btn-sm'onClick={() => handleEdit(productoData._id, item.UuidProducto)}><i class="fa-solid fa-pen"></i></button></td>
+                  <td><button className='btn btn-sm'onClick={() => handleEdit(productoData._id, item.UuidProducto)}><i className="fa-solid fa-pen"></i></button></td>
                 </tr>
                 ))
               }
@@ -45,10 +45,10 @@ export const FormDesgloseProducto = ({productoData, cargandoDesgloce}) => {
           <p>No hay desglose de producto disponibles</p>
       }
       {cargandoDesgloce ? 
-      <div class="d-flex justify-content-center" style={{height:'200px'}}>
+      <div className="d-flex justify-content-center" style={{height:'200px'}}>
           <div className='d-flex align-items-center'>
-              <div class="spinner-border text-secondary" role="status">
-                  <span class="visually-hidden">Cargando...</span>
+              <div className="spinner-border text-secondary" role="status">
+                  <span className="visually-hidden">Cargando...</span>
               </div>
           </div>
       </div>

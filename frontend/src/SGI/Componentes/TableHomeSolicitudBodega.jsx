@@ -51,7 +51,7 @@ export const TableHomeSolicitudBodega = ({dataSolicitudBodega, setModal, PrimerP
                       fetchData={fetchData}
                       isBodeguero={isBodeguero}
                       isBotiquinero={isBotiquinero}/>)}>
-              <i class="fa-solid fa-eye"></i>
+              <i className="fa-solid fa-eye"></i>
             </button>
             <button className='btn btn-danger' onClick={() => { 
             setModal(
@@ -67,7 +67,7 @@ export const TableHomeSolicitudBodega = ({dataSolicitudBodega, setModal, PrimerP
                     </div>
                   </div>
                 </div>
-              </div>)}}><i class="fa-solid fa-file-pdf"></i></button>
+              </div>)}}><i className="fa-solid fa-file-pdf"></i></button>
           </div>
         )                
       }

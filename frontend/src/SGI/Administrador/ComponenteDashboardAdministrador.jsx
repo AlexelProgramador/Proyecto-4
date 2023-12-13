@@ -41,7 +41,7 @@ export const ComponenteDashboardAdministrador = ({datosPendiente, datosPocasUnid
                         </div>
                         <div className='text-end p-2'>
                             <div className=''>
-                            <button className='btn btn-xs btn-primary text-uppercase'>Ver mas <i class="fa-solid fa-angle-right"></i></button>
+                            <button className='btn btn-xs btn-primary text-uppercase'>Ver mas <i className="fa-solid fa-angle-right"></i></button>
                             </div>
                         </div>
                     </div>

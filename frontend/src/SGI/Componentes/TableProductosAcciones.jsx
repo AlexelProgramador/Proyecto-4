@@ -33,7 +33,7 @@ export const TablaProductosAcciones = ({almacenamientoData, setModal}) => {
                               almacenamientoData={almacenamientoData} 
                               setModal={setModal} 
                               item={item}/> :
-                          <button className='btn btn-primary'><i class="fa-solid fa-eye"></i></button>
+                          <button className='btn btn-primary'><i className="fa-solid fa-eye"></i></button>
                           }
                         </div>
                     </td>

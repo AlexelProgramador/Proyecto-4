@@ -4,8 +4,8 @@ export const AccionesUsuarios = ({user, setModal, handleShow, handleEdit, handle
   return (
     <div>
       <div className='btn-group btn-group-sm'>
-        <button className='btn btn-primary' onClick={() => handleShow(user._id)}><i class="fa-solid fa-eye"></i></button>
-        <button className='btn btn-warning'onClick={() => handleEdit(user._id)}><i class="fa-solid fa-pen"></i></button>
+        <button className='btn btn-primary' onClick={() => handleShow(user._id)}><i className="fa-solid fa-eye"></i></button>
+        <button className='btn btn-warning'onClick={() => handleEdit(user._id)}><i className="fa-solid fa-pen"></i></button>
         <button className='btn btn-danger' onClick={() => { 
           setModal(
             <div className=''>
@@ -18,7 +18,7 @@ export const AccionesUsuarios = ({user, setModal, handleShow, handleEdit, handle
               </div>
             </div>
           )
-        }}><i class="fa-solid fa-trash-can"></i></button>
+        }}><i className="fa-solid fa-trash-can"></i></button>
       </div>
     </div>
   );

@@ -88,7 +88,7 @@ export const FormProducto = ({productoData, setProductoData, handleInsert}) => {
               <label>Valor Unitario del Producto:</label>
             </div>
           </div>    
-          <div class="col-12">        
+          <div className="col-12">        
             <button  className="btn btn-primary" type="button" onClick={handleInsert}>
               Insertar Datos de Producto
             </button>              

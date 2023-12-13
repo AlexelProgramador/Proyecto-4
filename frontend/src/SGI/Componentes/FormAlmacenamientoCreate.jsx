@@ -57,7 +57,7 @@ export const FormAlmacenamientoCreate = ({almacenamientoData, setAlmacenamientoD
                   <label>Contraseña: </label>
                 </div>
               </div> */}
-              <div class="col-12">        
+              <div className="col-12">        
                 <button className='btn btn-primary' type="button" onClick={handleInsert}>
                   Insertar Datos de {almacenamientoData.Tipo}
                 </button>

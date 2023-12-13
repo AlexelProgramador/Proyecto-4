@@ -34,7 +34,7 @@ export const TableHomeUsuario = ({userData, setModal, handleShow, handleEdit, ha
                     handleEdit={handleEdit}
                     handleDelete={handleDelete}
                     /> :
-                    <button className='btn btn-primary'><i class="fa-solid fa-eye"></i></button>
+                    <button className='btn btn-primary'><i className="fa-solid fa-eye"></i></button>
                 }
                 </div>
                 )                

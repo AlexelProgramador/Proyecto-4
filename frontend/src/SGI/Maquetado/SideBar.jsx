@@ -33,13 +33,13 @@ export const SideBar = ({ show, setShow }) => {
               </NavLink>
               {isAdmin ? (
               <NavLink to='/show-usuario' className='nav-link' activeClassName='active'>
-                <i class="fi fi-rr-users-alt nav-logo-link"></i>
+                <i className="fi fi-rr-users-alt nav-logo-link"></i>
                 <span>Usuarios</span>
               </NavLink>
               ): null}
               {isBodeguero || isAdmin ? (
               <NavLink to='/show-bodega' className='nav-link' activeClassName='active'>
-                <i class="fi fi-rr-box-alt nav-logo-link"></i>
+                <i className="fi fi-rr-box-alt nav-logo-link"></i>
                 <span>Bodegas</span>
               </NavLink>
               ): null}
@@ -57,7 +57,7 @@ export const SideBar = ({ show, setShow }) => {
               ): null}
               {isBodeguero || isAdmin || isBotiquinero ? (              
               <NavLink to='/show-solicitud' className='nav-link' activeClassName='active'>
-                <i class="fi fi-rr-ballot nav-logo-link"></i>
+                <i className="fi fi-rr-ballot nav-logo-link"></i>
                 <span>Solicitudes</span>
               </NavLink>
               ): null}

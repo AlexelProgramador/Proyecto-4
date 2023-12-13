@@ -25,7 +25,7 @@ export const TableHomeSolicitudBotiquin = ({dataSolicitudBotiquin, setModal, Pri
               <td>{item.InventarioSolicitud.length}</td>
               <td>{item.EstadoSolicitud}</td>
               <td>
-                <button className='btn btn-primary' onClick={() => handleShow(item._id)}><i class="fa-solid fa-eye"></i></button>
+                <button className='btn btn-primary' onClick={() => handleShow(item._id)}><i className="fa-solid fa-eye"></i></button>
                 <button className='btn btn-danger' onClick={() => { 
                 setModal(
                   <div style={{width:'900px'}}>
@@ -40,7 +40,7 @@ export const TableHomeSolicitudBotiquin = ({dataSolicitudBotiquin, setModal, Pri
                         </div>
                       </div>
                     </div>
-                  </div>)}}><i class="fa-solid fa-file-pdf"></i></button>
+                  </div>)}}><i className="fa-solid fa-file-pdf"></i></button>
               </td>
             </tr>
           ))}

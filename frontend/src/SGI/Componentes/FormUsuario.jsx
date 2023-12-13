@@ -163,7 +163,7 @@ export const FormUsuario = ({userData, setUserData, handleInsert}) => {
             </div>
             ): null }
           </div>
-          <div class="col-12">        
+          <div className="col-12">        
             <button  className="btn btn-primary" type="button" onClick={handleInsert}>
               Crear nuevo usuario
             </button>              

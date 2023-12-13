@@ -17,6 +17,7 @@ export const Login = () => {
     };
     const url = '/login'
     const response = await postRequest(url, data);
+    console.log(response);
     if (response) {
       localStorage.setItem("response", JSON.stringify(response));
       console.log("Login success");
@@ -52,7 +53,7 @@ export const Login = () => {
                   Usuario
                 </label>
                 <div className="input-group">
-                  <div class="input-group-text"><i class="fi fi-sr-user"></i></div>
+                  <div className="input-group-text"><i className="fi fi-sr-user"></i></div>
                   <input
                     type="text"
                     id="usernameInput"
@@ -67,7 +68,7 @@ export const Login = () => {
                   Contraseña
                 </label>
                 <div className="input-group">
-                  <div class="input-group-text"><i class="fi fi-sr-lock"></i></div>
+                  <div className="input-group-text"><i className="fi fi-sr-lock"></i></div>
                 <input
                   type="password"
                   id="passwordInput"
