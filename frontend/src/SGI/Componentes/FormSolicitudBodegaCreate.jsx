@@ -10,7 +10,7 @@ export const FormCreateSolicitudBodega = ({botiquinData, bodegaData, selectedIte
     });
   };
 
-  console.log('datos',bodegaData);
+  // console.log('datos',bodegaData);
 
   return (
     <div>

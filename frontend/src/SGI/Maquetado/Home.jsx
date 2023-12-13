@@ -20,6 +20,7 @@ import { CreateSolicitudBodega } from '../Solicitud/CreateSolicitudBodega';
 // import { ShowSolicitudBodega } from '../Solicitud/ShowSolicitudBodega';
 import { DashboardBodega } from '../Almacenamiento/Bodega/DashboardBodega';
 // import { PrimerRender } from '../PDFRenderer/PrimerRender';
+import { HomeSolicitudBotiquin } from '../SolicitudBotiquin/HomeSolicitudBotiquin';
 import { CreateSolicitudBotiquin } from '../SolicitudBotiquin/CreateSolicitudBotiquin';
 import { ShowSolicitudBotiquin } from '../SolicitudBotiquin/ShowSolicitudBotiquin';
 import { EditDesglose } from '../Producto/Componentes/EditDesglose';
@@ -74,6 +75,7 @@ export const Home = () => {
             <Route path="/create-solicitud" element ={<CreateSolicitudBodega/>}/>
             {/* <Route path="/show-solicitud/:id" element ={<ShowSolicitudBodega/>}/> */}
 
+            <Route path="/show-solicitud-botiquin" element ={<HomeSolicitudBotiquin/>}/>
             <Route path="/create-solicitud-botiquin" element ={<CreateSolicitudBotiquin/>}/>
             <Route path="/show-solicitud-botiquin/:id" element ={<ShowSolicitudBotiquin/>}/>
 

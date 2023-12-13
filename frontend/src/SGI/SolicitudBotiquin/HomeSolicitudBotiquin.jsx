@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useModal } from '../../Components/Modal';
+import { useModal } from '../Componentes/Modal';
 import { PrimerPdf } from '../PDFRenderer/PrimerPdf';
 import { TableHomeSolicitudBotiquin } from '../Componentes/TableHomeSolicitudBotiquin';
 import { fetchDatos } from '../Hooks/useFetchRequest';

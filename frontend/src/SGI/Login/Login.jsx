@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect  } from "react";
 import { useNavigate } from "react-router-dom";
 import {postRequest} from "../Hooks/usePostRequest";
-import logo from "../../img/logo-odontologia-universidad-de-chile.png"
-import img from "../../img/facultad-odontologia.jpg"
+import logo from "../../img/logo-odontologia-universidad-de-chile.png";
+import img from "../../img/facultad-odontologia.jpg";
+import { fetchDatos } from "../Hooks/useFetchRequest";
 
 export const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const [dataUser, setDataUser] = useState([]);
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -23,18 +26,22 @@ export const Login = () => {
       navigate("/");
     }
   };
-  
-  // const fetchData = async () => {
-  //   try {
-  //       const url = '/bodegas';
-  //       const response = await fetchDatos(url);
-  //       setDataBodega(response);
-  //   } catch (error) {
-  //       console.error('Error al obtener datos', error);
-  //   } finally{
-  //       setCargandoProductos(false);
-  //   }
-  // };
+
+  const fetchData = async () => {
+    try {
+        const url = '/usuarios';
+        const response = await fetchDatos(url);
+        setDataUser(response);
+    } catch (error) {
+        console.error('Error al obtener datos', error);
+    } 
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  console.log(dataUser)
 
   return (
     <>

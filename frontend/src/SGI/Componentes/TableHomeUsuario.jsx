@@ -30,9 +30,11 @@ export const TableHomeUsuario = ({userData, setModal, handleShow, handleEdit, ha
                     <AccionesUsuarios
                     setModal={setModal} 
                     user={user} 
+                    setUser={userData} 
                     handleShow={handleShow}
                     handleEdit={handleEdit}
                     handleDelete={handleDelete}
+                    fetchData={fetchData}
                     /> :
                     <button className='btn btn-primary'><i className="fa-solid fa-eye"></i></button>
                 }

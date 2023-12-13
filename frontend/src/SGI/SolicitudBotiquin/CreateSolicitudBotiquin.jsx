@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {TableSolicitudProductoSeleccion} from '../Componentes/TableSolicitudProductoSeleccion';
-import {TableSolicitudSelectedItems} from '../Componentes/TableSolicitudSelectedItems';
+import { TableSolicitudProductoSeleccion} from '../Componentes/TableSolicitudProductoSeleccion';
+import { TableSolicitudSelectedItems} from '../Componentes/TableSolicitudSelectedItems';
 import {FormCreateSolicitudBotiquin} from '../Componentes/FormSolicitudBotiquinCreate';
 import { postRequest } from '../Hooks/usePostRequest';
 import { fetchDatos } from '../Hooks/useFetchRequest';
@@ -194,7 +194,7 @@ console.log(inventarioBotiquinData);
     <div>
       <div className='card shadow-card rounded-0 border border-0'>
         <div className='card-body'>
-          <div className='h5 text-uppercase pb-2'>Crear solicitud</div>
+          <div className='h5 text-uppercase pb-2'>Crear solicitud de retiro</div>
           <form className='row'>
             <FormCreateSolicitudBotiquin
               botiquinData={botiquinData} 
@@ -202,7 +202,7 @@ console.log(inventarioBotiquinData);
               solicitudData={solicitudData}
               setSolicitudData={setSolicitudData}
             />
-            <div className='col-md-4 pb-4'>
+            {/* <div className='col-md-4 pb-4'>
               <div className='form-floating'>
                 <input className='form-control'
                   type="text"
@@ -269,7 +269,7 @@ console.log(inventarioBotiquinData);
                 />
                 <label htmlFor="FechaSolicitud">Fecha Solicitud:</label>
               </div>
-            </div>
+            </div> */}
             {/* Mostrar detalles del inventario de la bodega o mensaje si no hay datos */}
             <TableSolicitudProductoSeleccion 
                   inventarioBodegaData={inventarioBotiquinData}

@@ -1,10 +1,18 @@
 import React from 'react';
+import { ShowUsuario } from '../Usuario/ShowUsuario';
 
-export const AccionesUsuarios = ({user, setModal, handleShow, handleEdit, handleDelete}) => {
+export const AccionesUsuarios = ({user ,setModal, handleShow, handleEdit, handleDelete, fetchData}) => {
   return (
     <div>
       <div className='btn-group btn-group-sm'>
-        <button className='btn btn-primary' onClick={() => handleShow(user._id)}><i className="fa-solid fa-eye"></i></button>
+        <button className='btn btn-primary' onClick={
+                () => 
+                  setModal(
+                    <ShowUsuario 
+                      setModal={setModal} 
+                      user={user} 
+                      fetchData={fetchData}
+                      />)}><i className="fa-solid fa-eye"></i></button>
         <button className='btn btn-warning'onClick={() => handleEdit(user._id)}><i className="fa-solid fa-pen"></i></button>
         <button className='btn btn-danger' onClick={() => { 
           setModal(
