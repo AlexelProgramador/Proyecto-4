@@ -4,7 +4,7 @@ import { PDFViewer } from '@react-pdf/renderer';
 // import TerminarSolicitud from '../Solicitud/Componente/TerminarSolicitud';
 import ShowSolicitudBodega from '../Solicitud/ShowSolicitudBodega';
 
-export const TableHomeSolicitudBodega = ({dataSolicitudBodega, setModal, PrimerPdf, handleShow, fetchData, isBodeguero, isBotiquinero}) => {
+export const TableHomeSolicitudBodega = ({dataSolicitudBodega, setModal, PrimerPdf, handleShow, fetchData, isBodeguero, isBotiquinero, isAdmin}) => {
   let columns = [];
   let data = [];
 
@@ -50,7 +50,9 @@ export const TableHomeSolicitudBodega = ({dataSolicitudBodega, setModal, PrimerP
                       setSolicitud={dataSolicitudBodega} 
                       fetchData={fetchData}
                       isBodeguero={isBodeguero}
-                      isBotiquinero={isBotiquinero}/>)}>
+                      isBotiquinero={isBotiquinero}
+                      isAdmin={isAdmin}
+                      />)}>
               <i className="fa-solid fa-eye"></i>
             </button>
             <button className='btn btn-danger' onClick={() => { 

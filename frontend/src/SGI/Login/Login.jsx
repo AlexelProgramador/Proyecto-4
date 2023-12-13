@@ -17,13 +17,24 @@ export const Login = () => {
     };
     const url = '/login'
     const response = await postRequest(url, data);
-    console.log(response);
     if (response) {
       localStorage.setItem("response", JSON.stringify(response));
       console.log("Login success");
       navigate("/");
     }
   };
+  
+  // const fetchData = async () => {
+  //   try {
+  //       const url = '/bodegas';
+  //       const response = await fetchDatos(url);
+  //       setDataBodega(response);
+  //   } catch (error) {
+  //       console.error('Error al obtener datos', error);
+  //   } finally{
+  //       setCargandoProductos(false);
+  //   }
+  // };
 
   return (
     <>

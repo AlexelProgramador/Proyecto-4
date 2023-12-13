@@ -1,6 +1,8 @@
 import React from 'react';
 
-export const TerminarSolicitud = ({ solicitud, handleinput, aceptar, rechazar, setModal, isBodeguero, isBotiquinero}) => {
+export const TerminarSolicitud = ({ solicitud, handleinput, aceptar, rechazar, setModal, isRol}) => {
+  // console.log(isBodeguero);
+
   return(
     <div>
       {/* <div className='card shadow-card rounded-0 border border-0'> */}
@@ -37,39 +39,73 @@ export const TerminarSolicitud = ({ solicitud, handleinput, aceptar, rechazar, s
             <p>No hay datos de inventario disponibles</p>
         )}
         <div>
-        {isBotiquinero && (solicitud.EstadoSolicitud === "Recibido" || solicitud.EstadoSolicitud === "Rechazado") ? (
+        {(isRol === 'Botiquinero' && solicitud.EstadoSolicitud === "Aceptado") ? (
+          <div className='pt-2'>
+          <div className='form-floating pb-4'>
+              <textarea className='form-control'
+                //placeholder="Descripción del Producto"
+                name="ComentarioSolicitud"
+                value={solicitud.ComentarioSolicitud}
+                onChange={handleinput}
+                rows={4} // Aquí puedes especificar el número de filas que deseas mostrar
+                cols={50} // Aquí puedes especificar el número de columnas que deseas mostrar
+              />
+              <label htmlFor="">Comentarios:</label>
+          </div>
+          <div className='text-end'>
+            <button className='btn me-2' onClick={() => setModal(false)}>Cancelar</button>
+              <button className='btn me-2' onClick={() => aceptar(solicitud)}>Recibi conforme</button>
+              <button className='btn ' onClick={() => rechazar(solicitud)}>No recibí</button>
+          </div>
+        </div>
+        ) : (isRol === "Bodeguero" && solicitud.EstadoSolicitud === "Pendiente") ? (
+          <div className='pt-2'>
+          <div className='form-floating pb-4'>
+              <textarea className='form-control'
+                //placeholder="Descripción del Producto"
+                name="ComentarioSolicitud"
+                value={solicitud.ComentarioSolicitud}
+                onChange={handleinput}
+                rows={4} // Aquí puedes especificar el número de filas que deseas mostrar
+                cols={50} // Aquí puedes especificar el número de columnas que deseas mostrar
+              />
+              <label htmlFor="">Comentarios:</label>
+          </div>
+          <div className='text-end'>
+            <button className='btn me-2' onClick={() => setModal(false)}>Cancelar</button>
+              <button className='btn me-2' onClick={() => aceptar(solicitud)}>Aceptar</button>
+              <button className='btn ' onClick={() => rechazar(solicitud)}>Rechazar</button>
+          </div>
+        </div>
+        ) : (
           <div className='text-end'>
             <button className='btn me-2' onClick={() => setModal(false)}>Cancelar</button>
           </div>
-        ) : (
-          <div className='pt-2'>
-            <div className='form-floating pb-4'>
-                <textarea className='form-control'
-                  //placeholder="Descripción del Producto"
-                  name="ComentarioSolicitud"
-                  value={solicitud.ComentarioSolicitud}
-                  onChange={handleinput}
-                  rows={4} // Aquí puedes especificar el número de filas que deseas mostrar
-                  cols={50} // Aquí puedes especificar el número de columnas que deseas mostrar
-                />
-                <label htmlFor="">Comentarios:</label>
-            </div>
-            <div className='text-end'>
-              <button className='btn me-2' onClick={() => setModal(false)}>Cancelar</button>
-              {isBotiquinero &&
-                <>
-                <button className='btn me-2' onClick={() => aceptar(solicitud)}>Recibi conforme</button>
-                <button className='btn ' onClick={() => rechazar(solicitud)}>No recibí</button>
-                </>
-              }{isBodeguero &&
-                <>
-                <button className='btn me-2' onClick={() => aceptar(solicitud)}>Aceptar solicitud</button>
-                <button className='btn ' onClick={() => rechazar(solicitud)}>Rechazar solicitud</button>
-                </>
-                }
-            </div>
-          </div>
         )} 
+        {/* {isBodeguero && (solicitud.EstadoSolicitud === "Pendiente") ? (
+          <div className='pt-2'>
+          <div className='form-floating pb-4'>
+              <textarea className='form-control'
+                //placeholder="Descripción del Producto"
+                name="ComentarioSolicitud"
+                value={solicitud.ComentarioSolicitud}
+                onChange={handleinput}
+                rows={4} // Aquí puedes especificar el número de filas que deseas mostrar
+                cols={50} // Aquí puedes especificar el número de columnas que deseas mostrar
+              />
+              <label htmlFor="">Comentarios:</label>
+          </div>
+          <div className='text-end'>
+            <button className='btn me-2' onClick={() => setModal(false)}>Cancelar</button>
+              <button className='btn me-2' onClick={() => aceptar(solicitud)}>Recibi conforme</button>
+              <button className='btn ' onClick={() => rechazar(solicitud)}>No recibí</button>
+          </div>
+        </div>
+        ) : (
+          <div className='text-end'>
+            <button className='btn me-2' onClick={() => setModal(false)}>Cancelar</button>
+          </div>          
+        )}  */}
         </div>
       </div>
     </div>

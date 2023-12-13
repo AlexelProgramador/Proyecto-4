@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import logo from '../../img/logo-solo.png';
+// import logo from '../../img/logo-solo.png';
 
 
 export const SideBar = ({ show, setShow }) => {

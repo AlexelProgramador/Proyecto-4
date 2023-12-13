@@ -14,6 +14,7 @@ export const HomeSolicitudBodega = () => {
   const isBotiquinero = response && response.usuario && response.usuario.includes("Botiquinero");
   const isAdmin = response && response.usuario && response.usuario.includes("Administrador");
 
+  // console.log(isAdmin)
 
   const fetchData = async () => {
     try {

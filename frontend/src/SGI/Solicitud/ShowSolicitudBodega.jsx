@@ -4,7 +4,7 @@ import { TerminarSolicitud } from './Componente/TerminarSolicitud';
 import { fetchDatos } from '../Hooks/useFetchRequest';
 import { putReq } from '../Hooks/usePutRequest';
 
-export const ShowSolicitudBodega = ({ setModal, solicitud, setSolicitud, fetchData, isBodeguero, isBotiquinero }) => {
+export const ShowSolicitudBodega = ({ setModal, solicitud, setSolicitud, fetchData, isBodeguero, isBotiquinero, isAdmin }) => {
     // const [solicitud, setSolicitud] = useState({});
     const [cargandoSolicitud, setCargandoSolicitud] = useState(true);
     // const { id } = useParams();
@@ -96,15 +96,23 @@ export const ShowSolicitudBodega = ({ setModal, solicitud, setSolicitud, fetchDa
             [e.target.name]: e.target.value
         });
     };
+    // console.log('admin',isAdmin);
+    // console.log('bodega',isBodeguero);
+
     return (
         <div>
+            {isAdmin &&
+            <TerminarSolicitud solicitud={solicitud} handleinput = {handleInputChange} aceptar = {aceptarSoli} rechazar = {rechazarSoli} setModal={setModal} isRol={'Administrador'}/>
+            }
+
             {isBodeguero &&
-            <TerminarSolicitud solicitud={solicitud} handleinput = {handleInputChange} aceptar = {aceptarSoli} rechazar = {rechazarSoli} setModal={setModal} isBodeguero={isBodeguero} isBotiquinero={isBotiquinero}/>
+            <TerminarSolicitud solicitud={solicitud} handleinput = {handleInputChange} aceptar = {aceptarSoli} rechazar = {rechazarSoli} setModal={setModal} isRol={'Bodeguero'}/>
             }
 
             {isBotiquinero &&
-            <TerminarSolicitud solicitud={solicitud} handleinput = {handleInputChange} aceptar = {aceptarSoliBotiquin} rechazar = {rechazarSoliBotiquin} setModal={setModal} isBodeguero={isBodeguero} isBotiquinero={isBotiquinero}/>
+            <TerminarSolicitud solicitud={solicitud} handleinput = {handleInputChange} aceptar = {aceptarSoliBotiquin} rechazar = {rechazarSoliBotiquin} setModal={setModal} isRol={'Botiquinero'}/>
             }
+
         </div>
     );    
 };
