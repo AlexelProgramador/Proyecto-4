@@ -196,7 +196,10 @@ class SolicitudBodegaController extends Controller
 
     }
 
+    public function contarPendiente(){
+        $datos = SolicitudBodega::where('EstadoSolicitud', 'Pendiente')->get();
+        return response()->json($datos);
 
-
+    }
 
 }

@@ -4,7 +4,7 @@ export const ComponenteDashboardAdministrador = ({datosPendiente, datosPocasUnid
     const aviso = [
       {nro: datosPocasUnidades.length, tipo:'Producto por terminar', color: 'bg-warning', th1: 'Nombre', th2:'CantidadTotal', th3: datosPocasUnidades.Nombre, th4: datosPocasUnidades.CantidadTotal},
       {nro: 0, tipo:'Producto por vencer', color: 'bg-danger', th1: 'Nombre', th2:'Fecha'},
-      {nro: 0, tipo:'Solicitudes pendientes', color: 'bg-success', th1: 'Variable', th2: 'Fecha'}
+      {nro: datosPendiente.length, tipo:'Solicitudes pendientes', color: 'bg-success', th1: 'Destino', th2: 'Fecha', th3: datosPendiente.NombreBodega, th4: datosPendiente.FechaSolicitud}
     ]
     console.log(datosPocasUnidades);
     {/*

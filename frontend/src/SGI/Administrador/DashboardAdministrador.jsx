@@ -15,15 +15,15 @@ export const DashboardAdministrador = () => {
         try {
             const urlInventario = '/productos/sinInventario';
             const urlVencimiento = '/productos/venciminetoInventario';
-            //const urlPendientes;
-            const responsePendiente = await fetchDatos(urlVencimiento);
+            const urlPendientes = '/solicitudes_bodega/contar';
+            const responsePendiente = await fetchDatos(urlPendientes);
             const responsePocoProd = await fetchDatos(urlInventario);
             const data = responsePocoProd.data;
             // const responseVencimientoProducto = await vencimientoProducto();
-            // setDataSolicitudPendiente(responsePendiente);
+            setDataSolicitudPendiente(responsePendiente);
             setDataPocasUnidades(data);
             // setDataProductoVencido(responseVencimientoProducto);
-            // console.log(dataProductoVencido);
+            console.log(responsePendiente);
         } catch (error) {
             console.error('Error al obtener datos', error);
         } finally{
@@ -34,7 +34,6 @@ export const DashboardAdministrador = () => {
     useEffect(() => {
         fetchData();
     }, []);
-    console.log(dataPocasUnidades);
     return (
         <div>
             {cargandoDashboard ? 

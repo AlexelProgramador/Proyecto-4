@@ -13,14 +13,16 @@ export const DashboardBodega = () => {
     const fetchData = async () => {
         try {
             const idAlm = response.almacenamiento;
+            console.log(idAlm);
             const urlInventario = `/bodega/${idAlm}/pocoProducto`;
-            const urlVencimiento = '/productos/venciminetoInventario';
+            //const urlVencimiento = '/productos/venciminetoInventario';
             //const urlPendientes;
-            const responsePendiente = await fetchDatos(urlVencimiento);
+            //const responsePendiente = await fetchDatos(urlVencimiento);
             const responsePocoProd = await fetchDatos(urlInventario);
             // const responseVencimientoProducto = await vencimientoProducto();
-            setDataSolicitudPendiente(responsePendiente);
+            //setDataSolicitudPendiente(responsePendiente);
             setDataPocasUnidades(responsePocoProd);
+            console.log(responsePocoProd);
             // setDataProductoVencido(responseVencimientoProducto);
             // console.log(dataProductoVencido);
         } catch (error) {
@@ -33,7 +35,6 @@ export const DashboardBodega = () => {
     useEffect(() => {
         fetchData();
     }, []);
-    console.log(dataPocasUnidades);
     return (
         <div>
             {cargandoDashboard ? 

@@ -111,7 +111,7 @@ class BodegaController extends Controller
 
     public function pocoProductoBodega($id)
     {
-        $umbral = 50;
+        $umbral = 500;
         $productoAgotandose = Bodega::where('_id',$id)
         ->where('Inventario.CantidadAsignada', '<', $umbral)
         ->get(['Inventario.IdProducto', 'Inventario.NombreProducto', 'Inventario.CantidadAsignada']);
