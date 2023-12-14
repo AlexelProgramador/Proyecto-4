@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useModal } from '../../Componentes/Modal';
 import TablaProductosAcciones from '../../Componentes/TableProductosAcciones';
 import { fetchDatos } from '../../Hooks/useFetchRequest';
@@ -8,6 +8,7 @@ export const ShowBotiquin = () => {
     const [botiquinData, setBotiquinData] = useState({});
     const [cargandoBotiquin, setCargandoBotiquin] = useState(true);
     const { id } = useParams();
+    const navigate = useNavigate();
     const { setModal } = useModal()
 
     useEffect(() => {
@@ -26,6 +27,10 @@ export const ShowBotiquin = () => {
         fetchBotiquin();
     }, [cargandoBotiquin]);
 
+    const handleShowProducto = (id) => {
+        navigate(`/show-producto/${id}`); //Ruta para la edición de producto
+      };
+
     return (
         <div>
             {cargandoBotiquin ? 
@@ -40,6 +45,7 @@ export const ShowBotiquin = () => {
                 <TablaProductosAcciones 
                 almacenamientoData={botiquinData} 
                 setModal={setModal}
+                handleShow={handleShowProducto}
                 />
             }
         </div>        

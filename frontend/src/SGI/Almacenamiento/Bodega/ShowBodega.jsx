@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useModal } from '../../Componentes/Modal';
 import TablaProductosAcciones from '../../Componentes/TableProductosAcciones';
 import { fetchDatos } from '../../Hooks/useFetchRequest';
@@ -7,6 +7,7 @@ import { fetchDatos } from '../../Hooks/useFetchRequest';
 export const ShowBodega = () => {
     const [bodegaData, setBodegaData] = useState({});
     const [cargandoBodega, setCargandoBodega] = useState(true);
+    const navigate = useNavigate();
     const { id } = useParams();
     const url = `http://localhost:8000/api/bodega/${id}/edit`; // Reemplaza con la URL de tu backend
 
@@ -28,6 +29,10 @@ export const ShowBodega = () => {
         fetchBodega();
     }, [url]);
 
+    const handleShowProducto = (id) => {
+        navigate(`/show-producto/${id}`); //Ruta para la edición de producto
+      };
+
     return (
         <div>
             {cargandoBodega ? 
@@ -38,7 +43,10 @@ export const ShowBodega = () => {
                     </div>
                 </div>
             </div>
-            : <TablaProductosAcciones almacenamientoData={bodegaData} setModal={setModal}/>}
+            : <TablaProductosAcciones 
+                almacenamientoData={bodegaData} 
+                setModal={setModal}
+                handleShow={handleShowProducto}/>}
         </div>
     );
 };

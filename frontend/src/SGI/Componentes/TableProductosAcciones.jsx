@@ -1,14 +1,15 @@
 import React from 'react';
-import AccionesProductos from './AccionesProductos';
+import { AccionesProductosAlmacenamiento } from './AccionesProductosAlmacenamiento';
 
 
-export const TablaProductosAcciones = ({almacenamientoData, setModal}) => {
-  // console.log(almacenamientoData);
+export const TablaProductosAcciones = ({almacenamientoData, setModal, handleShow}) => {
+  console.log(almacenamientoData.Tipo);
   return (
     <div>
       <div className='card shadow-card rounded-0 border border-0'>
         <div className='card-body'>
           <div className='h5 text-uppercase pb-2'>
+          {/* aquí cambia solamente si es botiquín, no botiquin sin el acento */}
           {almacenamientoData.Tipo === ("Botiquín" || "Botiquin") ? "Inventario Botiquin" : "Inventario Bodega"}
             </div>
           {almacenamientoData.Inventario.length > 0 ? (
@@ -29,11 +30,12 @@ export const TablaProductosAcciones = ({almacenamientoData, setModal}) => {
                     <td> 
                         <div className='btn-group btn-group-sm'>
                           {almacenamientoData.Tipo === "Bodega" ? 
-                            <AccionesProductos  
+                            <AccionesProductosAlmacenamiento  
                               almacenamientoData={almacenamientoData} 
                               setModal={setModal} 
-                              item={item}/> :
-                          <button className='btn btn-primary'><i className="fa-solid fa-eye"></i></button>
+                              item={item}
+                              handleShow={handleShow}/> :
+                          <button className='btn btn-primary' onClick={() => handleShow(item.IdProducto)}><i className="fa-solid fa-eye"></i></button>
                           }
                         </div>
                     </td>
