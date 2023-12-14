@@ -33,15 +33,13 @@ export const HomeSolicitudBotiquin = () => {
     <div>
       <div className='card shadow-card rounded-0 border border-0'>
         <div className='card-body'>
-          <div className='h5 text-uppercase pb-2'>Solicitudes</div>                
-          <div className='table-responsive'>
-            <TableHomeSolicitudBotiquin
-            dataSolicitudBotiquin={dataSolicitudBotiquin} 
-            setModal={setModal} 
-            PrimerPdf={PrimerPdf}
-            handleShow={handleShow}
-            />
-          </div>
+          <div className='h5 text-uppercase pb-2'>Retiros</div>                
+          <TableHomeSolicitudBotiquin
+          dataSolicitudBotiquin={dataSolicitudBotiquin} 
+          setModal={setModal} 
+          PrimerPdf={PrimerPdf}
+          handleShow={handleShow}
+          />
         </div>
       </div>
     </div>

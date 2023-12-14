@@ -61,7 +61,12 @@ export const SideBar = ({ show, setShow }) => {
                 <span>Solicitudes</span>
               </NavLink>
               ): null}
-              
+              {isBotiquinero || isAdmin ? (              
+              <NavLink to='/show-solicitud-botiquin' className='nav-link' activeClassName='active'>
+                <i className="fi fi-rr-ballot nav-logo-link"></i>
+                <span>Retiros</span>
+              </NavLink>
+              ): null}
             </div>
           </div>
           {/* <div style={{ position: 'relative', color: '#fff', fontFamily: 'Raleway, sans-serif', display: 'grid', gridTemplateColumns: 'max-content max-content', columnGap: '2rem', padding: '0.5rem 0 0.5rem 1.5rem' }}>
