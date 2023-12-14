@@ -35,7 +35,7 @@ export const HomeSolicitudBotiquin = () => {
         <div className='card-body'>
           <div className='h5 text-uppercase pb-2'>Retiros</div>                
           <TableHomeSolicitudBotiquin
-          dataSolicitudBotiquin={dataSolicitudBotiquin} 
+          dataRetiroBotiquin={dataSolicitudBotiquin} 
           setModal={setModal} 
           PrimerPdf={PrimerPdf}
           handleShow={handleShow}

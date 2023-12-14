@@ -1,48 +1,46 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchDatos } from '../Hooks/useFetchRequest';
-import { useModal } from '../Componentes/Modal';
+// import { useModal } from '../Componentes/Modal';
 import { PrimerPdf } from '../PDFRenderer/PrimerPdf';
 import { TableHomeSolicitudBotiquin } from '../Componentes/TableHomeSolicitudBotiquin';
 
-export const ShowSolicitudBotiquin = () => {
-  const [dataSolicitudBotiquin, setDataSolicitudBotiquin] = useState([]);
-  const navigate = useNavigate();
-  const { setModal } = useModal()
-
-  const fetchData = async (id) => {
-    try {
-      const url = `/solicitud_bodega/${id}`; 
-      const data = await fetchDatos(url);
-      setDataSolicitudBotiquin(data);
-    } catch (error) {
-      console.error('Error al obtener datos', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-
-  const handleShow = (id) => {
-    navigate(`/show-solicitud/${id}`);
-  };
+export const ShowSolicitudBotiquin = ({ setModal, retiro, setRetiroBotiquin }) => {
 
   return (
     <div>
-      <div className='card shadow-card rounded-0 border border-0'>
-        <div className='card-body'>
-          <div className='h5 text-uppercase pb-2'>Solicitudes</div>                
-          <div className='table-responsive'>
-            <TableHomeSolicitudBotiquin
-            dataSolicitudBotiquin={dataSolicitudBotiquin} 
-            setModal={setModal} 
-            PrimerPdf={PrimerPdf}
-            handleShow={handleShow}
-            />
-          </div>
+      <div className='vw-100' style={{maxWidth:'700px'}}>
+        <div className='h5 text-uppercase pb-2'>Retiro #{retiro._id.substring(0, 6)}</div>
+        <div className='row justify-content-between'>
+            <p className='col-md-4'>{retiro.NombreSolicitanteSolicitud}</p>
+            <p className='col-md-4'>{retiro.NombreBotiquin}</p>
+            <p className='col-md-4'>{retiro.FechaSolicitud}</p>
         </div>
+        <div className='h5 text-uppercase pb-2'>Inventario</div>
+        {retiro.InventarioSolicitud && retiro.InventarioSolicitud.length > 0 ? (
+        <div className='table-responsive'>
+          <table className='table'>
+            <thead>
+              <tr>
+                <th>Nombre Producto</th>
+                <th>Cantidad Inventario</th>
+                {/* Encabezados */}
+              </tr>
+            </thead>
+            <tbody>
+              {retiro.InventarioSolicitud.map((item, index) => (
+                <tr key={index}>
+                  <td>{item.NombreProducto}</td>
+                  <td>{item.CantidadSolicitud}</td>
+                  {/* Celdas */}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        ) : (
+            <p>No hay datos de inventario disponibles</p>
+        )}
       </div>
     </div>
   );
