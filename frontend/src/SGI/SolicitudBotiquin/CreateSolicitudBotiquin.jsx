@@ -30,14 +30,7 @@ export const CreateSolicitudBotiquin = () => {
 
   const navigate = useNavigate();
 
-  const handleInputChange = (e) => {
-    
-    setSolicitudData({
-      ...solicitudData,
-      [e.target.name]: e.target.value
-    });
-  };
-
+  
   const handleCheckboxChange = (itemId) => {
     // Alternar la selección del elemento
     setSelectedItems((prevSelectedItems) => {
@@ -88,7 +81,7 @@ export const CreateSolicitudBotiquin = () => {
       }
       const response = await postRequest(url, data);
   
-      if (response.status === 200 || response.statusCode === 200) {
+      if (response.status === 201 || response.statusCode === 201) {
         navigate('/show-solicitud');
     }
     } catch (error) {
@@ -156,7 +149,6 @@ export const CreateSolicitudBotiquin = () => {
     });
   };
   
-  console.log(solicitudData);
   
 
   const fetchData = async () => {
@@ -188,7 +180,6 @@ export const CreateSolicitudBotiquin = () => {
 
   };
 
-console.log(inventarioBotiquinData);
 
   return (
     <div>

@@ -25,7 +25,7 @@ export const TableSolicitudProductoSeleccion = ({inventarioBodegaData, handleChe
                     <td>
                       <input className='form-check-input'
                         type="checkbox"
-                        checked={selectedItems.includes(index)}
+                        checked={Array.isArray(selectedItems) && selectedItems.includes(index)}
                         onChange={() => handleCheckboxChange(index)}
                       />
                     </td>
