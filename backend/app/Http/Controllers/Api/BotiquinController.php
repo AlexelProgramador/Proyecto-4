@@ -111,13 +111,23 @@ class BotiquinController extends Controller
 
     public function pocoProductoBotiquin($id)
     {
-        $umbral = 50;
-
-
-        $productoAgotandose = Botiquin::select('Inventario')->where('Inventario.CantidadAsignada', '<', $umbral)->get();
-
-        $inventario = $productoAgotandose->pluck('Inventario')->toArray();
+        $umbral = 20000;
+        $botiquin = Botiquin::where('_id',$id)->first();
+        $inventario = $botiquin->Inventario;
         
-        return response()->json(['status' => 200, 'data' => $inventario]);
+        $productoAgotandose = array();
+        foreach ($inventario as $item)
+        {
+            if ($item['CantidadAsignada'] < $umbral){
+                $inventarioData = array(
+                'IdProducto' => $item['IdProducto'],
+                'NombreProducto'=> $item['NombreProducto'],
+                'CantidadAsignada' => $item['CantidadAsignada'],
+                );
+                $productoAgotandose[] = $inventarioData;
+            }
+        
+        }
+        return response()->json(['status' => 200, 'data' => $productoAgotandose]);
     }
 }

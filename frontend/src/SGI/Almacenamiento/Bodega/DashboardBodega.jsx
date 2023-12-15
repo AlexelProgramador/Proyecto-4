@@ -21,7 +21,7 @@ export const DashboardBodega = () => {
             const responsePocoProd = await fetchDatos(urlInventario);
             // const responseVencimientoProducto = await vencimientoProducto();
             //setDataSolicitudPendiente(responsePendiente);
-            setDataPocasUnidades(responsePocoProd);
+            setDataPocasUnidades(responsePocoProd.data);
             console.log(responsePocoProd);
             // setDataProductoVencido(responseVencimientoProducto);
             // console.log(dataProductoVencido);

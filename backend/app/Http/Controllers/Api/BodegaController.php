@@ -111,11 +111,23 @@ class BodegaController extends Controller
 
     public function pocoProductoBodega($id)
     {
-        $umbral = 500;
-        $productoAgotandose = Bodega::where('_id',$id)
-        ->where('Inventario.CantidadAsignada', '<', $umbral)
-        ->get(['Inventario.IdProducto', 'Inventario.NombreProducto', 'Inventario.CantidadAsignada']);
+        $umbral = 20000;
+        $bodega = Bodega::where('_id',$id)->first();
+        $inventario = $bodega->Inventario;
         
+        $productoAgotandose = array();
+        foreach ($inventario as $item)
+        {
+            if ($item['CantidadAsignada'] < $umbral){
+                $inventarioData = array(
+                'IdProducto' => $item['IdProducto'],
+                'NombreProducto'=> $item['NombreProducto'],
+                'CantidadAsignada' => $item['CantidadAsignada'],
+                );
+                $productoAgotandose[] = $inventarioData;
+            }
+        
+        }
         return response()->json(['status' => 200, 'data' => $productoAgotandose]);
     }
 }
