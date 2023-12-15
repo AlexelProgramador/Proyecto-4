@@ -18,6 +18,7 @@ export const FormDesgloseProducto = ({productoData, cargandoDesgloce}) => {
           <table className='table'>
             <thead>
               <tr>
+                <th>Nombre Desglose</th>
                 <th>Cantidad del Contenedor</th>
                 <th>Cantidad Total</th>
                 <th>Valor Total</th>
@@ -29,6 +30,7 @@ export const FormDesgloseProducto = ({productoData, cargandoDesgloce}) => {
             <tbody>
               {productoData.Desgloce.map((item, index) => (
                 <tr key={index}>
+                  <td>{item.Nombre}</td>
                   <td>{item.CantidadContenedor}</td>
                   <td>{item.CantidadTotal} Unidades</td>
                   <td>${item.ValorTotal} Pesos</td>
