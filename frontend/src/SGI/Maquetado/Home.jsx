@@ -28,6 +28,7 @@ import { DashboardHome } from '../Dashboard/Dashboard';
 import { HomeUsuario } from '../Usuario/HomeUsuario';
 import { ShowUsuario } from '../Usuario/ShowUsuario';
 import Error from './Error';
+import {CreateRetiroBodega} from '../Solicitud/CreateRetiroBodega';
 
 export const Home = () => {
   const [show, setShow] = useState(false);
@@ -78,6 +79,8 @@ export const Home = () => {
             <Route path="/show-solicitud-botiquin" element ={<HomeSolicitudBotiquin/>}/>
             <Route path="/create-solicitud-botiquin" element ={<CreateSolicitudBotiquin/>}/>
             <Route path="/show-solicitud-botiquin/:id" element ={<ShowSolicitudBotiquin/>}/>
+
+            <Route path="/create-retiro-bodega" element ={<CreateRetiroBodega/>}/>
 
             <Route path='/show-usuario' element ={<HomeUsuario/>}/>
             <Route path="/show-usuario/:id" element ={<ShowUsuario/>}/>

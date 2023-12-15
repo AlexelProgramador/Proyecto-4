@@ -105,6 +105,7 @@ Route::controller(SolicitudBodegaController::class)->group(function () {
     Route::put("/solicitud_bodega/{id}/rechazarBotiquin", "rechazarSolicitudBotiquin");
     Route::delete("/solicitud_bodega/{id}", "destroy");
     Route::get("/solicitudes_bodega/contar", "contarPendiente");
+    Route::post("/solicitud_bodega/retiro", "retiro");
 });
 
 Route::controller(SolicitudBotiquinController::class)->group(function () {

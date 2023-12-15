@@ -201,5 +201,63 @@ class SolicitudBodegaController extends Controller
         return response()->json($datos);
 
     }
+    public function retiro(Request $request)
+    {
+
+        $solicitud_bodega = new SolicitudBodega();
+
+        $rules = [
+            'NombreBodegaSolicitud' => 'required',
+            'IdBodega' => 'required',
+            'NombreSolicitanteSolicitud' => 'required',
+            'FechaSolicitud' => 'required',
+            'InventarioSolicitud'=> 'required'
+        ];
+    
+        $request->validate($rules);
+       
+        //Insercción de datos
+        $solicitud_bodega->VariableSolicitud = $request->VariableSolicitud;
+        $solicitud_bodega->NombreBodega = $request->NombreBodegaSolicitud;
+        $solicitud_bodega->IdBodega = $request->IdBodega;
+        $solicitud_bodega->NombreSolicitanteSolicitud = $request->NombreSolicitanteSolicitud;
+        $solicitud_bodega->FechaSolicitud = $request->FechaSolicitud;
+        $solicitud_bodega->EstadoSolicitud = 'Retirado';
+        $solicitud_bodega->InventarioSolicitud = $request->InventarioSolicitud;
+        
+        //Subir Datos
+        $solicitud_bodega->save();
+        
+        $bodega = Bodega::findOrFail($request->IdBodega);
+        // Iterar sobre los elementos en el arreglo InventarioSolicitud
+        foreach ($request->InventarioSolicitud as $item) {
+            $idProducto = $item['IdProducto'];
+            $cantidadSolicitud = $item['CantidadSolicitud'];
+
+            // Verificar si el producto está en el inventario de la bodega
+            $productoEncontrado = collect($bodega['Inventario'])->first(function ($producto) use ($idProducto) {
+                return $producto['IdProducto'] == $idProducto;
+            });
+
+            if ($productoEncontrado) {
+                // Restar la cantidad si el producto ya está en el inventario.
+                $inventario = $bodega->Inventario;
+                foreach ($inventario as $index => $producto) {
+                    if ($producto['IdProducto'] == $idProducto) {
+                        // Asegurarse de que la cantidad a restar no sea mayor que la cantidad actual
+                        $cantidadRestante = max(0, $producto['CantidadAsignada'] - intval($cantidadSolicitud));
+                        $inventario[$index]['CantidadAsignada'] = $cantidadRestante;
+                        break;
+                    }
+                }
+                $bodega->Inventario = $inventario;
+            } else {
+                // Manejar el caso en que el producto no se encuentra en el inventario de la bodega.
+                return response()->json(['error' => 'El producto no está en el inventario de la bodega.']);
+            }
+        }
+        $bodega->save();
+        return response()->json(['status' => 201]);
+    }
 
 }
