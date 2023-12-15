@@ -59,7 +59,7 @@ export const EditProducto = () => {
             />
           }
           <div className='row'>
-            <div className='h5 pb-2'>Desgloce de los Productos</div>
+            <div className='h6 pb-2 text-uppercase'>Desgloce de los Productos</div>
             {cargandoDesgloce ? <p>Cargando Desglose...</p> :
               <FormDesgloseProducto 
               productoData={productoData}
@@ -67,7 +67,7 @@ export const EditProducto = () => {
               />
             }
             
-            <div className='h5 pb-2'>Ubicación de los Productos</div>
+            <div className='h6 pb-2 text-uppercase'>Ubicación de los Productos</div>
             {cargandoAsignacion ? <p>Cargando Asignación...</p> :
             
               <FormAsignacionProducto 

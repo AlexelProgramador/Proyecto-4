@@ -100,7 +100,7 @@ export const NewAsignacion = ({desgloseProducto}) => {
 
     return(
         <div>
-            <div className='h5 pb-2'>Agregar Nueva Asignación a Bodega</div>
+            <div className='h6 pb-2 text-uppercase'>Agregar Nueva Asignación a Bodega</div>
             <div className='row'>
                 <div className='col-md-6 pb-4'>
                     <div className='form-floating'>

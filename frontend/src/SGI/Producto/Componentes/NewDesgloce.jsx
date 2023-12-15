@@ -59,7 +59,7 @@ export const NewDesgloce = ({ productoData }) => {
 
   return(
     <div>
-      <div className='h5 pb-2'>Agregar Nuevo Desglose de Producto</div>
+      <div className='h6 pb-2 text-uppercase'>Agregar Nuevo Desglose de Producto</div>
       <div className='row'>
         <div className='col-12 pb-4'>
           <div className='form-floating'>

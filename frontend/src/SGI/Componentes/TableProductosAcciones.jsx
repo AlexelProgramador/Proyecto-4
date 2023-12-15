@@ -1,49 +1,84 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { AccionesProductosAlmacenamiento } from './AccionesProductosAlmacenamiento';
-
+import DataTable from './DataTable';
+import CreateProducto from '../Producto/CreateProducto';
+import { fetchDatos } from '../Hooks/useFetchRequest';
 
 export const TablaProductosAcciones = ({almacenamientoData, setModal, handleShow}) => {
+  const [productoData, setDataProducto] = useState([]);
+  const [cargandoProductos, setCargandoProductos] = useState(true);
+
+  const fetchData = async () => {
+    try {
+      const url = '/productos';
+      const response = await fetchDatos(url);
+      setDataProducto(response);
+    } catch (error) {
+        console.error('Error al obtener datos', error);
+    } finally{
+      setCargandoProductos(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+  
   console.log(almacenamientoData.Tipo);
+  let columns = [];
+  let data = [];
+
+  if (almacenamientoData.Inventario.length > 0) {
+      columns = [
+          { label: 'Nombre Producto', key: 'nombre' },
+          { label: 'Cantidad', key: 'cant' },
+          { label: 'Acciones', key: 'acciones' }
+      ];
+      data = almacenamientoData.Inventario.map((item) => ({
+        nombre: item.NombreProducto,
+        cant: item.CantidadAsignada || 0,
+        acciones: (
+          <div>
+            <div className='btn-group btn-group-sm'>
+              {almacenamientoData.Tipo === "Bodega" ? 
+                <AccionesProductosAlmacenamiento  
+                  almacenamientoData={almacenamientoData} 
+                  setModal={setModal} 
+                  item={item}
+                  handleShow={handleShow}/> :
+              <button className='btn btn-primary' onClick={() => handleShow(item.IdProducto)}><i className="fa-solid fa-eye"></i></button>
+              }
+            </div>
+          </div>
+          )                
+      }));
+    }
+
   return (
     <div>
       <div className='card shadow-card rounded-0 border border-0'>
         <div className='card-body'>
-          <div className='h5 text-uppercase pb-2'>
-          {/* aquí cambia solamente si es botiquín, no botiquin sin el acento */}
-          {almacenamientoData.Tipo === ("Botiquín" || "Botiquin") ? "Inventario Botiquin" : "Inventario Bodega"}
+          <div className='d-flex justify-content-between pb-2'>
+            <div className='h5 text-uppercase pb-2'>
+            {/* aquí cambia solamente si es botiquín, no botiquin sin el acento */}
+            {almacenamientoData.Tipo === "Botiquin" ? ("Inventario Botiquin") : ("Inventario Bodega")}
             </div>
+            <div className=''>
+              <button className='btn btn-success' onClick={() => {
+                setModal(
+                  <div>
+                    <CreateProducto setModal={setModal} fetchData={fetchData}/>                                
+                  </div>
+                )
+              }}>Crear <i className="fa-solid fa-plus"></i>
+              </button>
+            </div>
+          </div>
           {almacenamientoData.Inventario.length > 0 ? (
-          <div className='table-responsive'>
-            <table className='table'>
-              <thead>
-                <tr>
-                  <th>Nombre Producto</th>
-                  <th>Cantidad Inventario</th>
-                  <th>Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                {almacenamientoData.Inventario.map((item, index) => (
-                  <tr key={index}>
-                    <td>{item.NombreProducto}</td>
-                    <td>{item.CantidadAsignada}</td>
-                    <td> 
-                        <div className='btn-group btn-group-sm'>
-                          {almacenamientoData.Tipo === "Bodega" ? 
-                            <AccionesProductosAlmacenamiento  
-                              almacenamientoData={almacenamientoData} 
-                              setModal={setModal} 
-                              item={item}
-                              handleShow={handleShow}/> :
-                          <button className='btn btn-primary' onClick={() => handleShow(item.IdProducto)}><i className="fa-solid fa-eye"></i></button>
-                          }
-                        </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>) 
+            <div>
+            <DataTable data={data} columns={columns} />
+            </div>
+          ) 
           : 
           (
             <p>No hay datos de inventario disponibles</p>

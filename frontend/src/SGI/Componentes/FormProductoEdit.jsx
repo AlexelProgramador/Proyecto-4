@@ -44,11 +44,15 @@ export const FormProductoEdit = ({productoData, setProductoData, handleUpdate}) 
             <label>Descripción:</label>
           </div>
         </div>
-        <div className='col-12 pb-4 d-flex justify-content-between'>  
-          <label htmlFor="TotalProducto">Total Producto: {productoData.CantidadTotal}</label>
-          <label htmlFor="TotalProducto">Total Asignado a Bodega: {productoData.CantidadAsignada}</label>
-          <button className='btn btn-primary' onClick={handleUpdate}>Actualizar Producto</button>
-        </div>
+          <div className='col-md-4 pb-2'>
+            <label htmlFor="TotalProducto">Total Producto: {productoData.CantidadTotal}</label>
+          </div>
+          <div className='col-md-4 pb-2'>
+            <label htmlFor="TotalProducto">Total Asignado a Bodega: {productoData.CantidadAsignada}</label>
+          </div>
+          <div className='col-md-4 pb-4 text-end'>
+            <button className='btn btn-primary' onClick={handleUpdate}>Actualizar Producto</button>
+          </div>
       </div>
     </div>
   );

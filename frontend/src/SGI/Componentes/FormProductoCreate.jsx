@@ -48,7 +48,7 @@ export const FormProducto = ({productoData, setProductoData, handleInsert}) => {
               <label>Descripción:</label>                
             </div>
           </div>
-          <div className='col-md-6 pb-4'>
+          <div className='col-md-4 pb-4'>
             <div className='form-floating'>
               <select className='form-select'
                 name="Contenedor"
@@ -65,7 +65,7 @@ export const FormProducto = ({productoData, setProductoData, handleInsert}) => {
               <label>Seleccione presentación:</label>               
             </div>
           </div>
-          <div className='col-md-3 pb-4'>
+          <div className='col-md-4 pb-4'>
             <div className='form-floating'>
               <input className='form-control'
                 type="number"
@@ -76,7 +76,7 @@ export const FormProducto = ({productoData, setProductoData, handleInsert}) => {
               <label>Cantidad por presentación:</label>
             </div>
           </div>
-          <div className='col-md-3 pb-4'>
+          <div className='col-md-4 pb-4'>
             <div className='form-floating'>
               <input className='form-control'
                 type="number"

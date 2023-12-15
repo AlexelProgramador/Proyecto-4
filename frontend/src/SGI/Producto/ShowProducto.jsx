@@ -29,9 +29,9 @@ export const ShowProducto = () => {
       <div className='card shadow-card rounded-0 border border-0'>
         <div className='card-body'>
           <div className='h5 text-uppercase pb-2'>Producto {productoData.Nombre}</div>
-          <p>{productoData._id}</p>
+          {/* <p>{productoData._id}</p> */}
           <p>{productoData.Lugar}</p>
-          <div className='h5 pb-2'>Desgloce de los Productos</div>
+          <div className='h6 pb-2 text-uppercase'>Desgloce de los Productos</div>
           
           {productoData.Desgloce && productoData.Desgloce.length > 0 ? (
             <TableDesgloseShowProducto productoData={productoData} />
@@ -39,7 +39,7 @@ export const ShowProducto = () => {
             <p>No hay datos de desglose disponibles</p>
           }
 
-          <div className='h5 pb-2'>Ubicación de los Productos</div>
+          <div className='h6 pb-2 text-uppercase'>Ubicación de los Productos</div>
           {productoData.Ubicacion && productoData.Ubicacion.length > 0 ? (
             <TableAsignacionShowProducto productoData={productoData} />
           ) : 

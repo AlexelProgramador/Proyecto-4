@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import { NewDesgloce } from '../Producto/Componentes/NewDesgloce'; 
 import { useNavigate } from 'react-router-dom';
+import DataTableSM from './DataTableSM';
 
 export const FormDesgloseProducto = ({productoData, cargandoDesgloce}) => {
   useEffect(() => {
@@ -11,38 +12,41 @@ export const FormDesgloseProducto = ({productoData, cargandoDesgloce}) => {
     
   };
 
+  let columns = [];
+  let data = [];
+
+  if (productoData.Desgloce && productoData.Desgloce.length > 0) {
+      columns = [
+          { label: 'Nombre Desgloce', key: 'nombre' },
+          { label: 'Cantidad Contenedor', key: 'cant1' },
+          { label: 'Cantidad Total', key: 'cant' },
+          { label: 'Valor Total', key: 'valor' },
+          { label: 'Vencimiento Desglose', key: 'fecha' },
+          { label: 'Estado Producto', key: 'est' },
+          { label: 'Acciones', key: 'acciones' }
+      ];
+      data = productoData.Desgloce.map((item) => ({
+        nombre: item.Nombre,
+        cant1: item.CantidadContenedor,
+        cant: item.CantidadTotal +' Unidades',
+        valor: '$' + item.ValorTotal,
+        fecha: item.FechaVencimiento,
+        est: item.Estado,
+        acciones: (
+          <div>
+          <button className='btn btn-sm' onClick={() => handleEdit(productoData._id, item.UuidProducto)}><i className="fa-solid fa-pen"></i>
+          </button>
+          </div>
+          )                
+      }));
+    }
+
   return (
     <div>
       {productoData.Desgloce && productoData.Desgloce.length > 0 ? (
-        <div className='table-responsive'>
-          <table className='table'>
-            <thead>
-              <tr>
-                <th>Nombre Desglose</th>
-                <th>Cantidad del Contenedor</th>
-                <th>Cantidad Total</th>
-                <th>Valor Total</th>
-                <th>Fecha Vencimiento del Desglose</th>
-                <th>Estado Producto</th>
-                <th>Accion</th>
-              </tr>
-            </thead>
-            <tbody>
-              {productoData.Desgloce.map((item, index) => (
-                <tr key={index}>
-                  <td>{item.Nombre}</td>
-                  <td>{item.CantidadContenedor}</td>
-                  <td>{item.CantidadTotal} Unidades</td>
-                  <td>${item.ValorTotal} Pesos</td>
-                  <td>{item.FechaVencimiento}</td>
-                  <td>{item.Estado}</td>
-                  <td><button className='btn btn-sm'onClick={() => handleEdit(productoData._id, item.UuidProducto)}><i className="fa-solid fa-pen"></i></button></td>
-                </tr>
-                ))
-              }
-            </tbody>
-          </table>
-        </div>  
+        <div>
+          <DataTableSM data={data} columns={columns}/>
+        </div> 
         ) : 
           <p>No hay desglose de producto disponibles</p>
       }

@@ -2,7 +2,7 @@ import React from 'react';
 
 export const TableDesgloseShowProducto = ({productoData}) => {
   return (
-    <div>
+    <div className='pb-2'>
         <div className='table-responsive'>
           <table className='table'>
             <thead>

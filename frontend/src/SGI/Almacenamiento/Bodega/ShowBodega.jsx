@@ -31,7 +31,7 @@ export const ShowBodega = () => {
 
     const handleShowProducto = (id) => {
         navigate(`/show-producto/${id}`); //Ruta para la edición de producto
-      };
+    };
 
     return (
         <div>
