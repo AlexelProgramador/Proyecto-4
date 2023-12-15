@@ -8,6 +8,7 @@ export const SideBar = ({ show, setShow }) => {
   const isAdmin = response && response.usuario && response.usuario.includes("Administrador") ;
   const isBodeguero = response && response.usuario && response.usuario.includes("Bodeguero");
   const isBotiquinero = response && response.usuario && response.usuario.includes("Botiquinero");
+  const almId = response.almacenamiento;
 
   const navigate = useNavigate();
     const handleSession = () => {
@@ -15,6 +16,8 @@ export const SideBar = ({ show, setShow }) => {
 
     navigate("/login");
     };
+
+
     return(
       <div className={show ? 'space-toggle' : null}>
         <aside className={`sidebar ${show ? 'show' : null}`}>
@@ -37,19 +40,31 @@ export const SideBar = ({ show, setShow }) => {
                 <span>Usuarios</span>
               </NavLink>
               ): null}
-              {isBodeguero || isAdmin ? (
+              {isAdmin ? (
               <NavLink to='/show-bodega' className='nav-link' activeClassName='active'>
                 <i className="fi fi-rr-box-alt nav-logo-link"></i>
                 <span>Bodegas</span>
               </NavLink>
               ): null}
-              {isBotiquinero || isAdmin ? (
+              {isAdmin ? (
               <NavLink to='/show-botiquin' className='nav-link' activeClassName='active'>
                 <i className='fi fi-rr-doctor nav-logo-link'></i>
                 <span>Botiquines</span>
               </NavLink>
               ): null}
-              {isBodeguero || isBotiquinero || isAdmin ? (
+              {isBodeguero ? (
+              <NavLink to= {`/show-bodega/${almId}`} className='nav-link' activeClassName='active'>
+                <i className='fi fi-rr-doctor nav-logo-link'></i>
+                <span>Bodega</span>
+              </NavLink>
+              ): null}
+              {isBotiquinero ? (
+              <NavLink to= {`/show-botiquin/${almId}`} className='nav-link' activeClassName='active'>
+                <i className='fi fi-rr-doctor nav-logo-link'></i>
+                <span>Botiquin</span>
+              </NavLink>
+              ): null}
+              {isBodeguero || isAdmin ? (
               <NavLink to='/show-producto' className='nav-link' activeClassName='active'>
                 <i className='fi fi-rr-table-columns nav-logo-link'></i>
                 <span>Inventario</span>
