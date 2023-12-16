@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const FormCreateSolicitudBodega = ({botiquinData, bodegaData, selectedItems= [], handleBodegaChange, handleBotiquinChange, solicitudData, setSolicitudData}) => {
+export const FormCreateSolicitudBodega = ({botiquinData, bodegaData, selectedItems, handleBodegaChange, handleBotiquinChange, solicitudData, setSolicitudData}) => {
   
   const handleInputChange = (e) => {
     
@@ -85,8 +85,8 @@ export const FormCreateSolicitudBodega = ({botiquinData, bodegaData, selectedIte
             <select className='form-select'
               name="IdBodega"
               value={solicitudData.IdBodega}
-              onChange={(e) => handleBodegaChange(e)}
-              disabled={selectedItems.length > 0}
+              onChange={handleBodegaChange}
+              disabled={Array.isArray(selectedItems) && selectedItems.length > 0}
             >
               <option value=''>Selecciona una bodega</option>
               {bodegaData.map(option => (

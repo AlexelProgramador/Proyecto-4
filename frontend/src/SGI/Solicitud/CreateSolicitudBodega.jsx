@@ -193,7 +193,7 @@ export const CreateSolicitudBodega = () => {
     if (selectedBotiquin) {
         setSolicitudData(prevState => ({
             ...prevState,
-            [e.target.name]: selectedBotiquin.Nombre,
+            NombreBotiquinSolicitud: selectedBotiquin.Nombre,
             IdBotiquin: selectedOIdUbicacionBotiquin
         }));
     }
@@ -206,7 +206,7 @@ export const CreateSolicitudBodega = () => {
     if (selectedBodega) {
         setSolicitudData(prevState => ({
             ...prevState,
-            [e.target.name]: selectedBodega.Nombre,
+            NombreBodegaSolicitud: selectedBodega.Nombre,
             IdBodega: selectedOIdUbicacionBodega
         }));
         setInventarioBodegaData(selectedBodega ? selectedBodega.Inventario : []);
