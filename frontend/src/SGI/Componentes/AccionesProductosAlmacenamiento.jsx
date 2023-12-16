@@ -14,7 +14,7 @@ export const AccionesProductosAlmacenamiento = ({item, setModal,handleShow, hand
               <p className='fw-semibold'>{item.Nombre}</p>
               <div className='text-end'>
               <button className='btn me-2'  onClick={() => {setModal(false)}}>Cancelar</button>
-              <button className='btn btn-danger' onClick={() => handleDelete(item._id)} >Eliminar</button>
+              <button className='btn btn-danger' onClick={() => handleDelete(item.IdProducto)} >Eliminar</button>
               </div>
             </div>
           )

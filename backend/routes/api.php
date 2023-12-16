@@ -66,6 +66,7 @@ Route::controller(BodegaController::class)->group(function () {
     Route::put("/bodega/{id}", "update");
     Route::delete("/bodega/{id}", "destroy");
     Route::get("/bodega/{id}/pocoProducto", "pocoProductoBodega");
+    Route::get("/bodega/{id}/borrar/{idProd}", "elimProd");
 });
 
 //Controlador Botiquin.

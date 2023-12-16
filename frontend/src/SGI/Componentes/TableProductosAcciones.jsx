@@ -5,7 +5,7 @@ import DataTable from './DataTable';
 import CreateProducto from '../Producto/CreateProducto';
 import { fetchDatos } from '../Hooks/useFetchRequest';
 
-export const TablaProductosAcciones = ({almacenamientoData, setModal, handleShow}) => {
+export const TablaProductosAcciones = ({almacenamientoData, setModal, handleShow, handleEdit, handleDelete}) => {
   const [productoData, setDataProducto] = useState([]);
   const [cargandoProductos, setCargandoProductos] = useState(true);
   const navigate = useNavigate();
@@ -47,7 +47,9 @@ export const TablaProductosAcciones = ({almacenamientoData, setModal, handleShow
                   almacenamientoData={almacenamientoData} 
                   setModal={setModal} 
                   item={item}
-                  handleShow={handleShow}/> :
+                  handleShow={handleShow}
+                  handleEdit={handleEdit}
+                  handleDelete={handleDelete}/> :
               <button className='btn btn-primary' onClick={() => handleShow(item.IdProducto)}><i className="fa-solid fa-eye"></i></button>
               }
             </div>

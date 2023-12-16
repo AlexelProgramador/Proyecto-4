@@ -130,4 +130,28 @@ class BodegaController extends Controller
         }
         return response()->json(['status' => 200, 'data' => $productoAgotandose]);
     }
+    public function elimProd($id, $idProd)
+    {
+        $bodega = Bodega::where('_id', $id)->first();
+
+        if (!$bodega) {
+            return response()->json(['status' => 404, 'message' => 'Bodega no encontrada'], 404);
+        }
+
+        $inventario = $bodega->Inventario;
+
+        foreach ($inventario as $key => $item) {
+            if ($item['IdProducto'] == $idProd) {
+                unset($inventario[$key]);
+            }
+        }
+    
+        // Actualizar el inventario en el modelo Bodega
+        $bodega->Inventario = array_values($inventario);
+    
+        // Guardar los cambios en la base de datos
+        $bodega->save();
+
+        return response()->json(['status' => 200, 'data' => $inventario]);
+    }
 }

@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useModal } from '../../Componentes/Modal';
 import TablaProductosAcciones from '../../Componentes/TableProductosAcciones';
 import { fetchDatos } from '../../Hooks/useFetchRequest';
+import { deleteReq } from '../../Hooks/useDeleteRequest';
 
 export const ShowBodega = () => {
     const [bodegaData, setBodegaData] = useState({});
@@ -11,27 +12,42 @@ export const ShowBodega = () => {
     const { id } = useParams();
     const url = `http://localhost:8000/api/bodega/${id}/edit`; // Reemplaza con la URL de tu backend
 
-    const { setModal } = useModal()
+    const { setModal } = useModal();
+
+    const fetchBodega = async () => {
+        try {
+            const url = `/bodega/${id}`;
+            const data = await fetchDatos(url);
+            setBodegaData(data.data);
+        } catch (error) {
+            console.error('Error al obtener la información de la bodega', error);
+        } finally{
+            setCargandoBodega(false);
+        }
+    };
 
     useEffect(() => {
-        const fetchBodega = async () => {
-            try {
-                const url = `/bodega/${id}`;
-                const data = await fetchDatos(url);
-                setBodegaData(data.data);
-            } catch (error) {
-                console.error('Error al obtener la información de la bodega', error);
-            } finally{
-                setCargandoBodega(false);
-            }
-        };
-
         fetchBodega();
     }, [url]);
 
     const handleShowProducto = (id) => {
         navigate(`/show-producto/${id}`); //Ruta para la edición de producto
     };
+
+    const handleEdit = (id) => {
+        navigate(`/edit-producto/${id}`); //Ruta para la edición de producto
+    };
+
+    const handleDelete = async (idProd) => {
+        try {
+          const url = `/bodega/${id}/borrar/${idProd}`;
+          await fetchDatos(url);
+          fetchBodega();
+          setModal(false);
+        } catch (error) {
+          console.error('Error al eliminar el elemento', error);
+        }
+      };
 
     return (
         <div>
@@ -46,7 +62,9 @@ export const ShowBodega = () => {
             : <TablaProductosAcciones 
                 almacenamientoData={bodegaData} 
                 setModal={setModal}
-                handleShow={handleShowProducto}/>}
+                handleShow={handleShowProducto}
+                handleEdit={handleEdit}
+                handleDelete={handleDelete}/>}
         </div>
     );
 };
