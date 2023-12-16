@@ -229,6 +229,7 @@ console.log(inventarioBodegaData);
               handleBotiquinChange={handleBotiquinChange}
               solicitudData={solicitudData}
               setSolicitudData={setSolicitudData}
+              selectedItems={selectedItems}
             />
             {/* Mostrar detalles del inventario de la bodega o mensaje si no hay datos */}
             <TableSolicitudProductoSeleccion 

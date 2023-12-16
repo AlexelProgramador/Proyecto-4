@@ -10,7 +10,7 @@ export const FormCreateSolicitudBodega = ({botiquinData, bodegaData, selectedIte
     });
   };
 
-  // console.log('datos',bodegaData);
+  console.log(selectedItems);
 
   return (
     <div>
@@ -86,7 +86,7 @@ export const FormCreateSolicitudBodega = ({botiquinData, bodegaData, selectedIte
               name="IdBodega"
               value={solicitudData.IdBodega}
               onChange={handleBodegaChange}
-              disabled={Array.isArray(selectedItems) && selectedItems.length > 0}
+              disabled={selectedItems.length > 0}
             >
               <option value=''>Selecciona una bodega</option>
               {bodegaData.map(option => (
