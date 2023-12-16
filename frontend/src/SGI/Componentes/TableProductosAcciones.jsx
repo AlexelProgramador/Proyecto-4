@@ -63,7 +63,7 @@ export const TablaProductosAcciones = ({almacenamientoData, setModal, handleShow
           <div className='d-flex justify-content-between pb-2'>
             <div className='h5 text-uppercase pb-2'>
             {/* aquí cambia solamente si es botiquín, no botiquin sin el acento */}
-            {almacenamientoData.Tipo === "Botiquin" ? ("Inventario Botiquin") : ("Inventario Bodega")}
+            {almacenamientoData.Tipo === ("Botiquin" || "Botiquín") ? ("Inventario Botiquin") : ("Inventario Bodega")}
             </div>
             <div className=''>
             {almacenamientoData.Tipo === "Bodega" ? (

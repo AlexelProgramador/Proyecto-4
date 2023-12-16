@@ -67,7 +67,7 @@ export const EditProducto = () => {
               productoData={productoData}
               cargandoDesgloce={cargandoDesgloce}
               setModal={setModal}
-              fetchData={fetchProducto}
+              fetchProducto={fetchProducto}
               />
             }
             
@@ -77,6 +77,7 @@ export const EditProducto = () => {
               <FormAsignacionProducto 
               productoData={productoData}
               cargandoAsignacion={cargandoAsignacion}
+              fetchProducto={fetchProducto}
               />
             }
           </div>

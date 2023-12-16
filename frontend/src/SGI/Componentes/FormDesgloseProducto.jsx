@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import DataTableSM from './DataTableSM';
 import EditDesglose from '../Producto/Componentes/EditDesglose';
 
-export const FormDesgloseProducto = ({productoData, cargandoDesgloce, setModal, fetchData}) => {
+export const FormDesgloseProducto = ({productoData, cargandoDesgloce, setModal, fetchProducto}) => {
   useEffect(() => {
   }, [productoData]);
   const navigate = useNavigate();
@@ -61,7 +61,9 @@ export const FormDesgloseProducto = ({productoData, cargandoDesgloce, setModal, 
               </div>
           </div>
       </div>
-      : <NewDesgloce productoData ={productoData}/>}
+      : <NewDesgloce 
+          productoData ={productoData}
+          fetchProducto={fetchProducto}/>}
     </div>
   );
 };

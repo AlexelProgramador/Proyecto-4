@@ -2,7 +2,7 @@ import React from 'react';
 import NewAsignacion from '../Producto/Componentes/NewAsignacion';
 import DataTableSM from './DataTableSM';
 
-export const FormAsignacionProducto = ({productoData, cargandoAsignacion}) => {
+export const FormAsignacionProducto = ({productoData, cargandoAsignacion, fetchProducto}) => {
   let columns = [];
   let data = [];
 
@@ -30,7 +30,7 @@ export const FormAsignacionProducto = ({productoData, cargandoAsignacion}) => {
         ) : 
           <p>No hay datos de inventario disponibles</p>
       }
-      {cargandoAsignacion ? <p> Cargando datos..</p> : <NewAsignacion desgloseProducto = {productoData.Desgloce}/>}
+      {cargandoAsignacion ? <p> Cargando datos..</p> : <NewAsignacion desgloseProducto = {productoData.Desgloce} fetchProducto={fetchProducto}/>}
     </div>
   );
 };

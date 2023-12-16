@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { putReq } from '../../Hooks/usePutRequest';
 
 
-export const NewDesgloce = ({ productoData }) => {
+export const NewDesgloce = ({ productoData, fetchProducto }) => {
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -21,6 +21,7 @@ export const NewDesgloce = ({ productoData }) => {
       const url = `/producto/${id}/desgloce`
       const data = await putReq(url, nuevoDesgloce);
       if (data.status === 200 || data.statusCode === 200) {
+        fetchProducto();
         navigate(`/edit-producto/${id}`);
     }
     } catch (error) {

@@ -4,7 +4,7 @@ import { putReq } from '../../Hooks/usePutRequest';
 import { fetchDatos } from '../../Hooks/useFetchRequest';
 
 
-export const NewAsignacion = ({desgloseProducto}) => {
+export const NewAsignacion = ({desgloseProducto, fetchProducto}) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [selectedDesgloce, setSelectedDesgloce] = useState(null);
@@ -28,6 +28,7 @@ export const NewAsignacion = ({desgloseProducto}) => {
       const url = `/producto/${id}/asignacion`;
       const data = await putReq(url, nuevaAsignacion);
       if (data.status === 200 || data.statusCode === 200) {
+        fetchProducto();
         navigate(`/edit-producto/${id}`);
       }
     } catch (error) {
