@@ -17,7 +17,7 @@ export const FormAlmacenamientoUpdate = ({almacenamientoData, setAlmacenamientoD
       <div className='card shadow-card rounded-0 border border-0'>
         <div className='card-body'>
           <div className='h5 text-uppercase pb-2'>
-            {almacenamientoData.Tipo === "Botiquín" || "Botiquin" ? "Editar Botiquin" : "Editar Bodega"}
+            {almacenamientoData.Tipo === "Botiquin" ? "Editar Botiquin" : "Editar Bodega"}
           </div> 
           <form className='row' onSubmit={handleSubmit}>                        
             <div className='col-md-6 pb-4'>

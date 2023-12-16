@@ -39,6 +39,30 @@ export const FormCreateSolicitudBotiquin = ({botiquinData, selectedItems= [], ha
       </div>
       <div className='col-md-4 pb-4'>
         <div className='form-floating'>
+          <input className='form-control'
+            type="text"
+            // placeholder="Nombre Solicitante Solicitud"
+            name="NombreSolicitanteSolicitud"
+            value={solicitudData.NombreSolicitanteSolicitud}
+            onChange={handleInputChange}
+          />
+          <label htmlFor="NombreSolicitanteSolicitud">Nombre del Solicitante:</label>
+        </div>
+      </div>
+      <div className='col-md-6 pb-4'>
+        <div className='form-floating'>
+          <input className='form-control'
+            type="date"
+            // placeholder="Fecha Solicitud"
+            name="FechaSolicitud"
+            value={solicitudData.FechaSolicitud}
+            onChange={handleInputChange}
+          />
+          <label htmlFor="FechaSolicitud">Fecha Solicitud:</label>
+        </div>
+      </div>
+      <div className='col-md-6 pb-4'>
+        <div className='form-floating'>
           <select className='form-select'
             id="NombreBotiquinSolicitud"
             name="NombreBotiquinSolicitud"
@@ -56,30 +80,6 @@ export const FormCreateSolicitudBotiquin = ({botiquinData, selectedItems= [], ha
             ))}
           </select>
           <label htmlFor="BotiquinSolicitud">Botiquin a Seleccionar:</label>
-        </div>
-      </div>
-      <div className='col-md-4 pb-4'>
-        <div className='form-floating'>
-          <input className='form-control'
-            type="text"
-            // placeholder="Nombre Solicitante Solicitud"
-            name="NombreSolicitanteSolicitud"
-            value={solicitudData.NombreSolicitanteSolicitud}
-            onChange={handleInputChange}
-          />
-          <label htmlFor="NombreSolicitanteSolicitud">Nombre del Solicitante:</label>
-        </div>
-      </div>
-      <div className='col-md-4 pb-4'>
-        <div className='form-floating'>
-          <input className='form-control'
-            type="date"
-            // placeholder="Fecha Solicitud"
-            name="FechaSolicitud"
-            value={solicitudData.FechaSolicitud}
-            onChange={handleInputChange}
-          />
-          <label htmlFor="FechaSolicitud">Fecha Solicitud:</label>
         </div>
       </div>
     </div>

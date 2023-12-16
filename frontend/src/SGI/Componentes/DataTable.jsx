@@ -108,7 +108,7 @@ const DataTable = ({ data, columns }) => {
           <thead>
             <tr>
               {columns.map((column) => (
-                <th key={column.key} onClick={() => handleSort(column.key)}>
+                <th className="text-uppercase" key={column.key} onClick={() => handleSort(column.key)}>
                   {column.label}
                 </th>
               ))}

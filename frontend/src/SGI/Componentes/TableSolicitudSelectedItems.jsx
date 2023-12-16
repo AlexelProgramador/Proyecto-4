@@ -7,13 +7,13 @@ export const TableSolicitudSelectedItems = ({selectedItems, inventarioBodegaData
   };
 
   return (
-    <div>
+    <div className='mb-2'>
       {selectedItems.length > 0 && (
         <div>
-          <div className='h5 text-uppercase pb-2'>Objetos seleccionados</div>
+          <div className='h6 text-uppercase pb-2'>Objetos seleccionados</div>
           <div className='table-responsive'>
             <table className='table'>
-              <thead>
+              <thead style={{ fontSize: '12px' }} className='text-uppercase'>
                 <tr>
                   <th>Producto</th>
                   <th>Cantidad Actual</th>
