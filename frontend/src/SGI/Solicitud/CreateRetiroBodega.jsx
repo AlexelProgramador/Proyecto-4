@@ -77,7 +77,6 @@ export const CreateRetiroBodega = () => {
           CantidadSolicitud: productoSeleccionado.CantidadSolicitud || 0,
         })),
       }
-      console.log(data);
       const response = await postRequest(url, data);
   
       if (response.status === 201 || response.statusCode === 201) {
@@ -148,8 +147,6 @@ export const CreateRetiroBodega = () => {
     });
   };
   
-  
-
   const fetchData = async () => {
     try {
       const urlBod = '/bodegas';
@@ -162,14 +159,14 @@ export const CreateRetiroBodega = () => {
 
   useEffect(() => {
     fetchData();
-  }, [inventarioSolicitud]);
+  }, [inventarioSolicitud, solicitudData]);
 
   const handleBodegaChange = (e) => {
     const selectedOIdUbicacionBodega = e.target.value;
     const selectedBodega = bodegaData.find(option => option._id === selectedOIdUbicacionBodega);
-    console.log(selectedBodega);
 
     if (selectedBodega) {
+        console.log(selectedBodega);
         setSolicitudData(prevState => ({
             ...prevState,
             NombreBodegaSolicitud: selectedBodega.Nombre,
@@ -179,7 +176,6 @@ export const CreateRetiroBodega = () => {
     }
 
   };
-
 
   return (
     <div>
@@ -193,78 +189,11 @@ export const CreateRetiroBodega = () => {
               solicitudData={solicitudData}
               setSolicitudData={setSolicitudData}
             />
-            {/* <div className='col-md-4 pb-4'>
-              <div className='form-floating'>
-                <input className='form-control'
-                  type="text"
-                  // placeholder="Variable Solicitud"
-                  name="VariableSolicitud"
-                  value={solicitudData.VariableSolicitud}
-                  onChange={handleInputChange}
-                />
-                <label htmlFor="Variable Solicitud">Variable Solicitud:</label>
-              </div>
-            </div>
-            <div className='col-md-4 pb-4'>
-              <div className='form-floating'>
-                <input className='form-control'
-                  type="text"
-                  // placeholder="Unidad Solicitud"
-                  name="UnidadSolicitud"
-                  value={solicitudData.UnidadSolicitud}
-                  onChange={handleInputChange}
-                />
-                <label htmlFor="Unidad Solicitud">Unidad Solicitud:</label>
-              </div>
-            </div>
-            <div className='col-md-4 pb-4'>
-              <div className='form-floating'>
-                <select className='form-select'
-                  id="NombreBotiquinSolicitud"
-                  name="NombreBotiquinSolicitud"
-                  value={solicitudData.NombreBotiquinSolicitud}
-                  onChange={handleBotiquinChange}
-                >
-                  <option value="">
-                    Selecciona un Botiquin
-                  </option>
-                  {botiquinData.map(option => (
-                  <option key={option._id} value={option._id}>
-                    {option.Nombre}
-                  </option>
-                  ))}
-                </select>
-                <label htmlFor="BotiquinSolicitud">Botiquin Solicitante:</label>
-              </div>
-            </div>
-            <div className='col-md-4 pb-4'>
-              <div className='form-floating'>
-                <input className='form-control'
-                  type="text"
-                  // placeholder="Nombre Solicitante Solicitud"
-                  name="NombreSolicitanteSolicitud"
-                  value={solicitudData.NombreSolicitanteSolicitud}
-                  onChange={handleInputChange}
-                />
-                <label htmlFor="NombreSolicitanteSolicitud">Nombre del Solicitante:</label>
-              </div>
-            </div>
-            <div className='col-md-4 pb-4'>
-              <div className='form-floating'>
-                <input className='form-control'
-                  type="date"
-                  // placeholder="Fecha Solicitud"
-                  name="FechaSolicitud"
-                  value={solicitudData.FechaSolicitud}
-                  onChange={handleInputChange}
-                />
-                <label htmlFor="FechaSolicitud">Fecha Solicitud:</label>
-              </div>
-            </div> */}
             {/* Mostrar detalles del inventario de la bodega o mensaje si no hay datos */}
             <TableSolicitudProductoSeleccion 
                   inventarioBodegaData={inventarioBodegaData}
                   handleCheckboxChange={handleCheckboxChange}
+                  selectedItems={selectedItems}
             />
             {/* Mostrar elementos seleccionados */}
             <TableSolicitudSelectedItems 

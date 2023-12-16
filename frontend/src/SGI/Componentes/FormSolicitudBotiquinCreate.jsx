@@ -64,9 +64,8 @@ export const FormCreateSolicitudBotiquin = ({botiquinData, selectedItems= [], ha
       <div className='col-md-6 pb-4'>
         <div className='form-floating'>
           <select className='form-select'
-            id="NombreBotiquinSolicitud"
-            name="NombreBotiquinSolicitud"
-            value={solicitudData.NombreBotiquinSolicitud}
+            name="IdBotiquin"
+            value={solicitudData.IdBotiquin}
             onChange={handleBotiquinChange}
             disabled={selectedItems.length > 0}
           >

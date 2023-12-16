@@ -42,9 +42,8 @@ export const FormCreateSolicitudBodega = ({botiquinData, bodegaData, selectedIte
         <div className='col-md-4 pb-4'>
           <div className='form-floating'>
             <select className='form-select'
-              id="NombreBotiquinSolicitud"
-              name="NombreBotiquinSolicitud"
-              value={solicitudData.NombreBotiquinSolicitud}
+              name="IdBotiquin"
+              value={solicitudData.IdBotiquin}
               onChange={(e) => handleBotiquinChange(e)}
             >
               <option value="">Selecciona un Botiquin</option>
@@ -84,9 +83,8 @@ export const FormCreateSolicitudBodega = ({botiquinData, bodegaData, selectedIte
         <div className='col-md-4 pb-4'>
           <div className='form-floating'>
             <select className='form-select'
-              id="NombreBodegaSolicitud"
-              name="NombreBodegaSolicitud"
-              value={solicitudData.NombreBodegaSolicitud}
+              name="IdBodega"
+              value={solicitudData.IdBodega}
               onChange={(e) => handleBodegaChange(e)}
               disabled={selectedItems.length > 0}
             >

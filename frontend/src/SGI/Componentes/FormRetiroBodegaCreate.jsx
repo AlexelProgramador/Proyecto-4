@@ -1,6 +1,8 @@
-import React from 'react';
+import React , {useEffect} from 'react';
 
 export const FormCreateRetiroBodega = ({bodegaData, selectedItems= [], handleBodegaChange, solicitudData, setSolicitudData}) => {
+  useEffect(() => {
+  }, [solicitudData]);
   const handleInputChange = (e) => {
     
     setSolicitudData({
@@ -8,7 +10,7 @@ export const FormCreateRetiroBodega = ({bodegaData, selectedItems= [], handleBod
       [e.target.name]: e.target.value
     });
   };
-  console.log(bodegaData);
+  console.log(solicitudData);
 
   return (
     <div>
@@ -29,7 +31,6 @@ export const FormCreateRetiroBodega = ({bodegaData, selectedItems= [], handleBod
         <div className='form-floating'>
           <input className='form-control'
             type="text"
-            // placeholder="Unidad Solicitud"
             name="UnidadSolicitud"
             value={solicitudData.UnidadSolicitud}
             onChange={handleInputChange}
@@ -41,7 +42,6 @@ export const FormCreateRetiroBodega = ({bodegaData, selectedItems= [], handleBod
         <div className='form-floating'>
           <input className='form-control'
             type="text"
-            // placeholder="Nombre Solicitante Solicitud"
             name="NombreSolicitanteSolicitud"
             value={solicitudData.NombreSolicitanteSolicitud}
             onChange={handleInputChange}
@@ -64,13 +64,12 @@ export const FormCreateRetiroBodega = ({bodegaData, selectedItems= [], handleBod
       <div className='col-md-6 pb-4'>
         <div className='form-floating'>
           <select className='form-select'
-            id="NombreBodegaSolicitud"
-            name="NombreBodegaSolicitud"
-            value={solicitudData.NombreBodegaSolicitud}
+            name="IdBodega"
+            value={solicitudData.IdBodega}
             onChange={handleBodegaChange}
             disabled={selectedItems.length > 0}
           >
-            <option value="">
+            <option value="Defecto">
               Selecciona una Bodega
             </option>
             {bodegaData.map(option => (
