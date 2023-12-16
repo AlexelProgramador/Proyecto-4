@@ -10,8 +10,6 @@ export const FormAlmacenamientoUpdate = ({almacenamientoData, setAlmacenamientoD
     e.preventDefault(); // Evitar el comportamiento predeterminado del formulario
   };
 
-  console.log(almacenamientoData.Tipo)
-
   return (
     <div>
       <div className='card shadow-card rounded-0 border border-0'>

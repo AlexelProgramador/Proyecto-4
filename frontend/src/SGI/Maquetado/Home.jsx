@@ -27,6 +27,7 @@ import { EditDesglose } from '../Producto/Componentes/EditDesglose';
 import { DashboardHome } from '../Dashboard/Dashboard';
 import { HomeUsuario } from '../Usuario/HomeUsuario';
 import { ShowUsuario } from '../Usuario/ShowUsuario';
+import { EditUsuario } from '../Usuario/EditUsuario';
 import Error from './Error';
 import {CreateRetiroBodega} from '../Solicitud/CreateRetiroBodega';
 
@@ -84,6 +85,7 @@ export const Home = () => {
 
             <Route path='/show-usuario' element ={<HomeUsuario/>}/>
             <Route path="/show-usuario/:id" element ={<ShowUsuario/>}/>
+            <Route path="/edit-usuario/:id" element ={<EditUsuario/>}/>
 
             <Route path="*" element={<Error />} />
           </Routes>

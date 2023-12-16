@@ -11,7 +11,23 @@ export const CreateUsuario = ({ setModal, fetchData }) => {
     almacenamiento: ''
   });
 
+  const [passwordError, setPasswordError] = useState(null);
+
+  const isPasswordValid = (password) => {
+    // Puedes personalizar estas condiciones según tus requisitos
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasNumber = /\d/.test(password);
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+    return hasUpperCase && hasNumber && hasSpecialChar;
+  };
+
   const handleInsert = async () => {
+    if (!isPasswordValid(userData.password)) {
+      setPasswordError('La contraseña debe contener al menos una mayúscula, un número y un carácter especial.');
+      return;
+    }
+    
     const url = '/usuario';
     postRequest(url, userData)
       .then(data => {
@@ -32,6 +48,8 @@ export const CreateUsuario = ({ setModal, fetchData }) => {
         userData = {userData} 
         setUserData ={setUserData} 
         handleInsert = {handleInsert}
+        passwordError = {passwordError}
+        setPasswordError = {setPasswordError}
       />
     </div>
   );

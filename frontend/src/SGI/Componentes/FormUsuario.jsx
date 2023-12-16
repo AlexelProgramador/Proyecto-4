@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { fetchDatos } from '../Hooks/useFetchRequest';
 
-export const FormUsuario = ({userData, setUserData, handleInsert}) => {
+export const FormUsuario = ({userData, setUserData, handleInsert, passwordError, setPasswordError}) => {
   const [dataBodega, setDataBodega] = useState([]);
   const [dataBotiquin, setDataBotiquin] = useState([]);
 
@@ -62,8 +62,15 @@ export const FormUsuario = ({userData, setUserData, handleInsert}) => {
     fetchDataBotiquin();
   }, []);
 
-  // console.log('bodega',dataBodega);
-  // console.log('botiquin',dataBotiquin);
+  const handlePasswordChange = (e) => {
+    setUserData({
+      ...userData,
+      password: e.target.value
+    });
+
+    // Reinicia el mensaje de error al cambiar la contraseña
+    setPasswordError(null);
+  };
 
   return (
     <div>
@@ -98,9 +105,12 @@ export const FormUsuario = ({userData, setUserData, handleInsert}) => {
                 type="password"
                 name="password"
                 value={userData.password}
-                onChange={handleInputChange}
+                onChange={handlePasswordChange}
               />
               <label>Contraseña:</label>
+                {passwordError && 
+                <div style={{ width: '100%', marginTop: '0.25rem', fontSize: '13px', color: '#dc3545' }}>{passwordError}</div>
+                }
             </div>
           </div>
           <div className='row m-0 p-0'>  

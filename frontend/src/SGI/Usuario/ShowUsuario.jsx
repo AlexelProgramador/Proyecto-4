@@ -6,9 +6,9 @@ import { fetchDatos } from '../Hooks/useFetchRequest';
 
 export const ShowUsuario = ({ setModal, user, fetchData }) => {
     // const [userData, setUserData] = useState({});
-    const [cargandoUsuario, setCargandoUsuario] = useState(true);
-    const { id } = useParams();
-    const url = `http://localhost:8000/api/usuario/${id}/edit`; // Reemplaza con la URL de tu backend
+    // const [cargandoUsuario, setCargandoUsuario] = useState(true);
+    // const { id } = useParams();
+    // const url = `http://localhost:8000/api/usuario/${id}/edit`; // Reemplaza con la URL de tu backend
 
     // const { setModal } = useModal()
 
@@ -33,36 +33,51 @@ export const ShowUsuario = ({ setModal, user, fetchData }) => {
     const [dataBodega, setDataBodega] = useState([]);
     const [dataBotiquin, setDataBotiquin] = useState([]);
 
-    const fetchDataBodega = async () => {
-        try {
-            const url ='/bodegas';
-            const response = await fetchDatos(url);
-            setDataBodega(response);
-        } catch (error) {
-            console.error('Error al obtener datos', error);
-        }
-    };
+    // const fetchDataBodega = async () => {
+    //     try {
+    //         const url ='/bodegas';
+    //         const response = await fetchDatos(url);
+    //         setDataBodega(response);
+    //     } catch (error) {
+    //         console.error('Error al obtener datos', error);
+    //     }
+    // };
 
-    const fetchDataBotiquin = async () => {
-        try {
-            const url ='/botiquines';
-            const response = await fetchDatos(url);
-            setDataBotiquin(response);
-        } catch (error) {
-            console.error('Error al obtener datos', error);
-        }
-    };
+    // const fetchDataBotiquin = async () => {
+    //     try {
+    //         const url ='/botiquines';
+    //         const response = await fetchDatos(url);
+    //         setDataBotiquin(response);
+    //     } catch (error) {
+    //         console.error('Error al obtener datos', error);
+    //     }
+    // };
 
 
     useEffect(() => {
-        fetchDataBodega();
-        fetchDataBotiquin();
+        const fetchDataBodegaBotiquin = async () => {
+            try {
+                const bodegaResponse = await fetchDatos('/bodegas');
+                setDataBodega(bodegaResponse);
+
+                const botiquinResponse = await fetchDatos('/botiquines');
+                setDataBotiquin(botiquinResponse);
+            } catch (error) {
+                console.error('Error al obtener datos', error);
+            }
+        };
+
+        fetchDataBodegaBotiquin();
     }, []);
 
-    // const botiquin = dataBotiquin.find(botiquin => botiquin._id === user.almacenamiento);
-    // const bodega = dataBodega.find(bodega => bodega._id === user.almacenamiento);
+    const findEncargado = (almacenamiento, data) => {
+        const almacenamientoData = data.find(item => item._id === almacenamiento);
+        return almacenamientoData ? almacenamientoData.Nombre : null;
+    };
 
     console.log(dataBodega)
+
+console.log(user.rol)
 
     return (
         <div>
@@ -89,7 +104,16 @@ export const ShowUsuario = ({ setModal, user, fetchData }) => {
                         <div className='h6'>Rol</div>
                         <p>{user.rol}</p>
                     </div>
-                    {dataBodega.map(bodega => (
+                    {user.rol == 'Administrador' ? (
+                        null
+                    ):(
+                        <div className='col-sm-6'>
+                            <div className='h6'>Encargado/a de</div>
+                            <p>{findEncargado(user.almacenamiento, dataBodega) || findEncargado(user.almacenamiento, dataBotiquin)}</p>
+                        </div>
+                    )}
+                    
+                    {/* {dataBodega.map(bodega => (
                         user.almacenamiento === bodega._id ? (
                             <div className='col-sm-6'>
                                 <div className='h6'>Encargado/a de</div>
@@ -104,7 +128,7 @@ export const ShowUsuario = ({ setModal, user, fetchData }) => {
                                 <p>{botiquin.Nombre}</p>
                             </div>
                         ): null 
-                    ))}
+                    ))} */}
                 </div>
             </div>
         </div>

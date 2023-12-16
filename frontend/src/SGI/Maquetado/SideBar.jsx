@@ -78,7 +78,7 @@ export const SideBar = ({ show, setShow }) => {
               ): null}
               {isBotiquinero || isAdmin ? (              
               <NavLink to='/show-solicitud-botiquin' className='nav-link' activeClassName='active'>
-                <i className="fi fi-rr-ballot nav-logo-link"></i>
+                <i className="fi fi-rr-person-carry-box nav-logo-link"></i>
                 <span>Retiros</span>
               </NavLink>
               ): null}

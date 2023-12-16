@@ -1,9 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { fetchDatos } from '../Hooks/useFetchRequest';
-// import { useModal } from '../Componentes/Modal';
-import { PrimerPdf } from '../PDFRenderer/PrimerPdf';
-import { TableHomeSolicitudBotiquin } from '../Componentes/TableHomeSolicitudBotiquin';
 
 export const ShowSolicitudBotiquin = ({ setModal, retiro, setRetiroBotiquin }) => {
 
