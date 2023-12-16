@@ -204,7 +204,7 @@ export const CreateRetiroBodega = () => {
             />
             <div className='col'>
               <button className='btn btn-primary' type="button" onClick={handleInsert}>
-                Insertar Datos de Retiro
+                Retirar productos
               </button>
             </div>
           </form>

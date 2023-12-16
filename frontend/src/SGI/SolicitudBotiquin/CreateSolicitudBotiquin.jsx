@@ -207,7 +207,7 @@ export const CreateSolicitudBotiquin = () => {
             />
             <div className='col'>
               <button className='btn btn-primary' type="button" onClick={handleInsert}>
-                Insertar Datos de Solicitud
+                Retirar productos
               </button>
             </div>
           </form>

@@ -2,13 +2,16 @@ import React from 'react';
 
 export const ComponenteDashboardBotiquin = ({datosPendiente, datosPocasUnidades}) => {
     const aviso = [
-      {nro: 0, tipo:'Producto por terminar', color: 'bg-warning', th1: 'Nombre', th2:'Cantidad'},
-      {nro: 0, tipo:'Producto por vencer', color: 'bg-danger', th1: 'Nombre', th2:'Fecha'},
-      {nro: 0, tipo:'Solicitudes pendientes', color: 'bg-success', th1: 'Variable', th2: 'Fecha'}
+      {nro: datosPocasUnidades.length, tipo:'Producto por terminar', color: 'bg-warning', th1: 'Nombre', th2:'Cantidad'},
+      {nro: 0, tipo:'Producto por vencer', color: 'bg-danger', th1: 'Nombre', th2:'Fecha'}
+    //   {nro: 0, tipo:'Solicitudes pendientes', color: 'bg-success', th1: 'Variable', th2: 'Fecha'}
     ]
     {/*
     datosPocasUnidades.length
     datosPendiente.length*/}
+
+    console.log('datosUnidades',datosPocasUnidades)
+    console.log('datosPendiente',datosPendiente)
     return (
         <div>
             <div className='h5 text-uppercase pb-2'>Bienvenido Botiquinero</div>
@@ -47,14 +50,14 @@ export const ComponenteDashboardBotiquin = ({datosPendiente, datosPocasUnidades}
                                     </tr>
                                     ))
                                 )}
-                                {avi.nro > 0 && avi.tipo === 'Solicitudes pendientes' && (
+                                {/* {avi.nro > 0 && avi.tipo === 'Solicitudes pendientes' && (
                                     datosPendiente.map((unidad, idx) => (
                                     <tr key={idx}>
                                         <td className='px-3'>{unidad.NombreBodega}</td>
                                         <td className='px-3 text-end'>{unidad.FechaSolicitud}</td>
                                     </tr>
                                     ))
-                                )}
+                                )} */}
                                 </tbody>
                             </table>
                         </div>
