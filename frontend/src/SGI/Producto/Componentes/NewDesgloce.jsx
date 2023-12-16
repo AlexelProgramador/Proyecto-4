@@ -113,7 +113,7 @@ export const NewDesgloce = ({ productoData }) => {
             <label htmlFor="ValorTotal">Valor Total:</label>
           </div>
         </div>
-        <div className='col-md-4 pb-4'>
+        <div className='col-md-6 pb-4'>
           <div className='form-floating'>
             <input className='form-control'
               type="date"
@@ -126,7 +126,7 @@ export const NewDesgloce = ({ productoData }) => {
             <label htmlFor="FechaVencimiento">Fecha Vencimiento Producto:</label>
           </div>
         </div>
-        <div className='col-md-4 pb-4'>
+        <div className='col-md-6 pb-4'>
           <div className='form-floating'>
             <select className='form-select'
               id="Estado"
@@ -142,7 +142,7 @@ export const NewDesgloce = ({ productoData }) => {
             <label htmlFor="EstadoProducto">Estado Producto:</label>
           </div>
         </div>
-        <div className='col-md-4 pb-4'>
+        <div className='col-12 pb-4 text-end'>          
           <button className='btn btn-primary' onClick={handleAgregarDesgloce}>Agregar Desglose</button>
         </div>                   
       </div> 

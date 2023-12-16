@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AccionesProductosAlmacenamiento } from './AccionesProductosAlmacenamiento';
 import DataTable from './DataTable';
 import CreateProducto from '../Producto/CreateProducto';
@@ -7,6 +8,7 @@ import { fetchDatos } from '../Hooks/useFetchRequest';
 export const TablaProductosAcciones = ({almacenamientoData, setModal, handleShow}) => {
   const [productoData, setDataProducto] = useState([]);
   const [cargandoProductos, setCargandoProductos] = useState(true);
+  const navigate = useNavigate();
 
   const fetchData = async () => {
     try {
@@ -64,14 +66,23 @@ export const TablaProductosAcciones = ({almacenamientoData, setModal, handleShow
             {almacenamientoData.Tipo === "Botiquin" ? ("Inventario Botiquin") : ("Inventario Bodega")}
             </div>
             <div className=''>
-              <button className='btn btn-success' onClick={() => {
+            {almacenamientoData.Tipo === "Bodega" ? (
+              <>
+              <button className='btn btn-success me-2' onClick={() => {
                 setModal(
                   <div>
                     <CreateProducto setModal={setModal} fetchData={fetchData}/>                                
                   </div>
                 )
-              }}>Crear <i className="fa-solid fa-plus"></i>
-              </button>
+              }}>Crear producto</button>
+              <button className='btn btn-success' onClick={() => navigate('/create-retiro-bodega')}>Hacer Retiro</button>
+              </>
+            ) : almacenamientoData.Tipo === "Botiquin" ? (              
+              <>
+              <button className='btn btn-success me-2' onClick={() => navigate('/create-solicitud')}>Hacer solicitud</button>
+              <button className='btn btn-success' onClick={() => navigate('/create-solicitud-botiquin')}>Hacer Retiro</button>
+              </>
+            ) : null }
             </div>
           </div>
           {almacenamientoData.Inventario.length > 0 ? (

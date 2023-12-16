@@ -2,8 +2,9 @@ import React, {useEffect} from 'react';
 import { NewDesgloce } from '../Producto/Componentes/NewDesgloce'; 
 import { useNavigate } from 'react-router-dom';
 import DataTableSM from './DataTableSM';
+import EditDesglose from '../Producto/Componentes/EditDesglose';
 
-export const FormDesgloseProducto = ({productoData, cargandoDesgloce}) => {
+export const FormDesgloseProducto = ({productoData, cargandoDesgloce, setModal, fetchData}) => {
   useEffect(() => {
   }, [productoData]);
   const navigate = useNavigate();
@@ -34,7 +35,9 @@ export const FormDesgloseProducto = ({productoData, cargandoDesgloce}) => {
         est: item.Estado,
         acciones: (
           <div>
-          <button className='btn btn-sm' onClick={() => handleEdit(productoData._id, item.UuidProducto)}><i className="fa-solid fa-pen"></i>
+          <button className='btn btn-sm' onClick={() => { handleEdit(productoData._id, item.UuidProducto)
+            }}
+            ><i className="fa-solid fa-pen"></i>
           </button>
           </div>
           )                

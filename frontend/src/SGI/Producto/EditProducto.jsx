@@ -5,6 +5,7 @@ import { putReq } from '../Hooks/usePutRequest';
 import FormProductoEdit from '../Componentes/FormProductoEdit';
 import FormDesgloseProducto from '../Componentes/FormDesgloseProducto';
 import FormAsignacionProducto from '../Componentes/FormAsignacionProducto';
+import { useModal } from '../Componentes/Modal';
 
 export const EditProducto = () => {
   const [productoData, setProductoData] = useState({});
@@ -13,6 +14,7 @@ export const EditProducto = () => {
   const [cargandoProducto, setCargandoProducto] = useState(true);
   const { id } = useParams();
   const navigate = useNavigate();
+  const { setModal } = useModal()
   //const url = `http://localhost:8000/api/producto/${id}`; // Reemplaza con la URL de tu backend
     
   const fetchProducto = async () => {
@@ -64,6 +66,8 @@ export const EditProducto = () => {
               <FormDesgloseProducto 
               productoData={productoData}
               cargandoDesgloce={cargandoDesgloce}
+              setModal={setModal}
+              fetchData={fetchProducto}
               />
             }
             

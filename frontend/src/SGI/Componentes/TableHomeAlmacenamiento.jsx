@@ -2,6 +2,7 @@ import React from 'react';
 import DataTable from './DataTable';
 import CreateBodega from '../Almacenamiento/Bodega/CreateBodega';
 import CreateBotiquin from '../Almacenamiento/Botiquin/CreateBotiquin';
+import { Navigate } from 'react-router-dom';
 export const TablaAlmacenamiento = ({ setModal, tipoAlmacenamiento, dataAlmacenamiento, handleDelete, handleEdit, handleShow, fetchData }) => {
   
   let columns = [];

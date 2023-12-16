@@ -142,7 +142,7 @@ export const NewAsignacion = ({desgloseProducto}) => {
                         <label htmlFor="UbicacionProducto">Ubicación del Producto:</label>
                     </div>                
                 </div>
-                <div className='col-md-4 pb-4'>
+                <div className='col-md-6 pb-4'>
                     <div className='form-floating'>
                         <input className='form-control'
                             type="number"
@@ -160,7 +160,7 @@ export const NewAsignacion = ({desgloseProducto}) => {
                         <label htmlFor="CantidadAsignada">Cantidad Total:</label>
                     </div> 
                 </div>
-                <div className='col-md-4 pb-4'>
+                <div className='col-md-6 pb-4'>
                     <div className='form-floating'>
                         <input className='form-control'
                             type="date" 
@@ -171,7 +171,7 @@ export const NewAsignacion = ({desgloseProducto}) => {
                         <label>Fecha:</label>
                     </div>                
                 </div>
-                <div className='col-md-4 pb-4'>
+                <div className='col-12 pb-4 text-end'>
                     <button className='btn btn-primary' onClick={handleAgregarAsignacion}>Agregar Asignación</button>
                 </div>
             </div>
