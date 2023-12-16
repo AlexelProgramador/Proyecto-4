@@ -4,7 +4,7 @@ export const ComponenteDashboardBodega = ({datosPendiente, datosPocasUnidades}) 
     const aviso = [
       {nro: datosPocasUnidades.length, tipo:'Producto por terminar', color: 'bg-warning', th1: 'Nombre', th2:'Cantidad'},
       {nro: 0, tipo:'Producto por vencer', color: 'bg-danger', th1: 'Nombre', th2:'Fecha'},
-      {nro: 0, tipo:'Solicitudes pendientes', color: 'bg-success', th1: 'Variable', th2: 'Fecha'}
+      {nro: datosPendiente.length, tipo:'Solicitudes pendientes', color: 'bg-success', th1: 'Variable', th2: 'Fecha'}
     ]
     {/*
     
