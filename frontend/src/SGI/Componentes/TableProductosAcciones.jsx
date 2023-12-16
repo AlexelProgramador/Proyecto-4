@@ -65,7 +65,7 @@ export const TablaProductosAcciones = ({almacenamientoData, setModal, handleShow
           <div className='d-flex justify-content-between pb-2'>
             <div className='h5 text-uppercase pb-2'>
             {/* aquí cambia solamente si es botiquín, no botiquin sin el acento */}
-            {almacenamientoData.Tipo === ("Botiquin" || "Botiquín") ? ("Inventario Botiquin") : ("Inventario Bodega")}
+            {almacenamientoData.Tipo === "Bodega" ? ("Inventario Bodega") : ("Inventario Botiquín")}
             </div>
             <div className=''>
             {almacenamientoData.Tipo === "Bodega" ? (
@@ -79,7 +79,7 @@ export const TablaProductosAcciones = ({almacenamientoData, setModal, handleShow
               }}>Crear producto</button>
               <button className='btn btn-success' onClick={() => navigate('/create-retiro-bodega')}>Hacer Retiro</button>
               </>
-            ) : almacenamientoData.Tipo === "Botiquin" ? (              
+            ) : almacenamientoData.Tipo === "Botiquín" ? (              
               <>
               <button className='btn btn-success me-2' onClick={() => navigate('/create-solicitud')}>Hacer solicitud</button>
               <button className='btn btn-success' onClick={() => navigate('/create-solicitud-botiquin')}>Hacer Retiro</button>

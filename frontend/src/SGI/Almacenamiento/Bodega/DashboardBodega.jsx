@@ -16,13 +16,13 @@ export const DashboardBodega = () => {
             console.log(idAlm);
             const urlInventario = `/bodega/${idAlm}/pocoProducto`;
             //const urlVencimiento = '/productos/venciminetoInventario';
-            //const urlPendientes;
-            //const responsePendiente = await fetchDatos(urlVencimiento);
+            const urlPendientes = `/solicitudes_bodega/contar/${idAlm}`;
+            const responsePendiente = await fetchDatos(urlPendientes);
             const responsePocoProd = await fetchDatos(urlInventario);
             // const responseVencimientoProducto = await vencimientoProducto();
-            //setDataSolicitudPendiente(responsePendiente);
+            setDataSolicitudPendiente(responsePendiente);
             setDataPocasUnidades(responsePocoProd.data);
-            console.log(responsePocoProd);
+            console.log(responsePendiente);
             // setDataProductoVencido(responseVencimientoProducto);
             // console.log(dataProductoVencido);
         } catch (error) {

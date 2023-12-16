@@ -62,13 +62,13 @@ export const ShowSolicitudBodega = ({ setModal, solicitud, setSolicitud, fetchDa
         const url = `/solicitud_bodega/${solicitud._id}/aceptarBotiquin`;
         putReq(url, solicitud)
         .then(response => {
-            console.log(response.data);
+            console.log(response.status);
             fetchData();
             setModal(false);
         })
         .catch(error => {
             // Manejar el error si ocurre
-            console.error('Error al rechazar solicitud: ', error, solicitud);
+            console.error('Error al aceptar solicitud: ', error, solicitud);
         });
 
         fetchData();

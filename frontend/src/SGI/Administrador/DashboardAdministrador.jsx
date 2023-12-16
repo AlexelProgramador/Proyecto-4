@@ -14,8 +14,8 @@ export const DashboardAdministrador = () => {
     const fetchData = async () => {
         try {
             const urlInventario = '/productos/sinInventario';
-            const urlVencimiento = '/productos/venciminetoInventario';
-            const urlPendientes = '/solicitudes_bodega/contar';
+            //const urlVencimiento = '/productos/venciminetoInventario';
+            const urlPendientes = '/solicitudes_bodega/contarAdmin'
             const responsePendiente = await fetchDatos(urlPendientes);
             const responsePocoProd = await fetchDatos(urlInventario);
             const data = responsePocoProd.data;
