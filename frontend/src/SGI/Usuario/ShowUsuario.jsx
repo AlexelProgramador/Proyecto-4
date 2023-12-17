@@ -12,6 +12,8 @@ export const ShowUsuario = ({ setModal, user, fetchData }) => {
     const response = JSON.parse(localStorage.getItem("response"));
     const isAdmin = response.usuario;
 
+    console.log(isAdmin)
+
     useEffect(() => {
         const fetchDataBodegaBotiquin = async () => {
             try {
@@ -33,13 +35,9 @@ export const ShowUsuario = ({ setModal, user, fetchData }) => {
         return almacenamientoData ? almacenamientoData.Nombre : null;
     };
 
-    console.log(dataBodega)
-
-console.log(user.rol)
-
     return (
         <div>
-            { isAdmin === "Administrador" ? (
+            { isAdmin == "Administrador" ? (
             <div style={{maxWidth:'800px'}}>
                 <div className='h5 text-uppercase pb-2'>Informacion Usuario</div>
                 <div className='row'>

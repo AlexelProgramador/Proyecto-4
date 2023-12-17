@@ -8,7 +8,7 @@ export const TableHomeSolicitudBotiquin = ({dataRetiroBotiquin, setModal}) => {
 
   if (dataRetiroBotiquin.length > 0) {
     columns = [
-        { label: 'UUID es de prueba', key: 'uuid' },
+        { label: 'ID', key: 'uuid' },
         { label: 'Nombre Solicitante', key: 'nombre' },
         { label: 'Origen Retiro', key: 'destino'},
         { label: 'Cantidad Retirada', key: 'cant' },

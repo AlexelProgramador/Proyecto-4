@@ -50,7 +50,7 @@ export const DashboardBodega = () => {
                 </div>
             </div>
             )
-            : (isAdmin || isBodeguero ?(<ComponenteDashboardBodega datosPendiente = {dataSolicitudPendiente} datosPocasUnidades = {dataPocasUnidades}/>
+            : (isAdmin || isBodeguero ?(<ComponenteDashboardBodega datosPendiente = {dataSolicitudPendiente} datosPocasUnidades = {dataPocasUnidades} dataProductoVencido={dataProductoVencido}/>
         
             ):(
                 <Error/>

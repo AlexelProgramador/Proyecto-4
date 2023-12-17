@@ -67,7 +67,6 @@ export const HomeUsuario = () => {
             setModal = {setModal} 
             userData = {userData} 
             handleDelete = {handleDelete} 
-            handleEdit = {handleEdit}
             handleShow = {handleShow}
             fetchData = {fetchData}
             />

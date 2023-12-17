@@ -3,7 +3,7 @@ import DataTable from './DataTable';
 import AccionesUsuarios from './AccionesUsuarios';
 import CreateUsuario from '../Usuario/CreateUsuario';
 
-export const TableHomeUsuario = ({userData, setModal, handleShow, handleEdit, handleDelete, fetchData}) => {
+export const TableHomeUsuario = ({userData, setModal, handleShow, handleDelete, fetchData}) => {
     let columns = [];
     let data = [];
 
@@ -32,7 +32,6 @@ export const TableHomeUsuario = ({userData, setModal, handleShow, handleEdit, ha
                     user={user} 
                     setUser={userData} 
                     handleShow={handleShow}
-                    handleEdit={handleEdit}
                     handleDelete={handleDelete}
                     fetchData={fetchData}
                     /> :

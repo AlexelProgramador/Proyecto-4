@@ -1,9 +1,9 @@
 import React from 'react';
 
-export const ComponenteDashboardBotiquin = ({datosPendiente, datosPocasUnidades}) => {
+export const ComponenteDashboardBotiquin = ({ datosPocasUnidades, dataProductoVencido}) => {
     const aviso = [
       {nro: datosPocasUnidades.length, tipo:'Producto por terminar', color: 'bg-warning', th1: 'Nombre', th2:'Cantidad'},
-      {nro: 0, tipo:'Producto por vencer', color: 'bg-danger', th1: 'Nombre', th2:'Fecha'}
+      {nro: dataProductoVencido.length, tipo:'Producto por vencer', color: 'bg-danger', th1: 'Nombre', th2:'Vencimiento'}
     //   {nro: 0, tipo:'Solicitudes pendientes', color: 'bg-success', th1: 'Variable', th2: 'Fecha'}
     ]
 
@@ -38,10 +38,10 @@ export const ComponenteDashboardBotiquin = ({datosPendiente, datosPocasUnidades}
                                     ))
                                 )}
                                 {avi.nro > 0 && avi.tipo === 'Producto por vencer' && (
-                                    datosPocasUnidades.map((unidad, idx) => (
+                                    dataProductoVencido.map((unidad, idx) => (
                                     <tr key={idx}>
                                         <td className='px-3'>{unidad.Nombre}</td>
-                                        <td className='px-3 text-end'>{unidad.CantidadTotal}</td>
+                                        <td className='px-3 text-end'>{unidad.FechaVencimiento}</td>
                                     </tr>
                                     ))
                                 )}

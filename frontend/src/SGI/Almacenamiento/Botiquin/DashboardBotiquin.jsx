@@ -42,7 +42,7 @@ export const DashboardBotiquin = () => {
                     </div>
                 </div>
             </div>
-            : <ComponenteDashboardBotiquin datosPocasUnidades = {dataPocasUnidades}/>}
+            : <ComponenteDashboardBotiquin datosPocasUnidades = {dataPocasUnidades} dataProductoVencido={dataProductoVencido}/>}
         </div>
     );
 };

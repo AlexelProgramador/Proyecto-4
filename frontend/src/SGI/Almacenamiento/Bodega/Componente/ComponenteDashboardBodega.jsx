@@ -1,10 +1,10 @@
 import React from 'react';
 
-export const ComponenteDashboardBodega = ({datosPendiente, datosPocasUnidades}) => {
+export const ComponenteDashboardBodega = ({datosPendiente, datosPocasUnidades, dataProductoVencido}) => {
     const aviso = [
-      {nro: datosPocasUnidades.length, tipo:'Producto por terminar', color: 'bg-warning', th1: 'Nombre', th2:'Cantidad'},
-      {nro: 0, tipo:'Producto por vencer', color: 'bg-danger', th1: 'Nombre', th2:'Fecha'},
-      {nro: datosPendiente.length, tipo:'Solicitudes pendientes', color: 'bg-success', th1: 'Variable', th2: 'Fecha'}
+        {nro: datosPocasUnidades.length, tipo:'Producto por terminar', color: 'bg-warning', th1: 'Nombre', th2:'Cantidad'},
+        {nro: dataProductoVencido.length, tipo:'Producto por vencer', color: 'bg-danger', th1: 'Nombre', th2:'Vencimiento'},
+        {nro: datosPendiente.length, tipo:'Solicitudes pendientes', color: 'bg-success', th1: 'Destino', th2: 'Fecha'}
     ]
     {/*
     
@@ -12,7 +12,7 @@ export const ComponenteDashboardBodega = ({datosPendiente, datosPocasUnidades}) 
     datosPendiente.length*/}
 
     // console.log('datosUnidades',datosPocasUnidades)
-    // console.log('datosPendiente',datosPendiente)
+    console.log('datosPendiente',dataProductoVencido)
 
 
     return (
@@ -46,10 +46,10 @@ export const ComponenteDashboardBodega = ({datosPendiente, datosPocasUnidades}) 
                                     ))
                                 )}
                                 {avi.nro > 0 && avi.tipo === 'Producto por vencer' && (
-                                    datosPocasUnidades.map((unidad, idx) => (
+                                    dataProductoVencido.map((unidad, idx) => (
                                     <tr key={idx}>
                                         <td className='px-3'>{unidad.Nombre}</td>
-                                        <td className='px-3 text-end'>{unidad.CantidadTotal}</td>
+                                        <td className='px-3 text-end'>{unidad.FechaVencimiento}</td>
                                     </tr>
                                     ))
                                 )}

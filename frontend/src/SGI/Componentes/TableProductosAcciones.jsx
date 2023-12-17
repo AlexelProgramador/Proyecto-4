@@ -70,19 +70,12 @@ export const TablaProductosAcciones = ({almacenamientoData, setModal, handleShow
             <div className=''>
             {almacenamientoData.Tipo === "Bodega" ? (
               <>
-              <button className='btn btn-success me-2' onClick={() => {
-                setModal(
-                  <div>
-                    <CreateProducto setModal={setModal} fetchData={fetchData}/>                                
-                  </div>
-                )
-              }}>Crear producto</button>
-              <button className='btn btn-success' onClick={() => navigate('/create-retiro-bodega')}>Hacer Retiro</button>
+              <button className='btn btn-success' onClick={() => navigate('/create-retiro-bodega')}>Retiro</button>
               </>
-            ) : almacenamientoData.Tipo === "Botiquín" ? (              
+            ) : almacenamientoData.Tipo === "Botiquin" ? (              
               <>
-              <button className='btn btn-success me-2' onClick={() => navigate('/create-solicitud')}>Hacer solicitud</button>
-              <button className='btn btn-success' onClick={() => navigate('/create-solicitud-botiquin')}>Hacer Retiro</button>
+              <button className='btn btn-success me-2' onClick={() => navigate('/create-solicitud')}>solicitud</button>
+              <button className='btn btn-success' onClick={() => navigate('/create-solicitud-botiquin')}>Retiro</button>
               </>
             ) : null }
             </div>

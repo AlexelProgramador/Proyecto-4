@@ -10,7 +10,7 @@ export const TableHomeSolicitudBodega = ({dataSolicitudBodega, setModal, PrimerP
 
   if (dataSolicitudBodega.length > 0) {
     columns = [
-        { label: 'UUID es de prueba', key: 'uuid' },
+        { label: 'ID', key: 'uuid' },
         { label: 'Nombre Solicitante', key: 'nombre' },
         { label: 'Destino Solicitud', key: 'destino'},
         { label: 'Cantidad a Pedir', key: 'cant' },
