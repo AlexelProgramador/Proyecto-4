@@ -3,7 +3,6 @@ import { fetchDatos } from '../../Hooks/useFetchRequest';
 import { ComponenteDashboardBotiquin } from './Componente/ComponenteDashboardBotiquin';
 
 export const DashboardBotiquin = () => {
-    const [dataSolicitudPendiente, setDataSolicitudPendiente] = useState([]);
     const [dataPocasUnidades, setDataPocasUnidades] = useState([]);
     const [dataProductoVencido, setDataProductoVencido] = useState([]);
     const [cargandoDashboard, setCargandoDashboard] = useState(true);
@@ -14,13 +13,11 @@ export const DashboardBotiquin = () => {
             const idAlm = response.almacenamiento;
             console.log(idAlm);
             const urlInventario = `/botiquin/${idAlm}/pocoProducto`;
-            const urlVencimiento = '/productos/venciminetoInventario';
-            //const urlPendientes;
-            const responsePendiente = await fetchDatos(urlVencimiento);
+            const urlVencimiento = `/botiquin/${idAlm}/vencimientoInventario`;
+
+            const responseVencimiento = await fetchDatos(urlVencimiento);
             const responsePocoProd = await fetchDatos(urlInventario);
-            // const responseVencimientoProducto = await vencimientoProducto();
-            setDataSolicitudPendiente(responsePendiente);
-        
+            setDataProductoVencido(responseVencimiento.data);
             setDataPocasUnidades(responsePocoProd.data);
             console.log(responsePocoProd.data);
         } catch (error) {
@@ -44,7 +41,7 @@ export const DashboardBotiquin = () => {
                     </div>
                 </div>
             </div>
-            : <ComponenteDashboardBotiquin datosPendiente = {dataSolicitudPendiente} datosPocasUnidades = {dataPocasUnidades}/>}
+            : <ComponenteDashboardBotiquin datosPocasUnidades = {dataPocasUnidades}/>}
         </div>
     );
 };

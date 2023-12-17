@@ -11,8 +11,8 @@ export const ComponenteDashboardBodega = ({datosPendiente, datosPocasUnidades}) 
     
     datosPendiente.length*/}
 
-    console.log('datosUnidades',datosPocasUnidades)
-    console.log('datosPendiente',datosPendiente)
+    // console.log('datosUnidades',datosPocasUnidades)
+    // console.log('datosPendiente',datosPendiente)
 
 
     return (

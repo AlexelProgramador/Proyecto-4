@@ -67,6 +67,7 @@ Route::controller(BodegaController::class)->group(function () {
     Route::delete("/bodega/{id}", "destroy");
     Route::get("/bodega/{id}/pocoProducto", "pocoProductoBodega");
     Route::get("/bodega/{id}/borrar/{idProd}", "elimProd");
+    Route::get("/bodega/{id}/vencimientoInventario","vencimientoProductoBodega");
 });
 
 //Controlador Botiquin.
@@ -77,6 +78,7 @@ Route::controller(BotiquinController::class)->group(function () {
     Route::put("/botiquin/{id}", "update");
     Route::delete("/botiquin/{id}", "destroy");
     Route::get("/botiquin/{id}/pocoProducto", "pocoProductoBotiquin");
+    Route::get("/botiquin/{id}/vencimientoInventario", "vencimientoProductoBotiquin");
 });
 
 //Controlador Producto.

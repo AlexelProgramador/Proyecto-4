@@ -15,16 +15,17 @@ export const DashboardBodega = () => {
             const idAlm = response.almacenamiento;
             console.log(idAlm);
             const urlInventario = `/bodega/${idAlm}/pocoProducto`;
-            //const urlVencimiento = '/productos/venciminetoInventario';
+            const urlVencimiento = `/bodega/${idAlm}/vencimientoInventario`;
             const urlPendientes = `/solicitudes_bodega/contar/${idAlm}`;
             const responsePendiente = await fetchDatos(urlPendientes);
             const responsePocoProd = await fetchDatos(urlInventario);
-            // const responseVencimientoProducto = await vencimientoProducto();
+            const responseVencimiento = await fetchDatos(urlVencimiento);
+            const dataProd = responsePocoProd.data;
+            const dataVenc = responseVencimiento.data;
             setDataSolicitudPendiente(responsePendiente);
-            setDataPocasUnidades(responsePocoProd.data);
-            console.log(responsePendiente);
-            // setDataProductoVencido(responseVencimientoProducto);
-            // console.log(dataProductoVencido);
+            setDataPocasUnidades(dataProd);
+            setDataProductoVencido(dataVenc);
+            console.log(dataVenc);
         } catch (error) {
             console.error('Error al obtener datos', error);
         } finally{

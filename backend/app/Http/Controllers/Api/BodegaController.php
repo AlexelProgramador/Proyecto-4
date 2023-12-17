@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Bodega;
+use App\Models\Producto;
+use Carbon\Carbon;
 
 class BodegaController extends Controller
 {
@@ -153,5 +155,48 @@ class BodegaController extends Controller
         $bodega->save();
 
         return response()->json(['status' => 200, 'data' => $inventario]);
+    }
+    public function vencimientoProductoBodega($id){
+
+        $bodega = Bodega::where('_id', $id)->first();
+        
+        $fechaActual = Carbon::now();
+        $fechaActualFormateada = $fechaActual->format('Y-m-d');
+        $diasLimite = 23;
+        $fechaEnElFuturo = $fechaActual->addDays($diasLimite);
+        $fechaFuturoFormateada = $fechaEnElFuturo->format('Y-m-d');
+        $inventario = $bodega->Inventario;
+        $productosPorVencer = [];
+        foreach($inventario as $ItemInventario){
+            $producto = Producto::where('_id', $ItemInventario['IdProducto'])->first();
+            $desgloses = $producto->Desgloce;
+
+            //Inicializar variables para el desglose más próximo a vencerse
+            $desgloseProximo = null;
+            $diferenciaDiasProxima = PHP_INT_MAX;
+        
+            foreach ($desgloses as $desglose) {
+                $fechaVencimiento = Carbon::parse($desglose['FechaVencimiento']);
+                $fechaVencimientoFormateada = $fechaVencimiento;
+                if ($fechaVencimientoFormateada->isBetween($fechaActualFormateada, $fechaFuturoFormateada, true, true)) {
+                    $diferenciaEnDias = $fechaVencimientoFormateada->diffInDays(Carbon::parse($fechaActualFormateada));
+                    if ($diferenciaEnDias < $diferenciaDiasProxima) {
+                        // Actualizar el desglose más próximo a vencerse y su diferencia en días
+                        $desgloseProximo = $desglose;
+                        $diferenciaDiasProxima = $diferenciaEnDias;
+                    }
+                }
+            }
+            // Verificar si se encontró un desglose próximo y si está dentro del límite de días
+            if ($desgloseProximo !== null && $diferenciaDiasProxima <= $diasLimite) {
+                // Agregar el producto a la lista de productos por vencer
+                $productosPorVencer[] = [
+                    'Nombre' => $producto->Nombre,
+                    'FechaVencimiento' => $fechaVencimiento->format('Y-m-d'),
+                    'DiasRestantes' => $diferenciaDiasProxima,
+                ];
+            }  
+        }
+        return response()->json(['status' => 200, 'data' => $productosPorVencer]);
     }
 }

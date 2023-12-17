@@ -336,8 +336,7 @@ class ProductoController extends Controller
 
     public function vencimientoProducto()
     {
-        // Obtener todos los productos (o usar algún criterio para obtener los productos que necesitas)
-        $productos = Producto::all(); // Reemplaza "TuModelo" con el nombre correcto de tu modelo
+        $productos = Producto::all(); 
 
         // Fecha actual
         $fechaActual = Carbon::now();
