@@ -16,15 +16,14 @@ const useSubmitForm = (execute, setShowAlert) => {
     motivos,
     fuenteFinanciamiento,
     montoEstimado,
-    archivo
+    archivos
   ) => {
     event.preventDefault();
     let sessionInfo = JSON.parse(localStorage.getItem("response"));
     let now = moment().tz("America/Santiago");
     let nroSolicitud = `${now.format("HHmmss")}-SOL-${now.format("DDMMYYYY")}`;
-    
+
     const formData = new FormData();
-    formData.append("archivo", archivo);
     formData.append(
       "data",
       JSON.stringify({
@@ -53,6 +52,12 @@ const useSubmitForm = (execute, setShowAlert) => {
         },
       })
     );
+    archivos.forEach((archivo, index) => {
+      formData.append(
+        `archivo_${index + 1}`,
+        archivo
+      );
+    });
     const url = "crearEtapa";
     const response = await execute(formData, url);
     if (response) {

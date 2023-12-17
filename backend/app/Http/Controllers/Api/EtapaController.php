@@ -72,7 +72,7 @@ class EtapaController extends Controller
     {
         $etapa = new Etapa();
         $data = json_decode($request->get('data'), true);
-        $archivo = $request->file('archivo');
+        $archivos = $request->allFiles();
 
         // Variables correspondientes a la etapa.
         $etapa->nroEtapa = $data['nroEtapa'];
@@ -85,11 +85,15 @@ class EtapaController extends Controller
         $etapa->procesosEtapaDea = $data['procesosEtapaDea'];
         $etapa->solicitudInfo = $data['infoSolicitud'];
         $etapa->infoUsuario = $data['infoUsuario'];
-        $nombrePdf = $data['infoSolicitud']['nroSolicitud'] . '-' . $archivo->getClientOriginalName() . '.' . $archivo->getClientOriginalExtension();
+        $nombresPdf = [];
         $destino = public_path('/pdfs');
-        $archivo->move($destino, $nombrePdf);
-        $etapa->nombrePdf = $nombrePdf;
-
+        foreach ($archivos as $archivo) {
+            $nombrePdf = $data['infoSolicitud']['nroSolicitud'] . '_' . $archivo->getClientOriginalName() . '_'  .
+                $data['nroEtapa'] .  '.' . $archivo->getClientOriginalExtension();
+            $archivo->move($destino, $nombrePdf);
+            $nombresPdf[] = $nombrePdf;
+        }
+        $etapa->nombrePdf = $nombresPdf;
 
         $etapa->save();
         return response()->json(
@@ -97,7 +101,6 @@ class EtapaController extends Controller
             Response::HTTP_OK
         );
     }
-
     public function rechazarEtapa(Request $request)
     {
         // Buscar la etapa actual
@@ -127,9 +130,17 @@ class EtapaController extends Controller
         if (!$etapa) {
             return response()->json(['error' => 'No se encontró la etapa actual'], 404);
         }
+
+        // Eliminar los archivos asociados con la etapa
+        $nombresPdf = $etapa->nombrePdf;
+        foreach ($nombresPdf as $nombrePdf) {
+            $rutaArchivo = public_path('/pdfs/' . $nombrePdf);
+            if (file_exists($rutaArchivo)) {
+                unlink($rutaArchivo);
+            }
+        }
+
         $etapa->delete();
-
-
 
         return response()->json(
             ['message' => 'Etapa eliminada correctamente'],

@@ -7,7 +7,7 @@ const MotivosInput = ({
   fuenteFinanciamiento,
   setFuenteFinanciamiento,
   setMontoEstimado,
-  setArchivo,
+  setArchivos,
 }) => {
   return (
     <div>
@@ -56,8 +56,9 @@ const MotivosInput = ({
           className="form-control"
           id="archivo"
           accept="application/pdf"
+          multiple
           onChange={(e) => {
-            setArchivo(e.target.files[0]);
+            setArchivos(Array.from(e.target.files));
           }}
         />
       </div>

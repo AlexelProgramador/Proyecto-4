@@ -21,7 +21,7 @@ function getRole(nroEtapa) {
       return "Subdirectora";
     case 5:
       return "Bodeguero";
-    case 'Dea':
+    case "Dea":
       return "Dea";
     default:
       return null;
@@ -50,6 +50,9 @@ export const Content = () => {
   const responseLocalStorage = JSON.parse(localStorage.getItem("response"));
   const ITEMS_PER_PAGE = 10;
   const { execute, response } = useDeleteRequest();
+  // Buscador
+  const [search, setSearch] = useState("");
+
   const handleDelete = async (itemId) => {
     try {
       const response = await execute("eliminarEtapa", { idEtapa: itemId });
@@ -62,6 +65,16 @@ export const Content = () => {
   const sortedData = data
     ? [...data].sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at))
     : [];
+  const filteredData = search
+    ? sortedData.filter(
+        (item) => item.solicitudInfo.nroSolicitud && item.solicitudInfo.nroSolicitud.includes(search)
+      )
+    : sortedData;
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const selectedItems = filteredData.slice(
+    startIndex,
+    startIndex + ITEMS_PER_PAGE
+  );
 
   useEffect(() => {
     if (showAlert) {
@@ -72,13 +85,6 @@ export const Content = () => {
     }
   }, [showAlert]);
   const navigate = useNavigate();
-
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-
-  const selectedItems = sortedData.slice(
-    startIndex,
-    startIndex + ITEMS_PER_PAGE
-  );
 
   const etapaPorcentaje = {
     0: 0,
@@ -100,7 +106,14 @@ export const Content = () => {
             Aquí puedes gestionar las solicitudes, ver detalles de cada etapa,
             eliminar etapas y más.
           </p>
+          <input
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Buscar por número de solicitud"
+          />
         </div>
+
         <div className="card shadow-card rounded-3 border border-0">
           <div className="card-body">
             <div className="d-flex justify-content-between pb-0">

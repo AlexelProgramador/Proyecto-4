@@ -21,7 +21,7 @@ export const CrearSolicitud = () => {
   const [motivos, setMotivos] = useState("");
   const [fuenteFinanciamiento, setFuenteFinanciamiento] = useState("");
   const [montoEstimado, setMontoEstimado] = useState("");
-  const [archivo, setArchivo] = useState("");
+  const [archivos, setArchivos] = useState([]);
   const { execute, response } = usePostRequest();
   const productosPorPagina = 3;
   const handleSubmit = useSubmitForm(execute, setShowAlert);
@@ -57,7 +57,7 @@ export const CrearSolicitud = () => {
                 motivos,
                 fuenteFinanciamiento,
                 montoEstimado,
-                archivo
+                archivos
               )
             }
             className="row g-3"
@@ -98,7 +98,7 @@ export const CrearSolicitud = () => {
               fuenteFinanciamiento={fuenteFinanciamiento}
               setFuenteFinanciamiento={setFuenteFinanciamiento}
               setMontoEstimado={setMontoEstimado}
-              setArchivo={setArchivo}
+              setArchivos={setArchivos}
             />
             <div>
               <button type="submit" className="btn btn-primary">
