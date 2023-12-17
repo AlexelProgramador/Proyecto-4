@@ -6,12 +6,16 @@ import FormProductoEdit from '../Componentes/FormProductoEdit';
 import FormDesgloseProducto from '../Componentes/FormDesgloseProducto';
 import FormAsignacionProducto from '../Componentes/FormAsignacionProducto';
 import { useModal } from '../Componentes/Modal';
+import Error from '../Maquetado/Error';
 
 export const EditProducto = () => {
   const [productoData, setProductoData] = useState({});
   const [cargandoAsignacion, setCargandoAsignacion] = useState(true);
   const [cargandoDesgloce, setCargandoDesgloce] = useState(true);
   const [cargandoProducto, setCargandoProducto] = useState(true);
+  const response = JSON.parse(localStorage.getItem("response"));
+  const isAdmin = response && response.usuario && response.usuario.includes("Administrador");
+  const isBodeguero = response && response.usuario && response.usuario.includes("Bodeguero");
   const { id } = useParams();
   const navigate = useNavigate();
   const { setModal } = useModal()
@@ -50,6 +54,7 @@ export const EditProducto = () => {
   console.log(productoData);
   return (
     <div>
+      { isAdmin || isBodeguero? (
       <div className='card shadow-card rounded-0 border border-0'>
         <div className='card-body'>
           <div className='h5 text-uppercase pb-2'>Editar Producto</div>
@@ -83,6 +88,8 @@ export const EditProducto = () => {
           </div>
           </div>
         </div>
+      ) :( <Error/>)
+      }
       </div>
     );
 };

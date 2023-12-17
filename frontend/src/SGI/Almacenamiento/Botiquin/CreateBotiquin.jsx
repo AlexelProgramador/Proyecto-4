@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { postRequest } from '../../Hooks/usePostRequest';
 import { FormAlmacenamientoCreate } from '../../Componentes/FormAlmacenamientoCreate';
+import Error from '../../Maquetado/Error';
 
 export const CreateBotiquin = ({ setModal, fetchData }) => {
   const [botiquinData, setBotiquinData] = useState({
@@ -9,6 +10,8 @@ export const CreateBotiquin = ({ setModal, fetchData }) => {
     Tipo:'Botiquin',
     Inventario: []
   });
+  const response = JSON.parse(localStorage.getItem("response"));
+  const isAdmin = response && response.usuario && response.usuario.includes("Administrador");
 
   const handleInsert = async () => {
     const url = '/botiquin';
@@ -28,8 +31,11 @@ export const CreateBotiquin = ({ setModal, fetchData }) => {
 
   return (
     <div>
+      { isAdmin ? (
       <FormAlmacenamientoCreate almacenamientoData = {botiquinData} setAlmacenamientoData = {setBotiquinData} 
         handleInsert = {handleInsert}/>
+      ) :
+      (<Error/>)}        
     </div>
   );
 };

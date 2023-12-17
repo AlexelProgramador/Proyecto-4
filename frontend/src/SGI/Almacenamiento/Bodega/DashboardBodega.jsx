@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { contadorSolicitudPendiente } from '../../Solicitud/HandlerSolicitudBodega';
 import { ComponenteDashboardBodega } from './Componente/ComponenteDashboardBodega';
 import { fetchDatos } from '../../Hooks/useFetchRequest';
+import Error from '../../Maquetado/Error';
 
 export const DashboardBodega = () => {
     const [dataSolicitudPendiente, setDataSolicitudPendiente] = useState([]);
@@ -9,7 +10,9 @@ export const DashboardBodega = () => {
     const [dataProductoVencido, setDataProductoVencido] = useState([]);
     const [cargandoDashboard, setCargandoDashboard] = useState(true);
     const response = JSON.parse(localStorage.getItem("response"));
-    
+    const isAdmin = response && response.usuario && response.usuario.includes("Administrador");
+    const isBodeguero = response && response.usuario && response.usuario.includes("Bodeguero");
+
     const fetchData = async () => {
         try {
             const idAlm = response.almacenamiento;
@@ -38,7 +41,7 @@ export const DashboardBodega = () => {
     }, []);
     return (
         <div>
-            {cargandoDashboard ? 
+            {cargandoDashboard ? (
             <div className="d-flex justify-content-center" style={{height:'200px'}}>
                 <div className='d-flex align-items-center'>
                     <div className="spinner-border text-secondary" role="status">
@@ -46,7 +49,13 @@ export const DashboardBodega = () => {
                     </div>
                 </div>
             </div>
-            : <ComponenteDashboardBodega datosPendiente = {dataSolicitudPendiente} datosPocasUnidades = {dataPocasUnidades}/>}
+            )
+            : (isAdmin || isBodeguero ?(<ComponenteDashboardBodega datosPendiente = {dataSolicitudPendiente} datosPocasUnidades = {dataPocasUnidades}/>
+        
+            ):(
+                <Error/>
+            )
+            )}
         </div>
     );
 };

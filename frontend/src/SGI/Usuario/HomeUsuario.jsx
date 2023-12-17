@@ -4,11 +4,14 @@ import { useModal } from '../Componentes/Modal';
 import { TableHomeUsuario } from '../Componentes/TableHomeUsuario';
 import { fetchDatos } from '../Hooks/useFetchRequest';
 import { deleteReq } from '../Hooks/useDeleteRequest';
+import Error from '../Maquetado/Error';
 
 export const HomeUsuario = () => {
     const [userData, setUserData] = useState([]);
     const [cargandoUsuarios, setCargandoUsuarios] = useState(true);
     const navigate = useNavigate();
+    const response = JSON.parse(localStorage.getItem("response"));
+    const isAdmin = response && response.usuario && response.usuario.includes("Administrador");
     
     const { setModal } = useModal()
 
@@ -49,7 +52,7 @@ export const HomeUsuario = () => {
 
     return (
         <div>
-            {cargandoUsuarios ? 
+            {cargandoUsuarios ? (
             <div className="d-flex justify-content-center" style={{height:'200px'}}>
                 <div className='d-flex align-items-center'>
                     <div className="spinner-border text-secondary" role="status">
@@ -57,7 +60,9 @@ export const HomeUsuario = () => {
                     </div>
                 </div>
             </div>
-            :
+            )
+            :(
+                isAdmin ?(
             <TableHomeUsuario
             setModal = {setModal} 
             userData = {userData} 
@@ -66,7 +71,12 @@ export const HomeUsuario = () => {
             handleShow = {handleShow}
             fetchData = {fetchData}
             />
-            }
+            ) :
+            (
+                <Error/>
+            )
+
+            )}
         </div>
     );
 };

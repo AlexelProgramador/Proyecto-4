@@ -6,12 +6,7 @@ export const ComponenteDashboardBotiquin = ({datosPendiente, datosPocasUnidades}
       {nro: 0, tipo:'Producto por vencer', color: 'bg-danger', th1: 'Nombre', th2:'Fecha'}
     //   {nro: 0, tipo:'Solicitudes pendientes', color: 'bg-success', th1: 'Variable', th2: 'Fecha'}
     ]
-    {/*
-    datosPocasUnidades.length
-    datosPendiente.length*/}
 
-    console.log('datosUnidades',datosPocasUnidades)
-    console.log('datosPendiente',datosPendiente)
     return (
         <div>
             <div className='h5 text-uppercase pb-2'>Bienvenido Botiquinero</div>

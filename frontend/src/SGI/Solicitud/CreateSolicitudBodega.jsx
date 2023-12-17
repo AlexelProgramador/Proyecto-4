@@ -5,8 +5,11 @@ import TableSolicitudProductoSeleccion from '../Componentes/TableSolicitudProduc
 import TableSolicitudSelectedItems from '../Componentes/TableSolicitudSelectedItems';
 import { postRequest } from '../Hooks/usePostRequest';
 import { fetchDatos } from '../Hooks/useFetchRequest';
+import Error from '../Maquetado/Error';
 
 export const CreateSolicitudBodega = () => {
+  const response = JSON.parse(localStorage.getItem("response"));
+  const isBotiquinero = response && response.usuario && response.usuario.includes("Botiquinero");
   const [solicitudData, setSolicitudData] = useState({
     VariableSolicitud: '',
     UnidadSolicitud: '',
@@ -218,6 +221,7 @@ console.log(inventarioBodegaData);
 
   return (
     <div>
+      { isBotiquinero ? (
       <div className='card shadow-card rounded-0 border border-0'>
         <div className='card-body'>
           <div className='h5 text-uppercase pb-2'>Crear solicitud</div>
@@ -252,6 +256,8 @@ console.log(inventarioBodegaData);
           </form>
         </div>
       </div>
+      ) :
+      (<Error/>)}
     </div>
   );
 };

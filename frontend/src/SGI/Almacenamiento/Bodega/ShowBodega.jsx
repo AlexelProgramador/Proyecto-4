@@ -4,13 +4,16 @@ import { useModal } from '../../Componentes/Modal';
 import TablaProductosAcciones from '../../Componentes/TableProductosAcciones';
 import { fetchDatos } from '../../Hooks/useFetchRequest';
 import { deleteReq } from '../../Hooks/useDeleteRequest';
+import Error from '../../Maquetado/Error';
 
 export const ShowBodega = () => {
     const [bodegaData, setBodegaData] = useState({});
     const [cargandoBodega, setCargandoBodega] = useState(true);
     const navigate = useNavigate();
     const { id } = useParams();
-    const url = `http://localhost:8000/api/bodega/${id}/edit`; // Reemplaza con la URL de tu backend
+    const response = JSON.parse(localStorage.getItem("response"));
+    const isAdmin = response && response.usuario && response.usuario.includes("Administrador");
+    const isBodeguero = response && response.usuario && response.usuario.includes("Bodeguero");
 
     const { setModal } = useModal();
 
@@ -28,7 +31,7 @@ export const ShowBodega = () => {
 
     useEffect(() => {
         fetchBodega();
-    }, [url]);
+    }, []);
 
     const handleShowProducto = (id) => {
         navigate(`/show-producto/${id}`); //Ruta para la edición de producto
@@ -51,7 +54,7 @@ export const ShowBodega = () => {
 
     return (
         <div>
-            {cargandoBodega ? 
+            {cargandoBodega ? (
             <div className="d-flex justify-content-center" style={{height:'200px'}}>
                 <div className='d-flex align-items-center'>
                     <div className="spinner-border text-secondary" role="status">
@@ -59,12 +62,17 @@ export const ShowBodega = () => {
                     </div>
                 </div>
             </div>
-            : <TablaProductosAcciones 
+            ) 
+            : ( isAdmin || isBodeguero ?(<TablaProductosAcciones 
                 almacenamientoData={bodegaData} 
                 setModal={setModal}
                 handleShow={handleShowProducto}
                 handleEdit={handleEdit}
-                handleDelete={handleDelete}/>}
+                handleDelete={handleDelete}/>
+            ) : (
+                <Error/>
+            )
+            )}
         </div>
     );
 };

@@ -93,6 +93,7 @@ Route::controller(ProductoController::class)->group(function () {
     Route::delete("/producto/{id}", "destroy");
     Route::get("/productos/sinInventario", "pocoProducto");
     Route::get("/productos/venciminetoInventario", "vencimientoProducto");
+    Route::get("/producto/fechaVencimiento/Vencido", "checkVencido");
 });
 
 Route::controller(SolicitudBodegaController::class)->group(function () {

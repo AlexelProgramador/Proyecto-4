@@ -3,12 +3,15 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { FormAlmacenamientoUpdate } from '../../Componentes/FormAlmacenamientoUpdate';
 import { fetchDatos } from '../../Hooks/useFetchRequest';
 import { putReq } from '../../Hooks/usePutRequest';
+import Error from '../../Maquetado/Error';
 
 export const EditBodega = () => {
     const [bodegaData, setBodegaData] = useState({});
     const [cargandoBodega, setCargandoBodega] = useState(true);
     const { id } = useParams();
     const navigate = useNavigate();
+    const response = JSON.parse(localStorage.getItem("response"));
+    const isAdmin = response && response.usuario && response.usuario.includes("Administrador");
 
     useEffect(() => {
         fetchBodega();
@@ -42,7 +45,7 @@ export const EditBodega = () => {
     };
     return (
         <div>
-            {cargandoBodega ? 
+            {cargandoBodega ? (
             <div className="d-flex justify-content-center" style={{height:'200px'}}>
                 <div className='d-flex align-items-center'>
                     <div className="spinner-border text-secondary" role="status">
@@ -50,12 +53,18 @@ export const EditBodega = () => {
                     </div>
                 </div>
             </div>
-            : 
+            )
+            : (
+                isAdmin ? (
+             
             <FormAlmacenamientoUpdate 
             almacenamientoData={bodegaData} 
             setAlmacenamientoData={setBodegaData} 
             handleUpdate={handleUpdate}/>
-            }
+            ) : (
+                <Error/>
+            )
+            )}
         </div>
     );
 };

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FormAlmacenamientoCreate } from '../../Componentes/FormAlmacenamientoCreate';
 import { postRequest } from '../../Hooks/usePostRequest';
+import Error from '../../Maquetado/Error';
 
 export const CreateBodega = ({ setModal, fetchData }) => {
   const [bodegaData, setBodegaData] = useState({
@@ -9,6 +10,8 @@ export const CreateBodega = ({ setModal, fetchData }) => {
     Tipo: 'Bodega',
     Inventario: []
   });
+  const response = JSON.parse(localStorage.getItem("response"));
+  const isAdmin = response && response.usuario && response.usuario.includes("Administrador");
 
   const handleInsert = async () => {
     const url = '/bodega';
@@ -27,8 +30,12 @@ export const CreateBodega = ({ setModal, fetchData }) => {
   console.log(bodegaData);
   return (
     <div>
-      <FormAlmacenamientoCreate almacenamientoData = {bodegaData} setAlmacenamientoData = {setBodegaData} 
-        handleInsert = {handleInsert}/>
+      {isAdmin ?
+        <FormAlmacenamientoCreate almacenamientoData = {bodegaData} setAlmacenamientoData = {setBodegaData} 
+          handleInsert = {handleInsert}/>
+      :
+        <Error />
+      }
     </div>
   );
 };

@@ -41,8 +41,6 @@ export const Login = () => {
     fetchData();
   }, []);
 
-  console.log(dataUser)
-
   return (
     <>
       <div>

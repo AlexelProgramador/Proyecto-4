@@ -380,4 +380,32 @@ class ProductoController extends Controller
         // Ahora $inventario contiene la información organizada por estados
         return response()->json(['status' => 200, 'data' => $productosPorVencer]);
     }
+    public function checkVencido(){
+        $productos = Producto::all(); 
+
+        // Fecha actual
+        $fechaActual = Carbon::now();
+        $fechaActualFormateada = $fechaActual->format('Y-m-d');
+
+
+        foreach ($productos as $producto) {
+            $desgloses = $producto->Desgloce;
+        
+            foreach ($desgloses as $desglose) {
+                $fechaVencimiento = Carbon::parse($desglose['FechaVencimiento']);
+                $fechaVencimientoFormateada = $fechaVencimiento;
+                // Comparar si la fecha de vencimiento es menor que la fecha actual
+                if ($fechaVencimientoFormateada->lessThanOrEqualTo($fechaActualFormateada)) {
+                    // Actualizar el atributo Estado dentro del objeto Desgloce
+                    //return response()->json(['status' => 'Entro aquí']);
+                    // $desglose->update([
+                    //     'Estado' => 'Vencido',
+                    // ]);
+                }
+            }
+            
+        }
+        // Ahora $inventario contiene la información organizada por estados
+        return response()->json(['status' => 200]);
+    }
 }

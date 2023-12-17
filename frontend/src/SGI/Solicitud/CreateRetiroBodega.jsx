@@ -5,6 +5,7 @@ import { TableSolicitudSelectedItems} from '../Componentes/TableSolicitudSelecte
 import { postRequest } from '../Hooks/usePostRequest';
 import { fetchDatos } from '../Hooks/useFetchRequest';
 import FormCreateRetiroBodega from '../Componentes/FormRetiroBodegaCreate';
+import Error from '../Maquetado/Error';
 
 export const CreateRetiroBodega = () => {
   const [solicitudData, setSolicitudData] = useState({
@@ -15,6 +16,8 @@ export const CreateRetiroBodega = () => {
     ComentarioSolicitud:'',
     InventarioSolicitud: [],
   });
+  const response = JSON.parse(localStorage.getItem("response"));
+  const isBodeguero = response && response.usuario && response.usuario.includes("Bodeguero");
   const [detalleInventarioData, setDetalleInventarioData] = useState({
     IdProducto: '',
     CantidadProducto: '',
@@ -179,6 +182,7 @@ export const CreateRetiroBodega = () => {
 
   return (
     <div>
+      { isBodeguero ? (
       <div className='card shadow-card rounded-0 border border-0'>
         <div className='card-body'>
           <div className='h5 text-uppercase pb-2'>Crear solicitud de retiro</div>
@@ -210,6 +214,10 @@ export const CreateRetiroBodega = () => {
           </form>
         </div>
       </div>
+      ) : (
+        <Error/>
+      )
+      }
     </div>
   );
 };

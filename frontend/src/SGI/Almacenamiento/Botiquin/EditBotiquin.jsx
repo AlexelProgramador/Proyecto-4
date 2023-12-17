@@ -3,13 +3,16 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { FormAlmacenamientoUpdate } from '../../Componentes/FormAlmacenamientoUpdate';
 import { fetchDatos } from '../../Hooks/useFetchRequest';
 import { putReq } from '../../Hooks/usePutRequest';
+import Error from '../../Maquetado/Error';
 
 export const EditBotiquin = () => {
     const [botiquinData, setBotiquinData] = useState({});
     const [cargandoBotiquin, setCargandoBotiquin] = useState(true);
     const { id } = useParams();
     const navigate = useNavigate();
-    const url = `http://localhost:8000/api/botiquin/${id}/edit`; // Reemplaza con la URL de tu backend
+
+    const response = JSON.parse(localStorage.getItem("response"));
+    const isAdmin = response && response.usuario && response.usuario.includes("Administrador");
 
     useEffect(() => {
         fetchBotiquin();
@@ -44,7 +47,7 @@ export const EditBotiquin = () => {
     return (
         <div>
             <div>
-                {cargandoBotiquin ? 
+                {cargandoBotiquin ? (
                 <div className="d-flex justify-content-center" style={{height:'200px'}}>
                     <div className='d-flex align-items-center'>
                         <div className="spinner-border text-secondary" role="status">
@@ -52,12 +55,18 @@ export const EditBotiquin = () => {
                         </div>
                     </div>
                 </div>
-                : 
+                )
+                : (
+                    isAdmin ?(
                 <FormAlmacenamientoUpdate 
                 almacenamientoData={botiquinData} 
                 setAlmacenamientoData={setBotiquinData} 
                 handleUpdate={handleUpdate}/>
-                }
+                ) :
+                (
+                    <Error/>
+                )
+                )}
             </div>
         </div>
     );

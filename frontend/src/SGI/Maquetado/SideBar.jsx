@@ -8,7 +8,10 @@ export const SideBar = ({ show, setShow }) => {
   const isAdmin = response && response.usuario && response.usuario.includes("Administrador") ;
   const isBodeguero = response && response.usuario && response.usuario.includes("Bodeguero");
   const isBotiquinero = response && response.usuario && response.usuario.includes("Botiquinero");
-  const almId = response.almacenamiento;
+  if (response){
+    var almId = response.almacenamiento;
+  }
+  
 
   const navigate = useNavigate();
     const handleSession = () => {

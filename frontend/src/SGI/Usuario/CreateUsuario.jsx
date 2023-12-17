@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FormUsuario } from '../Componentes/FormUsuario';
 import { postRequest } from '../Hooks/usePostRequest';
+import Error from '../Maquetado/Error';
 
 export const CreateUsuario = ({ setModal, fetchData }) => {
   const [userData, setUserData] = useState({
@@ -10,6 +11,8 @@ export const CreateUsuario = ({ setModal, fetchData }) => {
     rol: [],
     almacenamiento: ''
   });
+  const response = JSON.parse(localStorage.getItem("response"));
+  const isAdmin = response && response.usuario && response.usuario.includes("Administrador");
 
   const [passwordError, setPasswordError] = useState(null);
 
@@ -44,6 +47,7 @@ export const CreateUsuario = ({ setModal, fetchData }) => {
   // console.log(userData);
   return (
     <div>
+      {isAdmin ? (
       <FormUsuario
         userData = {userData} 
         setUserData ={setUserData} 
@@ -51,6 +55,10 @@ export const CreateUsuario = ({ setModal, fetchData }) => {
         passwordError = {passwordError}
         setPasswordError = {setPasswordError}
       />
+      ) : (
+        <Error/>
+      )
+      }
     </div>
   );
 };

@@ -9,7 +9,8 @@ export const ShowBotiquin = () => {
     const [cargandoBotiquin, setCargandoBotiquin] = useState(true);
     const { id } = useParams();
     const navigate = useNavigate();
-    const { setModal } = useModal()
+    const { setModal } = useModal();
+    
 
     useEffect(() => {
         const fetchBotiquin = async () => {

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { postRequest } from '../Hooks/usePostRequest';
 import FormProducto from '../Componentes/FormProductoCreate';
+import Error from '../Maquetado/Error';
 
 export const CreateProducto = ({ setModal, fetchData }) => {
   const [productoData, setProductoData] = useState({
@@ -15,6 +16,9 @@ export const CreateProducto = ({ setModal, fetchData }) => {
     Desgloce: [],
     Ubicacion: []
   });
+  const response = JSON.parse(localStorage.getItem("response"));
+  const isBodeguero = response && response.usuario && response.usuario.includes("Bodeguero");
+  const isAdmin = response && response.usuario && response.usuario.includes("Administrador");
   
 
   const handleInsert = async () => {
@@ -34,11 +38,16 @@ export const CreateProducto = ({ setModal, fetchData }) => {
 
   return (
     <div>
+      { isAdmin || isBodeguero ?(
       <FormProducto 
         productoData = {productoData} 
         setProductoData ={setProductoData} 
         handleInsert = {handleInsert}
       />
+      ) :(
+        <Error/>
+      )
+      }
     </div>
   );
 };

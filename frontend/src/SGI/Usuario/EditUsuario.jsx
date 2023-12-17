@@ -3,12 +3,15 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { FormUsuarioUpdate } from '../Componentes/FormUsuarioUpdate';
 import { fetchDatos } from '../Hooks/useFetchRequest';
 import { putReq } from '../Hooks/usePutRequest';
+import Error from '../Maquetado/Error';
 
 export const EditUsuario = () => {
     const [userData, setUserData] = useState({});
     const [cargandoUser, setCargandoUser] = useState(true);
     const { id } = useParams();
     const navigate = useNavigate();
+    const response = JSON.parse(localStorage.getItem("response"));
+    const isAdmin = response && response.usuario && response.usuario.includes("Administrador");
 
     useEffect(() => {
         fetchUser();
@@ -43,7 +46,7 @@ export const EditUsuario = () => {
 
     return (
         <div>
-            {cargandoUser ? 
+            {cargandoUser ? (
             <div className="d-flex justify-content-center" style={{height:'200px'}}>
                 <div className='d-flex align-items-center'>
                     <div className="spinner-border text-secondary" role="status">
@@ -51,12 +54,14 @@ export const EditUsuario = () => {
                     </div>
                 </div>
             </div>
-            : 
+            )
+            : (isAdmin ? ( 
             <FormUsuarioUpdate 
             userData={userData} 
             setUserData={setUserData} 
-            handleUpdate={handleUpdate}/>
-            }
+            handleUpdate={handleUpdate}/>)
+            :(<Error/>)
+            )}
         </div>
     );
 };

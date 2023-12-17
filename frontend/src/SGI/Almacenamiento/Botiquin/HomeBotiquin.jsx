@@ -4,6 +4,7 @@ import { useModal } from '../../Componentes/Modal';
 import { TablaAlmacenamiento } from '../../Componentes/TableHomeAlmacenamiento';
 import { fetchDatos } from '../../Hooks/useFetchRequest';
 import { deleteReq } from '../../Hooks/useDeleteRequest';
+import Error from '../../Maquetado/Error';
 
 
 export const HomeBotiquin = () => {
@@ -12,6 +13,8 @@ export const HomeBotiquin = () => {
     const navigate = useNavigate();
     const { setModal } = useModal()
     const tipoAlmacenamiento = "Botiquín";
+    const response = JSON.parse(localStorage.getItem("response"));
+    const isAdmin = response && response.usuario && response.usuario.includes("Administrador");
 
     const fetchData = async () => {
         try {
@@ -49,7 +52,7 @@ export const HomeBotiquin = () => {
 
     return (
         <div>
-            {cargandoProductos ? 
+            {cargandoProductos ? (
             <div className="d-flex justify-content-center" style={{height:'200px'}}>
                 <div className='d-flex align-items-center'>
                     <div className="spinner-border text-secondary" role="status">
@@ -57,7 +60,9 @@ export const HomeBotiquin = () => {
                     </div>
                 </div>
             </div>
-            :
+            )
+            :(
+                isAdmin ?(
             <TablaAlmacenamiento
             setModal = {setModal} 
             tipoAlmacenamiento = {tipoAlmacenamiento}
@@ -67,7 +72,10 @@ export const HomeBotiquin = () => {
             handleShow = {handleShow}
             fetchData = {fetchData}
             />
-            }
+            ) :(
+                <Error/>
+            )
+            )}
         </div>
     );
 };

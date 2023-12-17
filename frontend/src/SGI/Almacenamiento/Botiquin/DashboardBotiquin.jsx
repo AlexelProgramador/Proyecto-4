@@ -11,15 +11,16 @@ export const DashboardBotiquin = () => {
     const fetchData = async () => {
         try {
             const idAlm = response.almacenamiento;
-            console.log(idAlm);
             const urlInventario = `/botiquin/${idAlm}/pocoProducto`;
             const urlVencimiento = `/botiquin/${idAlm}/vencimientoInventario`;
-
             const responseVencimiento = await fetchDatos(urlVencimiento);
             const responsePocoProd = await fetchDatos(urlInventario);
             setDataProductoVencido(responseVencimiento.data);
             setDataPocasUnidades(responsePocoProd.data);
-            console.log(responsePocoProd.data);
+
+            const urlVencidos = '/producto/fechaVencimiento/Vencido';
+            const Vencidos = await fetchDatos(urlVencidos);
+            console.log(Vencidos);
         } catch (error) {
             console.error('Error al obtener datos', error);
         } finally{
@@ -30,7 +31,7 @@ export const DashboardBotiquin = () => {
     useEffect(() => {
         fetchData();
     }, []);
-    console.log(dataProductoVencido);
+
     return (
         <div>
             {cargandoDashboard ? 
