@@ -107,6 +107,7 @@ export const Content = () => {
             eliminar etapas y más.
           </p>
           <input
+            className="form-control me-2 w-25"
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
