@@ -7,8 +7,8 @@ export const ComponenteDashboardAdministrador = ({datosPendiente, datosPocasUnid
         {nro: datosPendiente.length, tipo:'Solicitudes pendientes', color: 'bg-success', th1: 'Destino', th2: 'Fecha', th3: datosPendiente.NombreBodega, th4: datosPendiente.FechaSolicitud}
     ]
 
-    console.log('datosUnidades',datosPocasUnidades)
-    console.log('datosPendiente',datosPendiente)
+    // console.log('datosUnidades',datosPocasUnidades)
+    // console.log('datosPendiente',datosPendiente)
 
     return (
         <div>

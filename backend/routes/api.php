@@ -90,7 +90,7 @@ Route::controller(ProductoController::class)->group(function () {
     Route::put("/producto/{id}/asignacion", "updateAsignacion");
     Route::delete("/producto/{id}", "destroy");
     Route::get("/productos/sinInventario", "pocoProducto");
-    Route::get("/productos/vencimientoInventario", "vencimientoProducto");
+    Route::get("/productos/venciminetoInventario", "vencimientoProducto");
 });
 
 Route::controller(SolicitudBodegaController::class)->group(function () {

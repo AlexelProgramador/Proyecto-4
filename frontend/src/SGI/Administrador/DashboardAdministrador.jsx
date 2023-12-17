@@ -14,16 +14,18 @@ export const DashboardAdministrador = () => {
     const fetchData = async () => {
         try {
             const urlInventario = '/productos/sinInventario';
-            //const urlVencimiento = '/productos/venciminetoInventario';
+            const urlVencimiento = '/productos/venciminetoInventario';
             const urlPendientes = '/solicitudes_bodega/contarAdmin'
             const responsePendiente = await fetchDatos(urlPendientes);
             const responsePocoProd = await fetchDatos(urlInventario);
-            const data = responsePocoProd.data;
-            // const responseVencimientoProducto = await vencimientoProducto();
+            const responseVencimientoProducto = await fetchDatos(urlVencimiento);
+            const dataPoco = responsePocoProd.data;
+            const dataVenc = responseVencimientoProducto.data;
             setDataSolicitudPendiente(responsePendiente);
-            setDataPocasUnidades(data);
+            setDataPocasUnidades(dataPoco);
+            setDataProductoVencido(dataVenc);
+            console.log(dataVenc);
             // setDataProductoVencido(responseVencimientoProducto);
-            console.log(responsePendiente);
         } catch (error) {
             console.error('Error al obtener datos', error);
         } finally{

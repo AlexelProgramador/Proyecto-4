@@ -280,7 +280,7 @@ class ProductoController extends Controller
             // El producto no está en el inventarioBodega de la bodega
             $inventarioData = array(
             'IdProducto' => $id,
-            'UuidDesgloce' =>  $request->UuidProducto,
+            'UuidDesgloce' =>  $request->IdDesgloce,
             'NombreProducto'=> $producto->Nombre,
             'CantidadAsignada' => intval($request->CantidadAsignada),
             );
@@ -337,43 +337,48 @@ class ProductoController extends Controller
     public function vencimientoProducto()
     {
         // Obtener todos los productos (o usar algún criterio para obtener los productos que necesitas)
-        $productos = Producto::all('DesgloceProducto'); // Reemplaza "TuModelo" con el nombre correcto de tu modelo
+        $productos = Producto::all(); // Reemplaza "TuModelo" con el nombre correcto de tu modelo
 
         // Fecha actual
         $fechaActual = Carbon::now();
+        $fechaActualFormateada = $fechaActual->format('Y-m-d');
+        $diasLimite = 7;
+        $fechaEnElFuturo = $fechaActual->addDays($diasLimite);
+        $fechaFuturoFormateada = $fechaEnElFuturo->format('Y-m-d');
 
-        // Recorrer cada producto
+        $productosPorVencer = [];
+
         foreach ($productos as $producto) {
-            // Recorrer cada desglose del producto
-            foreach ($producto->DesgloceProducto as $desglose) {
-                $fechaVencimiento = Carbon::parse($desglose['FechaVencimientoProducto']);
-                $diferenciaEnDias = $fechaVencimiento->diffInDays($fechaActual);
-
-                // Determinar el estado del producto
-                if ($diferenciaEnDias < 0 && $desglose['EstadoProducto'] !== 'Vencido') {
-                    // Actualizar el estado del desglose a "Vencido"
-                    $desglose->update(['EstadoProducto' => 'Vencido']);
-
-                    // Puedes agregar más lógica aquí según sea necesario
-                    $inventario['vencido'][] = [
-                        'producto' => $producto,
-                        'desglose' => $desglose,
-                        'dias_restantes' => $diferenciaEnDias,
-                    ];
-
-                } elseif ($diferenciaEnDias <= 7) {
-                    // Producto por vencer en los próximos 7 días
-                    $inventario['por_vencer'][] = [
-                        'producto' => $producto,
-                        'desglose' => $desglose,
-                        'dias_restantes' => $diferenciaEnDias,
-                    ];
-                } 
+            $desgloses = $producto->Desgloce;
+        
+            // Inicializar variables para el desglose más próximo a vencerse
+            $desgloseProximo = null;
+            $diferenciaDiasProxima = PHP_INT_MAX;
+        
+            foreach ($desgloses as $desglose) {
+                $fechaVencimiento = Carbon::parse($desglose['FechaVencimiento']);
+                $fechaVencimientoFormateada = $fechaVencimiento;
+                if ($fechaVencimientoFormateada->isBetween($fechaActualFormateada, $fechaFuturoFormateada, true, true)) {
+                    $diferenciaEnDias = $fechaVencimientoFormateada->diffInDays(Carbon::parse($fechaActualFormateada));
+                    if ($diferenciaEnDias < $diferenciaDiasProxima) {
+                        // Actualizar el desglose más próximo a vencerse y su diferencia en días
+                        $desgloseProximo = $desglose;
+                        $diferenciaDiasProxima = $diferenciaEnDias;
+                    }
+                }
             }
+            // Verificar si se encontró un desglose próximo y si está dentro del límite de días
+            if ($desgloseProximo !== null && $diferenciaDiasProxima <= $diasLimite) {
+                // Agregar el producto a la lista de productos por vencer
+                $productosPorVencer[] = [
+                    'Nombre' => $producto->Nombre,
+                    'FechaVencimiento' => $fechaVencimiento->format('Y-m-d'),
+                    'DiasRestantes' => $diferenciaDiasProxima,
+                ];
+            }
+        
         }
-        $producto->save();
-
         // Ahora $inventario contiene la información organizada por estados
-        return response()->json(['status' => 200, 'data' => $inventario]);
+        return response()->json(['status' => 200, 'data' => $productosPorVencer]);
     }
 }
