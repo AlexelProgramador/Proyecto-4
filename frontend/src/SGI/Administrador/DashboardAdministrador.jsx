@@ -46,7 +46,7 @@ export const DashboardAdministrador = () => {
                     </div>
                 </div>
             </div>
-            : <ComponenteDashboardAdministrador datosPendiente = {dataSolicitudPendiente} datosPocasUnidades = {dataPocasUnidades}/>}
+            : <ComponenteDashboardAdministrador datosPendiente = {dataSolicitudPendiente} datosPocasUnidades = {dataPocasUnidades} dataProductoVencido={dataProductoVencido}/>}
         </div>
     );
 };

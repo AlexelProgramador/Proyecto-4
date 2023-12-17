@@ -309,8 +309,21 @@ main {
   }
 
   .card-login{
-    background-color: #ffffffa1;
+    background-color: #ffffffbf;
     width: 100%;
+    height: 450px;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
   }
   
+  .logo-login {
+    height: 70px;
+  }
+
+  .u-img {
+    height: 450px;
+    max-width: 850px;
+    background: url(../src/img/facultad-odontologia.jpg);
+  }
 }

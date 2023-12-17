@@ -2,7 +2,7 @@ import React, { useState, useEffect  } from "react";
 import { useNavigate } from "react-router-dom";
 import {postRequest} from "../Hooks/usePostRequest";
 import logo from "../../img/logo-odontologia.svg";
-import img from "../../img/facultad-odontologia.jpg";
+// import img from "../../img/facultad-odontologia.jpg";
 import { fetchDatos } from "../Hooks/useFetchRequest";
 
 export const Login = () => {
@@ -64,9 +64,9 @@ export const Login = () => {
             </div>
             {/* Card Imagen */}
             <div className="col-md-5 card-login rounded-0 border-0 position-absolute z-1 top we-10 p-3">
-              <div className="card-body px-4 pb-4">
+              <div className="card-body p-4">
                 <form onSubmit={handleSubmit}>
-                  <div className="col">
+                  <div className="col pb-2">
                     <label htmlFor="username" className="col-auto col-form-label">
                       Usuario
                     </label>
@@ -81,7 +81,7 @@ export const Login = () => {
                       />
                     </div>
                   </div>
-                  <div className="col">
+                  <div className="col pb-2">
                     <label htmlFor="password" className="col-auto col-form-label">
                       Contraseña
                     </label>
@@ -103,8 +103,6 @@ export const Login = () => {
               </div>
             </div>
           </div> 
-          
-
         </div>
       </div>
       </div>
