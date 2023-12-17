@@ -26,7 +26,6 @@ export const TablaProductosAcciones = ({almacenamientoData, setModal, handleShow
     fetchData();
   }, []);
   
-  console.log(almacenamientoData.Tipo);
   let columns = [];
   let data = [];
 
@@ -74,8 +73,8 @@ export const TablaProductosAcciones = ({almacenamientoData, setModal, handleShow
               </>
             ) : almacenamientoData.Tipo === "Botiquin" ? (              
               <>
-              <button className='btn btn-success me-2' onClick={() => navigate('/create-solicitud')}>solicitud</button>
-              <button className='btn btn-success' onClick={() => navigate('/create-solicitud-botiquin')}>Retiro</button>
+              <button className='btn btn-success me-2 mb-1' onClick={() => navigate('/create-solicitud')}>solicitud</button>
+              <button className='btn btn-success mb-1' onClick={() => navigate('/create-solicitud-botiquin')}>Retiro</button>
               </>
             ) : null }
             </div>

@@ -12,7 +12,7 @@ export const ComponenteDashboardBodega = ({datosPendiente, datosPocasUnidades, d
     datosPendiente.length*/}
 
     // console.log('datosUnidades',datosPocasUnidades)
-    console.log('datosPendiente',dataProductoVencido)
+    // console.log('datosPendiente',dataProductoVencido)
 
 
     return (

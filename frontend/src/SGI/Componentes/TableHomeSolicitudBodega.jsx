@@ -39,8 +39,8 @@ export const TableHomeSolicitudBodega = ({dataSolicitudBodega, setModal, PrimerP
         est: <span className={`badge rounded-pill text-${getClassByEstado(item.EstadoSolicitud)}`}>{item.EstadoSolicitud}</span>,
         acciones: (
           <div>
-            <button 
-              className='btn btn-primary' 
+            <div className='btn-group btn-group-sm'>
+              <button className='btn btn-primary' 
               onClick={
                 () => 
                   setModal(
@@ -70,6 +70,7 @@ export const TableHomeSolicitudBodega = ({dataSolicitudBodega, setModal, PrimerP
                   </div>
                 </div>
               </div>)}}><i className="fa-solid fa-file-pdf"></i></button>
+            </div>
           </div>
         )                
       }

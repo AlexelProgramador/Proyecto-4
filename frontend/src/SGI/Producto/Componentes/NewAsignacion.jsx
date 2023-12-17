@@ -20,7 +20,7 @@ export const NewAsignacion = ({desgloseProducto, fetchProducto}) => {
     NombreUbicacion:'',
     FechaProceso: '',
   });
-  console.log(nuevaAsignacion);
+  // console.log(nuevaAsignacion);
   const objetosBuenEstado = desgloseProducto.filter((data) => data.Estado === 'Buen Estado');
 
   const handleAgregarAsignacion = async () => {

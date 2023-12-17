@@ -22,7 +22,7 @@ export const TableHomeSolicitudBotiquin = ({dataRetiroBotiquin, setModal}) => {
         destino: item.NombreBotiquin,
         cant: item.InventarioSolicitud.length,
         acciones: (
-          <div>
+          <div className='btn-group btn-group-sm'>
             <button 
               className='btn btn-primary' 
               onClick={

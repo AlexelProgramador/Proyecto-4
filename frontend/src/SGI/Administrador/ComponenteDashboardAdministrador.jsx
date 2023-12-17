@@ -9,7 +9,7 @@ export const ComponenteDashboardAdministrador = ({datosPendiente, datosPocasUnid
 
     // console.log('datosUnidades',datosPocasUnidades)
     // console.log('datosPendiente',datosPendiente)
-    console.log('datosPendiente',dataProductoVencido)
+    // console.log('datosPendiente',dataProductoVencido)
 
     return (
         <div>

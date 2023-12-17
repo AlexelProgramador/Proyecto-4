@@ -13,7 +13,7 @@ export const EditDesglose = () => {
   const navigate = useNavigate();
   const productoDataDes = productoData.Desgloce;
   const dataProductoDataDes = productoDataDes.find((data) => data.UuidProducto === idDes);
-  console.log(dataProductoDataDes);
+  // console.log(dataProductoDataDes);
   const [nuevoDesgloce, setNuevoDesgloce] = useState({
     UuidProducto: dataProductoDataDes.UuidProducto,
     CantidadContenedor: '',
@@ -53,7 +53,7 @@ export const EditDesglose = () => {
       ValorTotal: valorTotal,
     });
   };
-  console.log(nuevoDesgloce);
+  // console.log(nuevoDesgloce);
   return(
     <div>
       <div className='card shadow-card rounded-0 border border-0'>

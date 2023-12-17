@@ -16,7 +16,7 @@ export const DashboardBodega = () => {
     const fetchData = async () => {
         try {
             const idAlm = response.almacenamiento;
-            console.log(idAlm);
+            // console.log(idAlm);
             const urlInventario = `/bodega/${idAlm}/pocoProducto`;
             const urlVencimiento = `/bodega/${idAlm}/vencimientoInventario`;
             const urlPendientes = `/solicitudes_bodega/contar/${idAlm}`;
@@ -28,7 +28,7 @@ export const DashboardBodega = () => {
             setDataSolicitudPendiente(responsePendiente);
             setDataPocasUnidades(dataProd);
             setDataProductoVencido(dataVenc);
-            console.log(dataVenc);
+            // console.log(dataVenc);
         } catch (error) {
             console.error('Error al obtener datos', error);
         } finally{

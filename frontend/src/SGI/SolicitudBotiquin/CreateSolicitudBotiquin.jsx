@@ -5,8 +5,12 @@ import { TableSolicitudSelectedItems} from '../Componentes/TableSolicitudSelecte
 import {FormCreateSolicitudBotiquin} from '../Componentes/FormSolicitudBotiquinCreate';
 import { postRequest } from '../Hooks/usePostRequest';
 import { fetchDatos } from '../Hooks/useFetchRequest';
+import Error from '../Maquetado/Error';
 
 export const CreateSolicitudBotiquin = () => {
+  const response = JSON.parse(localStorage.getItem("response"));
+  const isBotiquinero = response && response.usuario && response.usuario.includes("Botiquinero");
+
   const [solicitudData, setSolicitudData] = useState({
     VariableSolicitud: '',
     UnidadSolicitud: '',
@@ -183,6 +187,7 @@ export const CreateSolicitudBotiquin = () => {
 
   return (
     <div>
+      { isBotiquinero ? (
       <div className='card shadow-card rounded-0 border border-0'>
         <div className='card-body'>
           <div className='h5 text-uppercase pb-2'>Crear solicitud de retiro</div>
@@ -213,6 +218,8 @@ export const CreateSolicitudBotiquin = () => {
           </form>
         </div>
       </div>
+      ) :
+      (<Error/>)}
     </div>
   );
 };

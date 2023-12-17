@@ -65,7 +65,7 @@ export const Login = () => {
               <div className="card-body p-4">
                 <form onSubmit={handleSubmit}>
                   <div className="col pb-2">
-                    <label htmlFor="username" className="col-auto col-form-label">
+                    <label htmlFor="username" className="col-auto col-form-label text-uppercase">
                       Usuario
                     </label>
                     <div className="input-group">
@@ -80,7 +80,7 @@ export const Login = () => {
                     </div>
                   </div>
                   <div className="col pb-2">
-                    <label htmlFor="password" className="col-auto col-form-label">
+                    <label htmlFor="password" className="col-auto col-form-label text-uppercase">
                       Contraseña
                     </label>
                     <div className="input-group">

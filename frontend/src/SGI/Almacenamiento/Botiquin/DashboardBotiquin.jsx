@@ -20,7 +20,7 @@ export const DashboardBotiquin = () => {
 
             const urlVencidos = '/producto/fechaVencimiento/Vencido';
             const Vencidos = await fetchDatos(urlVencidos);
-            console.log(Vencidos);
+            // console.log(Vencidos);
         } catch (error) {
             console.error('Error al obtener datos', error);
         } finally{

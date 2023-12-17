@@ -169,7 +169,7 @@ export const CreateRetiroBodega = () => {
     const selectedBodega = bodegaData.find(option => option._id === selectedOIdUbicacionBodega);
 
     if (selectedBodega) {
-        console.log(selectedBodega);
+        // console.log(selectedBodega);
         setSolicitudData(prevState => ({
             ...prevState,
             NombreBodegaSolicitud: selectedBodega.Nombre,

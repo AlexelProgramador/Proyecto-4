@@ -6,6 +6,7 @@ import TableAsignacionShowProducto from '../Componentes/TableShowAsignacionProdu
 
 export const ShowProducto = () => {
   const [productoData, setProductoData] = useState({});
+  const [cargando, setCargando] = useState(true);
   const { id } = useParams();
   //const navigate = useNavigate();
   const url = `http://localhost:8000/api/producto/${id}`; // Reemplaza con la URL de tu backend
@@ -19,6 +20,8 @@ export const ShowProducto = () => {
         setProductoData(datos);
       } catch (error) {
         console.error('Error al obtener la información del producto', error);
+      } finally{
+        setCargando(false);
       }
     };
     fetchProducto();
@@ -26,6 +29,16 @@ export const ShowProducto = () => {
 
   return (
     <div>
+      {cargando ? (
+      <div className="d-flex justify-content-center" style={{height:'200px'}}>
+          <div className='d-flex align-items-center'>
+              <div className="spinner-border text-secondary" role="status">
+                  <span className="visually-hidden">Cargando...</span>
+              </div>
+          </div>
+      </div>
+      ) 
+      : (
       <div className='card shadow-card rounded-0 border border-0'>
         <div className='card-body'>
           <div className='h5 text-uppercase pb-2'>Producto {productoData.Nombre}</div>
@@ -45,9 +58,9 @@ export const ShowProducto = () => {
           ) : 
             <p>No hay datos de ubicación disponibles</p>
           }
-          
         </div>
       </div>
+      )}
     </div>
   );
 };

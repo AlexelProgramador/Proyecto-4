@@ -79,7 +79,7 @@ export const TerminarSolicitud = ({ solicitud, handleinput, aceptar, rechazar, s
         </div>
         ) : (
           <div className='text-end'>
-            <button className='btn me-2' onClick={() => setModal(false)}>Cancelar</button>
+            <button className='btn me-2' onClick={() => setModal(false)}>Atrás</button>
           </div>
         )} 
         {/* {isBodeguero && (solicitud.EstadoSolicitud === "Pendiente") ? (

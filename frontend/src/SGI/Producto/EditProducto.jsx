@@ -51,7 +51,6 @@ export const EditProducto = () => {
         console.error('Error al actualizar producto: ', error);
       });
   };
-  console.log(productoData);
   return (
     <div>
       { isAdmin || isBodeguero? (

@@ -65,8 +65,6 @@ export const FormUsuarioUpdate = ({userData, setUserData, handleUpdate}) => {
     fetchDataBotiquin();
   }, []);
 
-  console.log(userData);
-
   return (
     <div>
       <div className='card shadow-card rounded-0 border border-0'>

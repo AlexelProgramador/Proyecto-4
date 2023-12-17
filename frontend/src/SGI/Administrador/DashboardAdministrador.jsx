@@ -24,7 +24,7 @@ export const DashboardAdministrador = () => {
             setDataSolicitudPendiente(responsePendiente);
             setDataPocasUnidades(dataPoco);
             setDataProductoVencido(dataVenc);
-            console.log(dataVenc);
+            // console.log(dataVenc);
             // setDataProductoVencido(responseVencimientoProducto);
         } catch (error) {
             console.error('Error al obtener datos', error);

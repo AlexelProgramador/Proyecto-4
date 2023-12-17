@@ -26,7 +26,7 @@ export const CreateProducto = ({ setModal, fetchData }) => {
       postRequest(url, productoData)
       .then(data => {
         if (data.status === 201 || data.statusCode === 201) {
-          console.log(data);
+          // console.log(data);
           fetchData();
           setModal(false);
         }

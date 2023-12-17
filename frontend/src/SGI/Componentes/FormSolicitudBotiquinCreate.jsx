@@ -8,7 +8,7 @@ export const FormCreateSolicitudBotiquin = ({botiquinData, selectedItems= [], ha
       [e.target.name]: e.target.value
     });
   };
-  console.log(botiquinData);
+  // console.log(botiquinData);
 
   return (
     <div>

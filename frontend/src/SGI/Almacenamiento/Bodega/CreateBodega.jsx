@@ -27,7 +27,7 @@ export const CreateBodega = ({ setModal, fetchData }) => {
         console.error('Error al insertar datos: ', error);
       });
   };
-  console.log(bodegaData);
+  // console.log(bodegaData);
   return (
     <div>
       {isAdmin ?

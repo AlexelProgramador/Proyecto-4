@@ -70,7 +70,7 @@ export const SideBar = ({ show, setShow }) => {
               {isBodeguero || isAdmin ? (
               <NavLink to='/show-producto' className='nav-link' activeClassName='active'>
                 <i className='fi fi-rr-table-columns nav-logo-link'></i>
-                <span>Inventario</span>
+                <span>Productos</span>
               </NavLink>
               ): null}
               {isBodeguero || isAdmin || isBotiquinero ? (              

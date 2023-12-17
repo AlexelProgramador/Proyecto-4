@@ -10,7 +10,7 @@ export const FormCreateRetiroBodega = ({bodegaData, selectedItems= [], handleBod
       [e.target.name]: e.target.value
     });
   };
-  console.log(solicitudData);
+  // console.log(solicitudData);
 
   return (
     <div>

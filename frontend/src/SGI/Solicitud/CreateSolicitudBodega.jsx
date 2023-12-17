@@ -168,8 +168,7 @@ export const CreateSolicitudBodega = () => {
     });
   };
   
-  console.log(solicitudData);
-  
+  // console.log(solicitudData);
 
   const fetchData = async () => {
     try {
@@ -217,7 +216,7 @@ export const CreateSolicitudBodega = () => {
     
 };
 
-console.log(inventarioBodegaData);
+// console.log(inventarioBodegaData);
 
   return (
     <div>

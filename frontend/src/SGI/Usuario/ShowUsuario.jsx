@@ -12,7 +12,7 @@ export const ShowUsuario = ({ setModal, user, fetchData }) => {
     const response = JSON.parse(localStorage.getItem("response"));
     const isAdmin = response.usuario;
 
-    console.log(isAdmin)
+    // console.log(isAdmin)
 
     useEffect(() => {
         const fetchDataBodegaBotiquin = async () => {
