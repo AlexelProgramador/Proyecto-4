@@ -44,7 +44,7 @@ export const Etapa1 = () => {
     const url2 = "subirArchivos";
     const response2 = await executePost(formData, url2);
 
-    // navigate("/");
+    navigate("/");
   };
 
   const getSolicitudInfo = async () => {
@@ -236,7 +236,7 @@ export const Etapa1 = () => {
 
                   <div className="mb-3">
                     <label htmlFor="montoEstimado" className="form-label">
-                      Adjuntar antecedentes del/los producto/s:
+                      Adjuntar pdf(s) en caso de necesitarlo:
                     </label>
                     <input
                       type="file"

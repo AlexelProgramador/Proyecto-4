@@ -46,6 +46,7 @@ Route::controller(EtapaController::class)->group(function () {
 // Controlador Archivos.
 Route::controller(ArchivosController::class)->group(function () {
     Route::post("/subirArchivos", "subirArchivos");
+    Route::post("/verArchivos", "verArchivos");
 });
 
 Route::group(['prefix' => 'pdf', 'as' => 'pdf.'], function () {

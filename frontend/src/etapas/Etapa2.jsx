@@ -20,6 +20,7 @@ export const Etapa2 = () => {
   const [fechaentregaprov, setFechaEntProv] = useState("");
   const [valorcompra, setValorCompra] = useState("");
   const [fechaautocompra, setFechaautocompra] = useState("");
+  const [archivos, setArchivos] = useState([]);
 
   const { execute: executePut } = usePutRequest();
   const navigate = useNavigate();
@@ -44,6 +45,16 @@ export const Etapa2 = () => {
     };
     const url = "avanzarEtapa";
     const response = await executePut(url, data);
+    const formData = new FormData();
+    formData.append("_id", item._id);
+    formData.append("nombreEtapa", "Etapa2");
+    formData.append("nroSolicitud", solicitudInfo.solicitudInfo.nroSolicitud);
+    archivos.forEach((archivo, index) => {
+      formData.append(`archivo_${index + 1}`, archivo);
+    });
+    const url2 = "subirArchivos";
+    const response2 = await executePost(formData, url2);
+
     navigate("/");
   };
 
@@ -55,9 +66,8 @@ export const Etapa2 = () => {
     var response = await executePost(data, url);
     setSolicitudInfo(response);
     console.log(item);
-
   };
-  
+
   useEffect(() => {
     getSolicitudInfo();
   }, []);
@@ -65,7 +75,6 @@ export const Etapa2 = () => {
   return (
     <>
       {solicitudInfo ? (
-        
         <>
           <div className="w-75 h-40 mx-auto">
             <div className="card shadow-card rounded-3 border border-0">
@@ -212,9 +221,21 @@ export const Etapa2 = () => {
                     </label>
                   </div>
 
-                  {/* Agrega más campos según sea necesario */}
-
-                  {/* Botones del formulario */}
+                  <div className="mb-3">
+                    <label htmlFor="montoEstimado" className="form-label">
+                      Adjuntar antecedentes del/los producto/s:
+                    </label>
+                    <input
+                      type="file"
+                      className="form-control"
+                      id="archivo"
+                      accept="application/pdf"
+                      multiple
+                      onChange={(e) => {
+                        setArchivos(Array.from(e.target.files));
+                      }}
+                    />
+                  </div>
                   <button className="m-2 btn btn-primary" type="submit">
                     Aceptar
                   </button>

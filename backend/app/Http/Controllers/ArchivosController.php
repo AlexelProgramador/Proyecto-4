@@ -10,6 +10,20 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ArchivosController extends Controller
 {
+    public function verArchivos(Request $request)
+    {
+        $archivo = ArchivosEtapas::where('idSolicitud', '=', $request->idSolicitud)
+            ->where('etapa', '=', $request->etapa)
+            ->first();
+        if (!$archivo) {
+            return response()->json(['error' => 'No se encontro el archivo'], Response::HTTP_CONFLICT);
+        }
+        return response()->json(
+            $archivo,
+            Response::HTTP_OK
+        );
+    }
+
     public function subirArchivos(Request $request)
     {
         $id = $request->input('_id');
@@ -29,9 +43,9 @@ class ArchivosController extends Controller
             $archivo->move(public_path('/pdfs'), $nombreArchivo . '.' . $archivo->getClientOriginalExtension());
             $nombresPdf[] = $nombreArchivo;
         }
-        $archivoNuevo->nombresPdf = json_encode($nombresPdf);
+        $archivoNuevo->nombresPdf = $nombresPdf;
         $archivoNuevo->idSolicitud = $id;
-        // $archivoNuevo->foo = 'foo';
+        $archivoNuevo->etapa = $nombreEtapa;
         $archivoNuevo->save();
         return response()->json(
             $archivoNuevo,

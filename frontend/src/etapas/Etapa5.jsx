@@ -22,6 +22,7 @@ export const Etapa5 = () => {
   const [comentarios, setComentarios] = useState("");
   const [fecharecep, setFechaRecep] = useState("");
   const [perscargrecep, setPersCargRecep] = useState("");
+  const [archivos, setArchivos] = useState([]);
 
   const { execute: executePut } = usePutRequest();
   const navigate = useNavigate();
@@ -46,6 +47,16 @@ export const Etapa5 = () => {
     };
     const url = "avanzarEtapa";
     const response = await executePut(url, data);
+    const formData = new FormData();
+    formData.append("_id", item._id);
+    formData.append("nombreEtapa", "Etapa5");
+    formData.append("nroSolicitud", solicitudInfo.solicitudInfo.nroSolicitud);
+    archivos.forEach((archivo, index) => {
+      formData.append(`archivo_${index + 1}`, archivo);
+    });
+    const url2 = "subirArchivos";
+    const response2 = await executePost(formData, url2);
+
     navigate("/");
   };
 
@@ -214,9 +225,21 @@ export const Etapa5 = () => {
                     </label>
                   </div>
 
-                  {/* Agrega más campos según sea necesario */}
-
-                  {/* Botones del formulario */}
+                  <div className="mb-3">
+                    <label htmlFor="montoEstimado" className="form-label">
+                      Adjuntar pdf(s) en caso de necesitarlo:
+                    </label>
+                    <input
+                      type="file"
+                      className="form-control"
+                      id="archivo"
+                      accept="application/pdf"
+                      multiple
+                      onChange={(e) => {
+                        setArchivos(Array.from(e.target.files));
+                      }}
+                    />
+                  </div>
                   <button className="m-2 btn btn-primary" type="submit">
                     Aceptar
                   </button>
