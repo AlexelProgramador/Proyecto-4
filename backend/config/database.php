@@ -94,8 +94,8 @@ return [
         ],
         'mongodb' => [
             'driver' => 'mongodb',
-            'dsn' => env('DB_URI', 'mongodb://localhost:27017'),// Cambiar de nombre cuando trabajemos con la base de datos en la nube.
-            'database' => 'Proyecto4'
+            'dsn' => env('DB_DSN'),// Cambiar de nombre cuando trabajemos con la base de datos en la nube.
+            'database' => env('DB_DATABASE', 'homestead'),
         ]
 
     ],
