@@ -29,7 +29,7 @@ export const SideBar = ({ show, setShow }) => {
             {/* SIDEBAR HEADER */}
             <a href='/' className='nav-logo'>
               <i className='fi fi-rr-house-blank nav-logo-icon'/>
-              <span className='nav-logo-name'>CASITA</span>
+              <span className='nav-logo-name'>Inventario</span>
             </a>
             {/* ITEMS */}
             <div className='nav-list'>
