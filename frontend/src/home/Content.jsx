@@ -18,7 +18,7 @@ function getRole(nroEtapa) {
     case 3:
       return "Subdirectora";
     case 4:
-      return "Encargado de abastecimiento";
+      return "Encargado de abastecimiento ";
     case 5:
       return "Bodeguero";
     case "Dea":
@@ -67,7 +67,11 @@ export const Content = () => {
     : [];
   const filteredData = search
     ? sortedData.filter(
-        (item) => item.solicitudInfo.nroSolicitud && item.solicitudInfo.nroSolicitud.includes(search)
+        (item) =>
+          (item.solicitudInfo.nroSolicitud &&
+            item.solicitudInfo.nroSolicitud.includes(search)) ||
+          (item.procesosEtapa2.nroordendecompra &&
+            item.procesosEtapa2.nroordendecompra.includes(search))
       )
     : sortedData;
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -107,11 +111,11 @@ export const Content = () => {
             eliminar etapas y más.
           </p>
           <input
-            className="form-control me-2 w-25"
+            className="form-control me-2 w-30"
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Buscar por número de solicitud"
+            placeholder="Buscar número de solicitud u orden de compra"
           />
         </div>
 
@@ -132,6 +136,7 @@ export const Content = () => {
                   <thead>
                     <tr>
                       <th scope="col">N° Solicitud</th>
+                      <th scope="col">Orden de compra</th>
                       <th scope="col">Etapa</th>
                       <th scope="col">Solicitado por</th>
                       <th scope="col">Encargado</th>
@@ -146,6 +151,11 @@ export const Content = () => {
                         item.nroEtapa !== "Rechazado" && (
                           <tr key={item._id}>
                             <td>{item.solicitudInfo.nroSolicitud}</td>
+                            <td>
+                              {item.procesosEtapa2.nroordendecompra
+                                ? item.procesosEtapa2.nroordendecompra
+                                : "No registro"}
+                            </td>
                             <td>
                               {item.nroEtapa}
                               <ProgressBar
