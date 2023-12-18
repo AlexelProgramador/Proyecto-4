@@ -24,6 +24,7 @@ return array(
     'App\\Http\\Middleware\\TrustProxies' => $baseDir . '/app/Http/Middleware/TrustProxies.php',
     'App\\Http\\Middleware\\ValidateSignature' => $baseDir . '/app/Http/Middleware/ValidateSignature.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
+    'App\\Models\\ArchivosEtapas' => $baseDir . '/app/Models/ArchivosEtapas.php',
     'App\\Models\\Etapa' => $baseDir . '/app/Models/Etapa.php',
     'App\\Models\\Solicitud' => $baseDir . '/app/Models/Solicitud.php',
     'App\\Models\\Usuario' => $baseDir . '/app/Models/Usuario.php',

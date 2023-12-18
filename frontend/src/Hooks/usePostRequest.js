@@ -12,11 +12,13 @@ const usePostRequest = (url = "") => {
     const postData = async () => {
       setIsLoading(true);
       try {
+        console.log(data);
         const result = await axios.post(
           `http://127.0.0.1:8000/api/${newUrl}`,
           data
         );
         setResponse(result);
+        console.log(result);
       } catch (error) {
         setError(error);
       } finally {

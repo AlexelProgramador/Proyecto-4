@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AApiPdfController;
 
 use App\Http\Controllers\Api\PdfController;
+use App\Http\Controllers\ArchivosController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -39,7 +41,11 @@ Route::controller(EtapaController::class)->group(function () {
     Route::put("/rechazarEtapa", "rechazarEtapa");
     Route::put("/avanzarEtapa", "avanzarEtapa");
     Route::delete("/eliminarEtapa", "eliminarEtapa");
+});
 
+// Controlador Archivos.
+Route::controller(ArchivosController::class)->group(function () {
+    Route::post("/subirArchivos", "subirArchivos");
 });
 
 Route::group(['prefix' => 'pdf', 'as' => 'pdf.'], function () {

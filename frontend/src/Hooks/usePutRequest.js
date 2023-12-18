@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 
-const usePutRequest = (initialUrl = "", initialData = {}) => {
+const usePutRequest = (initialUrl = "", initialData = {foo:'foo'}) => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -12,6 +12,7 @@ const usePutRequest = (initialUrl = "", initialData = {}) => {
     setIsLoading(true);
 
     try {
+      console.log(newData);
       const response = await axios.put(
         `http://127.0.0.1:8000/api/${newUrl}`,
         newData
