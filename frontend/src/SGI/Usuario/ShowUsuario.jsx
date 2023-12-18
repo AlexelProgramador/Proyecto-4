@@ -10,7 +10,7 @@ export const ShowUsuario = ({ setModal, user, fetchData }) => {
     const [dataBodega, setDataBodega] = useState([]);
     const [dataBotiquin, setDataBotiquin] = useState([]);
     const response = JSON.parse(localStorage.getItem("response"));
-    const isAdmin = response.usuario;
+    const isAdmin = response && response.usuario && response.usuario.includes("Administrador");
 
     // console.log(isAdmin)
 
@@ -37,7 +37,7 @@ export const ShowUsuario = ({ setModal, user, fetchData }) => {
 
     return (
         <div>
-            { isAdmin == "Administrador" ? (
+            { isAdmin ? (
             <div style={{maxWidth:'800px'}}>
                 <div className='h5 text-uppercase pb-2'>Informacion Usuario</div>
                 <div className='row'>

@@ -307,7 +307,9 @@ class ProductoController extends Controller
 
         $producto1 = Producto::findOrFail($id);
         $cantidadAsig = $producto1->CantidadAsignada + intval($request->CantidadAsignada);
+        $cantidadAsigTotal = $producto1->CantidadTotal - intval($request->CantidadAsignada);
         $producto1->CantidadAsignada = $cantidadAsig;
+        $producto1->CantidadTotal = $cantidadAsigTotal;
         $producto1->save();
 
         return response()->json(['status' => 200]);
@@ -391,17 +393,27 @@ class ProductoController extends Controller
         foreach ($productos as $producto) {
             $desgloses = $producto->Desgloce;
         
-            foreach ($desgloses as $desglose) {
-                $fechaVencimiento = Carbon::parse($desglose['FechaVencimiento']);
-                $fechaVencimientoFormateada = $fechaVencimiento;
-                // Comparar si la fecha de vencimiento es menor que la fecha actual
-                if ($fechaVencimientoFormateada->lessThanOrEqualTo($fechaActualFormateada)) {
-                    // Actualizar el atributo Estado dentro del objeto Desgloce
-                    //return response()->json(['status' => 'Entro aquí']);
-                    // $desglose->update([
-                    //     'Estado' => 'Vencido',
-                    // ]);
+            foreach ($productos as $producto) {
+                $desgloses = $producto->Desgloce;
+        
+                // Crear una copia del array de desgloses
+                $nuevosDesgloses = $desgloses;
+        
+                foreach ($nuevosDesgloses as $indice => $desglose) {
+                    $fechaVencimiento = Carbon::parse($desglose['FechaVencimiento']);
+                    
+                    // Comparar si la fecha de vencimiento es menor que la fecha actual
+                    if ($fechaVencimiento->lessThanOrEqualTo($fechaActualFormateada)) {
+                        // Actualizar el atributo Estado dentro del objeto Desgloce en la copia
+                        $nuevosDesgloses[$indice]['Estado'] = 'Vencido';    
+                    }
                 }
+        
+                // Reemplazar el array original con la copia modificado
+                $producto->Desgloce = $nuevosDesgloses;
+        
+                // Guardar los cambios en la base de datos para este producto
+                $producto->save();
             }
             
         }
