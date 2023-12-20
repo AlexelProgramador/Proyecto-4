@@ -43,7 +43,14 @@ export const TableHomeSolicitudBotiquin = ({dataRetiroBotiquin, setModal}) => {
 
   return (
     <div>
-      <DataTable data={data} columns={columns} />
+      {dataRetiroBotiquin.length > 0 ?
+      (<div>
+        <DataTable data={data} columns={columns} />
+      </div>)
+      :
+      <p>No hay Retiros Creados</p>
+      }
+      
     </div>
 
   );

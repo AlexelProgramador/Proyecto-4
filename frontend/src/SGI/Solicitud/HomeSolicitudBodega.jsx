@@ -62,7 +62,7 @@ export const HomeSolicitudBodega = () => {
           </div>
         </div>
       ) : (
-        isAdmin || isBodeguero ?(
+        isAdmin || isBodeguero || isBotiquinero ?(
         <div className='card shadow-card rounded-0 border border-0'>
           <div className='card-body'>
             <div className='h5 text-uppercase pb-2'>Solicitudes</div>

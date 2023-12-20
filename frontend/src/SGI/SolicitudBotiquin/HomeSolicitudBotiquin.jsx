@@ -7,6 +7,7 @@ import { fetchDatos } from '../Hooks/useFetchRequest';
 
 export const HomeSolicitudBotiquin = () => {
   const [dataSolicitudBotiquin, setDataSolicitudBotiquin] = useState([]);
+  const [cargandoSolicitudBotiquin, setCargandoSolicitudBotiquin] = useState(true);
   const navigate = useNavigate();
   const { setModal } = useModal()
 
@@ -17,6 +18,8 @@ export const HomeSolicitudBotiquin = () => {
       setDataSolicitudBotiquin(response);
     } catch (error) {
       console.error('Error al obtener datos', error);
+    } finally {
+      setCargandoSolicitudBotiquin(false);
     }
   };
 
@@ -31,6 +34,15 @@ export const HomeSolicitudBotiquin = () => {
 
   return (
     <div>
+      {cargandoSolicitudBotiquin ? (
+        <div className="d-flex justify-content-center" style={{ height: '200px' }}>
+          <div className='d-flex align-items-center'>
+          <div className="spinner-border text-secondary" role="status">
+            <span className="visually-hidden">Cargando...</span>
+          </div>
+        </div>
+      </div>
+      ):(
       <div className='card shadow-card rounded-0 border border-0'>
         <div className='card-body'>
           <div className='h5 text-uppercase pb-2'>Retiros</div>                
@@ -42,6 +54,8 @@ export const HomeSolicitudBotiquin = () => {
           />
         </div>
       </div>
+      )}
+      
     </div>
   );
 };
