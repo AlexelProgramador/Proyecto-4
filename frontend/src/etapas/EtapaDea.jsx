@@ -9,7 +9,7 @@ export const EtapaDea = () => {
   const location = useLocation();
   const item = location.state.item;
   const { execute: executePost, response } = usePostRequest();
-  const [solicitudInfo, setSolicitudInfo] = useState(null);
+  const [infoSolicitud, setinfoSolicitud] = useState(null);
   const { data, error, isLoading, execute: executePut } = usePutRequest();
   const navigate = useNavigate();
 
@@ -27,20 +27,20 @@ export const EtapaDea = () => {
     navigate("/");
   };
 
-  const getSolicitudInfo = async () => {
+  const getinfoSolicitud = async () => {
     var data = {
       _id: item._id,
     };
     var url = "verEtapa";
     var response = await executePost(data, url);
-    setSolicitudInfo(response);
+    setinfoSolicitud(response);
   };
   useEffect(() => {
-    getSolicitudInfo();
+    getinfoSolicitud();
   }, []);
   return (
     <>
-      {solicitudInfo ? (
+      {infoSolicitud ? (
         <>
           <div className="w-75 h-40 mx-auto">
             <div className="card shadow-card rounded-3 border border-0">
@@ -60,7 +60,7 @@ export const EtapaDea = () => {
                       <input
                         type="text"
                         className="form-control"
-                        value={solicitudInfo.infoUsuario.solicitadoPor}
+                        value={infoSolicitud.infoUsuario.solicitadoPor}
                         disabled
                       />
                       <label htmlFor="floatingInputGrid">Solicitado por:</label>
@@ -71,7 +71,7 @@ export const EtapaDea = () => {
                       <input
                         type="text"
                         className="form-control"
-                        value={solicitudInfo.infoUsuario.anexo}
+                        value={infoSolicitud.infoUsuario.anexo}
                         disabled
                       />
                       <label htmlFor="floatingInputGrid">Anexo:</label>
@@ -83,8 +83,8 @@ export const EtapaDea = () => {
                         type="text"
                         className="form-control"
                         value={
-                          solicitudInfo.infoUsuario.correo
-                            ? solicitudInfo.infoUsuario.correo
+                          infoSolicitud.infoUsuario.correo
+                            ? infoSolicitud.infoUsuario.correo
                             : "No tiene correo electronico"
                         }
                         disabled
@@ -102,7 +102,7 @@ export const EtapaDea = () => {
                       <input
                         type="text"
                         className="form-control"
-                        value={solicitudInfo.solicitudInfo.fuenteFinanciamiento}
+                        value={infoSolicitud.infoSolicitud.fuenteFinanciamiento}
                         disabled
                       />
                       <label htmlFor="floatingInputGrid">
@@ -115,7 +115,7 @@ export const EtapaDea = () => {
                       <input
                         type="text"
                         className="form-control"
-                        value={solicitudInfo.solicitudInfo.montoEstimado}
+                        value={infoSolicitud.infoSolicitud.montoEstimado}
                         disabled
                       />
                       <label htmlFor="floatingInputGrid">Monto estimado:</label>
@@ -127,7 +127,7 @@ export const EtapaDea = () => {
                   <textarea
                     className="form-control"
                     id="floatingTextarea2"
-                    value={solicitudInfo.solicitudInfo.motivos}
+                    value={infoSolicitud.infoSolicitud.motivos}
                     style={{ height: "100px" }}
                     disabled
                   ></textarea>
@@ -138,7 +138,7 @@ export const EtapaDea = () => {
                     <input
                       type="text"
                       className="form-control"
-                      value={solicitudInfo.procesosEtapa1.verificarSaldo}
+                      value={infoSolicitud.procesosEtapa1.verificarSaldo}
                       disabled
                     ></input>
                     <label htmlFor="floatingSelect">Verificar saldo</label>
@@ -149,7 +149,7 @@ export const EtapaDea = () => {
                       <input
                         type="text"
                         className="form-control"
-                        value={solicitudInfo.procesosEtapa1.centroDeCostos}
+                        value={infoSolicitud.procesosEtapa1.centroDeCostos}
                         disabled
                       />
                       <label htmlFor="floatingInputGrid">
@@ -163,7 +163,7 @@ export const EtapaDea = () => {
                       className="form-control"
                       id="floatingTextarea2"
                       style={{ height: "100px" }}
-                      value={solicitudInfo.procesosEtapa1.comentario}
+                      value={infoSolicitud.procesosEtapa1.comentario}
                       disabled
                     ></textarea>
                     <label htmlFor="floatingTextarea2">comentario</label>

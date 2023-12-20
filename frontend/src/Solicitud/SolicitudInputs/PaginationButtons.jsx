@@ -1,5 +1,3 @@
-// PaginationButtons.jsx
-
 const PaginationButtons = ({ paginaActual, setPaginaActual, numeroDePaginas, productos, productosPorPagina }) => {
     return (
       <div className="d-flex justify-content-center mt-1 ">

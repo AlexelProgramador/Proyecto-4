@@ -9,5 +9,5 @@ class Usuario extends Model
 {
     use HasFactory;
     protected $connection = 'mongodb';
-    protected $collection = 'usuarios_collection';
+    protected $collection = 'usuarios';
 }

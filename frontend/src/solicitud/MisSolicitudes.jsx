@@ -12,13 +12,15 @@ function getRole(nroEtapa) {
     case 1:
       return "Encargado de presupuesto";
     case 2:
-      return "Directo";
-    case 3:
       return "Encargado de abastecimiento";
-    case 4:
+    case 3:
       return "Subdirectora";
+    case 4:
+      return "Encargado de abastecimiento ";
     case 5:
       return "Bodeguero";
+    case "Dea":
+      return "Dea";
     default:
       return null;
   }
@@ -71,10 +73,10 @@ const MisSolicitudes = () => {
                 <tbody>
                   {" "}
                   {selectedItems.map((item) => {
-                    if (item.solicitudInfo.idUsuario === response.usuarioId) {
+                    if (item.infoSolicitudes.idUsuario === response.usuarioId) {
                       return (
                         <tr key={item._id}>
-                          <td>{item.solicitudInfo.nroSolicitud}</td>
+                          <td>{item.infoSolicitudes.nroSolicitud}</td>
                           <td>{item.nroEtapa}</td>
                           <td>{item.infoUsuario?.solicitadoPor}</td>
                           <td>{item.etapa}</td>

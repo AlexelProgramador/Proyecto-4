@@ -3,24 +3,10 @@ import usePostRequest from "../../Hooks/usePostRequest";
 
 const VerEtapa4 = ({ item }) => {
   const openPdf = (fileUrl) => {
-    let url = "http://127.0.0.1:8000/api/pdf/" + fileUrl + ".pdf";
+    let url = fileUrl
     window.open(url, "_blank");
   };
-  const { data, error, isLoading, execute: executePost } = usePostRequest();
-  const [archivos, setArchivos] = useState([]);
-  const getArchivos = async () => {
-    const url = "verArchivos";
-    var data = {
-      idSolicitud: item._id,
-      etapa: "Etapa4",
-    };
-    const response = await executePost(data, url);
-    const archivos = (response.nombresPdf);
-    setArchivos(archivos);
-  };
-  useEffect(() => {
-    getArchivos();
-  }, []);
+
   return (
     <div className="contenido">
     <div className="p-5">
@@ -29,8 +15,7 @@ const VerEtapa4 = ({ item }) => {
       <h2 className="mb-3">Comentario: <span className="text-muted">{item.procesosEtapa4.comentarios}</span></h2>
       <div className="pl-5">
           <h2>Documentos Adjuntos: </h2>
-          {Array.isArray(archivos) &&
-            archivos.map((fileName, fileIndex) => {
+          {item.procesosEtapa4.urlArchivos?.map((fileName, fileIndex) => {
               const fileUrl = `${fileName}`; // Asegúrate de reemplazar esto con la ruta correcta a tus archivos en el servidor.
               return (
                 <div key={fileIndex}>

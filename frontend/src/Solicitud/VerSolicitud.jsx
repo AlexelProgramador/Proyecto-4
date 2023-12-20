@@ -51,10 +51,10 @@ export const VerSolicitud = () => {
           <div className="d-flex justify-content-between pb-0">
             <h2 class="pb-2 h1 border-bottom">Informacion de solicitud</h2>
           </div>
-          <h5 >
-              <br />
-              Numero de solicitud: {item.solicitudInfo.nroSolicitud}
-            </h5>
+          <h5>
+            <br />
+            Numero de solicitud: {item.infoSolicitud.nroSolicitud}
+          </h5>
 
           <div className="botones">
             <button
@@ -111,6 +111,4 @@ export const VerSolicitud = () => {
       </div>
     </div>
   );
-
-    
 };

@@ -12,7 +12,7 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        $usuario = Usuario::where('usuario', $request->username)->first();
+        $usuario = Usuario::where('usuario', $request->usuario)->first();
         $foo = Hash::check($request->password, $usuario->password);
         if (!$usuario || !Hash::check($request->password, $usuario->password)) {
             return response([

@@ -7,6 +7,9 @@ use App\Models\ArchivosEtapas;
 use Illuminate\Http\Request;
 use App\Models\Etapa;
 use Symfony\Component\HttpFoundation\Response;
+use Google_Client;
+use Google_Service_Drive;
+use Google_Service_Drive_DriveFile;
 
 class ArchivosController extends Controller
 {
@@ -40,7 +43,6 @@ class ArchivosController extends Controller
         $nombresPdf = [];
         foreach ($archivos as $archivo) {
             $nombreArchivo =  $nroSolicitud . '_' .  $archivo->getClientOriginalName() . '_' . $nombreEtapa;
-            $archivo->move(public_path('/pdfs'), $nombreArchivo . '.' . $archivo->getClientOriginalExtension());
             $nombresPdf[] = $nombreArchivo;
         }
         $archivoNuevo->nombresPdf = $nombresPdf;

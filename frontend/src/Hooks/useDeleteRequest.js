@@ -10,7 +10,7 @@ const useDeleteRequest = (url = "") => {
     setIsLoading(true);
     try {
       const result = await axios.delete(
-        `http://127.0.0.1:8000/api/${newUrl}`,
+        `https://backend-7uep9clzd-alexconrons-projects.vercel.app/api/api/${newUrl}`,
         { data }
       );
       setResponse(result.data);

@@ -71,29 +71,17 @@ class EtapaController extends Controller
     public function crearEtapa(Request $request)
     {
         $etapa = new Etapa();
-        $data = json_decode($request->get('data'), true);
-        $archivos = $request->allFiles();
 
-        // Variables correspondientes a la etapa.
-        $etapa->nroEtapa = $data['nroEtapa'];
-        $etapa->completado = $data['completado'];
-        $etapa->procesosEtapa1 = $data['procesosEtapa1'];
-        $etapa->procesosEtapa2 = $data['procesosEtapa2'];
-        $etapa->procesosEtapa3 = $data['procesosEtapa3'];
-        $etapa->procesosEtapa4 = $data['procesosEtapa4'];
-        $etapa->procesosEtapa5 = $data['procesosEtapa5'];
-        $etapa->procesosEtapaDea = $data['procesosEtapaDea'];
-        $etapa->solicitudInfo = $data['infoSolicitud'];
-        $etapa->infoUsuario = $data['infoUsuario'];
-        $nombresPdf = [];
-        $destino = public_path('/pdfs');
-        foreach ($archivos as $archivo) {
-            $nombrePdf = $data['infoSolicitud']['nroSolicitud'] . '_' . $archivo->getClientOriginalName() . '_'  .
-                $data['nroEtapa'] .  '.' . $archivo->getClientOriginalExtension();
-            $archivo->move($destino, $nombrePdf);
-            $nombresPdf[] = $nombrePdf;
-        }
-        $etapa->nombrePdf = $nombresPdf;
+        $etapa->nroEtapa = $request->nroEtapa;
+        $etapa->completado = $request->completado;
+        $etapa->procesosEtapa1 = $request->procesosEtapa1;
+        $etapa->procesosEtapa2 = $request->procesosEtapa2;
+        $etapa->procesosEtapa3 = $request->procesosEtapa3;
+        $etapa->procesosEtapa4 = $request->procesosEtapa4;
+        $etapa->procesosEtapa5 = $request->procesosEtapa5;
+        $etapa->procesosEtapaDea = $request->procesosEtapaDea;
+        $etapa->infoUsuario = $request->infoUsuario;
+        $etapa->infoSolicitud = $request->infoSolicitud;
 
         $etapa->save();
         return response()->json(
@@ -130,16 +118,6 @@ class EtapaController extends Controller
         if (!$etapa) {
             return response()->json(['error' => 'No se encontró la etapa actual'], 404);
         }
-
-        // Eliminar los archivos asociados con la etapa
-        $nombresPdf = $etapa->nombrePdf;
-        foreach ($nombresPdf as $nombrePdf) {
-            $rutaArchivo = public_path('/pdfs/' . $nombrePdf);
-            if (file_exists($rutaArchivo)) {
-                unlink($rutaArchivo);
-            }
-        }
-
         $etapa->delete();
 
         return response()->json(

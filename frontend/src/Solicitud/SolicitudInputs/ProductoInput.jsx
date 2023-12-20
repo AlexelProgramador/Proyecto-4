@@ -32,10 +32,12 @@ const ProductoInput = ({ index, producto, handleProductoChange }) => {
           className="form-select"
           id="floatingSelect"
           aria-label="Floating label select example"
+          value={producto.tipoEmpaque} // Establece el valor del select aquí
           onChange={(e) =>
             handleProductoChange(index, "tipoEmpaque", e.target.value)
           }
         >
+          <option>tipo de empaque</option>
           <option value="Unidad">Unidad</option>
           <option value="Bidon">Bidon</option>
           <option value="Bolsa">Bolsa</option>
@@ -56,7 +58,7 @@ const ProductoInput = ({ index, producto, handleProductoChange }) => {
           <option value="Sachet">Sachet</option>
           <option value="Saco">Saco</option>
         </select>
-        <label htmlFor="tiop de compra">tipo de compra</label>
+        <label htmlFor="tipo de empaque">tipo de empaque</label>
       </div>
     </div>
   );

@@ -8,24 +8,7 @@ const usePostRequest = (url = "") => {
   const [isLoading, setIsLoading] = useState(false);
   const [newUrl, setUrl] = useState(url);
   useEffect(() => {
-    if (!data || !newUrl) return;
-    const postData = async () => {
-      setIsLoading(true);
-      try {
-        console.log(data);
-        const result = await axios.post(
-          `http://127.0.0.1:8000/api/${newUrl}`,
-          data
-        );
-        setResponse(result);
-        console.log(result);
-      } catch (error) {
-        setError(error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    postData();
+    setIsLoading(false);
   }, [newUrl, data]);
 
   const execute = async (newData, newUrl) => {
@@ -34,13 +17,14 @@ const usePostRequest = (url = "") => {
     setIsLoading(true);
     try {
       const result = await axios.post(
-        `http://127.0.0.1:8000/api/${newUrl}`,
+        `https://backend-7uep9clzd-alexconrons-projects.vercel.app/api/api/${newUrl}`,
         newData
       );
       setResponse(result.data);
       return result.data; // Devuelve la respuesta
     } catch (error) {
       setError(error);
+      console.log(error);
       throw error; // Lanza el error para que pueda ser capturado en el componente
     } finally {
       setIsLoading(false);

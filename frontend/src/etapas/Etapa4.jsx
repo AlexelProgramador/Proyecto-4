@@ -3,12 +3,13 @@ import { useLocation } from "react-router-dom";
 import usePostRequest from "../Hooks/usePostRequest";
 import usePutRequest from "../Hooks/usePutRequest";
 import { useNavigate } from "react-router-dom";
+import { uploadFiles } from "../firebase/config";
 
 export const Etapa4 = () => {
   const location = useLocation();
   const item = location.state.item;
   const { execute: executePost } = usePostRequest();
-  const [solicitudInfo, setSolicitudInfo] = useState(null);
+  const [infoSolicitud, setinfoSolicitud] = useState(null);
 
   const [fechaestprov, setFechEstProv] = useState("");
   const [estadodecomp, setEstadodeComp] = useState("");
@@ -20,45 +21,45 @@ export const Etapa4 = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = {
-      idEtapa: item._id,
-      nroEtapa: 5,
-      procesosEtapa4: {
-        fechaestiprov: fechaestprov,
-        estadodecomp: estadodecomp,
-        comentarios: comentarios,
-      },
-    };
-    const url = "avanzarEtapa";
-    const response = await executePut(url, data);
-    const formData = new FormData();
-    formData.append("_id", item._id);
-    formData.append("nombreEtapa", "Etapa4");
-    formData.append("nroSolicitud", solicitudInfo.solicitudInfo.nroSolicitud);
-    archivos.forEach((archivo, index) => {
-      formData.append(`archivo_${index + 1}`, archivo);
-    });
-    const url2 = "subirArchivos";
-    const response2 = await executePost(formData, url2);
-
-    navigate("/");  };
-
-  const getSolicitudInfo = async () => {
+    try {
+      const urlArchivos = await uploadFiles(
+        archivos,
+        infoSolicitud.nroSolicitud,
+        infoSolicitud.nroEtapa
+      );
+      const data = {
+        idEtapa: item._id,
+        nroEtapa: 5,
+        procesosEtapa4: {
+          fechaestiprov: fechaestprov,
+          estadodecomp: estadodecomp,
+          comentarios: comentarios,
+          urlArchivos: urlArchivos,
+        },
+      };
+      const url = "avanzarEtapa";
+      const response = await executePut(url, data);
+      navigate("/");
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+  const getinfoSolicitud = async () => {
     var data = {
       _id: item._id,
     };
     var url = "verEtapa";
     var response = await executePost(data, url);
-    setSolicitudInfo(response);
+    setinfoSolicitud(response);
   };
 
   useEffect(() => {
-    getSolicitudInfo();
+    getinfoSolicitud();
   }, []);
 
   return (
     <>
-      {solicitudInfo ? (
+      {infoSolicitud ? (
         <>
           <div className="w-75 h-40 mx-auto">
             <div className="card shadow-card rounded-3 border border-0">

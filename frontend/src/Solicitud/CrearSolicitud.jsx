@@ -15,7 +15,6 @@ export const CrearSolicitud = () => {
   const { setShowAlert } = useContext(AlertContext);
   const navigate = useNavigate();
   const [solicitadoPor, setSolicitadoPor] = useState("");
-  const [fecha, setFecha] = useState("");
   const [anexo, setAnexo] = useState("");
   const [correo, setCorreo] = useState("");
   const [motivos, setMotivos] = useState("");
@@ -52,7 +51,6 @@ export const CrearSolicitud = () => {
                 solicitadoPor,
                 anexo,
                 correo,
-                fecha,
                 productos,
                 motivos,
                 fuenteFinanciamiento,
@@ -65,8 +63,6 @@ export const CrearSolicitud = () => {
             <UsuarioInput
               solicitadoPor={solicitadoPor}
               setSolicitadoPor={setSolicitadoPor}
-              fecha={fecha}
-              setFecha={setFecha}
               setCorreo={setCorreo}
               setAnexo={setAnexo}
             />

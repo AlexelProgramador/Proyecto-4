@@ -14,7 +14,7 @@ const usePutRequest = (initialUrl = "", initialData = {foo:'foo'}) => {
     try {
       console.log(newData);
       const response = await axios.put(
-        `http://127.0.0.1:8000/api/${newUrl}`,
+        `https://backend-7uep9clzd-alexconrons-projects.vercel.app/api/api/${newUrl}`,
         newData
       );
       console.log(response.data); // Imprimir la respuesta del servidor

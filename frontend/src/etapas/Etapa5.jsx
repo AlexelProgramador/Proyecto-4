@@ -3,12 +3,13 @@ import { useLocation } from "react-router-dom";
 import usePostRequest from "../Hooks/usePostRequest";
 import usePutRequest from "../Hooks/usePutRequest";
 import { useNavigate } from "react-router-dom";
+import { uploadFiles } from "../firebase/config";
 
 export const Etapa5 = () => {
   const location = useLocation();
   const item = location.state.item;
   const { execute: executePost } = usePostRequest();
-  const [solicitudInfo, setSolicitudInfo] = useState(null);
+  const [infoSolicitud, setinfoSolicitud] = useState(null);
 
   const [ncdp, setNcdp] = useState("");
   const [estado, setEstado] = useState("");
@@ -29,53 +30,53 @@ export const Etapa5 = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = {
-      idEtapa: item._id,
-      nroEtapa: "Finalizado",
-      completado: true,
-      procesosEtapa5: {
-        ncdp: ncdp,
-        estado: estado,
-        proveedor: proveedor,
-        nrofactura: nrofactura,
-        fechaemisionfact: fechaemifactura,
-        fechamaxima: fechamaxima,
-        aceptadoSsi: aceptadassi,
-        fechavencfact: fechavencfact,
-        montofactura: montofactura,
-      },
-    };
-    const url = "avanzarEtapa";
-    const response = await executePut(url, data);
-    const formData = new FormData();
-    formData.append("_id", item._id);
-    formData.append("nombreEtapa", "Etapa5");
-    formData.append("nroSolicitud", solicitudInfo.solicitudInfo.nroSolicitud);
-    archivos.forEach((archivo, index) => {
-      formData.append(`archivo_${index + 1}`, archivo);
-    });
-    const url2 = "subirArchivos";
-    const response2 = await executePost(formData, url2);
-
-    navigate("/");
+    try {
+      const urlArchivos = await uploadFiles(
+        archivos,
+        infoSolicitud.nroSolicitud,
+        infoSolicitud.nroEtapa
+      );
+      const data = {
+        idEtapa: item._id,
+        nroEtapa: "Finalizado",
+        completado: true,
+        procesosEtapa5: {
+          ncdp: ncdp,
+          estado: estado,
+          proveedor: proveedor,
+          nrofactura: nrofactura,
+          fechaemisionfact: fechaemifactura,
+          fechamaxima: fechamaxima,
+          aceptadoSsi: aceptadassi,
+          fechavencfact: fechavencfact,
+          montofactura: montofactura,
+          urlArchivos: urlArchivos,
+        },
+      };
+      const url = "avanzarEtapa";
+      const response = await executePut(url, data);
+      navigate("/");
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
-  const getSolicitudInfo = async () => {
+  const getinfoSolicitud = async () => {
     var data = {
       _id: item._id,
     };
     var url = "verEtapa";
     var response = await executePost(data, url);
-    setSolicitudInfo(response);
+    setinfoSolicitud(response);
   };
 
   useEffect(() => {
-    getSolicitudInfo();
+    getinfoSolicitud();
   }, []);
 
   return (
     <>
-      {solicitudInfo ? (
+      {infoSolicitud ? (
         <>
           <div className="w-75 h-40 mx-auto">
             <div className="card shadow-card rounded-3 border border-0">

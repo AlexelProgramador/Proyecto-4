@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import useFetch from "../hooks/useFetch";
+import useFetch from "../Hooks/useFetch";
 import { useContext, useEffect } from "react";
 import { AlertContext } from "../context/AlertContext";
 import { CheckCircleFill } from "react-bootstrap-icons";
@@ -52,11 +52,18 @@ export const Content = () => {
   const { execute, response } = useDeleteRequest();
   // Buscador
   const [search, setSearch] = useState("");
-
   const handleDelete = async (itemId) => {
     try {
       const response = await execute("eliminarEtapa", { idEtapa: itemId });
       console.log(response);
+      // Actualiza los datos después de la eliminación
+      setShowAlert(true);
+      if (response) {
+        const element = document.getElementById(itemId);
+        if (element) {
+          element.style.display = "none";
+        }
+      }
     } catch (error) {
       console.error(error);
     }
@@ -68,8 +75,8 @@ export const Content = () => {
   const filteredData = search
     ? sortedData.filter(
         (item) =>
-          (item.solicitudInfo.nroSolicitud &&
-            item.solicitudInfo.nroSolicitud.includes(search)) ||
+          (item.infoSolicitud.nroSolicitud &&
+            item.infoSolicitud.nroSolicitud.includes(search)) ||
           (item.procesosEtapa2.nroordendecompra &&
             item.procesosEtapa2.nroordendecompra.includes(search))
       )
@@ -79,6 +86,8 @@ export const Content = () => {
     startIndex,
     startIndex + ITEMS_PER_PAGE
   );
+
+  console.log(selectedItems);
 
   useEffect(() => {
     if (showAlert) {
@@ -145,12 +154,11 @@ export const Content = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {" "}
                     {selectedItems.map(
                       (item) =>
                         item.nroEtapa !== "Rechazado" && (
-                          <tr key={item._id}>
-                            <td>{item.solicitudInfo.nroSolicitud}</td>
+                          <tr key={item._id} id={item._id}>
+                            <td>{item.infoSolicitud.nroSolicitud}</td>
                             <td>
                               {item.procesosEtapa2.nroordendecompra
                                 ? item.procesosEtapa2.nroordendecompra
@@ -178,7 +186,7 @@ export const Content = () => {
                                         className="btn btn-primary"
                                         onClick={() =>
                                           navigate(
-                                            item.nroEtapa === 0
+                                            item.nroEtapa === "0"
                                               ? "solicitudChequeo"
                                               : `etapa${item.nroEtapa}`,
                                             {

@@ -3,12 +3,13 @@ import { useLocation } from "react-router-dom";
 import usePostRequest from "../Hooks/usePostRequest";
 import usePutRequest from "../Hooks/usePutRequest";
 import { useNavigate } from "react-router-dom";
+import { uploadFiles } from "../firebase/config";
 
 export const Etapa2 = () => {
   const location = useLocation();
   const item = location.state.item;
   const { execute: executePost } = usePostRequest();
-  const [solicitudInfo, setSolicitudInfo] = useState(null);
+  const [infoSolicitud, setinfoSolicitud] = useState(null);
 
   const [tipoCompra, setTipoCompra] = useState("");
   const [nrocotizacion, setNroCotizacion] = useState("");
@@ -27,54 +28,55 @@ export const Etapa2 = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = {
-      idEtapa: item._id,
-      nroEtapa: 3,
-      procesosEtapa2: {
-        tipodecompra: tipoCompra,
-        numerocotizacion: nrocotizacion,
-        estado: estado,
-        comentarios: comentarios,
-        nroordendecompra: nroordencompra,
-        fechadeoc: fechaoc,
-        proveedorseleccionado: proveedorselecc,
-        fechaentregaproveedor: fechaentregaprov,
-        valordecompramiva: valorcompra,
-        fechaautocompra: fechaautocompra,
-      },
-    };
-    const url = "avanzarEtapa";
-    const response = await executePut(url, data);
-    const formData = new FormData();
-    formData.append("_id", item._id);
-    formData.append("nombreEtapa", "Etapa2");
-    formData.append("nroSolicitud", solicitudInfo.solicitudInfo.nroSolicitud);
-    archivos.forEach((archivo, index) => {
-      formData.append(`archivo_${index + 1}`, archivo);
-    });
-    const url2 = "subirArchivos";
-    const response2 = await executePost(formData, url2);
+    try {
+      const urlArchivos = await uploadFiles(
+        archivos,
+        infoSolicitud.nroSolicitud,
+        infoSolicitud.nroEtapa
+      );
+      const data = {
+        idEtapa: item._id,
+        nroEtapa: 3,
+        procesosEtapa2: {
+          tipodecompra: tipoCompra,
+          numerocotizacion: nrocotizacion,
+          estado: estado,
+          comentarios: comentarios,
+          nroordendecompra: nroordencompra,
+          fechadeoc: fechaoc,
+          proveedorseleccionado: proveedorselecc,
+          fechaentregaproveedor: fechaentregaprov,
+          valordecompramiva: valorcompra,
+          fechaautocompra: fechaautocompra,
+          urlArchivos: urlArchivos,
+        },
+      };
+      const url = "avanzarEtapa";
+      const response = await executePut(url, data);
 
-    navigate("/");
+      navigate("/");
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
-  const getSolicitudInfo = async () => {
+  const getinfoSolicitud = async () => {
     var data = {
       _id: item._id,
     };
     var url = "verEtapa";
     var response = await executePost(data, url);
-    setSolicitudInfo(response);
+    setinfoSolicitud(response);
     console.log(item);
   };
 
   useEffect(() => {
-    getSolicitudInfo();
+    getinfoSolicitud();
   }, []);
 
   return (
     <>
-      {solicitudInfo ? (
+      {infoSolicitud ? (
         <>
           <div className="w-75 h-40 mx-auto">
             <div className="card shadow-card rounded-3 border border-0">
@@ -99,7 +101,6 @@ export const Etapa2 = () => {
                       aria-label="Floating label select example"
                       onChange={(e) => setTipoCompra(e.target.value)}
                     >
-                      <option selected>Tipo de compra</option>
                       <option value="Bajo 3 UTM">Bajo 3 UTM</option>
                       <option value="Compra ágil">Compra ágil</option>
                       <option value="Convenio marco">Convenio marco</option>

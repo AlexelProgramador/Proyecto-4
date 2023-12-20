@@ -9,6 +9,6 @@ class Etapa extends Model
 {
     use HasFactory;
     protected $connection = 'mongodb';
-    protected $collection = 'etapa_collection';
+    protected $collection = 'etapas';
     
 }

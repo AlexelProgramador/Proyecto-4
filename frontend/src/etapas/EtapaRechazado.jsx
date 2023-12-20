@@ -22,15 +22,15 @@ export const EtapaRechazado = () => {
   const [solicitadoPor, setSolicitadoPor] = useState(
     item.infoUsuario.solicitadoPor
   );
-  const [fecha, setFecha] = useState(item.solicitudInfo.fecha);
+  const [fecha, setFecha] = useState(item.infoSolicitud.fecha);
   const [anexo, setAnexo] = useState(item.infoUsuario.anexo);
   const [correo, setCorreo] = useState(item.infoUsuario.correo);
-  const [motivos, setMotivos] = useState(item.solicitudInfo.motivos);
+  const [motivos, setMotivos] = useState(item.infoSolicitud.motivos);
   const [fuenteFinanciamiento, setFuenteFinanciamiento] = useState(
-    item.solicitudInfo.fuenteFinanciamiento
+    item.infoSolicitud.fuenteFinanciamiento
   );
   const [montoEstimado, setMontoEstimado] = useState(
-    item.solicitudInfo.montoEstimado
+    item.infoSolicitud.montoEstimado
   );
   const [archivo, setArchivo] = useState(item.nombrePdf);
   const { execute, response } = usePostRequest();

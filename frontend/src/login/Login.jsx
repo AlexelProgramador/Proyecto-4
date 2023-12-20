@@ -14,7 +14,7 @@ export const Login = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = {
-      username: username,
+      usuario: username,
       password: password,
     };
     const url = "login";

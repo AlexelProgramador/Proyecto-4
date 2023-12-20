@@ -9,7 +9,7 @@ export const SolicitudChequeo = () => {
   const location = useLocation();
   const item = location.state.item;
   const { execute: executePost, response } = usePostRequest();
-  const [solicitudInfo, setSolicitudInfo] = useState(null);
+  const [infoSolicitud, setinfoSolicitud] = useState(null);
   const [motivoRechazo, setMotivoRechazo] = useState("");
   const productosPorPagina = 3;
   const [paginaActual, setPaginaActual] = useState(0);
@@ -32,7 +32,7 @@ export const SolicitudChequeo = () => {
     e.preventDefault();
     console.log(motivoRechazo);
     const data = {
-      idEtapa: solicitudInfo._id, // Enviar el ID de la etapa como una cadena de texto
+      idEtapa: infoSolicitud._id, // Enviar el ID de la etapa como una cadena de texto
       motivoRechazo: motivoRechazo,
     };
     const url = "rechazarEtapa";
@@ -45,39 +45,40 @@ export const SolicitudChequeo = () => {
     navigate("/");
   };
 
-  const getSolicitudInfo = async () => {
+  const getinfoSolicitud = async () => {
     var data = {
       _id: item._id,
     };
     var url = "verEtapa";
     var response = await executePost(data, url);
-    setSolicitudInfo(response);
+    setinfoSolicitud(response);
+
     setNumeroDePaginas(
-      Math.ceil(response.solicitudInfo.productos.length / productosPorPagina)
+      Math.ceil(response.infoSolicitud.productos.length / productosPorPagina)
     );
   };
   useEffect(() => {
-    getSolicitudInfo();
+    getinfoSolicitud();
   }, []);
   return (
     <>
-      {solicitudInfo ? (
+      {infoSolicitud ? (
         <>
           <div className="w-75 h-40 mx-auto">
             <div className="card shadow-card rounded-3 border border-0">
-            <button
-                    className="m-2 btn btn-warning rounded-pill px-3 w-10"
-                    type="button"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      navigate("/");
-                    }}
-                  >
-                    Atras
-                  </button>
+              <button
+                className="m-2 btn btn-warning rounded-pill px-3 w-10"
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate("/");
+                }}
+              >
+                Atras
+              </button>
               <div className="card-body">
-              <h2 className="mx-auto p-2 display-4">Solicitud Etapa 0</h2>
-              <p className="display-7">
+                <h2 className="mx-auto p-2 display-4">Solicitud Etapa 0</h2>
+                <p className="display-7">
                   Esta Solicitud corresponde a: Secretaria
                 </p>
                 <p className="display-7">
@@ -92,7 +93,7 @@ export const SolicitudChequeo = () => {
                       <input
                         type="text"
                         className="form-control"
-                        value={solicitudInfo.infoUsuario.solicitadoPor}
+                        value={infoSolicitud.infoUsuario.solicitadoPor}
                         disabled
                       />
                       <label htmlFor="floatingInputGrid">Solicitado por:</label>
@@ -103,7 +104,7 @@ export const SolicitudChequeo = () => {
                       <input
                         type="text"
                         className="form-control"
-                        value={solicitudInfo.infoUsuario.anexo}
+                        value={infoSolicitud.infoUsuario.anexo}
                         disabled
                       />
                       <label htmlFor="floatingInputGrid">Anexo:</label>
@@ -115,8 +116,8 @@ export const SolicitudChequeo = () => {
                         type="text"
                         className="form-control"
                         value={
-                          solicitudInfo.infoUsuario.correo
-                            ? solicitudInfo.infoUsuario.correo
+                          infoSolicitud.infoUsuario.correo
+                            ? infoSolicitud.infoUsuario.correo
                             : "No tiene correo electronico"
                         }
                         disabled
@@ -138,7 +139,7 @@ export const SolicitudChequeo = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        {solicitudInfo.solicitudInfo.productos.map(
+                        {infoSolicitud.infoSolicitud.productos.map(
                           (item, index) => (
                             <tr key={index}>
                               <td>{item.descripcion}</td>
@@ -154,7 +155,7 @@ export const SolicitudChequeo = () => {
                               paginaActual={paginaActual}
                               setPaginaActual={setPaginaActual}
                               numeroDePaginas={numeroDePaginas}
-                              productos={solicitudInfo.solicitudInfo.productos}
+                              productos={infoSolicitud.infoSolicitud.productos}
                               productosPorPagina={productosPorPagina}
                             />
                           </td>
@@ -170,7 +171,7 @@ export const SolicitudChequeo = () => {
                       <input
                         type="text"
                         className="form-control"
-                        value={solicitudInfo.solicitudInfo.fuenteFinanciamiento}
+                        value={infoSolicitud.infoSolicitud.fuenteFinanciamiento}
                         disabled
                       />
                       <label htmlFor="floatingInputGrid">
@@ -183,7 +184,7 @@ export const SolicitudChequeo = () => {
                       <input
                         type="text"
                         className="form-control"
-                        value={solicitudInfo.solicitudInfo.montoEstimado}
+                        value={infoSolicitud.infoSolicitud.montoEstimado}
                         disabled
                       />
                       <label htmlFor="floatingInputGrid">Monto estimado:</label>
@@ -195,7 +196,7 @@ export const SolicitudChequeo = () => {
                   <textarea
                     className="form-control"
                     id="floatingTextarea2"
-                    value={solicitudInfo.solicitudInfo.motivos}
+                    value={infoSolicitud.infoSolicitud.motivos}
                     style={{ height: "100px" }}
                     disabled
                   ></textarea>

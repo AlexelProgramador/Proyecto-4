@@ -9,5 +9,5 @@ class Solicitud extends Model
 {
     use HasFactory;
     protected $connection = 'mongodb';
-    protected $collection = 'solicitudes_collection';
+    protected $collection = 'solicitudes';
 }

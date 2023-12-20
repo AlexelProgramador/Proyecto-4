@@ -9,5 +9,5 @@ class ArchivosEtapas extends Model
 {
     use HasFactory;
     protected $connection = 'mongodb';
-    protected $collection = 'archivos_collection';
+    protected $collection = 'archivos';
 }

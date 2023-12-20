@@ -4,12 +4,13 @@ import usePostRequest from "../Hooks/usePostRequest";
 import PaginationButtons from "../Solicitud/SolicitudInputs/PaginationButtons";
 import usePutRequest from "../Hooks/usePutRequest";
 import { useNavigate } from "react-router-dom";
+import { uploadFiles } from "../firebase/config";
 
 export const Etapa1 = () => {
   const location = useLocation();
   const item = location.state.item;
   const { execute: executePost, response } = usePostRequest();
-  const [solicitudInfo, setSolicitudInfo] = useState(null);
+  const [infoSolicitud, setinfoSolicitud] = useState(null);
   const productosPorPagina = 3;
   const [paginaActual, setPaginaActual] = useState(0);
   const [numeroDePaginas, setNumeroDePaginas] = useState(0);
@@ -22,48 +23,47 @@ export const Etapa1 = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = {
-      idEtapa: item._id,
-      nroEtapa: "Dea",
-      procesosEtapa1: {
-        centroDeCostos: centroDeCostos,
-        verificarSaldo: verificarSaldo,
-        comentario: comentario,
-      },
-    };
-    const url = "avanzarEtapa";
-    const response = await executePut(url, data);
-
-    const formData = new FormData();
-    formData.append("_id", item._id);
-    formData.append("nombreEtapa", "Etapa1");
-    formData.append("nroSolicitud", solicitudInfo.solicitudInfo.nroSolicitud);
-    archivos.forEach((archivo, index) => {
-      formData.append(`archivo_${index + 1}`, archivo);
-    });
-    const url2 = "subirArchivos";
-    const response2 = await executePost(formData, url2);
-
-    navigate("/");
+    try {
+      const urlArchivos = await uploadFiles(
+        archivos,
+        infoSolicitud.nroSolicitud,
+        infoSolicitud.nroEtapa
+      );
+      const data = {
+        idEtapa: item._id,
+        nroEtapa: "Dea",
+        procesosEtapa1: {
+          centroDeCostos: centroDeCostos,
+          verificarSaldo: verificarSaldo,
+          comentario: comentario,
+          urlArchivos: urlArchivos,
+        },
+      };
+      const url = "avanzarEtapa";
+      const response = await executePut(url, data);
+      navigate("/");
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
-  const getSolicitudInfo = async () => {
+  const getinfoSolicitud = async () => {
     var data = {
       _id: item._id,
     };
     var url = "verEtapa";
     var response = await executePost(data, url);
-    setSolicitudInfo(response);
+    setinfoSolicitud(response);
     setNumeroDePaginas(
-      Math.ceil(response.solicitudInfo.productos.length / productosPorPagina)
+      Math.ceil(response.infoSolicitud.productos.length / productosPorPagina)
     );
   };
   useEffect(() => {
-    getSolicitudInfo();
+    getinfoSolicitud();
   }, []);
   return (
     <>
-      {solicitudInfo ? (
+      {infoSolicitud ? (
         <>
           <div className="w-75 h-40 mx-auto">
             <div className="card shadow-card rounded-3 border border-0">
@@ -85,7 +85,7 @@ export const Etapa1 = () => {
                       <input
                         type="text"
                         className="form-control"
-                        value={solicitudInfo.infoUsuario.solicitadoPor}
+                        value={infoSolicitud.infoUsuario.solicitadoPor}
                         disabled
                       />
                       <label htmlFor="floatingInputGrid">Solicitado por:</label>
@@ -96,7 +96,7 @@ export const Etapa1 = () => {
                       <input
                         type="text"
                         className="form-control"
-                        value={solicitudInfo.infoUsuario.anexo}
+                        value={infoSolicitud.infoUsuario.anexo}
                         disabled
                       />
                       <label htmlFor="floatingInputGrid">Anexo:</label>
@@ -108,8 +108,8 @@ export const Etapa1 = () => {
                         type="text"
                         className="form-control"
                         value={
-                          solicitudInfo.infoUsuario.correo
-                            ? solicitudInfo.infoUsuario.correo
+                          infoSolicitud.infoUsuario.correo
+                            ? infoSolicitud.infoUsuario.correo
                             : "No tiene correo electronico"
                         }
                         disabled
@@ -131,7 +131,7 @@ export const Etapa1 = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        {solicitudInfo.solicitudInfo.productos.map(
+                        {infoSolicitud.infoSolicitud.productos.map(
                           (item, index) => (
                             <tr key={index}>
                               <td>{item.descripcion}</td>
@@ -147,7 +147,7 @@ export const Etapa1 = () => {
                               paginaActual={paginaActual}
                               setPaginaActual={setPaginaActual}
                               numeroDePaginas={numeroDePaginas}
-                              productos={solicitudInfo.solicitudInfo.productos}
+                              productos={infoSolicitud.infoSolicitud.productos}
                               productosPorPagina={productosPorPagina}
                             />
                           </td>
@@ -163,7 +163,7 @@ export const Etapa1 = () => {
                       <input
                         type="text"
                         className="form-control"
-                        value={solicitudInfo.solicitudInfo.fuenteFinanciamiento}
+                        value={infoSolicitud.infoSolicitud.fuenteFinanciamiento}
                         disabled
                       />
                       <label htmlFor="floatingInputGrid">
@@ -176,7 +176,7 @@ export const Etapa1 = () => {
                       <input
                         type="text"
                         className="form-control"
-                        value={solicitudInfo.solicitudInfo.montoEstimado}
+                        value={infoSolicitud.infoSolicitud.montoEstimado}
                         disabled
                       />
                       <label htmlFor="floatingInputGrid">Monto estimado:</label>
@@ -188,7 +188,7 @@ export const Etapa1 = () => {
                   <textarea
                     className="form-control"
                     id="floatingTextarea2"
-                    value={solicitudInfo.solicitudInfo.motivos}
+                    value={infoSolicitud.infoSolicitud.motivos}
                     style={{ height: "100px" }}
                     disabled
                   ></textarea>
