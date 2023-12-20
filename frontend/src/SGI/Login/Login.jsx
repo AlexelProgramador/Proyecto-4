@@ -2,7 +2,6 @@ import React, { useState, useEffect  } from "react";
 import { useNavigate } from "react-router-dom";
 import {postRequest} from "../Hooks/usePostRequest";
 import logo from "../../img/logo-odontologia.svg";
-// import img from "../../img/facultad-odontologia.jpg";
 import { fetchDatos } from "../Hooks/useFetchRequest";
 
 export const Login = () => {

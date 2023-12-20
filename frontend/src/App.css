@@ -290,7 +290,7 @@ main {
 .u-img {
   height: 450px;
   max-width: 850px;
-  background: url(../src/img/facultad-odontologia.jpg);
+  background: url(../src/img/facultad-odontologia.svg);
 }
 .card-login{
   background-color: #fff;
@@ -324,6 +324,6 @@ main {
   .u-img {
     height: 450px;
     max-width: 850px;
-    background: url(../src/img/facultad-odontologia.jpg);
+    background: url(../src/img/facultad-odontologia.svg);
   }
 }

@@ -10,8 +10,8 @@ use App\Http\Controllers\Api\SolicitudBodegaController;
 use App\Http\Controllers\Api\SolicitudBotiquinController;
 use App\Http\Controllers\Api\AuthController;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
+
+
 
 
 /*

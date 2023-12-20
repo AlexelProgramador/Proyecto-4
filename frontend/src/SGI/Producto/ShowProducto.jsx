@@ -9,7 +9,7 @@ export const ShowProducto = () => {
   const [cargando, setCargando] = useState(true);
   const { id } = useParams();
   //const navigate = useNavigate();
-  const url = `http://localhost:8000/api/producto/${id}`; // Reemplaza con la URL de tu backend
+  const url = `https://invenatrioapi-dh5yto3jj-araeris-projects.vercel.app/api/api/producto/${id}`; // Reemplaza con la URL de tu backend
 
   useEffect(() => {
     const fetchProducto = async () => {

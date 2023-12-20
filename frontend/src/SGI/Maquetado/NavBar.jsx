@@ -1,6 +1,5 @@
 import React, { useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
-// import logo from '../../img/logo-odontologia-universidad-de-chile.png';
 
 export const NavBar = ({ show, setShow }) => {
     // const [show, setShow] = useState(false);

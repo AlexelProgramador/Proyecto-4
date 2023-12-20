@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-var url = 'http://localhost:8000/api'
+var url = 'https://invenatrioapi-dh5yto3jj-araeris-projects.vercel.app/api/api'
 
 export const postRequest = async (link, Data) => {
   return axios.post(url + link, Data)
