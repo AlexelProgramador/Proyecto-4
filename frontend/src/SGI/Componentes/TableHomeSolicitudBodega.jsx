@@ -79,7 +79,14 @@ export const TableHomeSolicitudBodega = ({dataSolicitudBodega, setModal, PrimerP
 
   return (
     <div>
-      <DataTable data={data} columns={columns} />
+      {dataSolicitudBodega.length > 0 ?
+      (<div>
+        <DataTable data={data} columns={columns} />
+      </div>)
+      :
+      <p>No hay Solicitudes Creadas</p>
+      }
+      
     </div>
 
   );
