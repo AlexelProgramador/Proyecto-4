@@ -75,7 +75,7 @@ export const Sidebar = () => {
               }}
             >
               <h6 className="border-bottom">
-                Solicitudes sin verificar por 1 dia
+                Solicitudes sin verificar por 3 dias
               </h6>
               <SeccionDiasSinAtender data={data} />
             </div>

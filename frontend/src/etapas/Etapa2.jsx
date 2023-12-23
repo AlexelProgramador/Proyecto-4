@@ -31,7 +31,7 @@ export const Etapa2 = () => {
     try {
       const urlArchivos = await uploadFiles(
         archivos,
-        infoSolicitud.nroSolicitud,
+        item.infoSolicitud.nroSolicitud,
         infoSolicitud.nroEtapa
       );
       const data = {
@@ -133,7 +133,7 @@ export const Etapa2 = () => {
                       <option value="Enviada">Enviada</option>
                       <option value="Autorizada">Autorizada</option>
                       <option value="Enviada a proovedor">
-                        Enviada a proovedor
+                        Enviada a proveedor
                       </option>
                       <option value="Aceptada">Aceptada</option>
                     </select>

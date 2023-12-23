@@ -33,7 +33,7 @@ export const Etapa5 = () => {
     try {
       const urlArchivos = await uploadFiles(
         archivos,
-        infoSolicitud.nroSolicitud,
+        item.infoSolicitud.nroSolicitud,
         infoSolicitud.nroEtapa
       );
       const data = {
@@ -170,7 +170,7 @@ export const Etapa5 = () => {
                       <option value="Si">Si</option>
                       <option value="No">No</option>
                     </select>
-                    <label for="floatingSelect">Aceptado SSI</label>
+                    <label for="floatingSelect">Aceptado SII</label>
                   </div>
                   <div className="form-floating mt-2 g-2">
                     <input

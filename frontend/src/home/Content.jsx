@@ -6,10 +6,11 @@ import { CheckCircleFill } from "react-bootstrap-icons";
 import React, { useState } from "react";
 import Cookies from "js-cookie";
 import useDeleteRequest from "../Hooks/useDeleteRequest";
+import { eliminarArchivo } from "../firebase/config";
 
 function getRole(nroEtapa) {
   switch (nroEtapa) {
-    case 0:
+    case "0":
       return "Secretaria";
     case 1:
       return "Encargado de presupuesto";
@@ -24,7 +25,7 @@ function getRole(nroEtapa) {
     case "Dea":
       return "Dea";
     default:
-      return null;
+      return "completado";
   }
 }
 
@@ -52,12 +53,39 @@ export const Content = () => {
   const { execute, response } = useDeleteRequest();
   // Buscador
   const [search, setSearch] = useState("");
-  const handleDelete = async (itemId) => {
+  const handleDelete = async (itemId, item) => {
     try {
       const response = await execute("eliminarEtapa", { idEtapa: itemId });
       console.log(response);
-      // Actualiza los datos después de la eliminación
       setShowAlert(true);
+      const archivosSolicitud = item.infoSolicitud.urlArchivos;
+      const archivosEtapa1 = item.procesosEtapa1?.urlArchivos || [];
+      const archivosEtapa2 = item.procesosEtapa2?.urlArchivos || [];
+      const archivosEtapa3 = item.procesosEtapa3?.urlArchivos || [];
+      const archivosEtapa4 = item.procesosEtapa4?.urlArchivos || [];
+      const archivosEtapa5 = item.procesosEtapa5?.urlArchivos || [];
+
+      const allFiles = [
+        ...archivosSolicitud,
+        ...archivosEtapa1,
+        ...archivosEtapa2,
+        ...archivosEtapa3,
+        ...archivosEtapa4,
+        ...archivosEtapa5,
+      ];
+
+      const fileDeletePromises = allFiles.map(async (fileName) => {
+        try {
+          await eliminarArchivo(fileName);
+          console.log(`Archivo ${fileName} eliminado exitosamente.`);
+        } catch (error) {
+          console.error("Error al eliminar el archivo:", error);
+        }
+      });
+
+      // Espera a que todos los archivos se eliminen
+      await Promise.all(fileDeletePromises);
+
       if (response) {
         const element = document.getElementById(itemId);
         if (element) {
@@ -202,7 +230,9 @@ export const Content = () => {
                                       ) && (
                                         <button
                                           className="btn btn-danger"
-                                          onClick={() => handleDelete(item._id)}
+                                          onClick={() =>
+                                            handleDelete(item._id, item)
+                                          }
                                         >
                                           Eliminar
                                         </button>

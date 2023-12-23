@@ -26,7 +26,7 @@ export const Etapa1 = () => {
     try {
       const urlArchivos = await uploadFiles(
         archivos,
-        infoSolicitud.nroSolicitud,
+        item.infoSolicitud.nroSolicitud,
         infoSolicitud.nroEtapa
       );
       const data = {

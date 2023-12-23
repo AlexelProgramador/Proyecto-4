@@ -6,6 +6,8 @@ import {
   uploadBytes,
   getDownloadURL,
   uploadBytesResumable,
+  getMetadata,
+  deleteObject,
 } from "firebase/storage";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -31,7 +33,7 @@ export async function uploadFiles(files, nroSolicitud, nroEtapa) {
   const urls = await Promise.all(
     filesArray.map(async (file) => {
       const fileName = file.name;
-      const combinedName = `${nroSolicitud}_${fileName}_${nroEtapa}`;
+      const combinedName = `${nroSolicitud}_${fileName}`;
       const storageRef = ref(storage, `Documentos_solicitudes/${combinedName}`);
       await uploadBytesResumable(storageRef, file);
       const url = await getDownloadURL(storageRef);
@@ -40,4 +42,30 @@ export async function uploadFiles(files, nroSolicitud, nroEtapa) {
   );
 
   return urls;
+}
+
+export async function obtenerMetaData(file) {
+  const storageRef = ref(storage, file);
+
+  try {
+    const metadata = await getMetadata(storageRef);
+    return metadata;
+  } catch (error) {
+    console.error("Error fetching metadata", error);
+    throw error;
+  }
+}
+
+export async function eliminarArchivo(file) {
+  // Crea una referencia al archivo para eliminar
+  const fileRef = ref(storage, file);
+
+  // Elimina el archivo
+  try {
+    await deleteObject(fileRef);
+    console.log("Archivo eliminado exitosamente");
+  } catch (error) {
+    console.error("Error al eliminar el archivo:", error);
+    throw error;
+  }
 }

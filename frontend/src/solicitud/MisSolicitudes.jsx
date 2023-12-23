@@ -71,12 +71,11 @@ const MisSolicitudes = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {" "}
                   {selectedItems.map((item) => {
-                    if (item.infoSolicitudes.idUsuario === response.usuarioId) {
+                    if (item.infoSolicitud.idUsuario === response.usuarioId) {
                       return (
                         <tr key={item._id}>
-                          <td>{item.infoSolicitudes.nroSolicitud}</td>
+                          <td>{item.infoSolicitud.nroSolicitud}</td>
                           <td>{item.nroEtapa}</td>
                           <td>{item.infoUsuario?.solicitadoPor}</td>
                           <td>{item.etapa}</td>
