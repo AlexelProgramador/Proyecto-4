@@ -4,6 +4,8 @@ import usePostRequest from "../Hooks/usePostRequest";
 import usePutRequest from "../Hooks/usePutRequest";
 import { useNavigate } from "react-router-dom";
 import { uploadFiles } from "../firebase/config";
+import { BounceLoader, ClockLoader } from "react-spinners";
+import { LoadingText } from "../Components/LoadingText";
 
 export const Etapa3 = () => {
   const location = useLocation();
@@ -18,10 +20,13 @@ export const Etapa3 = () => {
 
   const { execute: executePut } = usePutRequest();
   const navigate = useNavigate();
-
+  const [loadingText, setLoadingText] = useState("Actualizando etapa");
+  const [isLoading, setIsLoading] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setIsLoading(true);
+
       const urlArchivos = await uploadFiles(
         archivos,
         item.infoSolicitud.nroSolicitud,
@@ -40,7 +45,7 @@ export const Etapa3 = () => {
       };
       const url = "avanzarEtapa";
       const response = await executePut(url, data);
-
+      setIsLoading(false);
       navigate("/");
     } catch (error) {
       alert(error.message);
@@ -63,90 +68,101 @@ export const Etapa3 = () => {
   return (
     <>
       {infoSolicitud ? (
-        <>
-          <div className="w-75 h-40 mx-auto">
-            <div className="card shadow-card rounded-3 border border-0">
-              <div className="card-body">
-                <h2 className="mx-auto p-2 display-4">Solicitud Etapa 3</h2>
-                <p className="display-7">
-                  Esta Solicitud corresponde a: Claudia Caruz{" "}
-                </p>
-                <p className="display-7">
-                  Porfavor rellenar informacion corresponde a la etapa
-                </p>
-                <p className="display-7">
-                  Una vez lo considere terminado pulsar el boton "Enviar Etapa"
-                </p>
-                <form onSubmit={handleSubmit}>
-                  <div className="form-floating mt-2 g-2">
-                    <input
-                      type="date"
-                      className="form-control"
-                      value={fechaenvaprov}
-                      onChange={(e) => setFechaEnvaProv(e.target.value)}
-                    />
-                    <label htmlFor="floatingSelect">
-                      Fecha de envio a proveedor
-                    </label>
-                  </div>
+        isLoading ? (
+          <div className="loading-modal d-flex justify-content-center align-items-center flex-column">
+            <ClockLoader color="#123abc" loading={isLoading} size={100} />
+            {<LoadingText initialText={"Actualizando Etapa"} />}
+          </div>
+        ) : (
+          <>
+            <div className="w-75 h-40 mx-auto">
+              <div className="card shadow-card rounded-3 border border-0">
+                <div className="card-body">
+                  <h2 className="mx-auto p-2 display-4">Solicitud Etapa 3</h2>
+                  <p className="display-7">
+                    Esta Solicitud corresponde a: Claudia Caruz{" "}
+                  </p>
+                  <p className="display-7">
+                    Porfavor rellenar informacion corresponde a la etapa
+                  </p>
+                  <p className="display-7">
+                    Una vez lo considere terminado pulsar el boton "Enviar
+                    Etapa"
+                  </p>
+                  <form onSubmit={handleSubmit}>
+                    <div className="form-floating mt-2 g-2">
+                      <input
+                        type="date"
+                        className="form-control"
+                        value={fechaenvaprov}
+                        onChange={(e) => setFechaEnvaProv(e.target.value)}
+                      />
+                      <label htmlFor="floatingSelect">
+                        Fecha de envio a proveedor
+                      </label>
+                    </div>
 
-                  <div className="form-floating mt-2 g-2">
-                    <select
-                      className="form-select"
-                      id="floatingSelect"
-                      aria-label="Floating label select example"
-                      onChange={(e) => setEstadodeEnvio(e.target.value)}
+                    <div className="form-floating mt-2 g-2">
+                      <select
+                        className="form-select"
+                        id="floatingSelect"
+                        aria-label="Floating label select example"
+                        onChange={(e) => setEstadodeEnvio(e.target.value)}
+                      >
+                        <option value="Valor por defecto">
+                          Seleccione una opcion
+                        </option>
+                        <option value="Si">Si</option>
+                        <option value="No">No</option>
+                      </select>
+                      <label for="floatingSelect">Estado de Envio</label>
+                    </div>
+
+                    <div className="form-floating mt-2 g-2">
+                      <input
+                        type="text"
+                        className="form-control"
+                        value={comentarios}
+                        onChange={(e) => setComentarios(e.target.value)}
+                      />
+                      <label htmlFor="floatingSelect">Comentario</label>
+                    </div>
+                    <div className="mb-3">
+                      <label htmlFor="montoEstimado" className="form-label">
+                        Adjuntar pdf(s) en caso de necesitarlo:
+                      </label>
+                      <input
+                        type="file"
+                        className="form-control"
+                        id="archivo"
+                        accept="application/pdf"
+                        multiple
+                        onChange={(e) => {
+                          setArchivos(Array.from(e.target.files));
+                        }}
+                      />
+                    </div>
+                    <button className="m-2 btn btn-primary" type="submit">
+                      Aceptar
+                    </button>
+                    <button
+                      className="m-2  btn btn-danger"
+                      type="button"
+                      onClick={() => navigate("/")}
                     >
-                      <option value="Valor por defecto">
-                        Seleccione una opcion
-                      </option>
-                      <option value="Si">Si</option>
-                      <option value="No">No</option>
-                    </select>
-                    <label for="floatingSelect">Estado de Envio</label>
-                  </div>
-
-                  <div className="form-floating mt-2 g-2">
-                    <input
-                      type="text"
-                      className="form-control"
-                      value={comentarios}
-                      onChange={(e) => setComentarios(e.target.value)}
-                    />
-                    <label htmlFor="floatingSelect">Comentario</label>
-                  </div>
-                  <div className="mb-3">
-                    <label htmlFor="montoEstimado" className="form-label">
-                      Adjuntar pdf(s) en caso de necesitarlo:
-                    </label>
-                    <input
-                      type="file"
-                      className="form-control"
-                      id="archivo"
-                      accept="application/pdf"
-                      multiple
-                      onChange={(e) => {
-                        setArchivos(Array.from(e.target.files));
-                      }}
-                    />
-                  </div>
-                  <button className="m-2 btn btn-primary" type="submit">
-                    Aceptar
-                  </button>
-                  <button
-                    className="m-2  btn btn-danger"
-                    type="button"
-                    onClick={() => navigate("/")}
-                  >
-                    Atrás
-                  </button>
-                </form>
+                      Atrás
+                    </button>
+                  </form>
+                </div>
               </div>
             </div>
-          </div>
-        </>
+          </>
+        )
       ) : (
-        <p>Loading...</p>
+        <div className="loading-modal d-flex justify-content-center align-items-center flex-column">
+          <BounceLoader color="#123abc" loading={true} size={100} />
+          {<LoadingText initialText={"Cargando"} />}
+        </div>
       )}
     </>
   );

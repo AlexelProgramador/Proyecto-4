@@ -203,12 +203,12 @@ export const Content = () => {
                             <td>{item.etapa}</td>
                             <td>
                               <div className="btn-group btn-group-sm">
-                                {item.nroEtapa !== "Finalizado" &&
-                                  responseLocalStorage.usuario.some(
-                                    (role) =>
-                                      role === "Administrador" ||
-                                      role === getRole(item.nroEtapa)
-                                  ) && (
+                                {responseLocalStorage.usuario.some(
+                                  (role) =>
+                                    role === "Administrador" ||
+                                    role === getRole(item.nroEtapa)
+                                ) &&
+                                  item.nroEtapa !== "Finalizado" && (
                                     <>
                                       <button
                                         className="btn btn-primary"
@@ -225,20 +225,19 @@ export const Content = () => {
                                       >
                                         Ver Etapa
                                       </button>
-                                      {responseLocalStorage.usuario.includes(
-                                        "Administrador"
-                                      ) && (
-                                        <button
-                                          className="btn btn-danger"
-                                          onClick={() =>
-                                            handleDelete(item._id, item)
-                                          }
-                                        >
-                                          Eliminar
-                                        </button>
-                                      )}
                                     </>
                                   )}
+
+                                {responseLocalStorage.usuario.includes(
+                                  "Administrador"
+                                ) && (
+                                  <button
+                                    className="btn btn-danger"
+                                    onClick={() => handleDelete(item._id, item)}
+                                  >
+                                    Eliminar
+                                  </button>
+                                )}
 
                                 <button
                                   className="btn btn-warning"
