@@ -137,7 +137,12 @@ export const Content = () => {
     5: 85,
     Finalizado: 100,
   };
-
+  const handleDeleteRequest = (itemId, item) => {
+    const confirmation = window.confirm('¿Estás seguro de que quieres eliminar la solicitud?');
+    if (confirmation) {
+      handleDelete(itemId, item);
+    }
+  };
   return (
     <>
       <div className="w-75 h-35 mx-auto">
@@ -232,11 +237,11 @@ export const Content = () => {
                                   "Administrador"
                                 ) && (
                                   <button
-                                    className="btn btn-danger"
-                                    onClick={() => handleDelete(item._id, item)}
-                                  >
-                                    Eliminar
-                                  </button>
+                                  className="btn btn-danger"
+                                  onClick={() => handleDeleteRequest(item._id, item)}
+                                >
+                                  Eliminar
+                                </button>
                                 )}
 
                                 <button
