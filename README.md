@@ -15,7 +15,7 @@ Con este sistema, se tiene:
 
 ## Screenshots
 
-![Login Sistema](/../Branchlohin/loginSistema.jpg?raw=true "Imagen Inicio de Sesión")
+![Login Sistema](/loginSistema.jpg?raw=true "Imagen Inicio de Sesión")
 
 ## Autores
 
