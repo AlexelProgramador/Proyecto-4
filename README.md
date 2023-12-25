@@ -15,7 +15,7 @@ Con este sistema, se tiene:
 
 ## Screenshots
 
-![Alt text](/../<branch name>/path/to/image.png?raw=true "Optional Title")
+![Login Sistema](/../Branchlohin/loginSistema.jpg?raw=true "Imagen Inicio de Sesión")
 
 ## Autores
 
