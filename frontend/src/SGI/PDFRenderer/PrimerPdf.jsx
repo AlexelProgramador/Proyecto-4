@@ -1,7 +1,7 @@
 // MyPDFDocument.jsx
 import React from 'react';
 import { Document, Page, Text, View, StyleSheet, Image } from '@react-pdf/renderer';
-import logo from '../../img/logo-odontologia-universidad-de-chile.svg';
+import logo from '../../img/logo-odontologia-universidad-de-chile.png';
 
 const COL_ANCHO_1 = 20
 const COL_ANCHO_2 = 40

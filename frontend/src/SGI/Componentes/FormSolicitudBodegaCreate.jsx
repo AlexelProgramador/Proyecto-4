@@ -24,7 +24,7 @@ export const FormCreateSolicitudBodega = ({botiquinData, bodegaData, selectedIte
               value={solicitudData.VariableSolicitud}
               onChange={handleInputChange}
             />
-            <label htmlFor="Variable Solicitud">Variable Solicitud:</label>
+            <label htmlFor="Variable Solicitud">N C. COSTO:</label>
           </div>
         </div>
         <div className='col-md-4 pb-4'>
