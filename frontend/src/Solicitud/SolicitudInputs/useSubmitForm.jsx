@@ -16,6 +16,7 @@ const useSubmitForm = (execute, setShowAlert) => {
     solicitadoPor,
     anexo,
     correo,
+    resumen,
     productos,
     motivos,
     fuenteFinanciamiento,
@@ -46,6 +47,7 @@ const useSubmitForm = (execute, setShowAlert) => {
           solicitadoPor: solicitadoPor,
           anexo: anexo,
           correo: correo ? correo : "no ingresado",
+          resumen: resumen,
         },
         infoSolicitud: {
           nroSolicitud: nroSolicitud,

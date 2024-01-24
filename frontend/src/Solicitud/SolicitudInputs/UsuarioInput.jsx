@@ -6,6 +6,7 @@ const UsuarioInput = ({
   setSolicitadoPor,
   setCorreo,
   setAnexo,
+  setResumen,
 }) => {
   return (
     <div>
@@ -27,7 +28,7 @@ const UsuarioInput = ({
               type="text"
               className="form-control"
               id="anexo"
-              onChange={(e) => setAnexo(e.target.value[0])}
+              onChange={(e) => setAnexo(e.target.value)}
             />
             <label htmlFor="floatingSelect"> Anexo:</label>
           </div>
@@ -42,6 +43,16 @@ const UsuarioInput = ({
             />
             <label htmlFor="floatingSelect"> Correo Electronico:</label>
           </div>
+        </div>
+        <div className="form-floating mt-2 g-2">
+          <input
+            type="text"
+            className="form-control"
+            id="resumen"
+            onChange={(e) => setResumen(e.target.value)}
+            // required
+          />
+          <label htmlFor="floatingSelect">Resumen Solicitud</label>
         </div>
       </div>
     </div>

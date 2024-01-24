@@ -18,6 +18,7 @@ export const CrearSolicitud = () => {
   const [solicitadoPor, setSolicitadoPor] = useState("");
   const [anexo, setAnexo] = useState("");
   const [correo, setCorreo] = useState("");
+  const [resumen, setResumen] = useState("");
   const [motivos, setMotivos] = useState("");
   const [fuenteFinanciamiento, setFuenteFinanciamiento] = useState("");
   const [montoEstimado, setMontoEstimado] = useState("");
@@ -78,6 +79,7 @@ export const CrearSolicitud = () => {
                   solicitadoPor,
                   anexo,
                   correo,
+                  resumen,
                   productos,
                   motivos,
                   fuenteFinanciamiento,
@@ -92,6 +94,7 @@ export const CrearSolicitud = () => {
                 setSolicitadoPor={setSolicitadoPor}
                 setCorreo={setCorreo}
                 setAnexo={setAnexo}
+                setResumen={setResumen}
               />
               <div className="row">
                 {productosPaginados.map((producto, index) => (

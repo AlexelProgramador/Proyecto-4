@@ -184,7 +184,7 @@ export const Content = () => {
                       <th scope="col">Etapa</th>
                       <th scope="col">Solicitado por</th>
                       <th scope="col">Encargado</th>
-                      <th></th>
+                      <th scope="col">Resumen</th>
                       <th scope="col">Accion</th>
                     </tr>
                   </thead>
@@ -207,7 +207,7 @@ export const Content = () => {
                             </td>
                             <td>{item.infoUsuario?.solicitadoPor}</td>
                             <td>{getRole(item.nroEtapa)}</td>
-                            <td>{item.etapa}</td>
+                            <td>{item.infoUsuario?.resumen}</td>
                             <td>
                               <div className="btn-group btn-group-sm">
                                 {responseLocalStorage.usuario.some(
