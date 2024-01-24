@@ -17,7 +17,7 @@ const usePostRequest = (url = "") => {
     setIsLoading(true);
     try {
       const result = await axios.post(
-        `https://backend-7uep9clzd-alexconrons-projects.vercel.app/api/api/${newUrl}`,
+        `http://127.0.0.1:8000/api/${newUrl}`,
         newData
       );
       setResponse(result.data);

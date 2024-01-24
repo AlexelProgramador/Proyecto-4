@@ -10,7 +10,7 @@ export default function useFetch(url) {
     if (!url) return;
     setLoading(true);
     axios
-      .get(`https://backend-7uep9clzd-alexconrons-projects.vercel.app/api/api/${url}`)
+      .get(`http://127.0.0.1:8000/api/${url}`)
       .then((res) => {
         setData(res.data);
         setLoading(false);
