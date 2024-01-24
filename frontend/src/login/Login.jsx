@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import usePostRequest from "../Hooks/usePostRequest";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import logo from "../img/logo-odontologia-universidad-de-chile.png"
-import img from "../img/imgclinic.jpg"
+// import logo from "../img/logo-odontologia-universidad-de-chile.png"
+// import img from "../img/imgclinic.jpg"
 
 export const Login = () => {
   const [username, setUsername] = useState("");
@@ -34,15 +34,15 @@ export const Login = () => {
         {/* Header */}
         <div className="pt-3 px-5 vw-100 row z-2 position-absolute top-0 start-0 d-flex align-items-end">
           <div className="col-md-6 pb-2">
-            <img src={logo} alt="logo" style={{ height: '100px' }}/>
+            <img src="https://i.imgur.com/mAXnjql.png" alt="logo" style={{ height: '100px' }}/>
           </div>
-          <div className="col-md-6 h5 text-uppercase text-end">SISTEMA DE GESTIÓN DE SOLICITUDES</div>
+          <div className="col-md-6 h5 text-uppercase text-end">Sistema de compras y abastecimiento</div>
         </div>
         {/* Barra color */}
         <div className="vw-100 z-0 position-absolute" style={{ height: '400px', backgroundColor: '#e3e5e5' }}></div>
         {/* Imagen */}
         <div className="z-1 position-absolute top start-10" style={{ height: '450px' , left: '60px' }}>
-          <img src={img} className="h-100 w-100" alt="imagen" />
+          <img src="https://i.imgur.com/BTF4FN9.jpg" className="h-100 w-100" alt="imagen" />
         </div>
         <div className="col-md-5 card border-0 position-absolute z-1 top end-10" style={{ right: '230px' }}>
           {/* <div className="card-header mx-0 row text-white align-items-center" style={{backgroundColor: '#1E4162', height: '100px'}}>

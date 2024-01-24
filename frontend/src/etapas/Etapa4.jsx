@@ -80,7 +80,7 @@ export const Etapa4 = () => {
                 <div className="card-body">
                   <h2 className="mx-auto p-2 display-4">Solicitud Etapa 4</h2>
                   <p className="display-7">
-                    Esta Solicitud corresponde a: Belen Diaz{" "}
+                    Esta Solicitud corresponde a: Bastian Lapierre{" "}
                   </p>
                   <p className="display-7">
                     Porfavor rellenar informacion corresponde a la etapa

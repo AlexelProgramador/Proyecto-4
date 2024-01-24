@@ -89,8 +89,8 @@ const VerEtapa5 = ({ item }) => {
                   <td>{data.metadata ? data.metadata.name : "No metadata"}</td>
                   <td>
                     <button
-                      onClick={() => openPdf(metadata.fullPath)}
-                      className="btn btn-primary d-flex align-items-center mt-0 bi bi-file-earmark-pdf"
+                        onClick={() => openPdf(data.fileUrl)}
+                        className="btn btn-primary d-flex align-items-center mt-0 bi bi-file-earmark-pdf"
                       style={{ width: "100px", height: "50px" }}
                     >
                       <div>Abrir PDF</div>

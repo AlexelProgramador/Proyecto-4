@@ -11,7 +11,7 @@ const getUnattendedRequests = (data) => {
   return data
     .filter((request) => new Date(request.updated_at) < oneDayAgo)
     .map((request) => ({
-      nroSolicitud: request.solicitudInfo.nroSolicitud,
+      nroSolicitud: request.infoSolicitud.nroSolicitud,
       daysUnattended: Math.floor(
         (new Date() - new Date(request.updated_at)) / (1000 * 60 * 60 * 24)
       ),

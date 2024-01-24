@@ -115,7 +115,7 @@ const infoSolicitud = ({ selected = 0, item }) => {
                     </td>
                     <td>
                       <button
-                        onClick={() => openPdf(metadata.fullPath)}
+                        onClick={() => openPdf(data.fileUrl)}
                         className="btn btn-primary d-flex align-items-center mt-0 bi bi-file-earmark-pdf"
                         style={{ width: "100px", height: "50px" }}
                       >

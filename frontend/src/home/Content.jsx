@@ -19,7 +19,7 @@ function getRole(nroEtapa) {
     case 3:
       return "Subdirectora";
     case 4:
-      return "Encargado de abastecimiento ";
+      return "Encargado de abastecimiento";
     case 5:
       return "Bodeguero";
     case "Dea":
@@ -138,7 +138,9 @@ export const Content = () => {
     Finalizado: 100,
   };
   const handleDeleteRequest = (itemId, item) => {
-    const confirmation = window.confirm('¿Estás seguro de que quieres eliminar la solicitud?');
+    const confirmation = window.confirm(
+      "¿Estás seguro de que quieres eliminar la solicitud?"
+    );
     if (confirmation) {
       handleDelete(itemId, item);
     }
@@ -237,11 +239,13 @@ export const Content = () => {
                                   "Administrador"
                                 ) && (
                                   <button
-                                  className="btn btn-danger"
-                                  onClick={() => handleDeleteRequest(item._id, item)}
-                                >
-                                  Eliminar
-                                </button>
+                                    className="btn btn-danger"
+                                    onClick={() =>
+                                      handleDeleteRequest(item._id, item)
+                                    }
+                                  >
+                                    Eliminar
+                                  </button>
                                 )}
 
                                 <button
