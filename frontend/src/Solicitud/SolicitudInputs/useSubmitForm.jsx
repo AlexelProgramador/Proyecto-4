@@ -11,6 +11,13 @@ const useSubmitForm = (execute, setShowAlert) => {
 
   const [isLoading, setIsLoading] = useState(false);
 
+  const getNextSolicitudNumber = () => {
+    let storedNumber = localStorage.getItem("solicitudNumber");
+    let nextNumber = storedNumber ? parseInt(storedNumber, 10) + 1 : 23; // Inicia desde 23 si no hay un valor almacenado
+    localStorage.setItem("solicitudNumber", nextNumber.toString());
+    return nextNumber;
+  };
+
   const handleSubmit = async (
     event,
     solicitadoPor,
@@ -26,7 +33,8 @@ const useSubmitForm = (execute, setShowAlert) => {
     event.preventDefault();
     let sessionInfo = JSON.parse(localStorage.getItem("response"));
     let now = moment().tz("America/Santiago");
-    let nroSolicitud = `${now.format("HHmmss")}-SOL-${now.format("DDMMYYYY")}`;
+    const nroSolicitud = `${getNextSolicitudNumber()}-SOL-${now.format("DDMMYYYY")}`;
+
     try {
       setIsLoading(true);
       const urlArchivos = await uploadFiles(
