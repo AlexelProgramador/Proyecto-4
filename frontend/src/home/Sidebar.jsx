@@ -98,6 +98,32 @@ export const Sidebar = () => {
             <div className="nav-list">
               <div
                 onClick={() => {
+                  navigate("solicitudespendientes");
+                }}
+                style={{
+                  cursor: "pointer",
+                  color: isHoveredMySoli ? "white" : "grey",
+                }}
+                onMouseEnter={() => setIsHoveredMySoli(true)}
+                onMouseLeave={() => setIsHoveredMySoli(false)}
+                className="d-flex nav-link"
+              >
+                {/* <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  x="0px"
+                  y="0px"
+                  width="40"
+                  height="40"
+                  fill="currentColor"
+                  class="bi bi-file-earmark"
+                  viewBox="3 0 8 19"
+                >
+                  <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h-2z" />
+                </svg> */}
+                <span className="ml-auto">Solicitudes Pendientes</span>
+              </div>
+              <div
+                onClick={() => {
                   navigate("crearSolicitud");
                 }}
                 style={{

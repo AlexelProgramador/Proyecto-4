@@ -41,7 +41,7 @@ const UsuarioInput = ({
               id="correo"
               onChange={(e) => setCorreo(e.target.value)}
             />
-            <label htmlFor="floatingSelect"> Correo Electronico:</label>
+            <label htmlFor="floatingSelect">Correo Electronico:</label>
           </div>
         </div>
         <div className="form-floating mt-2 g-2">
