@@ -151,8 +151,7 @@ export const Content = () => {
         <div className="mb-3">
           <h2 className="mx-auto p-2 display-4">Solicitudes</h2>
           <p className="display-7">
-            Aquí puedes gestionar las solicitudes, ver detalles de cada etapa,
-            eliminar etapas y más.
+            Aquí puedes visualizar todas las solicitudes.
           </p>
           <input
             className="form-control me-2 w-30"
@@ -222,8 +221,8 @@ export const Content = () => {
                                         onClick={() =>
                                           navigate(
                                             item.nroEtapa === "0"
-                                              ? "solicitudChequeo"
-                                              : `etapa${item.nroEtapa}`,
+                                              ? "/solicitudChequeo"
+                                              : `/etapa${item.nroEtapa}`,
                                             {
                                               state: { item },
                                             }
@@ -251,7 +250,7 @@ export const Content = () => {
                                 <button
                                   className="btn btn-warning"
                                   onClick={() =>
-                                    navigate(`verSolicitud`, {
+                                    navigate(`/verSolicitud`, {
                                       state: { item },
                                     })
                                   }

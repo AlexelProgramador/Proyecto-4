@@ -43,7 +43,7 @@ export const Home = () => {
           </div>
           <div className="col">
             <Routes>
-              <Route path="/" element={<Content />} />
+              <Route path="solicitudes" element={<Content />} />
               <Route path="solicitudChequeo" element={<SolicitudChequeo />} />
               <Route path="etapa1" element={<Etapa1 />} />
               <Route path="etapa2" element={<Etapa2 />} />
@@ -51,7 +51,7 @@ export const Home = () => {
               <Route path="etapa4" element={<Etapa4 />} />
               <Route path="etapa5" element={<Etapa5 />} />
               <Route path="etapaDea" element={<EtapaDea />} />
-              <Route path="solicitudespendientes" element={<Pendientes />} />
+              <Route path="/" element={<Pendientes />} />
               <Route path="crearSolicitud" element={<CrearSolicitud />} />
               <Route path="verSolicitud" element={<VerSolicitud />} />
               <Route path="misSolicitudes" element={<MisSolicitudes />} />
