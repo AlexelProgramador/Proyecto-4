@@ -196,7 +196,7 @@ export const Pendientes = () => {
                     {selectedItems.map(
                       (item) =>
                         item.nroEtapa !== "Rechazado" &&
-                          getRole(item.nroEtapa)== userRole && (
+                        (userRole && (getRole(item.nroEtapa) === userRole || (userRoles[1] && getRole(item.nroEtapa) === userRoles[1]) )) && (
                           <tr key={item._id} id={item._id}>
                             <td>{item.infoSolicitud.nroSolicitud}</td>
                             <td>
