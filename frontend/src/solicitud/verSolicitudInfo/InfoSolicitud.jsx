@@ -55,7 +55,7 @@ const infoSolicitud = ({ selected = 0, item }) => {
             <span className="text-primary">
               {item.infoSolicitud.tipoSolicitud}
             </span>
-          </h2>
+          </h2> 
           <h1 className="mb-4 display-6">Informacion de usuario</h1>
           <h2 className="mb-3">
             Solicitada por:{" "}

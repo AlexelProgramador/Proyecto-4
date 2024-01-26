@@ -6,6 +6,7 @@ const MotivosInput = ({
   setMotivos,
   fuenteFinanciamiento,
   setFuenteFinanciamiento,
+  montoEstimado,
   setMontoEstimado,
   setArchivos,
 }) => {
@@ -40,6 +41,7 @@ const MotivosInput = ({
           type="text"
           className="form-control"
           id="montoEstimado"
+          value={montoEstimado}
           onChange={(e) => setMontoEstimado(e.target.value)}
         />
         <label htmlFor="montoEstimado" className="form-label">

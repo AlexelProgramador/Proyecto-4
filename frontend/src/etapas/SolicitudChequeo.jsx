@@ -34,7 +34,9 @@ export const SolicitudChequeo = () => {
       nroEtapa: 1,
     };
     const url = "avanzarEtapa";
+
     const response = await executePut(url, data);
+    console.log(response);
     setIsLoading(false);
     navigate("/");
   };

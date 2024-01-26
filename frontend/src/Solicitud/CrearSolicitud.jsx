@@ -130,9 +130,9 @@ export const CrearSolicitud = () => {
                 setArchivos={setArchivos}
               />
               <div>
-                <button type="submit" className="btn btn-primary">
-                  Enviar
-                </button>
+              <button type="submit" className="btn btn-primary">
+                Enviar
+              </button>
                 <button
                   type="button"
                   className="btn btn-danger"

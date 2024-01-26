@@ -4,8 +4,11 @@ import React from "react";
 const UsuarioInput = ({
   solicitadoPor,
   setSolicitadoPor,
+  correo,
   setCorreo,
+  anexo,
   setAnexo,
+  resumen,
   setResumen,
 }) => {
   return (
@@ -28,6 +31,7 @@ const UsuarioInput = ({
               type="text"
               className="form-control"
               id="anexo"
+              value={anexo}
               onChange={(e) => setAnexo(e.target.value)}
             />
             <label htmlFor="floatingSelect"> Anexo:</label>
@@ -39,6 +43,7 @@ const UsuarioInput = ({
               type="text"
               className="form-control"
               id="correo"
+              value={correo}
               onChange={(e) => setCorreo(e.target.value)}
             />
             <label htmlFor="floatingSelect">Correo Electronico:</label>
@@ -49,6 +54,7 @@ const UsuarioInput = ({
             type="text"
             className="form-control"
             id="resumen"
+            value={resumen}
             onChange={(e) => setResumen(e.target.value)}
             // required
           />

@@ -7,7 +7,7 @@ import React, { useState } from "react";
 import Cookies from "js-cookie";
 function getRole(nroEtapa) {
   switch (nroEtapa) {
-    case 0:
+    case "0":
       return "Secretaria";
     case 1:
       return "Encargado de presupuesto";
