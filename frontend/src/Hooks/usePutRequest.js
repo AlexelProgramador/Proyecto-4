@@ -17,6 +17,7 @@ const usePutRequest = (initialUrl = "", initialData = {foo:'foo'}) => {
         `http://127.0.0.1:8000/api/${newUrl}`,
         newData
       );
+      console.log("response", response);
       console.log("datos despues de modificar ", response.data); // Imprimir la respuesta del servidor
       setData(response.data);
     } catch (error) {

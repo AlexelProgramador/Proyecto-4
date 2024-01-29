@@ -27,6 +27,10 @@ class EtapaController extends Controller
             return response()->json(['error' => $request], Response::HTTP_CONFLICT);
         }
         $etapa->nroEtapa = $request->nroEtapa;
+        $etapa->completado = $request->completado;
+        $etapa->infoUsuario = $request->infoUsuario;
+        $etapa->infoSolicitud = $request->infoSolicitud;
+
         switch (true) {
             case $request->has('procesosEtapa1'):
                 $etapa->procesosEtapa1 = $request->procesosEtapa1;

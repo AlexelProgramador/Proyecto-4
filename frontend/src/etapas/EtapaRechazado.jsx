@@ -53,18 +53,24 @@ export const EtapaRechazado = () => {
 
     const data = {
       idEtapa: item._id,
+
       nroEtapa: "0",
       infoUsuario: {
         solicitadoPor: formData.solicitadoPor,
         anexo: formData.anexo,
-        motivos: formData.motivos,
         correo: formData.correo,
         resumen: formData.resumen,
       },
       infoSolicitud: {
-        productos: productosData,
+        fecha: item.infoSolicitud.fecha,
         fuenteFinanciamiento: formData.fuenteFinanciamiento,
+        idUsuario: item.infoSolicitud.idUsuario,
         montoEstimado: formData.montoEstimado,
+        motivos: formData.motivos,
+        nroSolicitud: item.infoSolicitud.nroSolicitud,
+        productos: productosData,
+        tipoSolicitud: item.infoSolicitud.tipoSolicitud,
+        urlArchivos: item.infoSolicitud.urlArchivos,
       },
     };
 
