@@ -19,6 +19,7 @@ const MotivosInput = ({
           id="motivos"
           value={motivos}
           onChange={(e) => setMotivos(e.target.value)}
+          required
         />
         <label htmlFor="motivos" className="form-label">
           Argumente los motivos, necesidad de la compra (fundamente):
@@ -32,6 +33,7 @@ const MotivosInput = ({
           id="fuenteFinanciamiento"
           value={fuenteFinanciamiento}
           onChange={(e) => setFuenteFinanciamiento(e.target.value)}
+          required
         />
         <label htmlFor="floatingSelect">Fuente de Financiamiento:</label>
       </div>
@@ -43,6 +45,7 @@ const MotivosInput = ({
           id="montoEstimado"
           value={montoEstimado}
           onChange={(e) => setMontoEstimado(e.target.value)}
+          required
         />
         <label htmlFor="montoEstimado" className="form-label">
           Monto estimado de compra:

@@ -12,12 +12,12 @@ const usePutRequest = (initialUrl = "", initialData = {foo:'foo'}) => {
     setIsLoading(true);
 
     try {
-      console.log(newData);
+      console.log("datos antes de modificar", newData);
       const response = await axios.put(
         `http://127.0.0.1:8000/api/${newUrl}`,
         newData
       );
-      console.log(response.data); // Imprimir la respuesta del servidor
+      console.log("datos despues de modificar ", response.data); // Imprimir la respuesta del servidor
       setData(response.data);
     } catch (error) {
       setError(error);

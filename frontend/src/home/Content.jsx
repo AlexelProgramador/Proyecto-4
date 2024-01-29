@@ -106,7 +106,9 @@ export const Content = () => {
           (item.infoSolicitud.nroSolicitud &&
             item.infoSolicitud.nroSolicitud.includes(search)) ||
           (item.procesosEtapa2.nroordendecompra &&
-            item.procesosEtapa2.nroordendecompra.includes(search))
+            item.procesosEtapa2.nroordendecompra.includes(search)) ||
+            (item.infoUsuario?.solicitadoPor &&
+              item.infoUsuario.solicitadoPor.toLowerCase().includes(search.toLowerCase()))
       )
     : sortedData;
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;

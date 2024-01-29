@@ -19,7 +19,7 @@ const UsuarioInput = ({
           className="form-control"
           value={solicitadoPor}
           onChange={(e) => setSolicitadoPor(e.target.value)}
-          // required
+          required
         />
         <label htmlFor="floatingSelect">Solicitado por</label>
       </div>
@@ -45,6 +45,7 @@ const UsuarioInput = ({
               id="correo"
               value={correo}
               onChange={(e) => setCorreo(e.target.value)}
+              required
             />
             <label htmlFor="floatingSelect">Correo Electronico:</label>
           </div>
@@ -56,7 +57,7 @@ const UsuarioInput = ({
             id="resumen"
             value={resumen}
             onChange={(e) => setResumen(e.target.value)}
-            // required
+            required
           />
           <label htmlFor="floatingSelect">Resumen Solicitud</label>
         </div>
