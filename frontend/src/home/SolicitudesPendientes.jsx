@@ -227,8 +227,8 @@ export const Pendientes = () => {
                                         onClick={() =>
                                           navigate(
                                             item.nroEtapa === "0"
-                                              ? "/solicitudChequeo"
-                                              : `/etapa${item.nroEtapa}`,
+                                              ? "solicitudChequeo"
+                                              : `etapa${item.nroEtapa}`,
                                             {
                                               state: { item },
                                             }
@@ -256,7 +256,7 @@ export const Pendientes = () => {
                                 <button
                                   className="btn btn-warning"
                                   onClick={() =>
-                                    navigate(`/verSolicitud`, {
+                                    navigate(`verSolicitud`, {
                                       state: { item },
                                     })
                                   }

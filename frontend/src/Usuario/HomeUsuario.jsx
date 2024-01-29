@@ -7,7 +7,7 @@ import React, { useState } from "react";
 import Cookies from "js-cookie";
 function getRole(nroEtapa) {
   switch (nroEtapa) {
-    case "0":
+    case 0:
       return "Secretaria";
     case 1:
       return "Encargado de presupuesto";
@@ -25,8 +25,8 @@ function getRole(nroEtapa) {
       return null;
   }
 }
-const MisSolicitudes = () => {
-  const { data, loading, error } = useFetch("etapas");
+const HomeUsuario = () => {
+  const { data, loading, error } = useFetch("usuarios");
   const { showAlert, setShowAlert } = useContext(AlertContext);
   const [currentPage, setCurrentPage] = useState(1);
   const response = JSON.parse(localStorage.getItem("response"));
@@ -41,16 +41,18 @@ const MisSolicitudes = () => {
   }, [showAlert]);
   const navigate = useNavigate();
 
+  console.log(data)
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const selectedItems = data
-    ? data.slice(startIndex, startIndex + ITEMS_PER_PAGE)
-    : [];
+  const selectedItems = data && Array.isArray(data.results)
+  ? data.results.slice(startIndex, startIndex + ITEMS_PER_PAGE)
+  : [];
+
   return (
     <div className="w-75 h-40 mx-auto">
       <div className="card shadow-card rounded-3 border border-0">
         <div className="card-body">
           <div className="d-flex justify-content-between pb-0">
-            <div className="h5 text-uppercase">Mis solicitudes</div>
+            <div className="h5 text-uppercase">Usuarios</div>
           </div>
           {loading ? (
             <div className="d-flex justify-content-center  m-5">
@@ -63,76 +65,38 @@ const MisSolicitudes = () => {
               <table className="table">
                 <thead>
                   <tr>
-                    <th scope="col">N° Solicitud</th>
-                    <th scope="col">Etapa</th>
-                    <th scope="col">Solicitado por</th>
-                    <th scope="col"></th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Apellido</th>
+                    <th scope="col">Usuario</th>
                     <th scope="col">Accion</th>
                   </tr>
                 </thead>
                 <tbody>
                   {selectedItems.map((item) => {
-                    if (item.infoSolicitud.idUsuario === response.usuarioId) {
                       return (
                         <tr key={item._id}>
-                          <td>{item.infoSolicitud.nroSolicitud}</td>
-                          <td>{item.nroEtapa}</td>
-                          <td>{item.infoUsuario?.solicitadoPor}</td>
-                          <td>{item.etapa}</td>
+                          <td>{item.nombre}</td>
+                          <td>{item.apellido}</td>
+                          <td>{item.usuario}</td>
+                          {/* <td>{item.results.rol}</td> */}
                           <td>
-                            <div className="btn-group btn-group-sm">
-                              {item.nroEtapa !== "Finalizado" &&
-                                response.usuario.some(
-                                  (role) =>
-                                    role === "Administrador" ||
-                                    role === getRole(item.nroEtapa)
-                                ) && (
-                                  <button
-                                    className="btn btn-primary"
-                                    onClick={() =>
-                                      navigate(
-                                        item.nroEtapa === '0'
-                                          ? "/solicitudChequeo"
-                                          : `/etapa${item.nroEtapa}`,
-                                        {
-                                          state: { item },
-                                        }
-                                      )
-                                    }
-                                  >
-                                    Ver Etapa
-                                  </button>
-                                )}
-
-                              <button
-                                className="btn btn-warning"
-                                onClick={() =>
-                                  navigate(`/verSolicitud`, {
-                                    state: { item },
-                                  })
-                                }
-                              >
-                                Ver Solicitud
-                              </button>
-                            </div>
+                            
                           </td>
                         </tr>
                       );
-                    } else {
-                      return null;
-                    }
-                  })}
-                  {Array(10 - selectedItems.length)
-                    .fill()
-                    .map((_, index) => (
-                      <tr key={`empty-${index}`}>
-                        <td colSpan="5">&nbsp;</td>
-                      </tr>
-                    ))}
+                              })}
+                  
+                  {/* // {Array(10 - selectedItems.length) */}
+                  {/* //   .fill()
+                  //   .map((_, index) => (
+                  //     <tr key={`empty-${index}`}>
+                  //       <td colSpan="5">&nbsp;</td>
+                  //     </tr>
+                  //   ))} */}
                 </tbody>
               </table>
               <div>
-                {[...Array(Math.ceil(data.length / ITEMS_PER_PAGE)).keys()].map(
+                {[...Array(Math.ceil(data.results.length / ITEMS_PER_PAGE)).keys()].map(
                   (number) => (
                     <button
                       key={number}
@@ -163,4 +127,4 @@ const MisSolicitudes = () => {
     </div>
   );
 };
-export default MisSolicitudes;
+export default HomeUsuario;

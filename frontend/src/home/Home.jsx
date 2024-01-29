@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 
 import { AlertContext } from "../context/AlertContext";
 import MisSolicitudes from "../solicitud/MisSolicitudes";
+import HomeUsuario from "../usuario/HomeUsuario";
 import { EtapaRechazado } from "../etapas/EtapaRechazado";
 import { EtapaDea } from "../etapas/EtapaDea";
 
@@ -55,6 +56,7 @@ export const Home = () => {
               <Route path="crearSolicitud" element={<CrearSolicitud />} />
               <Route path="verSolicitud" element={<VerSolicitud />} />
               <Route path="misSolicitudes" element={<MisSolicitudes />} />
+              <Route path="misUsuarios" element={<HomeUsuario />} />
               <Route path="etapaRechazado" element={<EtapaRechazado />} />
             </Routes>
           </div>
