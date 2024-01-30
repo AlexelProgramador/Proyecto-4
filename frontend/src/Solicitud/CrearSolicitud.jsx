@@ -19,6 +19,7 @@ export const CrearSolicitud = () => {
   const [anexo, setAnexo] = useState("");
   const [correo, setCorreo] = useState("");
   const [resumen, setResumen] = useState("");
+  const [Fechaest, setFechaest] = useState("");
   const [motivos, setMotivos] = useState("");
   const [fuenteFinanciamiento, setFuenteFinanciamiento] = useState("");
   const [montoEstimado, setMontoEstimado] = useState("");
@@ -80,6 +81,7 @@ export const CrearSolicitud = () => {
                   anexo,
                   correo,
                   resumen,
+                  Fechaest,
                   productos,
                   motivos,
                   fuenteFinanciamiento,
@@ -93,6 +95,7 @@ export const CrearSolicitud = () => {
                 solicitadoPor={solicitadoPor}
                 setSolicitadoPor={setSolicitadoPor}
                 setCorreo={setCorreo}
+                setFechaest={setFechaest}
                 setAnexo={setAnexo}
                 setResumen={setResumen}
               />

@@ -31,7 +31,26 @@ export const SolicitudChequeo = () => {
     setIsLoading(true);
     const data = {
       idEtapa: item._id,
+
       nroEtapa: 1,
+      infoUsuario: {
+        solicitadoPor: item.infoUsuario.solicitadoPor,
+        anexo: item.infoUsuario.anexo,
+        correo: item.infoUsuario.correo,
+        resumen: item.infoUsuario.resumen,
+        fechaestimada: item.infoUsuario.fechaestimada
+      },
+      infoSolicitud: {
+        fecha: item.infoSolicitud.fecha,
+        fuenteFinanciamiento: item.infoSolicitud.fuenteFinanciamiento,
+        idUsuario: item.infoSolicitud.idUsuario,
+        montoEstimado: item.infoSolicitud.montoEstimado,
+        motivos: item.infoSolicitud.motivos,
+        nroSolicitud: item.infoSolicitud.nroSolicitud,
+        productos: item.infoSolicitud.productos,
+        tipoSolicitud: item.infoSolicitud.tipoSolicitud,
+        urlArchivos: item.infoSolicitud.urlArchivos,
+      },
     };
     const url = "avanzarEtapa";
 
@@ -41,12 +60,32 @@ export const SolicitudChequeo = () => {
     navigate("/");
   };
 
+  
   const handleRechazar = async (e) => {
     e.preventDefault();
     console.log(motivoRechazo);
     const data = {
       idEtapa: infoSolicitud._id, // Enviar el ID de la etapa como una cadena de texto
       motivoRechazo: motivoRechazo,
+      nroEtapa: "Rechazado",
+      infoUsuario: {
+        solicitadoPor: item.infoUsuario.solicitadoPor,
+        anexo: item.infoUsuario.anexo,
+        correo: item.infoUsuario.correo,
+        resumen: item.infoUsuario.resumen,
+        fechaestimada: item.infoUsuario.fechaestimada
+      },
+      infoSolicitud: {
+        fecha: item.infoSolicitud.fecha,
+        fuenteFinanciamiento: item.infoSolicitud.fuenteFinanciamiento,
+        idUsuario: item.infoSolicitud.idUsuario,
+        montoEstimado: item.infoSolicitud.idUsuario,
+        motivos: item.infoSolicitud.motivos,
+        nroSolicitud: item.infoSolicitud.nroSolicitud,
+        productos: item.infoSolicitud.productos,
+        tipoSolicitud: item.infoSolicitud.tipoSolicitud,
+        urlArchivos: item.infoSolicitud.urlArchivos,
+      },
     };
     const url = "rechazarEtapa";
     const response = await executePut(url, data);
@@ -148,7 +187,36 @@ export const SolicitudChequeo = () => {
                         </label>
                       </div>
                     </div>
+                    <div className="row">
+                      <div className="col">
+                        <div className="form-floating mt-2 g-2">
+                          <input
+                          type="text"
+                          className="form-control"
+                          value={infoSolicitud.infoUsuario.resumen}
+                          disabled
+                          />
+                        <label htmlFor="floatingInputGrid">
+                          resumen:
+                        </label>
+                        </div>
+                      </div>
+                      <div className="col">
+                          <div className="form-floating mt-2 g-2">
+                          <input
+  type="text"
+  className="form-control"
+  value={infoSolicitud.infoUsuario.fechaestimada}
+  disabled
+/>
+<label htmlFor="floatingInputGrid">Fecha estimada:</label>
+
+
+                        </div>
+                      </div>
+                    </div>
                   </div>
+
                   <div className="row mt-2 g-2">
                     <div style={{ overflow: "hidden" }}>
                       <table className="table">

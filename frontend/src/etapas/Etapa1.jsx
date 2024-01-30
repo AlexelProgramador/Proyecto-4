@@ -16,6 +16,7 @@ export const Etapa1 = () => {
   const productosPorPagina = 3;
   const [paginaActual, setPaginaActual] = useState(0);
   const [numeroDePaginas, setNumeroDePaginas] = useState(0);
+  const [motivoRechazo, setMotivoRechazo] = useState("");
   const [centroDeCostos, setCentroDeCostos] = useState("");
   const [verificarSaldo, setVerificarSaldo] = useState(0);
   const [comentario, setComentario] = useState("");
@@ -41,6 +42,23 @@ export const Etapa1 = () => {
       const data = {
         idEtapa: item._id,
         nroEtapa: "Dea",
+        infoUsuario: {
+          solicitadoPor: item.infoUsuario.solicitadoPor,
+          anexo: item.infoUsuario.anexo,
+          correo: item.infoUsuario.correo,
+          resumen: item.infoUsuario.resumen,
+        },
+        infoSolicitud: {
+          fecha: item.infoSolicitud.fecha,
+          fuenteFinanciamiento: item.infoSolicitud.fuenteFinanciamiento,
+          idUsuario: item.infoSolicitud.idUsuario,
+          montoEstimado: item.infoSolicitud.montoEstimado,
+          motivos: item.infoSolicitud.motivos,
+          nroSolicitud: item.infoSolicitud.nroSolicitud,
+          productos: item.infoSolicitud.productos,
+          tipoSolicitud: item.infoSolicitud.tipoSolicitud,
+          urlArchivos: item.infoSolicitud.urlArchivos,
+        },
         procesosEtapa1: {
           centroDeCostos: centroDeCostos,
           verificarSaldo: verificarSaldo,
@@ -56,7 +74,41 @@ export const Etapa1 = () => {
       alert(error.message);
     }
   };
+  const handleRechazar = async (e) => {
+    e.preventDefault();
+    console.log(motivoRechazo);
+    const data = {
+      idEtapa: infoSolicitud._id, // Enviar el ID de la etapa como una cadena de texto
+      motivoRechazo: motivoRechazo,
+      nroEtapa: "0",
+      infoUsuario: {
+        solicitadoPor: item.infoUsuario.solicitadoPor,
+        anexo: item.infoUsuario.anexo,
+        correo: item.infoUsuario.correo,
+        resumen: item.infoUsuario.resumen,
+        fechaestimada: item.infoUsuario.fechaestimada
+      },
+      infoSolicitud: {
+        fecha: item.infoSolicitud.fecha,
+        fuenteFinanciamiento: item.infoSolicitud.fuenteFinanciamiento,
+        idUsuario: item.infoSolicitud.idUsuario,
+        montoEstimado: item.infoSolicitud.idUsuario,
+        motivos: item.infoSolicitud.motivos,
+        nroSolicitud: item.infoSolicitud.nroSolicitud,
+        productos: item.infoSolicitud.productos,
+        tipoSolicitud: item.infoSolicitud.tipoSolicitud,
+        urlArchivos: item.infoSolicitud.urlArchivos,
+      },
+    };
+    const url = "rechazarEtapa";
+    const response = await executePut(url, data);
+    // Cerrar el modal manualmente
+    var myModal = document.getElementById("rechazarModal");
+    var modal = bootstrap.Modal.getInstance(myModal);
+    modal.hide();
 
+    navigate("/");
+  };
   const getinfoSolicitud = async () => {
     var data = {
       _id: item._id,
@@ -83,6 +135,16 @@ export const Etapa1 = () => {
           ) : (
             <div className="w-75 h-40 mx-auto">
               <div className="card shadow-card rounded-3 border border-0">
+              <button
+                  className="m-2 btn btn-warning rounded-pill px-3 w-10"
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigate("/");
+                  }}
+                >
+                  Atras
+                </button>
                 <div className="card-body">
                   <h2 className="mx-auto p-2 display-4">Solicitud Etapa 1</h2>
                   <p className="display-7">
@@ -138,6 +200,32 @@ export const Etapa1 = () => {
                         </label>
                       </div>
                     </div>
+                    <div className="col">
+                        <div className="form-floating mt-2 g-2">
+                          <input
+                          type="text"
+                          className="form-control"
+                          value={infoSolicitud.infoUsuario.resumen}
+                          disabled
+                          />
+                        <label htmlFor="floatingInputGrid">
+                          resumen:
+                        </label>
+                        </div>
+                      </div>
+                      <div className="col">
+                          <div className="form-floating mt-2 g-2">
+                          <input
+  type="text"
+  className="form-control"
+  value={infoSolicitud.infoUsuario.fechaestimada}
+  disabled
+/>
+<label htmlFor="floatingInputGrid">Fecha estimada:</label>
+
+
+                        </div>
+                      </div>
                   </div>
                   <div className="row mt-2 g-2">
                     <div style={{ overflow: "hidden" }}>
@@ -281,10 +369,71 @@ export const Etapa1 = () => {
                     <button
                       className="m-2  btn btn-danger"
                       type="button"
-                      onClick={(e) => e.preventDefault()}
+                      data-bs-toggle="modal"
+                      data-bs-target="#rechazarModal"
                     >
-                      Atras
+                      Rechazar
                     </button>
+
+                    <div
+                      className="modal fade"
+                      id="rechazarModal"
+                      tabIndex="-1"
+                      aria-labelledby="exampleModalLabel"
+                      aria-hidden="true"
+                    >
+                      <div className="modal-dialog">
+                        <div className="modal-content">
+                          <div className="modal-header">
+                            <h5 className="modal-title" id="exampleModalLabel">
+                              Motivo de rechazo
+                            </h5>
+                            <button
+                              type="button"
+                              className="btn-close"
+                              data-bs-dismiss="modal"
+                              aria-label="Close"
+                            ></button>
+                          </div>
+                          <div className="modal-body">
+                            <form>
+                              <div className="mb-3">
+                                <label
+                                  htmlFor="message-text"
+                                  className="col-form-label"
+                                >
+                                  Motivo:
+                                </label>
+                                <textarea
+                                  className="form-control"
+                                  id="message-text"
+                                  value={motivoRechazo}
+                                  onChange={(e) =>
+                                    setMotivoRechazo(e.target.value)
+                                  }
+                                ></textarea>
+                              </div>
+                            </form>
+                          </div>
+                          <div className="modal-footer">
+                            <button
+                              type="button"
+                              className="btn btn-secondary"
+                              data-bs-dismiss="modal"
+                            >
+                              Cerrar
+                            </button>
+                            <button
+                              type="submit"
+                              className="btn btn-primary"
+                              onClick={handleRechazar}
+                            >
+                              Enviar
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </form>
                 </div>
               </div>

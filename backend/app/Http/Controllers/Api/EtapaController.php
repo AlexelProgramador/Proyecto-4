@@ -100,7 +100,7 @@ class EtapaController extends Controller
         if (!$etapa) {
             return response()->json(['error' => 'No se encontró la etapa actual'], 404);
         }
-        $etapa->nroEtapa = "Rechazado";
+        $etapa->nroEtapa = $request->nroEtapa;
         $etapa->motivoRechazo = $request->motivoRechazo;
         // Guardar los cambios
 

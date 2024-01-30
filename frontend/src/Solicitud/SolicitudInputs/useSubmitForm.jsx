@@ -24,6 +24,7 @@ const useSubmitForm = (execute, setShowAlert) => {
     anexo,
     correo,
     resumen,
+    Fechaest,
     productos,
     motivos,
     fuenteFinanciamiento,
@@ -56,6 +57,7 @@ const useSubmitForm = (execute, setShowAlert) => {
           anexo: anexo,
           correo: correo ? correo : "no ingresado",
           resumen: resumen,
+          fechaestimada: Fechaest
         },
         infoSolicitud: {
           nroSolicitud: nroSolicitud,

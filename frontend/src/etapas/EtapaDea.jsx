@@ -12,6 +12,8 @@ export const EtapaDea = () => {
   const item = location.state.item;
   const { execute: executePost, response } = usePostRequest();
   const [infoSolicitud, setinfoSolicitud] = useState(null);
+  const [motivoRechazo, setMotivoRechazo] = useState("");
+
   const {
     data,
     error,
@@ -30,13 +32,63 @@ export const EtapaDea = () => {
       procesosEtapaDea: {
         aprobado: "true",
       },
+      infoUsuario: {
+        solicitadoPor: item.infoUsuario.solicitadoPor,
+        anexo: item.infoUsuario.anexo,
+        correo: item.infoUsuario.correo,
+        resumen: item.infoUsuario.resumen,
+      },
+      infoSolicitud: {
+        fecha: item.infoSolicitud.fecha,
+        fuenteFinanciamiento: item.infoSolicitud.fuenteFinanciamiento,
+        idUsuario: item.infoSolicitud.idUsuario,
+        montoEstimado: item.infoSolicitud.idUsuario,
+        motivos: item.infoSolicitud.motivos,
+        nroSolicitud: item.infoSolicitud.nroSolicitud,
+        productos: item.infoSolicitud.productos,
+        tipoSolicitud: item.infoSolicitud.tipoSolicitud,
+        urlArchivos: item.infoSolicitud.urlArchivos,
+      },
     };
     const url = "avanzarEtapa";
     const response = await executePut(url, data);
     setIsLoading(false);
     navigate("/");
   };
+  const handleRechazar = async (e) => {
+    e.preventDefault();
+    console.log(motivoRechazo);
+    const data = {
+      idEtapa: infoSolicitud._id, // Enviar el ID de la etapa como una cadena de texto
+      motivoRechazo: motivoRechazo,
+      nroEtapa: 1,
+      infoUsuario: {
+        solicitadoPor: item.infoUsuario.solicitadoPor,
+        anexo: item.infoUsuario.anexo,
+        correo: item.infoUsuario.correo,
+        resumen: item.infoUsuario.resumen,
+      },
+      infoSolicitud: {
+        fecha: item.infoSolicitud.fecha,
+        fuenteFinanciamiento: item.infoSolicitud.fuenteFinanciamiento,
+        idUsuario: item.infoSolicitud.idUsuario,
+        montoEstimado: item.infoSolicitud.montoEstimado,
+        motivos: item.infoSolicitud.motivos,
+        nroSolicitud: item.infoSolicitud.nroSolicitud,
+        productos: item.infoSolicitud.productos,
+        tipoSolicitud: item.infoSolicitud.tipoSolicitud,
+        urlArchivos: item.infoSolicitud.urlArchivos,
+      },
+    };
+    const url = "rechazarEtapa";
+    const response = await executePut(url, data);
+    // Cerrar el modal manualmente
+    var myModal = document.getElementById("rechazarModal");
+    var modal = bootstrap.Modal.getInstance(myModal);
+    modal.hide();
 
+    navigate("/");
+  };
   const getinfoSolicitud = async () => {
     var data = {
       _id: item._id,
@@ -214,10 +266,71 @@ export const EtapaDea = () => {
                     <button
                       className="m-2  btn btn-danger"
                       type="button"
-                      onClick={(e) => e.preventDefault()}
+                      data-bs-toggle="modal"
+                      data-bs-target="#rechazarModal"
                     >
-                      Atras
+                      Rechazar
                     </button>
+
+                    <div
+                      className="modal fade"
+                      id="rechazarModal"
+                      tabIndex="-1"
+                      aria-labelledby="exampleModalLabel"
+                      aria-hidden="true"
+                    >
+                      <div className="modal-dialog">
+                        <div className="modal-content">
+                          <div className="modal-header">
+                            <h5 className="modal-title" id="exampleModalLabel">
+                              Motivo de rechazo
+                            </h5>
+                            <button
+                              type="button"
+                              className="btn-close"
+                              data-bs-dismiss="modal"
+                              aria-label="Close"
+                            ></button>
+                          </div>
+                          <div className="modal-body">
+                            <form>
+                              <div className="mb-3">
+                                <label
+                                  htmlFor="message-text"
+                                  className="col-form-label"
+                                >
+                                  Motivo:
+                                </label>
+                                <textarea
+                                  className="form-control"
+                                  id="message-text"
+                                  value={motivoRechazo}
+                                  onChange={(e) =>
+                                    setMotivoRechazo(e.target.value)
+                                  }
+                                ></textarea>
+                              </div>
+                            </form>
+                          </div>
+                          <div className="modal-footer">
+                            <button
+                              type="button"
+                              className="btn btn-secondary"
+                              data-bs-dismiss="modal"
+                            >
+                              Cerrar
+                            </button>
+                            <button
+                              type="submit"
+                              className="btn btn-primary"
+                              onClick={handleRechazar}
+                            >
+                              Enviar
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </form>
                 </div>
               </div>

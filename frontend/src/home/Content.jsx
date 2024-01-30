@@ -194,7 +194,8 @@ export const Content = () => {
                       (item) =>
                         item.nroEtapa !== "Rechazado" && (
                           <tr key={item._id} id={item._id}>
-                            <td>{item.infoSolicitud.nroSolicitud}</td>
+<td>{item.infoSolicitud ? item.infoSolicitud.nroSolicitud : 'N/A'}</td>
+
                             <td>
                               {item.procesosEtapa2.nroordendecompra
                                 ? item.procesosEtapa2.nroordendecompra

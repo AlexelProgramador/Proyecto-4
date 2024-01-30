@@ -30,6 +30,7 @@ export const EtapaRechazado = () => {
     correo: usuarioInfo.correo || "",
     motivos: usuarioInfo.motivos || "",
     resumen: usuarioInfo.resumen || "",
+    fechaestimada: usuarioInfo.fechaestimada|| "",
     fuenteFinanciamiento: solicitudInfo.fuenteFinanciamiento || "",
     montoEstimado: solicitudInfo.montoEstimado || "",
 
@@ -60,6 +61,7 @@ export const EtapaRechazado = () => {
         anexo: formData.anexo,
         correo: formData.correo,
         resumen: formData.resumen,
+        fechaestimada: formData.fechaestimada
       },
       infoSolicitud: {
         fecha: item.infoSolicitud.fecha,
@@ -123,6 +125,8 @@ export const EtapaRechazado = () => {
               setCorreo={(value) => handleInputChange("correo", value)}
               resumen={formData.resumen}
               setResumen={(value) => handleInputChange("resumen", value)}
+              fechaestimada={formData.fechaestimada}
+              setFechaest={(value) => handleInputChange("fechaestimada", value)}
             />
             <div className="row">
               {productosPaginados.map((producto, index) => (

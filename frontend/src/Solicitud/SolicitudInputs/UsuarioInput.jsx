@@ -10,6 +10,8 @@ const UsuarioInput = ({
   setAnexo,
   resumen,
   setResumen,
+  Fechaest,
+  setFechaest
 }) => {
   return (
     <div>
@@ -38,7 +40,7 @@ const UsuarioInput = ({
           </div>
         </div>
         <div className="col">
-          <div className="form-floating mt-2 g-2">
+            <div className="form-floating mt-2 g-2">
             <input
               type="text"
               className="form-control"
@@ -48,9 +50,13 @@ const UsuarioInput = ({
               required
             />
             <label htmlFor="floatingSelect">Correo Electronico:</label>
-          </div>
+            </div>
         </div>
-        <div className="form-floating mt-2 g-2">
+      </div>
+      
+      <div className="row">
+        <div className="col">
+          <div className="form-floating mt-2 g-2">
           <input
             type="text"
             className="form-control"
@@ -60,6 +66,20 @@ const UsuarioInput = ({
             required
           />
           <label htmlFor="floatingSelect">Resumen Solicitud</label>
+          </div>
+        </div>
+        <div className="col">
+            <div className="form-floating mt-2 g-2">
+            <input
+            type="date"
+            className="form-control"
+            id="Fechaest"
+            value={Fechaest}
+            onChange={(e) => setFechaest(e.target.value)}
+            required
+          />
+          <label htmlFor="floatingSelect">Fecha Estimada</label>
+          </div>
         </div>
       </div>
     </div>
