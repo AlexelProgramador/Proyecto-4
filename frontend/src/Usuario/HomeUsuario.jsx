@@ -53,6 +53,7 @@ const HomeUsuario = () => {
         <div className="card-body">
           <div className="d-flex justify-content-between pb-0">
             <div className="h5 text-uppercase">Usuarios</div>
+            <button className="btn btn-primary" onClick={() => navigate("/crearUsuario")}>Crear nuevo usuario</button>
           </div>
           {loading ? (
             <div className="d-flex justify-content-center  m-5">
@@ -68,7 +69,7 @@ const HomeUsuario = () => {
                     <th scope="col">Nombre</th>
                     <th scope="col">Apellido</th>
                     <th scope="col">Usuario</th>
-                    <th scope="col">Accion</th>
+                    <th scope="col">Rol</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -78,9 +79,15 @@ const HomeUsuario = () => {
                           <td>{item.nombre}</td>
                           <td>{item.apellido}</td>
                           <td>{item.usuario}</td>
-                          {/* <td>{item.results.rol}</td> */}
                           <td>
-                            
+                            {item.rol
+                            .filter((rolItem) => rolItem) // Filtra los elementos no nulos
+                            .map((rolItem, index, array) => (
+                              <span key={index}>
+                                {rolItem}
+                                {index < array.length - 1 && array[index + 1] !== null && ', '}
+                              </span>
+                            ))}
                           </td>
                         </tr>
                       );
@@ -121,7 +128,7 @@ const HomeUsuario = () => {
             className="bi flex-shrink-0 me-2"
             aria-label="Success:"
           />
-          <div>Solicitud creada correctamente!</div>
+          <div>Usuario creada correctamente!</div>
         </div>
       )}
     </div>

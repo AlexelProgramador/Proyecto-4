@@ -8,6 +8,7 @@ import { Etapa4 } from "../etapas/Etapa4";
 import { Etapa5 } from "../etapas/Etapa5";
 import { CrearSolicitud } from "../solicitud/CrearSolicitud";
 import { VerSolicitud } from "../solicitud/VerSolicitud";
+import { CrearUsuario } from "../Usuario/CrearUsuario";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { Navbar } from "./Navbar";
 import { Sidebar } from "./Sidebar";
@@ -57,6 +58,7 @@ export const Home = () => {
               <Route path="verSolicitud" element={<VerSolicitud />} />
               <Route path="misSolicitudes" element={<MisSolicitudes />} />
               <Route path="misUsuarios" element={<HomeUsuario />} />
+              <Route path="crearUsuario" element={<CrearUsuario />} />
               <Route path="etapaRechazado" element={<EtapaRechazado />} />
             </Routes>
           </div>
