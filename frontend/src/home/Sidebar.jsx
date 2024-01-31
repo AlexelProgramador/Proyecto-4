@@ -35,6 +35,13 @@ export const Sidebar = () => {
   const { data, loading, error } = useFetch("etapas");
   const [currentPage, setCurrentPage] = useState(1);
   const ITEMS_PER_PAGE = 10;
+  const responseLocalStorage = JSON.parse(localStorage.getItem("response"));
+  const userRole = responseLocalStorage?.usuario || [];
+  const isSolicitante = userRole.includes("Solicitante");
+  const isAdministrador = userRole.includes("Administrador");
+
+  console.log("rol", isAdministrador)
+  console.log("rol", isSolicitante)
 
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const selectedItems = data
@@ -96,6 +103,7 @@ export const Sidebar = () => {
             {/* ITEMS */}
 
             <div className="nav-list">
+              {isSolicitante ? null : (
               <div
                 onClick={() => {
                   navigate("solicitudes");
@@ -122,6 +130,7 @@ export const Sidebar = () => {
                 </svg> */}
                 <span className="ml-auto">Solicitudes</span>
               </div>
+              )}
               <div
                 onClick={() => {
                   navigate("crearSolicitud");
@@ -174,6 +183,7 @@ export const Sidebar = () => {
                 </svg>
                 <span className="ml-auto">Mis solicitudes</span>
               </div>
+              {isAdministrador && (
               <div
                 onClick={() => {
                   navigate("misUsuarios");
@@ -197,9 +207,9 @@ export const Sidebar = () => {
                 <path d="M304 128a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM49.3 464H398.7c-8.9-63.3-63.3-112-129-112H178.3c-65.7 0-120.1 48.7-129 112zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3z"/></svg>
                 <span className="ml-auto">Usuarios</span>
               </div>
+              )}
             </div>
           </div>
-
           <div
             href="/logout"
             className="nav-link d-flex"

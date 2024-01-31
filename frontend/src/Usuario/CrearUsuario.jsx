@@ -11,12 +11,11 @@ export const CrearUsuario = () => {
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [password, setPassword] = useState("");
-  const [rol, setRol] = useState([]);
   const { execute, response } = usePostRequest();
   const productosPorPagina = 3;
 
   const { handleSubmit, isLoading } = useSubmitForm(execute, setShowAlert);
-  console.log("Roles seleccionados:", rol);
+  // console.log("Roles seleccionados:", rol);
 
 
   const [loadingText, setLoadingText] = useState("Subiendo solicitud");
@@ -58,7 +57,6 @@ export const CrearUsuario = () => {
                   nombre,
                   apellido,
                   password,
-                  rol,
                 )
               }
               className="row g-3"
@@ -99,7 +97,7 @@ export const CrearUsuario = () => {
                   <label htmlFor="floatingSelect">Password:</label>
                 </div>
               </div>
-              <div className="col-12">
+              {/* <div className="col-12">
                 <div className="form-floating">
                   <select
                     className="form-select" id="floatingSelect"
@@ -114,7 +112,7 @@ export const CrearUsuario = () => {
                   <label htmlFor="rol">Roles:</label>
                   <small className="text-muted">Seleccione uno o más roles</small>
                 </div>
-                </div>
+                </div> */}
               <div>
                 <button type="submit" className="btn btn-primary">
                   Enviar
