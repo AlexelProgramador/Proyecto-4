@@ -59,6 +59,12 @@ export const Etapa2 = () => {
           tipoSolicitud: item.infoSolicitud.tipoSolicitud,
           urlArchivos: item.infoSolicitud.urlArchivos,
         },
+        procesosEtapa1: {
+          centroDeCostos: item.procesosEtapa1.centroDeCostos,
+          verificarSaldo: item.procesosEtapa1.verificarSaldo,
+          comentario: item.procesosEtapa1.comentario,
+          urlArchivos: item.procesosEtapa1.urlArchivos,
+        },
         procesosEtapa2: {
           tipodecompra: tipoCompra,
           numerocotizacion: nrocotizacion,

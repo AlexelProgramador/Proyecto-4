@@ -6,8 +6,7 @@ import {
   VerEtapa1,
   VerEtapa2,
   VerEtapa3,
-  VerEtapa4,
-  VerEtapa5,
+
 } from "./verSolicitudInfo/";
 
 export const VerSolicitud = () => {
@@ -28,12 +27,6 @@ export const VerSolicitud = () => {
       break;
     case 3:
       info = <VerEtapa3 item={item} />;
-      break;
-    case 4:
-      info = <VerEtapa4 item={item} />;
-      break;
-    case 5:
-      info = <VerEtapa5 item={item} />;
       break;
 
     default:
@@ -88,22 +81,6 @@ export const VerSolicitud = () => {
               onClick={() => handleButtonClick(3)}
             >
               Etapa 3
-            </button>
-            <button
-              value={4}
-              type="button"
-              className={`botonEtapas ${selected === 4 ? "selected" : ""}`}
-              onClick={() => handleButtonClick(4)}
-            >
-              Etapa 4
-            </button>
-            <button
-              value={5}
-              type="button"
-              className={`botonEtapas ${selected === 5 ? "selected" : ""}`}
-              onClick={() => handleButtonClick(5)}
-            >
-              Etapa 5
             </button>
           </div>
           {info}

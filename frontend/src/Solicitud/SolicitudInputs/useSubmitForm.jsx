@@ -48,9 +48,8 @@ const useSubmitForm = (execute, setShowAlert) => {
         completado: "false",
         procesosEtapa1: { null: null },
         procesosEtapa2: { null: null },
+
         procesosEtapa3: { null: null },
-        procesosEtapa4: { null: null },
-        procesosEtapa5: { null: null },
         procesosEtapaDea: { null: null },
         infoUsuario: {
           solicitadoPor: solicitadoPor,

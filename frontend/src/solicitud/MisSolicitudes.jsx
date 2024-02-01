@@ -14,10 +14,6 @@ function getRole(nroEtapa) {
     case 2:
       return "Encargado de abastecimiento";
     case 3:
-      return "Subdirectora";
-    case 4:
-      return "Encargado de abastecimiento ";
-    case 5:
       return "Bodeguero";
     case "Dea":
       return "Dea";

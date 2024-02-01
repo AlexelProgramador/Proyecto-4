@@ -17,10 +17,6 @@ function getRole(nroEtapa) {
     case 2:
       return "Encargado de abastecimiento";
     case 3:
-      return "Subdirectora";
-    case 4:
-      return "Encargado de abastecimiento";
-    case 5:
       return "Bodeguero";
     case "Dea":
       return "Dea";
@@ -62,16 +58,12 @@ export const Content = () => {
       const archivosEtapa1 = item.procesosEtapa1?.urlArchivos || [];
       const archivosEtapa2 = item.procesosEtapa2?.urlArchivos || [];
       const archivosEtapa3 = item.procesosEtapa3?.urlArchivos || [];
-      const archivosEtapa4 = item.procesosEtapa4?.urlArchivos || [];
-      const archivosEtapa5 = item.procesosEtapa5?.urlArchivos || [];
 
       const allFiles = [
         ...archivosSolicitud,
         ...archivosEtapa1,
         ...archivosEtapa2,
         ...archivosEtapa3,
-        ...archivosEtapa4,
-        ...archivosEtapa5,
       ];
 
       const fileDeletePromises = allFiles.map(async (fileName) => {
@@ -131,12 +123,10 @@ export const Content = () => {
 
   const etapaPorcentaje = {
     0: 0,
-    1: 14,
-    Dea: 28,
-    2: 42,
-    3: 57,
-    4: 71,
-    5: 85,
+    1: 25,
+    Dea: 50,
+    2: 75,
+    3: 85,
     Finalizado: 100,
   };
   const handleDeleteRequest = (itemId, item) => {
@@ -194,7 +184,7 @@ export const Content = () => {
                       (item) =>
                         item.nroEtapa !== "Rechazado" && (
                           <tr key={item._id} id={item._id}>
-<td>{item.infoSolicitud ? item.infoSolicitud.nroSolicitud : 'N/A'}</td>
+                            <td>{item.infoSolicitud ? item.infoSolicitud.nroSolicitud : 'N/A'}</td>
 
                             <td>
                               {item.procesosEtapa2.nroordendecompra

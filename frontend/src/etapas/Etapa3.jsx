@@ -13,33 +13,105 @@ export const Etapa3 = () => {
   const { execute: executePost } = usePostRequest();
   const [infoSolicitud, setinfoSolicitud] = useState(null);
 
-  const [fechaenvaprov, setFechaEnvaProv] = useState("");
-  const [estadodeenvio, setEstadodeEnvio] = useState("");
+  const [ncdp, setNcdp] = useState("");
+  const [estado, setEstado] = useState("");
+  const [proveedor, setProveedor] = useState("");
+  const [nrofactura, setNrofactura] = useState("");
+  const [fechaemifactura, setFechaemifactura] = useState("");
+  const [fechamaxima, setFechamaxima] = useState("");
+  const [aceptadassi, setAceptadassi] = useState("");
+  const [fechavencfact, setFechavencfact] = useState("");
+  const [montofactura, setMontofactura] = useState("");
   const [comentarios, setComentarios] = useState("");
+  const [fecharecep, setFechaRecep] = useState("");
+  const [perscargrecep, setPersCargRecep] = useState("");
   const [archivos, setArchivos] = useState([]);
 
   const { execute: executePut } = usePutRequest();
   const navigate = useNavigate();
-  const [loadingText, setLoadingText] = useState("Actualizando etapa");
   const [isLoading, setIsLoading] = useState(false);
+  
+  const handleFechaEmisionChange = (e) => {
+    const selectedFechaEmision = e.target.value;
+    const fechaMaxima = calcularFechaMaxima(selectedFechaEmision);
+    const fechaVencimiento = calcularFechaVencimiento(selectedFechaEmision);
+    
+    setFechamaxima(fechaMaxima);
+    setFechavencfact(fechaVencimiento);
+  };
+
+  const calcularFechaMaxima = (fechaEmision) => {
+    const fechaEmisionDate = new Date(fechaEmision);
+    const fechaMaximaDate = new Date(fechaEmisionDate.getTime() + 8 * 24 * 60 * 60 * 1000); // Agregar 8 días
+    const fechaMaximaString = fechaMaximaDate.toISOString().split('T')[0]; // Formatear a cadena YYYY-MM-DD
+    return fechaMaximaString;
+  };
+  const calcularFechaVencimiento = (fechaEmision) => {
+    const fechaEmisionDate = new Date(fechaEmision);
+    const fechaVencimientoDate = new Date(fechaEmisionDate.getTime() + 30 * 24 * 60 * 60 * 1000); // Agregar 30 días
+    const fechaVencimientoString = fechaVencimientoDate.toISOString().split('T')[0]; // Formatear a cadena YYYY-MM-DD
+    return fechaVencimientoString;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       setIsLoading(true);
-
       const urlArchivos = await uploadFiles(
         archivos,
         item.infoSolicitud.nroSolicitud,
         infoSolicitud.nroEtapa
       );
-
       const data = {
         idEtapa: item._id,
-        nroEtapa: 4,
+        nroEtapa: "Finalizado",
+        completado: true,
+        infoUsuario: {
+          solicitadoPor: item.infoUsuario.solicitadoPor,
+          anexo: item.infoUsuario.anexo,
+          correo: item.infoUsuario.correo,
+          resumen: item.infoUsuario.resumen,
+        },
+        infoSolicitud: {
+          fecha: item.infoSolicitud.fecha,
+          fuenteFinanciamiento: item.infoSolicitud.fuenteFinanciamiento,
+          idUsuario: item.infoSolicitud.idUsuario,
+          montoEstimado: item.infoSolicitud.montoEstimado,
+          motivos: item.infoSolicitud.motivos,
+          nroSolicitud: item.infoSolicitud.nroSolicitud,
+          productos: item.infoSolicitud.productos,
+          tipoSolicitud: item.infoSolicitud.tipoSolicitud,
+          urlArchivos: item.infoSolicitud.urlArchivos,
+        },
+        procesosEtapa1: {
+          centroDeCostos: item.procesosEtapa1.centroDeCostos,
+          verificarSaldo: item.procesosEtapa1.verificarSaldo,
+          comentario: item.procesosEtapa1.comentario,
+          urlArchivos: item.procesosEtapa1.urlArchivos,
+        },
+        procesosEtapa2: {
+          tipodecompra: item.procesosEtapa2.tipodecompra,
+          numerocotizacion: item.procesosEtapa2.numerocotizacion,
+          estado: item.procesosEtapa2.estado,
+          comentarios: item.procesosEtapa2.comentarios,
+          nroordendecompra: item.procesosEtapa2.nroordendecompra,
+          fechadeoc: item.procesosEtapa2.fechaoc,
+          proveedorseleccionado: item.procesosEtapa2.proveedorseleccionado,
+          fechaentregaproveedor: item.procesosEtapa2.fechaentregaproveedor,
+          valordecompramiva: item.procesosEtapa2.valordecompramiva,
+          fechaautocompra: item.procesosEtapa2.fechaautocompra,
+          urlArchivos: item.procesosEtapa2.urlArchivos,
+        },
         procesosEtapa3: {
-          fechadeenvioproveedor: fechaenvaprov,
-          estadodeenvio: estadodeenvio,
-          comentarios: comentarios,
+          ncdp: ncdp,
+          estado: estado,
+          proveedor: proveedor,
+          nrofactura: nrofactura,
+          fechaemisionfact: fechaemifactura,
+          fechamaxima: fechamaxima,
+          aceptadoSsi: aceptadassi,
+          fechavencfact: fechavencfact,
+          montofactura: montofactura,
           urlArchivos: urlArchivos,
         },
       };
@@ -71,7 +143,7 @@ export const Etapa3 = () => {
         isLoading ? (
           <div className="loading-modal d-flex justify-content-center align-items-center flex-column">
             <ClockLoader color="#123abc" loading={isLoading} size={100} />
-            {<LoadingText initialText={"Actualizando Etapa"} />}
+              {<LoadingText initialText={"Actualizando Etapa"} />}
           </div>
         ) : (
           <>
@@ -80,7 +152,7 @@ export const Etapa3 = () => {
                 <div className="card-body">
                   <h2 className="mx-auto p-2 display-4">Solicitud Etapa 3</h2>
                   <p className="display-7">
-                    Esta Solicitud corresponde a: Claudia Caruz{" "}
+                    Esta Solicitud corresponde a: Bodega
                   </p>
                   <p className="display-7">
                     Porfavor rellenar informacion corresponde a la etapa
@@ -89,17 +161,70 @@ export const Etapa3 = () => {
                     Una vez lo considere terminado pulsar el boton "Enviar
                     Etapa"
                   </p>
+                  <p className="display-7">
+                    N° Orden de compra: {item.procesosEtapa2.nroordendecompra}
+                  </p>
                   <form onSubmit={handleSubmit}>
+                    <div className="form-floating mt-2 g-2">
+                      <input
+                        type="text"
+                        className="form-control"
+                        value={ncdp}
+                        onChange={(e) => setNcdp(e.target.value)}
+                      />
+                      <label htmlFor="floatingSelect">N° CDP</label>
+                    </div>
+
+                    <div className="form-floating mt-2 g-2">
+                      <input
+                        type="text"
+                        className="form-control"
+                        value={estado}
+                        onChange={(e) => setEstado(e.target.value)}
+                      />
+                      <label htmlFor="floatingSelect">Estado</label>
+                    </div>
+
+                    <div className="form-floating mt-2 g-2">
+                      <input
+                        type="text"
+                        className="form-control"
+                        value={proveedor}
+                        onChange={(e) => setProveedor(e.target.value)}
+                      />
+                      <label htmlFor="floatingSelect">Proveedor</label>
+                    </div>
+
+                    <div className="form-floating mt-2 g-2">
+                      <input
+                        type="text"
+                        className="form-control"
+                        value={nrofactura}
+                        onChange={(e) => setNrofactura(e.target.value)}
+                      />
+                      <label htmlFor="floatingSelect">N° Factura</label>
+                    </div>
                     <div className="form-floating mt-2 g-2">
                       <input
                         type="date"
                         className="form-control"
-                        value={fechaenvaprov}
-                        onChange={(e) => setFechaEnvaProv(e.target.value)}
+                        value={fechaemifactura}
+                        onChange={(e) => {
+                          setFechaemifactura(e.target.value);
+                          handleFechaEmisionChange(e);
+                        }}
                       />
-                      <label htmlFor="floatingSelect">
-                        Fecha de envio a proveedor
-                      </label>
+                      <label htmlFor="floatingSelect">Fecha emision factura</label>
+                    </div>
+
+                    <div className="form-floating mt-2 g-2">
+                      <input
+                        type="date"
+                        className="form-control"
+                        value={fechamaxima}
+                        onChange={(e) => setFechamaxima(e.target.value)}
+                      />
+                      <label htmlFor="floatingSelect">Fecha maxima de rechazo</label>
                     </div>
 
                     <div className="form-floating mt-2 g-2">
@@ -107,7 +232,7 @@ export const Etapa3 = () => {
                         className="form-select"
                         id="floatingSelect"
                         aria-label="Floating label select example"
-                        onChange={(e) => setEstadodeEnvio(e.target.value)}
+                        onChange={(e) => setAceptadassi(e.target.value)}
                       >
                         <option value="Valor por defecto">
                           Seleccione una opcion
@@ -115,7 +240,28 @@ export const Etapa3 = () => {
                         <option value="Si">Si</option>
                         <option value="No">No</option>
                       </select>
-                      <label for="floatingSelect">Estado de Envio</label>
+                      <label for="floatingSelect">Aceptado SII</label>
+                    </div>
+                    <div className="form-floating mt-2 g-2">
+                      <input
+                        type="date"
+                        className="form-control"
+                        value={fechavencfact}
+                        onChange={(e) => setFechavencfact(e.target.value)}
+                      />
+                      <label htmlFor="floatingSelect">
+                        Fecha vencimiento factura
+                      </label>
+                    </div>
+
+                    <div className="form-floating mt-2 g-2">
+                      <input
+                        type="text"
+                        className="form-control"
+                        value={montofactura}
+                        onChange={(e) => setMontofactura(e.target.value)}
+                      />
+                      <label htmlFor="floatingSelect">Monto factura</label>
                     </div>
 
                     <div className="form-floating mt-2 g-2">
@@ -127,6 +273,29 @@ export const Etapa3 = () => {
                       />
                       <label htmlFor="floatingSelect">Comentario</label>
                     </div>
+
+                    <div className="form-floating mt-2 g-2">
+                      <input
+                        type="date"
+                        className="form-control"
+                        value={fecharecep}
+                        onChange={(e) => setFechaRecep(e.target.value)}
+                      />
+                      <label htmlFor="floatingSelect">Fecha recepcion:</label>
+                    </div>
+
+                    <div className="form-floating mt-2 g-2">
+                      <input
+                        type="text"
+                        className="form-control"
+                        value={perscargrecep}
+                        onChange={(e) => setPersCargRecep(e.target.value)}
+                      />
+                      <label htmlFor="floatingSelect">
+                        Persona a cargo de recepcion
+                      </label>
+                    </div>
+
                     <div className="mb-3">
                       <label htmlFor="montoEstimado" className="form-label">
                         Adjuntar pdf(s) en caso de necesitarlo:

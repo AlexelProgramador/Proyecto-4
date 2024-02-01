@@ -30,35 +30,28 @@ class EtapaController extends Controller
         $etapa->completado = $request->completado;
         $etapa->infoUsuario = $request->infoUsuario;
         $etapa->infoSolicitud = $request->infoSolicitud;
-
-        switch (true) {
-            case $request->has('procesosEtapa1'):
-                $etapa->procesosEtapa1 = $request->procesosEtapa1;
-                break;
-            case $request->has('procesosEtapa2'):
-                $etapa->procesosEtapa2 = $request->procesosEtapa2;
-                break;
-            case $request->has('procesosEtapa3'):
-                $etapa->procesosEtapa3 = $request->procesosEtapa3;
-                break;
-            case $request->has('procesosEtapa4'):
-                $etapa->procesosEtapa4 = $request->procesosEtapa4;
-                break;
-            case $request->has('procesosEtapa5'):
-                $etapa->procesosEtapa5 = $request->procesosEtapa5;
-                break;
-            case $request->has('procesosEtapaDea'):
-                $etapa->procesosEtapaDea = $request->procesosEtapaDea;
-                break;
+    
+        if ($request->has('procesosEtapa1')) {
+            $etapa->procesosEtapa1 = $request->procesosEtapa1;
         }
-
+        if ($request->has('procesosEtapa2')) {
+            $etapa->procesosEtapa2 = $request->procesosEtapa2;
+        }
+        if ($request->has('procesosEtapa3')) {
+            $etapa->procesosEtapa3 = $request->procesosEtapa3;
+        }
+        if ($request->has('procesosEtapaDea')) {
+            $etapa->procesosEtapaDea = $request->procesosEtapaDea;
+        }
+    
         $etapa->save();
-
+    
         return response()->json(
             $etapa,
             Response::HTTP_OK
         );
     }
+    
     public function verEtapa(Request $request)
     {
         $etapa = Etapa::where('_id', $request->_id)->first();
@@ -81,8 +74,6 @@ class EtapaController extends Controller
         $etapa->procesosEtapa1 = $request->procesosEtapa1;
         $etapa->procesosEtapa2 = $request->procesosEtapa2;
         $etapa->procesosEtapa3 = $request->procesosEtapa3;
-        $etapa->procesosEtapa4 = $request->procesosEtapa4;
-        $etapa->procesosEtapa5 = $request->procesosEtapa5;
         $etapa->procesosEtapaDea = $request->procesosEtapaDea;
         $etapa->infoUsuario = $request->infoUsuario;
         $etapa->infoSolicitud = $request->infoSolicitud;

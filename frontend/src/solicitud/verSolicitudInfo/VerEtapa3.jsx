@@ -7,13 +7,11 @@ const VerEtapa3 = ({ item }) => {
     let url = fileUrl;
     window.open(url, "_blank");
   };
-  const { data, error, isLoading, execute: executePost } = usePostRequest();
-
   const [fileData, setFileData] = useState([]);
 
   useEffect(() => {
     const fetchMetadataAndUrl = async () => {
-      const fileDataPromises = item.procesosEtapa2.urlArchivos?.map(
+      const fileDataPromises = item.procesosEtapa3.urlArchivos?.map(
         async (fileName) => {
           try {
             const metadata = await obtenerMetaData(fileName);
@@ -30,26 +28,51 @@ const VerEtapa3 = ({ item }) => {
     };
 
     fetchMetadataAndUrl();
-  }, [item.procesosEtapa3.urlArchivos]);
-
+  }, [item.procesosEtapa5.urlArchivos]);
   return (
     <div className="contenido">
       <div className="p-5">
         <h2 className="mb-3">
-          Fecha de envio proveedor:{" "}
+          Numero CDP:{" "}
+          <span className="text-primary">{item.procesosEtapa3.ncdp}</span>
+        </h2>
+        <h2 className="mb-3">
+          Estado:{" "}
+          <span className="text-primary">{item.procesosEtapa3.estado}</span>
+        </h2>
+        <h2 className="mb-3">
+          Proveedor:{" "}
+          <span className="text-primary">{item.procesosEtapa3.proveedor}</span>
+        </h2>
+        <h2 className="mb-3">
+          Fecha emision de factura:{" "}
           <span className="text-primary">
-            {item.procesosEtapa3.fechadeenvioproveedor}
+            {item.procesosEtapa3.fechaemisionfact}
           </span>
         </h2>
         <h2 className="mb-3">
-          Estado de envio:{" "}
+          Fecha maxima:{" "}
           <span className="text-primary">
-            {item.procesosEtapa3.estadodeenvio}
+            {item.procesosEtapa3.fechamaxima}
           </span>
         </h2>
         <h2 className="mb-3">
-          Comentarios:{" "}
-          <span className="text-muted">{item.procesosEtapa3.comentarios}</span>
+          Aceptado SII:{" "}
+          <span className="text-primary">
+            {item.procesosEtapa3.aceptadoSsi}
+          </span>
+        </h2>
+        <h2 className="mb-3">
+          Fecha vencimiento de factura:{" "}
+          <span className="text-primary">
+            {item.procesosEtapa3.fechavencfact}
+          </span>
+        </h2>
+        <h2 className="mb-3">
+          Monto de factura:{" "}
+          <span className="text-primary">
+            {item.procesosEtapa3.montofactura}
+          </span>
         </h2>
         <div className="pl-5">
           <h2>Documentos Adjuntos: </h2>
