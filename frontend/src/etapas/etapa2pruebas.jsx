@@ -12,48 +12,23 @@ export const Etapa2 = () => {
   const item = location.state.item;
   const { execute: executePost } = usePostRequest();
   const [infoSolicitud, setinfoSolicitud] = useState(null);
-  const [tipoCompra] = useState("");
-  const [nrocotizacion] = useState("");
-  const [comentarios] = useState("");
-  const [nroordencompra] = useState("");
-  const [fechaoc] = useState("");
-  const [proveedorselecc] = useState("");
-  const [fechaentregaprov] = useState("");
-  const [valorcompra] = useState("");
-  const [fechaautocompra] = useState("");
   const [motivoRechazo, setMotivoRechazo] = useState("");
-  const [archivos] = useState([]);
+  const [tipoCompra, setTipoCompra] = useState("");
+  const [nrocotizacion, setNroCotizacion] = useState("");
+  const [estado, setEstado] = useState("");
+  const [comentarios, setComentarios] = useState("");
+  const [nroordencompra, setNroOrdenCompra] = useState("");
+  const [fechaoc, setFechaoc] = useState("");
+  const [proveedorselecc, setProvSelec] = useState("");
+  const [fechaentregaprov, setFechaEntProv] = useState("");
+  const [valorcompra, setValorCompra] = useState("");
+  const [fechaautocompra, setFechaautocompra] = useState("");
+  const [archivos, setArchivos] = useState([]);
+
   const { execute: executePut } = usePutRequest();
   const navigate = useNavigate();
   const [loadingText, setLoadingText] = useState("Actualizando etapa");
   const [isLoading, setIsLoading] = useState(false);
-
-  const [formularios, setFormularios] = useState([{ tipoCompra: "", nrocotizacion: "", estado: "", comentarios: "", nroordencompra: "", fechaoc: "", proveedorselecc: "", fechaentregaprov: "", valorcompra: "", fechaautocompra: "", urlArchivos: []}]);
-  
-  const agregarFormulario = () => {
-    setFormularios((prevFormularios) => [
-      ...prevFormularios,
-      {
-        tipoCompra: "",
-        nrocotizacion: "",
-        estado: "",
-        comentarios: "",
-        nroordencompra: "",
-        fechaoc: "",
-        proveedorselecc: "",
-        fechaentregaprov: "",
-        valorcompra: "",
-        fechaautocompra: "",
-        urlArchivos: [],
-      },
-    ]);
-  };
-  const eliminarFormulario = (index) => {
-    const nuevosFormularios = [...formularios];
-    nuevosFormularios.splice(index, 1);
-    setFormularios(nuevosFormularios);
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -90,19 +65,19 @@ export const Etapa2 = () => {
           comentario: item.procesosEtapa1.comentario,
           urlArchivos: item.procesosEtapa1.urlArchivos,
         },
-        procesosEtapa2: formularios.map((formulario) => ({
-          tipodecompra: formulario.tipoCompra,
-          numerocotizacion: formulario.nrocotizacion,
-          estado: formulario.estado,
-          comentarios: formulario.comentarios,
-          nroordendecompra: formulario.nroordencompra,
-          fechadeoc: formulario.fechaoc,
-          proveedorseleccionado: formulario.proveedorselecc,
-          fechaentregaproveedor: formulario.fechaentregaprov,
-          valordecompramiva: formulario.valorcompra,
-          fechaautocompra: formulario.fechaautocompra,
-          urlArchivos: formulario.urlArchivos,
-        })),
+        procesosEtapa2: {
+          tipodecompra: tipoCompra,
+          numerocotizacion: nrocotizacion,
+          estado: estado,
+          comentarios: comentarios,
+          nroordendecompra: nroordencompra,
+          fechadeoc: fechaoc,
+          proveedorseleccionado: proveedorselecc,
+          fechaentregaproveedor: fechaentregaprov,
+          valordecompramiva: valorcompra,
+          fechaautocompra: fechaautocompra,
+          urlArchivos: urlArchivos,
+        },
       };
       const url = "avanzarEtapa";
       const response = await executePut(url, data);
@@ -170,27 +145,9 @@ export const Etapa2 = () => {
           </div>
         ) : (
           <>
-          {formularios.map((formulario, index) => (
-            <div className="w-75 h-40 mx-auto" key={index}>
-              <div className="card shadow-card rounded-3 border border-0 mb-5">
-                <div className="card-body ">
-                <div className="position-relative">
-                    <button className="m-2  btn btn-warning rounded-pill px-3 w-10"
-                      type="button"
-                      onClick={(e) => {
-                      e.preventDefault();
-                      navigate("/");
-                    }}
-                    >
-                      Atras
-                    </button>
-                      <button className="btn btn-success  position-absolute position-absolute top-0 end-0 mx-auto w-15 " onClick={agregarFormulario}>
-                      Añadir Formulario
-                    </button>
-                    <button className="btn btn-danger position-absolute position-absolute top-0 end-0 mx-auto me-15 w-15 " onClick={() => eliminarFormulario(index)}>
-                      Eliminar Formulario
-                    </button>
-                    </div>
+            <div className="w-75 h-40 mx-auto">
+              <div className="card shadow-card rounded-3 border border-0">
+                <div className="card-body">
                   <h2 className="mx-auto p-2 display-4">Solicitud Etapa 2</h2>
                   <p className="display-7">
                     Esta Solicitud corresponde a: Bastian Lapierre{" "}
@@ -208,13 +165,9 @@ export const Etapa2 = () => {
                     <div className="form-floating mt-2 g-2">
                       <select
                         class="form-select"
-                        id={`floatingSelect${index}`}
+                        id="floatingSelect"
                         aria-label="Floating label select example"
-                        onChange={(e) => {
-                          const newFormularios = [...formularios];
-                          newFormularios[index].tipoCompra = e.target.value;
-                          setFormularios(newFormularios);
-                        }}
+                        onChange={(e) => setTipoCompra(e.target.value)}
                       >
                         <option value="Bajo 3 UTM">Bajo 3 UTM</option>
                         <option value="Compra ágil">Compra ágil</option>
@@ -223,59 +176,46 @@ export const Etapa2 = () => {
                         <option value="Licitación">Licitación</option>
                         <option value="Otros">Otros</option>
                       </select>
-                      <label htmlFor={`floatingSelect${index}`}>Tipo de compra</label>
-                    </div>
-
-                    <div className="form-floating mt-2 g-2">
-                    <input
-                      type="text"
-                      className="form-control"
-                      value={formularios[index].nrocotizacion}
-                      onChange={(e) => {
-                        const newFormularios = [...formularios];
-                        newFormularios[index].nrocotizacion = e.target.value;
-                        setFormularios(newFormularios);
-                      }}
-                    />
-                    <label htmlFor={`nroCotizacion${index}`}>
-                      Numero de cotizacion
-                    </label>
-                    </div>
-
-                    <div className="form-floating mt-2 g-2">
-                    <select
-                      className="form-select"
-                      id={`estado${index}`}
-                      aria-label="Floating label select example"
-                      value={formularios[index].estado}
-                      onChange={(e) => {
-                        const newFormularios = [...formularios];
-                        newFormularios[index].estado = e.target.value;
-                        setFormularios(newFormularios);
-                      }}
-                    >
-                      <option value="" disabled>Seleccione una opción</option>
-                      <option value="Guardada">Guardada</option>
-                      <option value="Enviada">Enviada</option>
-                      <option value="Autorizada">Autorizada</option>
-                      <option value="Enviada a proveedor">Enviada a proveedor</option>
-                      <option value="Aceptada">Aceptada</option>
-                    </select>
-                    <label htmlFor={`estado${index}`}>Estado</label>
+                      <label for="floatingSelect">Tipo de compra</label>
                     </div>
 
                     <div className="form-floating mt-2 g-2">
                       <input
                         type="text"
                         className="form-control"
-                        id={`comentarios${index}`}
-                        
-                        value={formularios[index].comentarios}
-                        onChange={(e) => {
-                          const newFormularios = [...formularios];
-                          newFormularios[index].comentarios = e.target.value;
-                          setFormularios(newFormularios);
-                        }}
+                        value={nrocotizacion}
+                        onChange={(e) => setNroCotizacion(e.target.value)}
+                      />
+                      <label htmlFor="floatingSelect">
+                        Numero de cotizacion
+                      </label>
+                    </div>
+
+                    <div className="form-floating mt-2 g-2">
+                      <select
+                        class="form-select"
+                        id="floatingSelect"
+                        aria-label="Floating label select example"
+                        onChange={(e) => setEstado(e.target.value)}
+                      >
+                        <option selected>Seleccione una opcion</option>
+                        <option value="Guardada">Guardada</option>
+                        <option value="Enviada">Enviada</option>
+                        <option value="Autorizada">Autorizada</option>
+                        <option value="Enviada a proovedor">
+                          Enviada a proveedor
+                        </option>
+                        <option value="Aceptada">Aceptada</option>
+                      </select>
+                      <label for="floatingSelect">Estado</label>
+                    </div>
+
+                    <div className="form-floating mt-2 g-2">
+                      <input
+                        type="text"
+                        className="form-control"
+                        value={comentarios}
+                        onChange={(e) => setComentarios(e.target.value)}
                       />
                       <label htmlFor="floatingSelect">Comentario</label>
                     </div>
@@ -284,12 +224,8 @@ export const Etapa2 = () => {
                       <input
                         type="text"
                         className="form-control"
-                        value={formularios[index].nroordencompra}
-                        onChange={(e) => {
-                          const newFormularios = [...formularios];
-                          newFormularios[index].nroordencompra = e.target.value;
-                          setFormularios(newFormularios);
-                        }}
+                        value={nroordencompra}
+                        onChange={(e) => setNroOrdenCompra(e.target.value)}
                       />
                       <label htmlFor="floatingSelect">
                         Numero de orden de compra
@@ -300,12 +236,8 @@ export const Etapa2 = () => {
                       <input
                         type="date"
                         className="form-control"
-                        value={formularios[index].fechaoc}
-                        onChange={(e) => {
-                          const newFormularios = [...formularios];
-                          newFormularios[index].fechaoc = e.target.value;
-                          setFormularios(newFormularios);
-                        }}
+                        value={fechaoc}
+                        onChange={(e) => setFechaoc(e.target.value)}
                       />
                       <label htmlFor="floatingSelect">
                         Fecha de orden de compra
@@ -316,12 +248,8 @@ export const Etapa2 = () => {
                       <input
                         type="text"
                         className="form-control"
-                        value={formularios[index].proveedorselecc}
-                        onChange={(e) => {
-                          const newFormularios = [...formularios];
-                          newFormularios[index].proveedorselecc = e.target.value;
-                          setFormularios(newFormularios);
-                        }}
+                        value={proveedorselecc}
+                        onChange={(e) => setProvSelec(e.target.value)}
                       />
                       <label htmlFor="floatingSelect">
                         Proveedor seleccionado
@@ -332,12 +260,8 @@ export const Etapa2 = () => {
                       <input
                         type="date"
                         className="form-control"
-                        value={formularios[index].fechaentregaprov}
-                        onChange={(e) => {
-                          const newFormularios = [...formularios];
-                          newFormularios[index].fechaentregaprov = e.target.value;
-                          setFormularios(newFormularios);
-                        }}
+                        value={fechaentregaprov}
+                        onChange={(e) => setFechaEntProv(e.target.value)}
                       />
                       <label htmlFor="floatingSelect">
                         Fecha entrega proveedor
@@ -348,12 +272,8 @@ export const Etapa2 = () => {
                       <input
                         type="text"
                         className="form-control"
-                        value={formularios[index].valorcompra}
-                        onChange={(e) => {
-                          const newFormularios = [...formularios];
-                          newFormularios[index].valorcompra = e.target.value;
-                          setFormularios(newFormularios);
-                        }}
+                        value={valorcompra}
+                        onChange={(e) => setValorCompra(e.target.value)}
                       />
                       <label htmlFor="floatingSelect">
                         Valor de compra mas iva
@@ -364,14 +284,10 @@ export const Etapa2 = () => {
                       <input
                         type="date"
                         className="form-control"
-                        value={formularios[index].fechaautocompra}
-                        onChange={(e) => {
-                          const newFormularios = [...formularios];
-                          newFormularios[index].fechaautocompra = e.target.value;
-                          setFormularios(newFormularios);
-                        }}
+                        value={fechaautocompra}
+                        onChange={(e) => setFechaautocompra(e.target.value)}
                       />
-                      <label htmlFor={`archivo${index}`}>
+                      <label htmlFor="floatingSelect">
                         Fecha de autorizacion de compra{" "}
                       </label>
                     </div>
@@ -383,13 +299,11 @@ export const Etapa2 = () => {
                       <input
                         type="file"
                         className="form-control"
-                        id={`archivo${index}`}
+                        id="archivo"
                         accept="application/pdf"
                         multiple
                         onChange={(e) => {
-                          const newFormularios = [...formularios];
-                          newFormularios[index].urlArchivos = Array.from(e.target.files);
-                          setFormularios(newFormularios);
+                          setArchivos(Array.from(e.target.files));
                         }}
                       />
                     </div>
@@ -468,7 +382,6 @@ export const Etapa2 = () => {
                 </div>
               </div>
             </div>
-            ))}
           </>
         )
       ) : (
