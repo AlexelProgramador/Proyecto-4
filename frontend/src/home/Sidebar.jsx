@@ -36,10 +36,12 @@ export const Sidebar = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const ITEMS_PER_PAGE = 10;
   const responseLocalStorage = JSON.parse(localStorage.getItem("response"));
+  const user = responseLocalStorage?.nombreusuario;
   const userRole = responseLocalStorage?.usuario || [];
   const isSolicitante = userRole.includes("Solicitante");
   const isAdministrador = userRole.includes("Administrador");
 
+  console.log("response", user)
   console.log("rol", isAdministrador)
   console.log("rol", isSolicitante)
 
@@ -54,39 +56,54 @@ export const Sidebar = () => {
         <div className="header-toggle" onClick={() => setShow(!show)}>
           <i className={`fas fa-bars ${show ? "fa-solid fa-xmark" : null}`}></i>
         </div>
-        <div
-          className="notification-container"
-          style={{ position: "relative" }}
-        >
-          <button
-            style={{ borderRadius: "5px", width: "200px" }}
-            className="btn btn-info"
-            onClick={toggleTable}
+        <div className="d-flex justify-content-end align-middle" style={{color:"#1E4162"}}> 
+          <div
+            className="notification-container"
+            style={{ position: "relative" }}
           >
-            Notificaciones
-          </button>
-
-          {showTable && (
             <div
-              className="notificaciones"
-              style={{
-                position: "absolute",
-                top: "100%",
-                right: 20,
-                zIndex: 1,
-                background: "white",
-                border: "2px solid black",
-                width: "25vw",
-                padding: "10px",
-                borderRadius: "5px",
-              }}
+              style={{ padding: "0px", width: "30px", border: "none"}}
+              className="btn"
+              onClick={toggleTable}
             >
-              <h6 className="border-bottom">
-                Solicitudes sin verificar por 3 dias
-              </h6>
-              <SeccionDiasSinAtender data={data} />
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" style={{
+              fill: "#1E4162",
+              transition: "fill 0.3s",
+            }}
+            // Pseudo-clases para :hover y :active
+            onMouseOver={(e) => e.currentTarget.setAttribute("style", "fill: gray")}
+            onMouseOut={(e) => e.currentTarget.setAttribute("style", "fill: #1E4162")}
+            onMouseDown={(e) => e.currentTarget.setAttribute("style", "fill: gray")}
+            onMouseUp={(e) => e.currentTarget.setAttribute("style", "fill: gray")}
+            viewBox="0 0 448 512">
+            <path d="M224 0c-17.7 0-32 14.3-32 32V51.2C119 66 64 130.6 64 208v18.8c0 47-17.3 92.4-48.5 127.6l-7.4 8.3c-8.4 9.4-10.4 22.9-5.3 34.4S19.4 416 32 416H416c12.6 0 24-7.4 29.2-18.9s3.1-25-5.3-34.4l-7.4-8.3C401.3 319.2 384 273.9 384 226.8V208c0-77.4-55-142-128-156.8V32c0-17.7-14.3-32-32-32zm45.3 493.3c12-12 18.7-28.3 18.7-45.3H224 160c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7z"/></svg>
             </div>
-          )}
+            {showTable && (
+              <div
+                className="notificaciones"
+                style={{
+                  position: "absolute",
+                  top: "100%",
+                  right: 20,
+                  zIndex: 1,
+                  background: "white",
+                  border: "0px solid #1E4162",
+                  boxShadow: "0px 3px 3px 2px rgba(0, 0, 0, 0.20)",
+                  width: "25vw",
+                  padding: "10px",
+                  borderRadius: "5px",
+                  color: "rgba(0, 0, 0, 0.87)",
+                  fontSize: "14px",
+                }}
+              >
+                <h6 className="border-bottom pb-2" style={{color: "rgba(0, 0, 0, 0.87)", fontSize: "14px"}}> 
+                  Solicitudes sin verificar por 3 dias
+                </h6>
+                <SeccionDiasSinAtender data={data} />
+              </div>
+            )}
+          </div>
+          <div>Usuario {user}</div>
         </div>
       </header>
       {/* SIDEBAR */}

@@ -13,6 +13,7 @@ import { Sidebar } from "./Sidebar";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Error from "../context/Error";
 
 import { AlertContext } from "../context/AlertContext";
 import MisSolicitudes from "../solicitud/MisSolicitudes";
@@ -31,6 +32,11 @@ export const Home = () => {
     }
   }, []);
 
+  const responseLocalStorage = JSON.parse(localStorage.getItem("response"));
+  const userRole = responseLocalStorage?.usuario || [];
+  const isAdministrador = userRole.includes("Administrador");
+  const isSolicitante = userRole.includes("Solicitante");
+
   return (
     <AlertContext.Provider value={{ showAlert, setShowAlert }}>
       <div>
@@ -43,6 +49,11 @@ export const Home = () => {
           </div>
           <div className="col">
             <Routes>
+            {isSolicitante ? (
+              <Route path="/" element={<MisSolicitudes />} />
+            )            
+            : (
+              <>
               <Route path="solicitudes" element={<Content />} />
               <Route path="solicitudChequeo" element={<SolicitudChequeo />} />
               <Route path="etapa1" element={<Etapa1 />} />
@@ -50,12 +61,20 @@ export const Home = () => {
               <Route path="etapa3" element={<Etapa3 />} />
               <Route path="etapaDea" element={<EtapaDea />} />
               <Route path="/" element={<Pendientes />} />
+              </>
+            )}
               <Route path="crearSolicitud" element={<CrearSolicitud />} />
               <Route path="verSolicitud" element={<VerSolicitud />} />
               <Route path="misSolicitudes" element={<MisSolicitudes />} />
-              <Route path="misUsuarios" element={<HomeUsuario />} />
-              <Route path="crearUsuario" element={<CrearUsuario />} />
+              {isAdministrador && (
+                <>
+                <Route path="misUsuarios" element={<HomeUsuario />} />
+                <Route path="crearUsuario" element={<CrearUsuario />} />
+                </>
+              )}
               <Route path="etapaRechazado" element={<EtapaRechazado />} />
+
+              <Route path="*" element={<Error />} />
             </Routes>
           </div>
         </div>
