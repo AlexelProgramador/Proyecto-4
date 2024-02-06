@@ -11,7 +11,7 @@ const VerEtapa3 = ({ item }) => {
 
   useEffect(() => {
     const fetchMetadataAndUrl = async () => {
-      const fileDataPromises = item.procesosEtapa3.urlArchivos?.map(
+      const fileDataPromises = item.procesosEtapa3?.urlArchivos?.map(
         async (fileName) => {
           try {
             const metadata = await obtenerMetaData(fileName);
@@ -23,55 +23,58 @@ const VerEtapa3 = ({ item }) => {
         }
       );
 
-      const fileData = await Promise.all(fileDataPromises);
-      setFileData(fileData);
+      if (fileDataPromises) {
+        const fileData = await Promise.all(fileDataPromises);
+        setFileData(fileData);
+      }
     };
 
     fetchMetadataAndUrl();
-  }, [item.procesosEtapa5.urlArchivos]);
+  }, [item.procesosEtapa3?.urlArchivos]);
+
   return (
     <div className="contenido">
       <div className="p-5">
         <h2 className="mb-3">
           Numero CDP:{" "}
-          <span className="text-primary">{item.procesosEtapa3.ncdp}</span>
+          <span className="text-primary">{item.procesosEtapa3?.ncdp}</span>
         </h2>
         <h2 className="mb-3">
           Estado:{" "}
-          <span className="text-primary">{item.procesosEtapa3.estado}</span>
+          <span className="text-primary">{item.procesosEtapa3?.estado}</span>
         </h2>
         <h2 className="mb-3">
           Proveedor:{" "}
-          <span className="text-primary">{item.procesosEtapa3.proveedor}</span>
+          <span className="text-primary">{item.procesosEtapa3?.proveedor}</span>
         </h2>
         <h2 className="mb-3">
           Fecha emision de factura:{" "}
           <span className="text-primary">
-            {item.procesosEtapa3.fechaemisionfact}
+            {item.procesosEtapa3?.fechaemisionfact}
           </span>
         </h2>
         <h2 className="mb-3">
           Fecha maxima:{" "}
           <span className="text-primary">
-            {item.procesosEtapa3.fechamaxima}
+            {item.procesosEtapa3?.fechamaxima}
           </span>
         </h2>
         <h2 className="mb-3">
           Aceptado SII:{" "}
           <span className="text-primary">
-            {item.procesosEtapa3.aceptadoSsi}
+            {item.procesosEtapa3?.aceptadoSsi}
           </span>
         </h2>
         <h2 className="mb-3">
           Fecha vencimiento de factura:{" "}
           <span className="text-primary">
-            {item.procesosEtapa3.fechavencfact}
+            {item.procesosEtapa3?.fechavencfact}
           </span>
         </h2>
         <h2 className="mb-3">
           Monto de factura:{" "}
           <span className="text-primary">
-            {item.procesosEtapa3.montofactura}
+            {item.procesosEtapa3?.montofactura}
           </span>
         </h2>
         <div className="pl-5">
@@ -89,8 +92,8 @@ const VerEtapa3 = ({ item }) => {
                   <td>{data.metadata ? data.metadata.name : "No metadata"}</td>
                   <td>
                     <button
-                        onClick={() => openPdf(data.fileUrl)}
-                        className="btn btn-primary d-flex align-items-center mt-0 bi bi-file-earmark-pdf"
+                      onClick={() => openPdf(data.fileUrl)}
+                      className="btn btn-primary d-flex align-items-center mt-0 bi bi-file-earmark-pdf"
                       style={{ width: "100px", height: "50px" }}
                     >
                       <div>Abrir PDF</div>
@@ -99,7 +102,7 @@ const VerEtapa3 = ({ item }) => {
                         width="40"
                         height="40"
                         fill="currentColor"
-                        class="bi bi-file-earmark-pdf"
+                        className="bi bi-file-earmark-pdf"
                         viewBox="0 0 16 16"
                       >
                         <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
