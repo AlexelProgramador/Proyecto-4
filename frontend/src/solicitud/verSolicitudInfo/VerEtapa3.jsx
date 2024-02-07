@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom"; // Importa Link
 import usePostRequest from "../../Hooks/usePostRequest";
 import { obtenerMetaData } from "../../firebase/config";
+import { useNavigate } from "react-router-dom";
 
 const VerEtapa3 = ({ item }) => {
   const openPdf = (fileUrl) => {
@@ -8,7 +10,9 @@ const VerEtapa3 = ({ item }) => {
     window.open(url, "_blank");
   };
   const [fileData, setFileData] = useState([]);
+  const navigate = useNavigate();
 
+  console.log(item)
   useEffect(() => {
     const fetchMetadataAndUrl = async () => {
       const fileDataPromises = item.procesosEtapa3?.urlArchivos?.map(
@@ -35,6 +39,19 @@ const VerEtapa3 = ({ item }) => {
   return (
     <div className="contenido">
       <div className="p-5">
+        {/* Otras informaciones */}
+        <button
+          className="btn btn-primary  position-absolute top-0 end-0 mx-auto mt-5 me-15 w-15"
+          onClick={() =>
+            navigate(`/etapa3`,
+              {
+                state: { item },
+              }
+            )
+          }
+        >
+        Modificar etapa
+        </button>
         <h2 className="mb-3">
           Numero CDP:{" "}
           <span className="text-primary">{item.procesosEtapa3?.ncdp}</span>

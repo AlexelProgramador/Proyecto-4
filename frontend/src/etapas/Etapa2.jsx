@@ -184,10 +184,10 @@ export const Etapa2 = () => {
                     >
                       Atras
                     </button>
-                      <button className="btn btn-success  position-absolute position-absolute top-0 end-0 mx-auto w-10 " onClick={agregarFormulario}>
+                      <button className="btn btn-success position-absolute top-0 end-0 mx-auto w-10 " onClick={agregarFormulario}>
                       Añadir Formulario
                     </button>
-                    <button className="btn btn-danger position-absolute position-absolute top-0 end-0 mx-auto me-15 w-10 " onClick={() => eliminarFormulario(index)}>
+                    <button className="btn btn-danger position-absolute top-0 end-0 mx-auto me-15 w-10 " onClick={() => eliminarFormulario(index)}>
                       Eliminar Formulario
                     </button>
                     </div>

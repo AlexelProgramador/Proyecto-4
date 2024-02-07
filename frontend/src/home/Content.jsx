@@ -150,7 +150,7 @@ export const Content = () => {
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Buscar número de solicitud u orden de compra"
+            placeholder="Buscar número de solicitud, orden de compra y solicitado por"
           />
         </div>
 

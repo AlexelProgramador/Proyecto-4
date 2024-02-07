@@ -204,14 +204,12 @@ export const SolicitudChequeo = () => {
                       <div className="col">
                           <div className="form-floating mt-2 g-2">
                           <input
-  type="text"
-  className="form-control"
-  value={infoSolicitud.infoUsuario.fechaestimada}
-  disabled
-/>
-<label htmlFor="floatingInputGrid">Fecha estimada:</label>
-
-
+                            type="text"
+                            className="form-control"
+                            value={infoSolicitud.infoUsuario.fechaestimada}
+                            disabled
+                          />
+                          <label htmlFor="floatingInputGrid">Fecha estimada:</label>
                         </div>
                       </div>
                     </div>
