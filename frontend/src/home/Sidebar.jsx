@@ -10,6 +10,7 @@ export const Sidebar = () => {
   const navigate = useNavigate();
   const [showTable, setShowTable] = useState(false);
   const tableRef = useRef(null);
+  const [unattendedRequestsCount, setUnattendedRequestsCount] = useState(0); // Estado para almacenar la cantidad de solicitudes sin revisar
 
   const toggleTable = () => {
     setShowTable(!showTable);
@@ -31,7 +32,10 @@ export const Sidebar = () => {
   }, []);
   const [isHovered, setIsHovered] = useState(false);
   const [isHoveredSoli, setIsHoveredSoli] = useState(false);
-  const [isHoveredMySoli, setIsHoveredMySoli] = useState(false);
+  const [isHoveredCrearSolicitud, setIsHoveredCrearSolicitud] = useState(false);
+  const [isHoveredMisSolicitudes, setIsHoveredMisSolicitudes] = useState(false);
+  const [isHoveredMisUsuarios, setIsHoveredMisUsuarios] = useState(false);
+  const [isHoveredNoti, setIsHoveredNoti] = useState(false);
   const { data, loading, error } = useFetch("etapas");
   const [currentPage, setCurrentPage] = useState(1);
   const ITEMS_PER_PAGE = 10;
@@ -45,6 +49,13 @@ export const Sidebar = () => {
   console.log("rol", isAdministrador)
   console.log("rol", isSolicitante)
 
+  useEffect(() => {
+    if (data) {
+      const unattendedRequests = getUnattendedRequests(data);
+      setUnattendedRequestsCount(unattendedRequests.length); // Establecer la cantidad de solicitudes sin revisar
+    }
+  }, [data]);
+
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const selectedItems = data
     ? data.slice(startIndex, startIndex + ITEMS_PER_PAGE)
@@ -56,27 +67,29 @@ export const Sidebar = () => {
         <div className="header-toggle" onClick={() => setShow(!show)}>
           <i className={`fas fa-bars ${show ? "fa-solid fa-xmark" : null}`}></i>
         </div>
-        <div className="d-flex justify-content-end align-middle" style={{color:"#1E4162"}}> 
+        <div className="d-flex justify-content-end align-items-center" style={{color:"#1E4162"}}> 
           <div
             className="notification-container"
             style={{ position: "relative" }}
           >
             <div
-              style={{ padding: "0px", width: "30px", border: "none"}}
-              className="btn"
+              style={{ cursor: "pointer", padding: "0px", width: "30px", height: "30px", borderRadius: "16px",
+              color: isHoveredNoti ? "gray" : "#1E4162", backgroundColor: isHoveredNoti ? "#d4d4d4" : "",
+              }}
+              onMouseEnter={() => setIsHoveredNoti(true)}
+              onMouseLeave={() => setIsHoveredNoti(false)}
+              className="d-flex justify-content-center align-items-center "
               onClick={toggleTable}
             >
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" style={{
-              fill: "#1E4162",
-              transition: "fill 0.3s",
-            }}
-            // Pseudo-clases para :hover y :active
-            onMouseOver={(e) => e.currentTarget.setAttribute("style", "fill: gray")}
-            onMouseOut={(e) => e.currentTarget.setAttribute("style", "fill: #1E4162")}
-            onMouseDown={(e) => e.currentTarget.setAttribute("style", "fill: gray")}
-            onMouseUp={(e) => e.currentTarget.setAttribute("style", "fill: gray")}
-            viewBox="0 0 448 512">
+            <svg xmlns="http://www.w3.org/2000/svg" 
+              width="16" height="16" fill="currentColor"
+              viewBox="0 0 448 512">
             <path d="M224 0c-17.7 0-32 14.3-32 32V51.2C119 66 64 130.6 64 208v18.8c0 47-17.3 92.4-48.5 127.6l-7.4 8.3c-8.4 9.4-10.4 22.9-5.3 34.4S19.4 416 32 416H416c12.6 0 24-7.4 29.2-18.9s3.1-25-5.3-34.4l-7.4-8.3C401.3 319.2 384 273.9 384 226.8V208c0-77.4-55-142-128-156.8V32c0-17.7-14.3-32-32-32zm45.3 493.3c12-12 18.7-28.3 18.7-45.3H224 160c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7z"/></svg>
+            {/* que esto aparezaca cuanto hayan dato de solicitudes sin revisar */}
+            {unattendedRequestsCount > 0 && ( // Mostrar el contador solo si hay solicitudes sin revisar
+                <span className="position-absolute top-100 start-100 translate-middle badge rounded-pill bg-danger" style={{ fontSize: "10px" }}>{unattendedRequestsCount}</span>
+              )}
+              {/* aqui el contador de solicitudes sin revisar */}
             </div>
             {showTable && (
               <div
@@ -103,7 +116,7 @@ export const Sidebar = () => {
               </div>
             )}
           </div>
-          <div>Usuario {user}</div>
+          <div className="align-middle ps-2">Usuario {user}</div>
         </div>
       </header>
       {/* SIDEBAR */}
@@ -127,10 +140,10 @@ export const Sidebar = () => {
                 }}
                 style={{
                   cursor: "pointer",
-                  color: isHoveredMySoli ? "white" : "grey",
+                  color: isHoveredSoli ? "white" : "grey",
                 }}
-                onMouseEnter={() => setIsHoveredMySoli(true)}
-                onMouseLeave={() => setIsHoveredMySoli(false)}
+                onMouseEnter={() => setIsHoveredSoli(true)}
+                onMouseLeave={() => setIsHoveredSoli(false)}
                 className="d-flex nav-link"
               >
                 <svg xmlns="http://www.w3.org/2000/svg"  x="0px"
@@ -148,11 +161,11 @@ export const Sidebar = () => {
                 }}
                 style={{
                   cursor: "pointer",
-                  color: isHoveredSoli ? "green" : "grey",
+                  color: isHoveredCrearSolicitud ? "white" : "grey",
                 }}
-                onMouseEnter={() => setIsHoveredSoli(true)}
-                onMouseLeave={() => setIsHoveredSoli(false)}
-                className="d-flex nav-link "
+                onMouseEnter={() => setIsHoveredCrearSolicitud(true)}
+                onMouseLeave={() => setIsHoveredCrearSolicitud(false)}
+                className="d-flex nav-link"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -174,10 +187,10 @@ export const Sidebar = () => {
                 }}
                 style={{
                   cursor: "pointer",
-                  color: isHoveredMySoli ? "blue" : "grey",
+                  color: isHoveredMisSolicitudes ? "white" : "grey",
                 }}
-                onMouseEnter={() => setIsHoveredMySoli(true)}
-                onMouseLeave={() => setIsHoveredMySoli(false)}
+                onMouseEnter={() => setIsHoveredMisSolicitudes(true)}
+                onMouseLeave={() => setIsHoveredMisSolicitudes(false)}
                 className="d-flex nav-link"
               >
                 <svg
@@ -201,10 +214,10 @@ export const Sidebar = () => {
                 }}
                 style={{
                   cursor: "pointer",
-                  color: isHoveredMySoli ? "white" : "grey",
+                  color: isHoveredMisUsuarios ? "white" : "grey",
                 }}
-                onMouseEnter={() => setIsHoveredMySoli(true)}
-                onMouseLeave={() => setIsHoveredMySoli(false)}
+                onMouseEnter={() => setIsHoveredMisUsuarios(true)}
+                onMouseLeave={() => setIsHoveredMisUsuarios(false)}
                 className="d-flex nav-link"
               >
                 <svg xmlns="http://www.w3.org/2000/svg"  x="0px"
@@ -250,6 +263,24 @@ export const Sidebar = () => {
       {/* CONTENIDO */}
     </main>
   );
+};
+
+// Define la función getUnattendedRequests
+const getUnattendedRequests = (data) => {
+  if (!data) {
+    return [];
+  }
+
+  const oneDayAgo = new Date();
+  oneDayAgo.setDate(oneDayAgo.getDate() - 3);
+  return data
+    .filter((request) => new Date(request.updated_at) < oneDayAgo)
+    .map((request) => ({
+      nroSolicitud: request.infoSolicitud.nroSolicitud,
+      daysUnattended: Math.floor(
+        (new Date() - new Date(request.updated_at)) / (1000 * 60 * 60 * 24)
+      ),
+    }));
 };
 
 export default Sidebar;
