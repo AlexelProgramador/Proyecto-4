@@ -187,9 +187,16 @@ export const Content = () => {
                             <td>{item.infoSolicitud ? item.infoSolicitud.nroSolicitud : 'N/A'}</td>
 
                             <td>
-                              {item.procesosEtapa2.nroordendecompra
-                                ? item.procesosEtapa2.nroordendecompra
-                                : "No registro"}
+                              {Array.isArray(item.procesosEtapa2) && item.procesosEtapa2.length > 0 ? (
+                                item.procesosEtapa2.map((orden, index) => (
+                                  <span key={index}>
+                                    {orden.nroordendecompra}
+                                    {index !== item.procesosEtapa2.length - 1 ? ", " : ""}
+                                  </span>
+                                ))
+                              ) : (
+                                "No registro"
+                              )}
                             </td>
                             <td>
                               {item.nroEtapa}

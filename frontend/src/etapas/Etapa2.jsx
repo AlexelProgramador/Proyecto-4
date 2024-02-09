@@ -28,12 +28,13 @@ export const Etapa2 = () => {
   const [loadingText, setLoadingText] = useState("Actualizando etapa");
   const [isLoading, setIsLoading] = useState(false);
 
-  const [formularios, setFormularios] = useState([{ tipoCompra: "", nrocotizacion: "", estado: "", comentarios: "", nroordencompra: "", fechaoc: "", proveedorselecc: "", fechaentregaprov: "", valorcompra: "", fechaautocompra: "", urlArchivos: []}]);
+  const [formularios, setFormularios] = useState([{ descproducto: "",tipoCompra: "", nrocotizacion: "", estado: "", comentarios: "", nroordencompra: "", fechaoc: "", proveedorselecc: "", fechaentregaprov: "", valorcompra: "", fechaautocompra: "", urlArchivos: []}]);
   
   const agregarFormulario = () => {
     setFormularios((prevFormularios) => [
       ...prevFormularios,
       {
+        descproducto: "",
         tipoCompra: "",
         nrocotizacion: "",
         estado: "",
@@ -67,30 +68,11 @@ export const Etapa2 = () => {
       const data = {
         idEtapa: item._id,
         nroEtapa: 3,
-        infoUsuario: {
-          solicitadoPor: item.infoUsuario.solicitadoPor,
-          anexo: item.infoUsuario.anexo,
-          correo: item.infoUsuario.correo,
-          resumen: item.infoUsuario.resumen,
-        },
-        infoSolicitud: {
-          fecha: item.infoSolicitud.fecha,
-          fuenteFinanciamiento: item.infoSolicitud.fuenteFinanciamiento,
-          idUsuario: item.infoSolicitud.idUsuario,
-          montoEstimado: item.infoSolicitud.montoEstimado,
-          motivos: item.infoSolicitud.motivos,
-          nroSolicitud: item.infoSolicitud.nroSolicitud,
-          productos: item.infoSolicitud.productos,
-          tipoSolicitud: item.infoSolicitud.tipoSolicitud,
-          urlArchivos: item.infoSolicitud.urlArchivos,
-        },
-        procesosEtapa1: {
-          centroDeCostos: item.procesosEtapa1.centroDeCostos,
-          verificarSaldo: item.procesosEtapa1.verificarSaldo,
-          comentario: item.procesosEtapa1.comentario,
-          urlArchivos: item.procesosEtapa1.urlArchivos,
-        },
+        infoUsuario: item.infoUsuario,
+        infoSolicitud: item.infoSolicitud,
+        procesosEtapa1: item.procesosEtapa1,
         procesosEtapa2: formularios.map((formulario) => ({
+          descproducto: formulario.descproducto,
           tipodecompra: formulario.tipoCompra,
           numerocotizacion: formulario.nrocotizacion,
           estado: formulario.estado,
@@ -133,23 +115,8 @@ export const Etapa2 = () => {
       idEtapa: infoSolicitud._id, // Enviar el ID de la etapa como una cadena de texto
       motivoRechazo: motivoRechazo,
       nroEtapa: "Dea",
-      infoUsuario: {
-        solicitadoPor: item.infoUsuario.solicitadoPor,
-        anexo: item.infoUsuario.anexo,
-        correo: item.infoUsuario.correo,
-        resumen: item.infoUsuario.resumen,
-      },
-      infoSolicitud: {
-        fecha: item.infoSolicitud.fecha,
-        fuenteFinanciamiento: item.infoSolicitud.fuenteFinanciamiento,
-        idUsuario: item.infoSolicitud.idUsuario,
-        montoEstimado: item.infoSolicitud.idUsuario,
-        motivos: item.infoSolicitud.motivos,
-        nroSolicitud: item.infoSolicitud.nroSolicitud,
-        productos: item.infoSolicitud.productos,
-        tipoSolicitud: item.infoSolicitud.tipoSolicitud,
-        urlArchivos: item.infoSolicitud.urlArchivos,
-      },
+      infoUsuario: item.infoUsuario,
+      infoSolicitud: item.infoSolicitud,
     };
     const url = "rechazarEtapa";
     const response = await executePut(url, data);
@@ -205,6 +172,22 @@ export const Etapa2 = () => {
 
                   <form onSubmit={handleSubmit}>
                     {/* Nuevos campos para la vista 2 */}
+                    <div className="form-floating mt-2 g-2">
+                      <input
+                        type="text"
+                        className="form-control"
+                        id={`descproducto${index}`}
+                        
+                        value={formularios[index].descproducto}
+                        onChange={(e) => {
+                          const newFormularios = [...formularios];
+                          newFormularios[index].descproducto = e.target.value;
+                          setFormularios(newFormularios);
+                        }}
+                      />
+                      <label htmlFor="floatingSelect">Descripcion del producto</label>
+                    </div>
+
                     <div className="form-floating mt-2 g-2">
                       <select
                         class="form-select"
@@ -377,7 +360,7 @@ export const Etapa2 = () => {
                     </div>
 
                     <div className="mb-3">
-                      <label htmlFor="montoEstimado" className="form-label">
+                      <label htmlFor="urlArchivo" className="form-label">
                         Adjuntar antecedentes del/los producto/s:
                       </label>
                       <input

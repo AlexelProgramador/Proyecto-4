@@ -76,6 +76,7 @@ const UsuarioInput = ({
             id="Fechaest"
             value={Fechaest}
             onChange={(e) => setFechaest(e.target.value)}
+            max="9999-12-31"
             required
           />
           <label htmlFor="floatingSelect">Fecha Estimada</label>
