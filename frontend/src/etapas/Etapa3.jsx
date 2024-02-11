@@ -19,8 +19,9 @@ export const Etapa3 = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   
-  const [formularios, setFormularios] = useState([
-    {
+  const [formularios, setFormularios] = useState(() => {
+    // Inicializar los formularios con base en el número de procesosEtapa2
+    return item.procesosEtapa2.map(() => ({
       ncdp: "",
       estado: "",
       proveedor: "",
@@ -34,33 +35,34 @@ export const Etapa3 = () => {
       fecharecep: "",
       perscargrecep: "",
       urlArchivos: [],
-    },
-  ]);  
-  const agregarFormulario = () => {
-    setFormularios((prevFormularios) => [
-      ...prevFormularios,
-      {
-        ncdp: "",
-        estado: "",
-        proveedor: "",
-        nrofactura: "",
-        fechaemifactura: "",
-        fechamaxima: "",
-        aceptadassi: "",
-        fechavencfact: "",
-        montofactura: "",
-        comentarios: "",
-        fecharecep: "",
-        parscargrecep: "",
-        urlArchivos: [],
-      },
-    ]);
-  };
-  const eliminarFormulario = (index) => {
-    const nuevosFormularios = [...formularios];
-    nuevosFormularios.splice(index, 1);
-    setFormularios(nuevosFormularios);
-  };
+    }));
+  });  
+
+  // const agregarFormulario = () => {
+  //   setFormularios((prevFormularios) => [
+  //     ...prevFormularios,
+  //     {
+  //       ncdp: "",
+  //       estado: "",
+  //       proveedor: "",
+  //       nrofactura: "",
+  //       fechaemifactura: "",
+  //       fechamaxima: "",
+  //       aceptadassi: "",
+  //       fechavencfact: "",
+  //       montofactura: "",
+  //       comentarios: "",
+  //       fecharecep: "",
+  //       parscargrecep: "",
+  //       urlArchivos: [],
+  //     },
+  //   ]);
+  // };
+  // const eliminarFormulario = (index) => {
+  //   const nuevosFormularios = [...formularios];
+  //   nuevosFormularios.splice(index, 1);
+  //   setFormularios(nuevosFormularios);
+  // };
   
   const handleFechaEmisionChange = (e, index) => {
     const selectedFechaEmision = e.target.value;
@@ -142,6 +144,20 @@ export const Etapa3 = () => {
   useEffect(() => {
     getinfoSolicitud();
   }, []);
+
+  const handleInputChange = (e, formIndex, field) => {
+    const { value } = e.target;
+    setFormularios(prevFormularios => {
+      const newFormularios = [...prevFormularios];
+      newFormularios[formIndex] = {
+        ...newFormularios[formIndex],
+        [field]: value
+      };
+      return newFormularios;
+    });
+  };
+
+  
   
   return (
     <>
@@ -153,149 +169,138 @@ export const Etapa3 = () => {
           </div>
         ) : (
           <>
-            {item.procesosEtapa2.map((proceso, procIndex) => (
-              formularios.map((formulario, formIndex) => (
-                <div className="w-75 h-40 mx-auto" key={formIndex}>
-                  <div className="card shadow-card rounded-3 border border-0 mb-5">
-                    <div className="card-body ">
-                      <div className="position-relative">
-                        <button className="m-2  btn btn-warning rounded-pill px-3 w-10"
-                          type="button"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            navigate("/");
-                          }}
-                        >
-                          Atras
-                        </button>
-                        <button className="btn btn-success position-absolute top-0 end-0 mx-auto w-10 " onClick={agregarFormulario}>
-                          Añadir Formulario
-                        </button>
-                        <button className="btn btn-danger position-absolute top-0 end-0 mx-auto me-15 w-10 " onClick={() => eliminarFormulario(formIndex)}>
-                          Eliminar Formulario
-                        </button>
-                      </div>
-                      <h2 className="mx-auto p-2 display-4">Solicitud Etapa 3</h2>
-                      <p className="display-7">
-                        Esta Solicitud corresponde a: Bodega
-                      </p>
-                      <p className="display-7">
-                        Porfavor rellenar informacion corresponde a la etapa
-                      </p>
-                      <p className="display-7">
-                        Una vez lo considere terminado pulsar el boton "Enviar
-                        Etapa"
-                      </p>
-                      <p className="display-7">
-                        Descripcion de compra: {proceso.descproducto} {/* Mostrar el número de orden de compra del item actual */}
-                      </p>
-                      <p className="display-7">
-                        N° Orden de compra: {proceso.nroordendecompra} {/* Mostrar el número de orden de compra del item actual */}
-                      </p>
-                      <form onSubmit={handleSubmit}>
-                        <div className="form-floating mt-2 g-2">
+          <div className="w-75 h-40 mx-auto">
+            <div className="card shadow-card rounded-3 border border-0 mb-5">
+              <div className="card-body ">
+                <div className="position-relative">
+                  <button className="m-2  btn btn-warning rounded-pill px-3 w-10"
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigate("/");
+                    }}
+                  >
+                    Atras
+                  </button>
+                </div>
+                <h2 className="mx-auto p-2 display-4">Solicitud Etapa 3</h2>
+                <p className="display-7">Esta Solicitud corresponde a: Bodega</p>
+                <p className="display-7">Porfavor rellenar información corresponde a la etapa</p>
+                <p className="display-7">Una vez lo considere terminado pulsar el boton "Enviar Etapa"</p>
+                {item.procesosEtapa2.map((proceso, procIndex) => (
+                  <div key={procIndex}>
+                    <div className="fw-semibold mb-2">ORDEN DE COMPRA {procIndex + 1}</div>
+                    <p className="display-7">
+                      Descripción de compra: {proceso.descproducto}
+                    </p>
+                    <p className="display-7">
+                      N° Orden de compra: {proceso.nroordendecompra}
+                    </p>
+                    {formularios[procIndex] && (
+                      <form className="row px-2" onSubmit={(e) => handleSubmit(e, procIndex)}>
+                        <div className="col-md-6 form-floating mt-2 g-2">
                           <input
                             type="text"
                             className="form-control"
-                            id={`ncdp${formIndex}`}
-                            value={formularios[formIndex].ncdp}
+                            id={`ncdp${procIndex}`}
+                            value={formularios[procIndex].ncdp}
                             onChange={(e) => {
                               const newFormularios = [...formularios];
-                              newFormularios[formIndex].ncdp = e.target.value;
+                              newFormularios[procIndex].ncdp = e.target.value;
                               setFormularios(newFormularios);
                             }}
                           />
                           <label htmlFor="floatingSelect">N° CDP</label>
                         </div>
   
-                        <div className="form-floating mt-2 g-2">
+                        <div className="col-md-6 form-floating mt-2 g-2">
                           <input
                             type="text"
                             className="form-control"
-                            id={`estado${formIndex}`}
-                            value={formularios[formIndex].estado}
+                            id={`estado${procIndex}`}
+                            value={formularios[procIndex].estado}
                             onChange={(e) => {
                               const newFormularios = [...formularios];
-                              newFormularios[formIndex].estado = e.target.value;
+                              newFormularios[procIndex].estado = e.target.value;
                               setFormularios(newFormularios);
                             }}
                           />
                           <label htmlFor="floatingSelect">Estado</label>
                         </div>
   
-                        <div className="form-floating mt-2 g-2">
+                        <div className="col-md-6 form-floating mt-2 g-2">
                           <input
                             type="text"
                             className="form-control"
-                            id={`proveedor${formIndex}`}
-                            value={formularios[formIndex].proveedor}
+                            id={`proveedor${procIndex}`}
+                            value={formularios[procIndex].proveedor}
                             onChange={(e) => {
                               const newFormularios = [...formularios];
-                              newFormularios[formIndex].proveedor = e.target.value;
+                              newFormularios[procIndex].proveedor = e.target.value;
                               setFormularios(newFormularios);
                             }}
                           />
                           <label htmlFor="floatingSelect">Proveedor</label>
                         </div>
   
-                        <div className="form-floating mt-2 g-2">
+                        <div className="col-md-6 form-floating mt-2 g-2">
                           <input
                             type="text"
                             className="form-control"
-                            id={`nrofactura${formIndex}`}
-                            value={formularios[formIndex].nrofactura}
+                            id={`nrofactura${procIndex}`}
+                            value={formularios[procIndex].nrofactura}
                             onChange={(e) => {
                               const newFormularios = [...formularios];
-                              newFormularios[formIndex].nrofactura = e.target.value;
+                              newFormularios[procIndex].nrofactura = e.target.value;
                               setFormularios(newFormularios);
                             }}
                           />
                           <label htmlFor="floatingSelect">N° Factura</label>
                         </div>
-                        <div className="form-floating mt-2 g-2">
+                        <div className="col-md-4 form-floating mt-2 g-2">
                           <input
                             type="date"
                             className="form-control"
-                            id={`fechaemifactura${formIndex}`}
-                            value={formularios[formIndex].fechaemifactura}
+                            id={`fechaemifactura${procIndex}`}
+                            value={formularios[procIndex].fechaemifactura}
                             onChange={(e) => {
                               const newFormularios = [...formularios];
-                              newFormularios[formIndex].fechaemifactura = e.target.value;
-                              handleFechaEmisionChange(e, formIndex);
+                              newFormularios[procIndex].fechaemifactura = e.target.value;
+                              handleFechaEmisionChange(e, procIndex);
                               setFormularios(newFormularios);
                             }}
                           />
                           <label htmlFor="floatingSelect">Fecha emisión factura</label>
                         </div>
   
-                        <div className="form-floating mt-2 g-2">
+                        <div className="col-md-4 form-floating mt-2 g-2">
                           <input
                             type="date"
                             className="form-control"
-                            id={`fechamaxima${formIndex}`}
-                            value={formularios[formIndex].fechamaxima}
+                            id={`fechamaxima${procIndex}`}
+                            value={formularios[procIndex].fechamaxima}
                             onChange={(e) => {
                               const newFormularios = [...formularios];
-                              newFormularios[formIndex].fechamaxima = e.target.value;
+                              newFormularios[procIndex].fechamaxima = e.target.value;
                               setFormularios(newFormularios);
                             }}
                           />
                           <label htmlFor="floatingSelect">Fecha máxima de rechazo</label>
                         </div>
   
-                        <div className="form-floating mt-2 g-2">
+                        <div className="col-md-4 form-floating mt-2 g-2">
                           <select
                             className="form-select"
-                            id={`floatingSelect${formIndex}`}
+                            id={`floatingSelect${procIndex}`}
                             aria-label="Floating label select example"
                             onChange={(e) => {
                               const newFormularios = [...formularios];
-                              newFormularios[formIndex].aceptadassi = e.target.value;
+                              newFormularios[procIndex].aceptadassi = e.target.value;
                               setFormularios(newFormularios);
                             }}
                           >
                             <option value="Valor por defecto">
-                              Seleccione una opcion
+                              Seleccione una opción
                             </option>
                             <option value="Si">Si</option>
                             <option value="No">No</option>
@@ -303,15 +308,15 @@ export const Etapa3 = () => {
                           <label htmlFor="floatingSelect">Aceptado SII</label>
                         </div>
   
-                        <div className="form-floating mt-2 g-2">
+                        <div className="col-md-4 form-floating mt-2 g-2">
                           <input
                             type="date"
                             className="form-control"
-                            id={`fechavencfact${formIndex}`}
-                            value={formularios[formIndex].fechavencfact}
+                            id={`fechavencfact${procIndex}`}
+                            value={formularios[procIndex].fechavencfact}
                             onChange={(e) => {
                               const newFormularios = [...formularios];
-                              newFormularios[formIndex].fechavencfact = e.target.value;
+                              newFormularios[procIndex].fechavencfact = e.target.value;
                               setFormularios(newFormularios);
                             }}
                           />
@@ -320,96 +325,98 @@ export const Etapa3 = () => {
                           </label>
                         </div>
   
-                        <div className="form-floating mt-2 g-2">
+                        <div className="col-md-8 form-floating mt-2 g-2">
                           <input
                             type="text"
                             className="form-control"
-                            value={formularios[formIndex].montofactura}
+                            value={formularios[procIndex].montofactura}
                             onChange={(e) => {
                               const newFormularios = [...formularios];
-                              newFormularios[formIndex].montofactura = e.target.value;
+                              newFormularios[procIndex].montofactura = e.target.value;
                               setFormularios(newFormularios);
                             }}
                           />
                           <label htmlFor="floatingSelect">Monto factura</label>
                         </div>
   
-                        <div className="form-floating mt-2 g-2">
+                        <div className="col-md-12 form-floating mt-2 g-2">
                           <input
                             type="text"
                             className="form-control"
-                            value={formularios[formIndex].comentarios}
+                            value={formularios[procIndex].comentarios}
                             onChange={(e) => {
                               const newFormularios = [...formularios];
-                              newFormularios[formIndex].comentarios = e.target.value;
+                              newFormularios[procIndex].comentarios = e.target.value;
                               setFormularios(newFormularios);
                             }}
                           />
                           <label htmlFor="floatingSelect">Comentario</label>
                         </div>
   
-                        <div className="form-floating mt-2 g-2">
+                        <div className="col-md-4 form-floating mt-2 g-2">
                           <input
                             type="date"
                             className="form-control"
-                            value={formularios[formIndex].fecharecep}
+                            value={formularios[procIndex].fecharecep}
                             onChange={(e) => {
                               const newFormularios = [...formularios];
-                              newFormularios[formIndex].fecharecep = e.target.value;
+                              newFormularios[procIndex].fecharecep = e.target.value;
                               setFormularios(newFormularios);
                             }}
                           />
-                          <label htmlFor="floatingSelect">Fecha recepcion:</label>
+                          <label htmlFor="floatingSelect">Fecha recepción:</label>
                         </div>
   
-                        <div className="form-floating mt-2 g-2">
+                        <div className="col-md-8 form-floating mt-2 g-2">
                           <input
                             type="text"
                             className="form-control"
-                            value={formularios[formIndex].perscargrecep}
+                            value={formularios[procIndex].perscargrecep}
                             onChange={(e) => {
                               const newFormularios = [...formularios];
-                              newFormularios[formIndex].perscargrecep = e.target.value;
+                              newFormularios[procIndex].perscargrecep = e.target.value;
                               setFormularios(newFormularios);
                             }}
                           />
                           <label htmlFor="floatingSelect">
-                            Persona a cargo de recepcion
+                            Persona a cargo de recepción
                           </label>
                         </div>
-                        <div className="mb-3">
+                        <div className="col-md-12 mb-3">
                           <label htmlFor="urlArchivo" className="form-label">
                             Adjuntar antecedentes del/los producto/s:
                           </label>
                           <input
                             type="file"
                             className="form-control"
-                            id={`archivo${formIndex}`}
+                            id={`archivo${procIndex}`}
                             accept="application/pdf"
                             multiple
                             onChange={(e) => {
                               const newFormularios = [...formularios];
-                              newFormularios[formIndex].urlArchivos = Array.from(e.target.files);
+                              newFormularios[procIndex].urlArchivos = Array.from(e.target.files);
                               setFormularios(newFormularios);
                             }}
                           />
                         </div>
-                        <button className="m-2 btn btn-primary" type="submit">
-                          Aceptar
-                        </button>
-                        <button
-                          className="m-2  btn btn-danger"
-                          type="button"
-                          onClick={() => navigate("/")}
-                        >
-                          Atrás
-                        </button>
+                        <hr className="mx-1"/>
                       </form>
+                      )}
                     </div>
-                  </div>
-                </div>
-              ))
-            ))}
+                ))}
+                <button className="m-2 btn btn-primary" type="button" onClick={handleSubmit}>
+                  Aceptar
+                </button>
+                <button
+                  className="m-2  btn btn-danger"
+                  type="button"
+                  onClick={() => navigate("/")}
+                >
+                  Atrás
+                </button>
+              </div>
+              </div>
+            </div>
           </>
         )
       ) : (

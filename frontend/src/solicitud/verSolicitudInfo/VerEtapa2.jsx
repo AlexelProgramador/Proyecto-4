@@ -42,51 +42,51 @@ const verEtapa2 = ({ item }) => {
         ) : (
           Array.isArray(item.procesosEtapa2) && item.procesosEtapa2.map((proceso, index) => (
             <div key={index} className="mb-4">
-              <h2>
+              <h4>
                 Tipo de compra:{" "}
                 <span className="text-primary">{proceso.tipodecompra}</span>
-              </h2>
-              <h2>
-                Numero de cotizacion:{" "}
+              </h4>
+              <h4>
+                Numero de cotización:{" "}
                 <span className="text-primary">{proceso.numerocotizacion}</span>
-              </h2>
-              <h2>
+              </h4>
+              <h4>
                 Estado:{" "}
                 <span className="text-primary">{proceso.estado}</span>
-              </h2>
-              <h2>
+              </h4>
+              <h4>
                 Comentario:{" "}
                 <span className="text-primary">{proceso.comentarios}</span>
-              </h2>
-              <h2>
+              </h4>
+              <h4>
                 Numero orden de compra:{" "}
                 <span className="text-primary">{proceso.nroordendecompra}</span>
-              </h2>
-              <h2>
+              </h4>
+              <h4>
                 Fecha orden de compra:{" "}
                 <span className="text-primary">{proceso.fechadeoc}</span>
-              </h2>
-              <h2>
+              </h4>
+              <h4>
                 Proveedor seleccionado:{" "}
                 <span className="text-primary">{proceso.proveedorseleccionado}</span>
-              </h2>
-              <h2>
+              </h4>
+              <h4>
                 Fecha entrega proveedor:{" "}
                 <span className="text-primary">{proceso.fechaentregaproveedor}</span>
-              </h2>
-              <h2>
+              </h4>
+              <h4>
                 Valor de compra mas iva:{" "}
                 <span className="text-primary">{proceso.valordecompramiva}</span>
-              </h2>
-              <h2>
+              </h4>
+              <h4>
                 Fecha de autorización de compra:{" "}
                 <span className="text-primary">
                   {proceso.fechaautocompra}
                 </span>
-              </h2>
+              </h4>
               {/* Documentos Adjuntos */}
               <div className="pl-5">
-                <h2>Documentos Adjuntos:</h2>
+                <h4>Documentos Adjuntos:</h4>
                 <table className="table">
                   <thead>
                     <tr>

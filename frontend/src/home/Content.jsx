@@ -176,7 +176,7 @@ export const Content = () => {
                       <th scope="col">Solicitado por</th>
                       <th scope="col">Encargado</th>
                       <th scope="col">Resumen</th>
-                      <th scope="col">Accion</th>
+                      <th scope="col">Acción</th>
                     </tr>
                   </thead>
                   <tbody>

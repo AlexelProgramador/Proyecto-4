@@ -103,10 +103,12 @@ export const Sidebar = () => {
                   border: "0px solid #1E4162",
                   boxShadow: "0px 3px 3px 2px rgba(0, 0, 0, 0.20)",
                   width: "25vw",
+                  maxHeight: "25vw",
                   padding: "10px",
                   borderRadius: "5px",
                   color: "rgba(0, 0, 0, 0.87)",
                   fontSize: "14px",
+                  overflowY: "auto", // Agregar esta propiedad para habilitar la barra de desplazamiento vertical
                 }}
               >
                 <h6 className="border-bottom pb-2" style={{color: "rgba(0, 0, 0, 0.87)", fontSize: "14px"}}> 
@@ -256,7 +258,7 @@ export const Sidebar = () => {
                 d="M4.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H14.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"
               />
             </svg>
-            Cerrar sesion
+            Cerrar sesión
           </div>
         </nav>
       </aside>

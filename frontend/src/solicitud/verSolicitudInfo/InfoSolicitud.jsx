@@ -45,36 +45,36 @@ const infoSolicitud = ({ selected = 0, item }) => {
     <>
       <div className="contenido">
         <div className="p-5">
-          <h1 className="mb-4 display-6">Informacion de solicitud</h1>
-          <h2 className="mb-3">
+          <h1 className="mb-4 display-6">Información de solicitud</h1>
+          <h4 className="mb-2">
             Fecha de la solicitud:{" "}
             <span className="text-primary">{item.infoSolicitud.fecha}</span>
-          </h2>
-          <h2 className="mb-3">
+          </h4>
+          <h4 className="mb-3">
             Tipo de solicitud:{" "}
             <span className="text-primary">
               {item.infoSolicitud.tipoSolicitud}
             </span>
-          </h2> 
-          <h1 className="mb-4 display-6">Informacion de usuario</h1>
-          <h2 className="mb-3">
+          </h4> 
+          <h1 className="mb-4 display-6">Información de usuario</h1>
+          <h4 className="mb-2">
             Solicitada por:{" "}
             <span className="text-primary">
               {item.infoUsuario.solicitadoPor}
             </span>
-          </h2>
-          <h2 className="mb-3">
+          </h4>
+          <h4 className="mb-2">
             Anexo:{" "}
             <span className="text-primary">{item.infoUsuario.anexo}</span>
-          </h2>
-          <h2 className="mb-3">
+          </h4>
+          <h4 className="mb-2">
             Correo Electronico:{" "}
             <span className="text-primary">
               {item.infoUsuario.correo
                 ? item.infoUsuario.correo
                 : "No ingresado"}
             </span>
-          </h2>
+          </h4>
           <div className="row mt-2 g-2">
             <div style={{ overflow: "hidden" }}>
               <table className="table">
@@ -99,7 +99,7 @@ const infoSolicitud = ({ selected = 0, item }) => {
           </div>
 
           <div className="pl-5">
-            <h2>Documentos Adjuntos: </h2>
+            <h4>Documentos Adjuntos: </h4>
             <table className="table">
               <thead>
                 <tr>

@@ -151,7 +151,7 @@ export const Etapa1 = () => {
                     Esta Solicitud corresponde a: Pablo Contreras{" "}
                   </p>
                   <p className="display-7">
-                    Porfavor rellenar informacion corresponde a la etapa
+                    Porfavor rellenar información corresponde a la etapa
                   </p>
                   <p className="display-7">
                     Una vez lo considere terminado pulsar el boton "Enviar
@@ -315,7 +315,7 @@ export const Etapa1 = () => {
                         aria-label="Floating label select example"
                         onChange={(e) => setVerificarSaldo(e.target.value)}
                       >
-                        <option value="-1">Selecciona una opcion</option>
+                        <option value="-1">Selecciona una opción</option>
                         <option value="1">Si</option>
                         <option value="0">No</option>
                       </select>

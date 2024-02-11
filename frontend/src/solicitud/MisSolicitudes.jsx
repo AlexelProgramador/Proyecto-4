@@ -63,7 +63,7 @@ const MisSolicitudes = () => {
                     <th scope="col">Etapa</th>
                     <th scope="col">Solicitado por</th>
                     <th scope="col"></th>
-                    <th scope="col">Accion</th>
+                    <th scope="col">Acción</th>
                   </tr>
                 </thead>
                 <tbody>

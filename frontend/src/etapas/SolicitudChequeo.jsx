@@ -140,7 +140,7 @@ export const SolicitudChequeo = () => {
                     Esta Solicitud corresponde a: Secretaria
                   </p>
                   <p className="display-7">
-                    Porfavor chequear informacion corresponde a la etapa
+                    Porfavor chequear información corresponde a la etapa
                   </p>
                   <p className="display-7">
                     Una vez lo considere terminado pulsar el boton "Aceptar"

@@ -42,7 +42,7 @@ export const VerSolicitud = () => {
       <div className="card shadow-card rounded-3 border border-0">
         <div className="card-body">
           <div className="d-flex justify-content-between pb-0">
-            <h2 class="pb-2 h1 border-bottom">Informacion de solicitud</h2>
+            <h2 className="pb-2 h1 border-bottom">Información de solicitud</h2>
           </div>
           <h5>
             <br />

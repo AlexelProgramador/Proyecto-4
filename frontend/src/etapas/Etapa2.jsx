@@ -86,6 +86,7 @@ export const Etapa2 = () => {
           urlArchivos: formulario.urlArchivos,
         })),
       };
+      console.log(data);
       const url = "avanzarEtapa";
       const response = await executePut(url, data);
       setIsLoading(false);
@@ -126,7 +127,10 @@ export const Etapa2 = () => {
     modal.hide();
 
     navigate("/");
+    
   };
+
+  
   return (
     <>
       {infoSolicitud ? (
@@ -137,42 +141,52 @@ export const Etapa2 = () => {
           </div>
         ) : (
           <>
-          {formularios.map((formulario, index) => (
-            <div className="w-75 h-40 mx-auto" key={index}>
+          <div className="w-75 h-40 mx-auto">
               <div className="card shadow-card rounded-3 border border-0 mb-5">
                 <div className="card-body ">
-                <div className="position-relative">
-                    <button className="m-2  btn btn-warning rounded-pill px-3 w-10"
-                      type="button"
-                      onClick={(e) => {
-                      e.preventDefault();
-                      navigate("/");
-                    }}
-                    >
+                  <div className="position-relative">
+                    <button className="m-2 btn btn-warning rounded-pill px-3 w-10" type="button" onClick={(e) => { e.preventDefault(); navigate("/"); }}>
                       Atras
                     </button>
-                      <button className="btn btn-success position-absolute top-0 end-0 mx-auto w-10 " onClick={agregarFormulario}>
+                    <button className="btn btn-success position-absolute top-0 end-0" onClick={agregarFormulario}>
                       Añadir Formulario
                     </button>
-                    <button className="btn btn-danger position-absolute top-0 end-0 mx-auto me-15 w-10 " onClick={() => eliminarFormulario(index)}>
-                      Eliminar Formulario
-                    </button>
-                    </div>
+                  </div>
                   <h2 className="mx-auto p-2 display-4">Solicitud Etapa 2</h2>
-                  <p className="display-7">
-                    Esta Solicitud corresponde a: Bastian Lapierre{" "}
-                  </p>
-                  <p className="display-7">
-                    Porfavor rellenar informacion corresponde a la etapa
-                  </p>
-                  <p className="display-7">
-                    Una vez lo considere terminado pulsar el boton "Enviar
-                    Etapa"
-                  </p>
+                  <p className="display-7">Esta Solicitud corresponde a: Bastian Lapierre{" "}</p>
+                  <p className="display-7">Porfavor rellenar información correspondiente a la etapa</p>
+                  <p className="display-7">Una vez lo considere terminado pulsar el botón "Enviar Etapa"</p>
+                  {formularios.map((formulario, index) => (
+                    <div key={index}>
+                    {/* <div className="position-relative">
+                        <button className="m-2  btn btn-warning rounded-pill px-3 w-10"
+                          type="button"
+                          onClick={(e) => {
+                          e.preventDefault();
+                          navigate("/");
+                        }}
+                        >
+                          Atras
+                        </button>
+                          <button className="btn btn-success position-absolute top-0 end-0 mx-auto w-10 " onClick={agregarFormulario}>
+                          Añadir Formulario
+                        </button>
+                        <button className="btn btn-danger position-absolute top-0 end-0 mx-auto me-15 w-10 " onClick={() => eliminarFormulario(index)}>
+                          Eliminar Formulario
+                        </button>
+                      </div> */}
+                  <div className="d-flex justify-content-between align-items-center">                   
+                    <div className="fw-semibold">ORDEN DE COMPRA {index+1}</div>
+                    {index > 0 && (
+                      <button className="btn btn-danger" onClick={() => eliminarFormulario(index)}>
+                      Eliminar Formulario
+                      </button>
+                    )}
 
-                  <form onSubmit={handleSubmit}>
+                  </div>
+                  <form className="row px-2" onSubmit={handleSubmit}>
                     {/* Nuevos campos para la vista 2 */}
-                    <div className="form-floating mt-2 g-2">
+                    <div className="col-md-12 form-floating mt-2 g-2">
                       <input
                         type="text"
                         className="form-control"
@@ -188,7 +202,7 @@ export const Etapa2 = () => {
                       <label htmlFor="floatingSelect">Descripcion del producto</label>
                     </div>
 
-                    <div className="form-floating mt-2 g-2">
+                    <div className="col-md-3 form-floating mt-2 g-2">
                       <select
                         class="form-select"
                         id={`floatingSelect${index}`}
@@ -209,7 +223,7 @@ export const Etapa2 = () => {
                       <label htmlFor={`floatingSelect${index}`}>Tipo de compra</label>
                     </div>
 
-                    <div className="form-floating mt-2 g-2">
+                    <div className="col-md-6 form-floating mt-2 g-2">
                     <input
                       type="text"
                       className="form-control"
@@ -221,11 +235,11 @@ export const Etapa2 = () => {
                       }}
                     />
                     <label htmlFor={`nroCotizacion${index}`}>
-                      Numero de cotizacion
+                      Numero de cotización
                     </label>
                     </div>
 
-                    <div className="form-floating mt-2 g-2">
+                    <div className="col-md-3 form-floating mt-2 g-2">
                     <select
                       className="form-select"
                       id={`estado${index}`}
@@ -247,7 +261,7 @@ export const Etapa2 = () => {
                     <label htmlFor={`estado${index}`}>Estado</label>
                     </div>
 
-                    <div className="form-floating mt-2 g-2">
+                    <div className="col-md-12 form-floating mt-2 g-2">
                       <input
                         type="text"
                         className="form-control"
@@ -263,7 +277,7 @@ export const Etapa2 = () => {
                       <label htmlFor="floatingSelect">Comentario</label>
                     </div>
 
-                    <div className="form-floating mt-2 g-2">
+                    <div className="col-md-8 form-floating mt-2 g-2">
                       <input
                         type="text"
                         className="form-control"
@@ -279,11 +293,12 @@ export const Etapa2 = () => {
                       </label>
                     </div>
 
-                    <div className="form-floating mt-2 g-2">
+                    <div className="col-md-4 form-floating mt-2 g-2">
                       <input
                         type="date"
                         className="form-control"
                         value={formularios[index].fechaoc}
+                        max="9999-12-31"
                         onChange={(e) => {
                           const newFormularios = [...formularios];
                           newFormularios[index].fechaoc = e.target.value;
@@ -295,7 +310,7 @@ export const Etapa2 = () => {
                       </label>
                     </div>
 
-                    <div className="form-floating mt-2 g-2">
+                    <div className="col-md-8 form-floating mt-2 g-2">
                       <input
                         type="text"
                         className="form-control"
@@ -311,7 +326,7 @@ export const Etapa2 = () => {
                       </label>
                     </div>
 
-                    <div className="form-floating mt-2 g-2">
+                    <div className="col-md-4 form-floating mt-2 g-2">
                       <input
                         type="date"
                         className="form-control"
@@ -327,7 +342,7 @@ export const Etapa2 = () => {
                       </label>
                     </div>
 
-                    <div className="form-floating mt-2 g-2">
+                    <div className="col-md-8 form-floating mt-2 g-2">
                       <input
                         type="text"
                         className="form-control"
@@ -343,7 +358,7 @@ export const Etapa2 = () => {
                       </label>
                     </div>
 
-                    <div className="form-floating mt-2 g-2">
+                    <div className="col-md-4 form-floating mt-2 g-2">
                       <input
                         type="date"
                         className="form-control"
@@ -359,7 +374,7 @@ export const Etapa2 = () => {
                       </label>
                     </div>
 
-                    <div className="mb-3">
+                    <div className="col-md-12 mt-2 mb-3 px-1">
                       <label htmlFor="urlArchivo" className="form-label">
                         Adjuntar antecedentes del/los producto/s:
                       </label>
@@ -376,82 +391,85 @@ export const Etapa2 = () => {
                         }}
                       />
                     </div>
-                    <button className="m-2 btn btn-primary" type="submit">
-                      Aceptar
-                    </button>
-                    <button
-                      className="m-2  btn btn-danger"
-                      type="button"
-                      data-bs-toggle="modal"
-                      data-bs-target="#rechazarModal"
-                    >
-                      Rechazar
-                    </button>
-
-                    <div
-                      className="modal fade"
-                      id="rechazarModal"
-                      tabIndex="-1"
-                      aria-labelledby="exampleModalLabel"
-                      aria-hidden="true"
-                    >
-                      <div className="modal-dialog">
-                        <div className="modal-content">
-                          <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">
-                              Motivo de rechazo
-                            </h5>
-                            <button
-                              type="button"
-                              className="btn-close"
-                              data-bs-dismiss="modal"
-                              aria-label="Close"
-                            ></button>
-                          </div>
-                          <div className="modal-body">
-                            <form>
-                              <div className="mb-3">
-                                <label
-                                  htmlFor="message-text"
-                                  className="col-form-label"
-                                >
-                                  Motivo:
-                                </label>
-                                <textarea
-                                  className="form-control"
-                                  id="message-text"
-                                  value={motivoRechazo}
-                                  onChange={(e) =>
-                                    setMotivoRechazo(e.target.value)
-                                  }
-                                ></textarea>
-                              </div>
-                            </form>
-                          </div>
-                          <div className="modal-footer">
-                            <button
-                              type="button"
-                              className="btn btn-secondary"
-                              data-bs-dismiss="modal"
-                            >
-                              Cerrar
-                            </button>
-                            <button
-                              type="submit"
-                              className="btn btn-primary"
-                              onClick={handleRechazar}
-                            >
-                              Enviar
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    <hr className="mx-1"/>
                   </form>
-                </div>
+                  </div>                
+              ))}
+            <button className="m-2 btn btn-primary" type="submit" onClick={handleSubmit}>
+              Aceptar
+            </button>
+            <button
+              className="m-2  btn btn-danger"
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#rechazarModal"
+            >
+              Rechazar
+            </button>
+            </div>
+          </div>
+        </div>
+        {/* Modal */}
+        <div
+          className="modal fade"
+          id="rechazarModal"
+          tabIndex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalLabel">
+                  Motivo de rechazo
+                </h5>
+                <button
+                  type="button"
+                  className="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div className="modal-body">
+                <form>
+                  <div className="mb-3">
+                    <label
+                      htmlFor="message-text"
+                      className="col-form-label"
+                    >
+                      Motivo:
+                    </label>
+                    <textarea
+                      className="form-control"
+                      id="message-text"
+                      value={motivoRechazo}
+                      onChange={(e) =>
+                        setMotivoRechazo(e.target.value)
+                      }
+                    ></textarea>
+                  </div>
+                </form>
+              </div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Cerrar
+                </button>
+                <button
+                  type="submit"
+                  className="btn btn-primary"
+                  onClick={handleRechazar}
+                >
+                  Enviar
+                </button>
               </div>
             </div>
-            ))}
+          </div>
+        </div>
+
           </>
         )
       ) : (

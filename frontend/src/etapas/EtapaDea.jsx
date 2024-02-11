@@ -133,7 +133,7 @@ export const EtapaDea = () => {
                     Esta Solicitud corresponde a: DEA{" "}
                   </p>
                   <p className="display-7">
-                    Porfavor rellenar informacion corresponde a la etapa
+                    Porfavor rellenar información corresponde a la etapa
                   </p>
                   <p className="display-7">
                     Una vez lo considere terminado pulsar el boton "Enviar

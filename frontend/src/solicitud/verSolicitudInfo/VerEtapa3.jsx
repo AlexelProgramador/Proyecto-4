@@ -9,37 +9,43 @@ const VerEtapa3 = ({ item }) => {
     let url = fileUrl;
     window.open(url, "_blank");
   };
-  const [fileData, setFileData] = useState([]);
+  const [fileData, setFileData] = useState([]); 
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   console.log(item)
+
   useEffect(() => {
     const fetchMetadataAndUrl = async () => {
-      const fileDataPromises = item.procesosEtapa3?.urlArchivos?.map(
-        async (fileName) => {
+      const fileDataPromises = item.procesosEtapa3?.map(async (proceso) => {
           try {
+            const fileName = proceso.urlArchivos[0]; // Asegúrate de ajustar esto según la estructura real
             const metadata = await obtenerMetaData(fileName);
             const fileUrl = `${fileName}`; // Asegúrate de reemplazar esto con la ruta correcta a tus archivos en el servidor.
-            return { metadata, fileUrl };
+            return { metadata, fileUrl, proceso };
           } catch (error) {
             console.error("Error fetching metadata:", error);
           }
         }
       );
 
-      if (fileDataPromises) {
+      if (Array.isArray(fileDataPromises)) {
         const fileData = await Promise.all(fileDataPromises);
         setFileData(fileData);
+        setIsLoading(false); // Se establece isLoading en falso una vez que se cargan los datos
       }
     };
 
     fetchMetadataAndUrl();
-  }, [item.procesosEtapa3?.urlArchivos]);
+  }, [item.procesosEtapa3]);
 
   return (
     <div className="contenido">
       <div className="p-5">
-        {/* Otras informaciones */}
+      {isLoading ? (
+          <p>Solicitud en proceso. La información estará disponible aquí una vez que se complete esta etapa.</p>
+        ) : (
+        <div>
         <button
           className="btn btn-primary  position-absolute top-0 end-0 mx-auto mt-5 me-15 w-15"
           onClick={() =>
@@ -52,50 +58,52 @@ const VerEtapa3 = ({ item }) => {
         >
         Modificar etapa
         </button>
-        <h2 className="mb-3">
+        {Array.isArray(item.procesosEtapa3) && item.procesosEtapa3.map((proceso, index) => (
+          <div key={index} className="mb-4">
+        <h4 className="mb-2">
           Numero CDP:{" "}
-          <span className="text-primary">{item.procesosEtapa3?.ncdp}</span>
-        </h2>
-        <h2 className="mb-3">
+          <span className="text-primary">{proceso.ncdp}</span>
+        </h4>
+        <h4 className="mb-2">
           Estado:{" "}
-          <span className="text-primary">{item.procesosEtapa3?.estado}</span>
-        </h2>
-        <h2 className="mb-3">
+          <span className="text-primary">{proceso.estado}</span>
+        </h4>
+        <h4 className="mb-2">
           Proveedor:{" "}
-          <span className="text-primary">{item.procesosEtapa3?.proveedor}</span>
-        </h2>
-        <h2 className="mb-3">
-          Fecha emision de factura:{" "}
+          <span className="text-primary">{proceso.proveedor}</span>
+        </h4>
+        <h4 className="mb-2">
+          Fecha emisión de factura:{" "}
           <span className="text-primary">
-            {item.procesosEtapa3?.fechaemisionfact}
+            {proceso.fechaemisionfact}
           </span>
-        </h2>
-        <h2 className="mb-3">
+        </h4>
+        <h4 className="mb-2">
           Fecha maxima:{" "}
           <span className="text-primary">
-            {item.procesosEtapa3?.fechamaxima}
+            {proceso.fechamaxima}
           </span>
-        </h2>
-        <h2 className="mb-3">
+        </h4>
+        <h4 className="mb-2">
           Aceptado SII:{" "}
           <span className="text-primary">
-            {item.procesosEtapa3?.aceptadoSsi}
+            {proceso.aceptadoSsi}
           </span>
-        </h2>
-        <h2 className="mb-3">
+        </h4>
+        <h4 className="mb-2">
           Fecha vencimiento de factura:{" "}
           <span className="text-primary">
-            {item.procesosEtapa3?.fechavencfact}
+            {proceso.fechavencfact}
           </span>
-        </h2>
-        <h2 className="mb-3">
+        </h4>
+        <h4 className="mb-2">
           Monto de factura:{" "}
           <span className="text-primary">
-            {item.procesosEtapa3?.montofactura}
+            {proceso.montofactura}
           </span>
-        </h2>
+        </h4>
         <div className="pl-5">
-          <h2>Documentos Adjuntos: </h2>
+          <h4>Documentos Adjuntos: </h4>
           <table className="table">
             <thead>
               <tr>
@@ -104,12 +112,12 @@ const VerEtapa3 = ({ item }) => {
               </tr>
             </thead>
             <tbody>
-              {fileData.map((data, index) => (
+              {fileData[index] && (
                 <tr key={index}>
-                  <td>{data.metadata ? data.metadata.name : "No metadata"}</td>
+                  <td>{fileData[index].metadata?.name || "No metadata"}</td>
                   <td>
                     <button
-                      onClick={() => openPdf(data.fileUrl)}
+                      onClick={() => openPdf(fileData[index].fileUrl)}
                       className="btn btn-primary d-flex align-items-center mt-0 bi bi-file-earmark-pdf"
                       style={{ width: "100px", height: "50px" }}
                     >
@@ -128,10 +136,14 @@ const VerEtapa3 = ({ item }) => {
                     </button>
                   </td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
         </div>
+        </div>
+        ))}
+        </div>
+        )}
       </div>
     </div>
   );

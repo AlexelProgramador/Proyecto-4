@@ -153,7 +153,7 @@ export const Etapa2 = () => {
                     Esta Solicitud corresponde a: Bastian Lapierre{" "}
                   </p>
                   <p className="display-7">
-                    Porfavor rellenar informacion corresponde a la etapa
+                    Porfavor rellenar información corresponde a la etapa
                   </p>
                   <p className="display-7">
                     Una vez lo considere terminado pulsar el boton "Enviar
@@ -187,7 +187,7 @@ export const Etapa2 = () => {
                         onChange={(e) => setNroCotizacion(e.target.value)}
                       />
                       <label htmlFor="floatingSelect">
-                        Numero de cotizacion
+                        Numero de cotización
                       </label>
                     </div>
 
@@ -198,7 +198,7 @@ export const Etapa2 = () => {
                         aria-label="Floating label select example"
                         onChange={(e) => setEstado(e.target.value)}
                       >
-                        <option selected>Seleccione una opcion</option>
+                        <option selected>Seleccione una opción</option>
                         <option value="Guardada">Guardada</option>
                         <option value="Enviada">Enviada</option>
                         <option value="Autorizada">Autorizada</option>
@@ -288,7 +288,7 @@ export const Etapa2 = () => {
                         onChange={(e) => setFechaautocompra(e.target.value)}
                       />
                       <label htmlFor="floatingSelect">
-                        Fecha de autorizacion de compra{" "}
+                        Fecha de autorización de compra{" "}
                       </label>
                     </div>
 
