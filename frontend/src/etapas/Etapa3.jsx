@@ -37,32 +37,6 @@ export const Etapa3 = () => {
       urlArchivos: [],
     }));
   });  
-
-  // const agregarFormulario = () => {
-  //   setFormularios((prevFormularios) => [
-  //     ...prevFormularios,
-  //     {
-  //       ncdp: "",
-  //       estado: "",
-  //       proveedor: "",
-  //       nrofactura: "",
-  //       fechaemifactura: "",
-  //       fechamaxima: "",
-  //       aceptadassi: "",
-  //       fechavencfact: "",
-  //       montofactura: "",
-  //       comentarios: "",
-  //       fecharecep: "",
-  //       parscargrecep: "",
-  //       urlArchivos: [],
-  //     },
-  //   ]);
-  // };
-  // const eliminarFormulario = (index) => {
-  //   const nuevosFormularios = [...formularios];
-  //   nuevosFormularios.splice(index, 1);
-  //   setFormularios(nuevosFormularios);
-  // };
   
   const handleFechaEmisionChange = (e, index) => {
     const selectedFechaEmision = e.target.value;

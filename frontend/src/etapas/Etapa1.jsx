@@ -42,23 +42,8 @@ export const Etapa1 = () => {
       const data = {
         idEtapa: item._id,
         nroEtapa: "Dea",
-        infoUsuario: {
-          solicitadoPor: item.infoUsuario.solicitadoPor,
-          anexo: item.infoUsuario.anexo,
-          correo: item.infoUsuario.correo,
-          resumen: item.infoUsuario.resumen,
-        },
-        infoSolicitud: {
-          fecha: item.infoSolicitud.fecha,
-          fuenteFinanciamiento: item.infoSolicitud.fuenteFinanciamiento,
-          idUsuario: item.infoSolicitud.idUsuario,
-          montoEstimado: item.infoSolicitud.montoEstimado,
-          motivos: item.infoSolicitud.motivos,
-          nroSolicitud: item.infoSolicitud.nroSolicitud,
-          productos: item.infoSolicitud.productos,
-          tipoSolicitud: item.infoSolicitud.tipoSolicitud,
-          urlArchivos: item.infoSolicitud.urlArchivos,
-        },
+        infoUsuario: item.infoUsuario,
+        infoSolicitud: item.infoSolicitud,
         procesosEtapa1: {
           centroDeCostos: centroDeCostos,
           verificarSaldo: verificarSaldo,
@@ -216,14 +201,12 @@ export const Etapa1 = () => {
                       <div className="col">
                           <div className="form-floating mt-2 g-2">
                           <input
-  type="text"
-  className="form-control"
-  value={infoSolicitud.infoUsuario.fechaestimada}
-  disabled
-/>
-<label htmlFor="floatingInputGrid">Fecha estimada:</label>
-
-
+                            type="text"
+                            className="form-control"
+                            value={infoSolicitud.infoUsuario.fechaestimada}
+                            disabled
+                          />
+                          <label htmlFor="floatingInputGrid">Fecha estimada:</label>
                         </div>
                       </div>
                   </div>
@@ -349,13 +332,13 @@ export const Etapa1 = () => {
 
                     <div className="mb-3">
                       <label htmlFor="montoEstimado" className="form-label">
-                        Adjuntar pdf(s) en caso de necesitarlo:
+                        Adjuntar documentos en caso de necesitarlo:
                       </label>
                       <input
                         type="file"
                         className="form-control"
                         id="archivo"
-                        accept="application/pdf"
+                        accept=".jpg, .jpeg, .pdf, .xlsx, .xls, .docx, .doc, .rar, .zip"
                         multiple
                         onChange={(e) => {
                           setArchivos(Array.from(e.target.files));

@@ -12,22 +12,13 @@ export const Etapa2 = () => {
   const item = location.state.item;
   const { execute: executePost } = usePostRequest();
   const [infoSolicitud, setinfoSolicitud] = useState(null);
-  const [tipoCompra] = useState("");
-  const [nrocotizacion] = useState("");
-  const [comentarios] = useState("");
-  const [nroordencompra] = useState("");
-  const [fechaoc] = useState("");
-  const [proveedorselecc] = useState("");
-  const [fechaentregaprov] = useState("");
-  const [valorcompra] = useState("");
-  const [fechaautocompra] = useState("");
+
   const [motivoRechazo, setMotivoRechazo] = useState("");
-  const [archivos] = useState([]);
   const { execute: executePut } = usePutRequest();
   const navigate = useNavigate();
   const [loadingText, setLoadingText] = useState("Actualizando etapa");
   const [isLoading, setIsLoading] = useState(false);
-
+  const [archivos, setArchivos] = useState([]);
   const [formularios, setFormularios] = useState([{ descproducto: "",tipoCompra: "", nrocotizacion: "", estado: "", comentarios: "", nroordencompra: "", fechaoc: "", proveedorselecc: "", fechaentregaprov: "", valorcompra: "", fechaautocompra: "", urlArchivos: []}]);
   
   const agregarFormulario = () => {
@@ -45,7 +36,7 @@ export const Etapa2 = () => {
         fechaentregaprov: "",
         valorcompra: "",
         fechaautocompra: "",
-        urlArchivos: [],
+        archivos: [],
       },
     ]);
   };
@@ -83,18 +74,18 @@ export const Etapa2 = () => {
           fechaentregaproveedor: formulario.fechaentregaprov,
           valordecompramiva: formulario.valorcompra,
           fechaautocompra: formulario.fechaautocompra,
-          urlArchivos: formulario.urlArchivos,
-        })),
-      };
-      console.log(data);
-      const url = "avanzarEtapa";
-      const response = await executePut(url, data);
-      setIsLoading(false);
-      navigate("/");
-    } catch (error) {
-      alert(error.message);
-    }
-  };
+        urlArchivos: urlArchivos[index], // Asociar las URLs de los archivos con cada formulario
+      })),
+    };
+    
+    const url = "avanzarEtapa";
+    const response = await executePut(url, data);
+    setIsLoading(false);
+    navigate("/");
+  } catch (error) {
+    alert(error.message);
+  }
+};
 
   const getinfoSolicitud = async () => {
     var data = {
@@ -158,23 +149,6 @@ export const Etapa2 = () => {
                   <p className="display-7">Una vez lo considere terminado pulsar el botón "Enviar Etapa"</p>
                   {formularios.map((formulario, index) => (
                     <div key={index}>
-                    {/* <div className="position-relative">
-                        <button className="m-2  btn btn-warning rounded-pill px-3 w-10"
-                          type="button"
-                          onClick={(e) => {
-                          e.preventDefault();
-                          navigate("/");
-                        }}
-                        >
-                          Atras
-                        </button>
-                          <button className="btn btn-success position-absolute top-0 end-0 mx-auto w-10 " onClick={agregarFormulario}>
-                          Añadir Formulario
-                        </button>
-                        <button className="btn btn-danger position-absolute top-0 end-0 mx-auto me-15 w-10 " onClick={() => eliminarFormulario(index)}>
-                          Eliminar Formulario
-                        </button>
-                      </div> */}
                   <div className="d-flex justify-content-between align-items-center">                   
                     <div className="fw-semibold">ORDEN DE COMPRA {index+1}</div>
                     {index > 0 && (
@@ -375,19 +349,17 @@ export const Etapa2 = () => {
                     </div>
 
                     <div className="col-md-12 mt-2 mb-3 px-1">
-                      <label htmlFor="urlArchivo" className="form-label">
-                        Adjuntar antecedentes del/los producto/s:
+                    <label htmlFor="montoEstimado" className="form-label">
+                        Adjuntar pdf(s) en caso de necesitarlo:
                       </label>
                       <input
                         type="file"
                         className="form-control"
-                        id={`archivo${index}`}
-                        accept="application/pdf"
+                        id="archivo"
+                        accept=".jpg, .jpeg, .pdf, .xlsx, .xls, .docx, .doc, .rar, .zip"
                         multiple
                         onChange={(e) => {
-                          const newFormularios = [...formularios];
-                          newFormularios[index].urlArchivos = Array.from(e.target.files);
-                          setFormularios(newFormularios);
+                          setArchivos(Array.from(e.target.files));
                         }}
                       />
                     </div>
