@@ -37,6 +37,7 @@ export const CrearSolicitud = () => {
     numeroDePaginas,
     productosPaginados,
     handleAddProducto,
+    handleRemoveProducto,
     handleProductoChange,
   } = useProductos([{ descripcion: "", cantidad: "", tipoEmpaque: "" }], 3);
 
@@ -99,31 +100,32 @@ export const CrearSolicitud = () => {
                 setAnexo={setAnexo}
                 setResumen={setResumen}
               />
-              <div className="row">
-                {productosPaginados.map((producto, index) => (
-                  <ProductoInput
-                    key={index}
-                    index={index}
-                    producto={producto}
-                    handleProductoChange={handleProductoChange}
-                  />
-                ))}
-                <div className="text-center">
-                  <button
-                    className="btn btn-primary"
-                    onClick={handleAddProducto}
-                  >
-                    +
-                  </button>
-                </div>
-                <PaginationButtons
-                  paginaActual={paginaActual}
-                  setPaginaActual={setPaginaActual}
-                  numeroDePaginas={numeroDePaginas}
-                  productos={productos}
-                  productosPorPagina={productosPorPagina}
-                />
+              {productosPaginados.map((producto, index) => (
+                <>
+                <ProductoInput
+                  key={index}
+                  index={index}
+                  producto={producto}
+                  handleProductoChange={handleProductoChange}
+                  handleRemoveProducto={handleRemoveProducto}
+                />               
+                </>
+              ))}
+              <div className="text-center">
+                <button
+                  className="btn btn-primary"
+                  onClick={handleAddProducto}
+                >
+                  +
+                </button>
               </div>
+              <PaginationButtons
+                paginaActual={paginaActual}
+                setPaginaActual={setPaginaActual}
+                numeroDePaginas={numeroDePaginas}
+                productos={productos}
+                productosPorPagina={productosPorPagina}
+              />
               <MotivosInput
                 motivos={motivos}
                 setMotivos={setMotivos}

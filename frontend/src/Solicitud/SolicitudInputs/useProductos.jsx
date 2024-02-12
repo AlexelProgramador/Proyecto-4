@@ -24,6 +24,17 @@ const useProductos = (productosIniciales, productosPorPagina) => {
     }
   };
 
+  const handleRemoveProducto = (index) => {
+    const updatedProductos = [...productos];
+    updatedProductos.splice(index, 1);
+    setProductos(updatedProductos);
+  
+    // Verificar si se necesita actualizar la página actual
+    if (updatedProductos.length % productosPorPagina === 0) {
+      setPaginaActual(paginaActual - 1);
+    }
+  };
+
   const handleProductoChange = (index, field, value) => {
     const newProductos = [...productos];
     newProductos[index + paginaActual * productosPorPagina][field] = value;
@@ -38,6 +49,7 @@ const useProductos = (productosIniciales, productosPorPagina) => {
     numeroDePaginas,
     productosPaginados,
     handleAddProducto,
+    handleRemoveProducto,
     handleProductoChange,
   };
 };
