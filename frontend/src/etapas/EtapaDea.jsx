@@ -141,7 +141,7 @@ export const EtapaDea = () => {
                   </p>
 
                   <div className="row g-2">
-                    <div className="col-md">
+                    <div className="col-md-4">
                       <div className="form-floating">
                         <input
                           type="text"
@@ -154,7 +154,7 @@ export const EtapaDea = () => {
                         </label>
                       </div>
                     </div>
-                    <div className="col-md">
+                    <div className="col-md-4">
                       <div className="form-floating">
                         <input
                           type="text"
@@ -165,7 +165,7 @@ export const EtapaDea = () => {
                         <label htmlFor="floatingInputGrid">Anexo:</label>
                       </div>
                     </div>
-                    <div className="col-md">
+                    <div className="col-md-4">
                       <div className="form-floating">
                         <input
                           type="text"
@@ -182,10 +182,7 @@ export const EtapaDea = () => {
                         </label>
                       </div>
                     </div>
-                  </div>
-
-                  <div className="row g-2">
-                    <div className="col-md">
+                    <div className="col-md-6">
                       <div className="form-floating">
                         <input
                           type="text"
@@ -200,7 +197,7 @@ export const EtapaDea = () => {
                         </label>
                       </div>
                     </div>
-                    <div className="col-md">
+                    <div className="col-md-6">
                       <div className="form-floating">
                         <input
                           type="text"
@@ -214,7 +211,6 @@ export const EtapaDea = () => {
                       </div>
                     </div>
                   </div>
-
                   <div className="form-floating mt-2 g-2">
                     <textarea
                       className="form-control"

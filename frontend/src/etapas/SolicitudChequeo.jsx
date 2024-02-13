@@ -146,7 +146,7 @@ export const SolicitudChequeo = () => {
                     Una vez lo considere terminado pulsar el boton "Aceptar"
                   </p>
                   <div className="row g-2">
-                    <div className="col-md">
+                    <div className="col-md-4">
                       <div className="form-floating">
                         <input
                           type="text"
@@ -159,7 +159,7 @@ export const SolicitudChequeo = () => {
                         </label>
                       </div>
                     </div>
-                    <div className="col-md">
+                    <div className="col-md-4">
                       <div className="form-floating">
                         <input
                           type="text"
@@ -170,7 +170,7 @@ export const SolicitudChequeo = () => {
                         <label htmlFor="floatingInputGrid">Anexo:</label>
                       </div>
                     </div>
-                    <div className="col-md">
+                    <div className="col-md-4">
                       <div className="form-floating">
                         <input
                           type="text"
@@ -187,30 +187,28 @@ export const SolicitudChequeo = () => {
                         </label>
                       </div>
                     </div>
-                    <div className="row">
-                      <div className="col">
-                        <div className="form-floating mt-2 g-2">
-                          <input
+                    <div className="col-md-6">
+                      <div className="form-floating g-2">
+                        <input
+                        type="text"
+                        className="form-control"
+                        value={infoSolicitud.infoUsuario.resumen}
+                        disabled
+                        />
+                      <label htmlFor="floatingInputGrid">
+                        resumen:
+                      </label>
+                      </div>
+                    </div>
+                    <div className="col-md-6">
+                        <div className="form-floating g-2">
+                        <input
                           type="text"
                           className="form-control"
-                          value={infoSolicitud.infoUsuario.resumen}
+                          value={infoSolicitud.infoUsuario.fechaestimada}
                           disabled
-                          />
-                        <label htmlFor="floatingInputGrid">
-                          resumen:
-                        </label>
-                        </div>
-                      </div>
-                      <div className="col">
-                          <div className="form-floating mt-2 g-2">
-                          <input
-                            type="text"
-                            className="form-control"
-                            value={infoSolicitud.infoUsuario.fechaestimada}
-                            disabled
-                          />
-                          <label htmlFor="floatingInputGrid">Fecha estimada:</label>
-                        </div>
+                        />
+                        <label htmlFor="floatingInputGrid">Fecha estimada:</label>
                       </div>
                     </div>
                   </div>

@@ -144,7 +144,7 @@ export const Etapa1 = () => {
                   </p>
 
                   <div className="row g-2">
-                    <div className="col-md">
+                    <div className="col-md-4">
                       <div className="form-floating">
                         <input
                           type="text"
@@ -157,7 +157,7 @@ export const Etapa1 = () => {
                         </label>
                       </div>
                     </div>
-                    <div className="col-md">
+                    <div className="col-md-4">
                       <div className="form-floating">
                         <input
                           type="text"
@@ -168,7 +168,7 @@ export const Etapa1 = () => {
                         <label htmlFor="floatingInputGrid">Anexo:</label>
                       </div>
                     </div>
-                    <div className="col-md">
+                    <div className="col-md-4">
                       <div className="form-floating">
                         <input
                           type="text"
@@ -185,8 +185,8 @@ export const Etapa1 = () => {
                         </label>
                       </div>
                     </div>
-                    <div className="col">
-                        <div className="form-floating mt-2 g-2">
+                    <div className="col-md-6">
+                        <div className="form-floating g-2">
                           <input
                           type="text"
                           className="form-control"
@@ -198,17 +198,17 @@ export const Etapa1 = () => {
                         </label>
                         </div>
                       </div>
-                      <div className="col">
-                          <div className="form-floating mt-2 g-2">
-                          <input
-                            type="text"
-                            className="form-control"
-                            value={infoSolicitud.infoUsuario.fechaestimada}
-                            disabled
-                          />
-                          <label htmlFor="floatingInputGrid">Fecha estimada:</label>
-                        </div>
+                    <div className="col-md-6">
+                      <div className="form-floating g-2">
+                        <input
+                          type="text"
+                          className="form-control"
+                          value={infoSolicitud.infoUsuario.fechaestimada}
+                          disabled
+                        />
+                        <label htmlFor="floatingInputGrid">Fecha estimada:</label>
                       </div>
+                    </div>
                   </div>
                   <div className="row mt-2 g-2">
                     <div style={{ overflow: "hidden" }}>
