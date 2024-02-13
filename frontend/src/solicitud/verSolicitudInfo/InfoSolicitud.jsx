@@ -119,7 +119,7 @@ const infoSolicitud = ({ selected = 0, item }) => {
                         className="btn btn-primary d-flex align-items-center mt-0 bi bi-file-earmark-pdf"
                         style={{ width: "100px", height: "50px" }}
                       >
-                        <div>Abrir PDF</div>
+                        <div>Abrir Documento</div>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="40"

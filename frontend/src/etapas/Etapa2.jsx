@@ -74,7 +74,7 @@ export const Etapa2 = () => {
           fechaentregaproveedor: formulario.fechaentregaprov,
           valordecompramiva: formulario.valorcompra,
           fechaautocompra: formulario.fechaautocompra,
-        urlArchivos: urlArchivos[index], // Asociar las URLs de los archivos con cada formulario
+        urlArchivos: urlArchivos, // Asociar las URLs de los archivos con cada formulario
       })),
     };
     
@@ -347,8 +347,11 @@ export const Etapa2 = () => {
                         Fecha de autorizacion de compra{" "}
                       </label>
                     </div>
-
-                    <div className="col-md-12 mt-2 mb-3 px-1">
+                    <hr className="mx-1 mt-3"/>
+                  </form>
+                  </div>                
+              ))}
+                  <div className="col-md-12 mt-2 mb-3 px-1">
                     <label htmlFor="montoEstimado" className="form-label">
                         Adjuntar pdf(s) en caso de necesitarlo:
                       </label>
@@ -362,11 +365,7 @@ export const Etapa2 = () => {
                           setArchivos(Array.from(e.target.files));
                         }}
                       />
-                    </div>
-                    <hr className="mx-1"/>
-                  </form>
-                  </div>                
-              ))}
+                  </div>
             <button className="m-2 btn btn-primary" type="submit" onClick={handleSubmit}>
               Aceptar
             </button>
