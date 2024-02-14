@@ -7,6 +7,8 @@ import React, { useState } from "react";
 import Cookies from "js-cookie";
 import useDeleteRequest from "../Hooks/useDeleteRequest";
 import { eliminarArchivo } from "../firebase/config";
+import Pagination from "../Components/Pagination";
+import SearchBar from "../Components/SearchBar";
 
 function getRole(nroEtapa) {
   switch (nroEtapa) {
@@ -92,17 +94,25 @@ export const Content = () => {
   const sortedData = data
     ? [...data].sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at))
     : [];
-  const filteredData = search
-    ? sortedData.filter(
-        (item) =>
-          (item.infoSolicitud.nroSolicitud &&
-            item.infoSolicitud.nroSolicitud.includes(search)) ||
-          (item.procesosEtapa2.nroordendecompra &&
-            item.procesosEtapa2.nroordendecompra.includes(search)) ||
-            (item.infoUsuario?.solicitadoPor &&
-              item.infoUsuario.solicitadoPor.toLowerCase().includes(search.toLowerCase()))
-      )
+    const filteredData = search
+    ? sortedData.filter((item) => {
+        const { infoSolicitud, procesosEtapa2, infoUsuario } = item;
+        const nroSolicitud = infoSolicitud ? infoSolicitud.nroSolicitud : "";
+        const nroordendecompra =
+          procesosEtapa2 && procesosEtapa2.length > 0
+            ? procesosEtapa2.map((orden) => orden.nroordendecompra).join(",")
+            : "";
+        const solicitadoPor = infoUsuario?.solicitadoPor || "";
+  
+        // Realizar la búsqueda en todos los campos
+        return (
+          nroSolicitud.includes(search) ||
+          nroordendecompra.includes(search) ||
+          solicitadoPor.toLowerCase().includes(search.toLowerCase())
+        );
+      })
     : sortedData;
+    
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const selectedItems = filteredData.slice(
     startIndex,
@@ -145,13 +155,7 @@ export const Content = () => {
           <p className="display-7">
             Aquí puedes visualizar todas las solicitudes.
           </p>
-          <input
-            className="form-control me-2 w-30"
-            type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Buscar número de solicitud, orden de compra y solicitado por"
-          />
+          <SearchBar search={search} setSearch={setSearch} />
         </div>
 
         <div className="card shadow-card rounded-3 border border-0">
@@ -272,17 +276,11 @@ export const Content = () => {
                   </tbody>
                 </table>
                 <div>
-                  {[
-                    ...Array(Math.ceil(data.length / ITEMS_PER_PAGE)).keys(),
-                  ].map((number) => (
-                    <button
-                      key={number}
-                      className="btn btn-primary m-1"
-                      onClick={() => setCurrentPage(number + 1)}
-                    >
-                      {number + 1}
-                    </button>
-                  ))}
+                <Pagination
+                  currentPage={currentPage}
+                  totalPages={Math.ceil(filteredData.length / ITEMS_PER_PAGE)}
+                  onPageChange={setCurrentPage}
+                />
                 </div>
               </div>
             )}

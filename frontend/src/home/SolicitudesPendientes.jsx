@@ -7,6 +7,7 @@ import React, { useState } from "react";
 import Cookies from "js-cookie";
 import useDeleteRequest from "../Hooks/useDeleteRequest";
 import { eliminarArchivo } from "../firebase/config";
+import Pagination from "../Components/Pagination";
 
 function getRole(nroEtapa) {
   switch (nroEtapa) {
@@ -278,17 +279,11 @@ export const Pendientes = () => {
                   </tbody>
                 </table>
                 <div>
-                  {[
-                    ...Array(Math.ceil(data.length / ITEMS_PER_PAGE)).keys(),
-                  ].map((number) => (
-                    <button
-                      key={number}
-                      className="btn btn-primary m-1"
-                      onClick={() => setCurrentPage(number + 1)}
-                    >
-                      {number + 1}
-                    </button>
-                  ))}
+                <Pagination
+                  currentPage={currentPage}
+                  totalPages={Math.ceil(selectedItems.length / ITEMS_PER_PAGE)}
+                  onPageChange={setCurrentPage}
+                />
                 </div>
               </div>
             )}

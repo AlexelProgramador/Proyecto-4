@@ -3,6 +3,7 @@ import useFetch from "../hooks/useFetch";
 import { useContext, useEffect } from "react";
 import { AlertContext } from "../context/AlertContext";
 import { CheckCircleFill } from "react-bootstrap-icons";
+import Pagination from "../Components/Pagination"
 import React, { useState } from "react";
 import Cookies from "js-cookie";
 function getRole(nroEtapa) {
@@ -37,10 +38,11 @@ const MisSolicitudes = () => {
   }, [showAlert]);
   const navigate = useNavigate();
 
+  const userRequests = data ? data.filter(item => item.infoSolicitud.idUsuario === response.usuarioId) : [];
+
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const selectedItems = data
-    ? data.slice(startIndex, startIndex + ITEMS_PER_PAGE)
-    : [];
+  const selectedItems = userRequests.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
   return (
     <div className="w-75 h-40 mx-auto">
       <div className="card shadow-card rounded-3 border border-0">
@@ -99,7 +101,6 @@ const MisSolicitudes = () => {
                                     Ver Etapa
                                   </button>
                                 )}
-
                               <button
                                 className="btn btn-warning"
                                 onClick={() =>
@@ -128,17 +129,11 @@ const MisSolicitudes = () => {
                 </tbody>
               </table>
               <div>
-                {[...Array(Math.ceil(data.length / ITEMS_PER_PAGE)).keys()].map(
-                  (number) => (
-                    <button
-                      key={number}
-                      className="btn btn-primary m-1"
-                      onClick={() => setCurrentPage(number + 1)}
-                    >
-                      {number + 1}
-                    </button>
-                  )
-                )}
+                <Pagination
+                  currentPage={currentPage}
+                  totalPages={Math.ceil(selectedItems.length / ITEMS_PER_PAGE)}
+                  onPageChange={setCurrentPage}
+                />
               </div>
             </div>
           )}

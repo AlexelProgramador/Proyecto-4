@@ -9,6 +9,9 @@ const getUnattendedRequests = (data) => {
   const oneDayAgo = new Date();
   oneDayAgo.setDate(oneDayAgo.getDate() - 3);
   return data
+    .filter((request) => 
+      request.nroEtapa !== 'Rechazado' && request.nroEtapa !== 'eliminada'
+    )
     .filter((request) => new Date(request.updated_at) < oneDayAgo)
     .map((request) => ({
       nroSolicitud: request.infoSolicitud.nroSolicitud,
