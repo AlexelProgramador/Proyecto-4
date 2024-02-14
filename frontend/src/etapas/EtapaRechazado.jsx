@@ -108,14 +108,17 @@ export const EtapaRechazado = () => {
 
           <form onSubmit={handleSubmit} className="row g-3">
             <h2>Motivo de rechazo</h2>
-            <textarea
-              name=""
-              id=""
-              cols="30"
-              rows="10"
-              value={item?.motivoRechazo || ""}
-              disabled
-            ></textarea>
+            <div className="col-md-12">
+              <textarea
+                className="form-control"
+                name=""
+                id=""
+                cols="30"
+                rows="10"
+                value={item?.motivoRechazo || ""}
+                disabled
+              ></textarea>
+            </div>
             <UsuarioInput
               solicitadoPor={formData.solicitadoPor}
               setSolicitadoPor={(value) => handleInputChange("solicitadoPor", value)}
@@ -128,28 +131,26 @@ export const EtapaRechazado = () => {
               fechaestimada={formData.fechaestimada}
               setFechaest={(value) => handleInputChange("fechaestimada", value)}
             />
-            <div className="row">
-              {productosPaginados.map((producto, index) => (
-                <ProductoInput
-                  key={index}
-                  index={index}
-                  producto={producto}
-                  handleProductoChange={handleProductoChange}
-                />
-              ))}
-              <div className="text-center">
-                <button className="btn btn-primary" onClick={handleAddProducto}>
-                  +
-                </button>
-              </div>
-              <PaginationButtons
-                paginaActual={paginaActual}
-                setPaginaActual={setPaginaActual}
-                numeroDePaginas={numeroDePaginas}
-                productos={productos}
-                productosPorPagina={3}
+            {productosPaginados.map((producto, index) => (
+              <ProductoInput
+                key={index}
+                index={index}
+                producto={producto}
+                handleProductoChange={handleProductoChange}
               />
+            ))}
+            <div className="text-center">
+              <button className="btn btn-primary" onClick={handleAddProducto}>
+                +
+              </button>
             </div>
+            <PaginationButtons
+              paginaActual={paginaActual}
+              setPaginaActual={setPaginaActual}
+              numeroDePaginas={numeroDePaginas}
+              productos={productos}
+              productosPorPagina={3}
+            />
             <MotivosInput
               motivos={formData.motivos}
               setMotivos={(value) => handleInputChange("motivos", value)}
