@@ -21,6 +21,7 @@ export const Etapa1 = () => {
   const [verificarSaldo, setVerificarSaldo] = useState(0);
   const [comentario, setComentario] = useState("");
   const [archivos, setArchivos] = useState([]);
+  const [showMotivoRechazo, setShowMotivoRechazo] = useState(false);
   const {
     data,
     error,
@@ -44,6 +45,7 @@ export const Etapa1 = () => {
         nroEtapa: "Dea",
         infoUsuario: item.infoUsuario,
         infoSolicitud: item.infoSolicitud,
+        motivoRechazo: "",
         procesosEtapa1: {
           centroDeCostos: centroDeCostos,
           verificarSaldo: verificarSaldo,
@@ -107,16 +109,25 @@ export const Etapa1 = () => {
   };
   useEffect(() => {
     getinfoSolicitud();
-  }, []);
+    if (infoSolicitud && infoSolicitud.motivoRechazo) {
+      setShowMotivoRechazo(true);
+    }
+  }, [infoSolicitud]);
   return (
     <>
       {infoSolicitud ? (
-        <>
-          {isLoading ? (
-            <div className="loading-modal d-flex justify-content-center align-items-center flex-column">
-              <ClockLoader color="#123abc" loading={isLoading} size={100} />
-              {<LoadingText initialText={"Actualizando Etapa"} />}
-            </div>
+      <>
+      {showMotivoRechazo && (
+        <div className="w-75 h-40 mx-auto alert alert-danger" role="alert">
+          Motivo de Rechazo: {infoSolicitud.motivoRechazo}
+        </div>
+      )}
+
+      {isLoading ? (
+        <div className="loading-modal d-flex justify-content-center align-items-center flex-column">
+          <ClockLoader color="#123abc" loading={isLoading} size={100} />
+          {<LoadingText initialText={"Actualizando Etapa"} />}
+        </div>
           ) : (
             <div className="w-75 h-40 mx-auto">
               <div className="card shadow-card rounded-3 border border-0">

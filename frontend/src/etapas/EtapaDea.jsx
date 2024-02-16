@@ -12,7 +12,9 @@ export const EtapaDea = () => {
   const item = location.state.item;
   const { execute: executePost, response } = usePostRequest();
   const [infoSolicitud, setinfoSolicitud] = useState(null);
+  
   const [motivoRechazo, setMotivoRechazo] = useState("");
+  const [showMotivoRechazo, setShowMotivoRechazo] = useState(false);
 
   const {
     data,
@@ -108,6 +110,9 @@ export const EtapaDea = () => {
         }
         return prev + ".";
       });
+      if (infoSolicitud && infoSolicitud.motivoRechazo) {
+        setShowMotivoRechazo(true);
+      }
     }, 500); // Actualiza cada medio segundo
 
     return () => {
@@ -125,6 +130,11 @@ export const EtapaDea = () => {
           </div>
         ) : (
           <>
+            {infoSolicitud.motivoRechazo && ( // Verifica si hay un motivo de rechazo
+              <div className="alert alert-danger w-75 h-40 mx-auto" role="alert">
+                Motivo de rechazo: {infoSolicitud.motivoRechazo}
+              </div>
+            )}
             <div className="w-75 h-40 mx-auto">
               <div className="card shadow-card rounded-3 border border-0">
                 <div className="card-body">

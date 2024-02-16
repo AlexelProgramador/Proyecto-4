@@ -10,7 +10,6 @@ const UsuarioInput = ({
   setAnexo,
   resumen,
   setResumen,
-  Fechaest,
   setFechaest
 }) => {
   return (
@@ -73,9 +72,9 @@ const UsuarioInput = ({
             type="date"
             className="form-control"
             id="Fechaest"
-            value={Fechaest}
-            onChange={(e) => setFechaest(e.target.value)}
             max="9999-12-31"
+
+            onChange={(e) => setFechaest(e.target.value)}
             required
           />
           <label htmlFor="floatingSelect">Fecha Estimada</label>
