@@ -95,6 +95,8 @@ export const EtapaRechazado = () => {
     numeroDePaginas,
     productosPaginados,
     handleAddProducto,
+    handleRemoveProducto,
+
     handleProductoChange,
   } = useProductos([{ descripcion: "", cantidad: "", tipoEmpaque: "" }], 3);
 
@@ -137,6 +139,8 @@ export const EtapaRechazado = () => {
                 index={index}
                 producto={producto}
                 handleProductoChange={handleProductoChange}
+                handleRemoveProducto={handleRemoveProducto}
+
               />
             ))}
             <div className="text-center">

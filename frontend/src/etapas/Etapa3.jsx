@@ -18,7 +18,12 @@ export const Etapa3 = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
-  
+    // Estado para almacenar los archivos por cada formulario
+    const [archivosPorFormulario, setArchivosPorFormulario] = useState(
+      // Inicializar los archivos para cada formulario
+      item.procesosEtapa2.map(() => [])
+    );
+
   const [formularios, setFormularios] = useState(() => {
     // Inicializar los formularios con base en el número de procesosEtapa2
     return item.procesosEtapa2.map(() => ({
@@ -34,10 +39,21 @@ export const Etapa3 = () => {
       comentarios: "",
       fecharecep: "",
       perscargrecep: "",
-      urlArchivos: [],
     }));
   });  
   
+    // Función para manejar cambios en la selección de archivos por formulario
+    const handleArchivoChange = (e, formIndex) => {
+      const files = Array.from(e.target.files);
+      // Actualizar el estado de archivos para el formulario específico
+      setArchivosPorFormulario(prevArchivos => {
+        const nuevosArchivos = [...prevArchivos];
+        nuevosArchivos[formIndex] = files;
+        return nuevosArchivos;
+      });
+    };
+
+    
   const handleFechaEmisionChange = (e, index) => {
     const selectedFechaEmision = e.target.value;
     const fechaMaxima = calcularFechaMaxima(selectedFechaEmision);
@@ -67,15 +83,27 @@ export const Etapa3 = () => {
     return fechaVencimientoString;
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e, procIndex) => {
     e.preventDefault();
     try {
       setIsLoading(true);
-      const urlArchivos = await uploadFiles(
-        archivos,
-        item.infoSolicitud.nroSolicitud,
-        infoSolicitud.nroEtapa
+      
+      // Obtener las URLs de los archivos para todos los formularios
+      const urlsArchivos = await Promise.all(
+        archivosPorFormulario.map(async (archivos, index) => {
+          if (archivos.length > 0) {
+            return await uploadFiles(
+              archivos,
+              item.infoSolicitud.nroSolicitud,
+              infoSolicitud.nroEtapa
+            );
+          } else {
+            return null;
+          }
+        })
       );
+      
+      // Construir el objeto data con las URLs de los archivos
       const data = {
         idEtapa: item._id,
         nroEtapa: "Finalizado",
@@ -84,7 +112,7 @@ export const Etapa3 = () => {
         infoSolicitud: item.infoSolicitud,
         procesosEtapa1: item.procesosEtapa1,
         procesosEtapa2: item.procesosEtapa2,
-        procesosEtapa3: formularios.map((formulario, formIndex) => ({
+        procesosEtapa3: formularios.map((formulario, index) => ({
           ncdp: formulario.ncdp,
           estado: formulario.estado,
           proveedor: formulario.proveedor,
@@ -94,18 +122,18 @@ export const Etapa3 = () => {
           aceptadassi: formulario.aceptadassi,
           fechavencfact: formulario.fechavencfact,
           montofactura: formulario.montofactura,
-          urlArchivos: formulario.urlArchivos,
+          urlArchivos: urlsArchivos[index], // Usar la URL correspondiente al índice del formulario
         })),
       };
+  
       const url = "avanzarEtapa";
       const response = await executePut(url, data);
       setIsLoading(false);
       navigate("/");
     } catch (error) {
-      alert(error.message);
+      console.error("Error en handleSubmit:", error);
     }
   };
-
   const getinfoSolicitud = async () => {
     var data = {
       _id: item._id,
@@ -119,17 +147,6 @@ export const Etapa3 = () => {
     getinfoSolicitud();
   }, []);
 
-  const handleInputChange = (e, formIndex, field) => {
-    const { value } = e.target;
-    setFormularios(prevFormularios => {
-      const newFormularios = [...prevFormularios];
-      newFormularios[formIndex] = {
-        ...newFormularios[formIndex],
-        [field]: value
-      };
-      return newFormularios;
-    });
-  };
 
   
   
@@ -357,7 +374,7 @@ export const Etapa3 = () => {
                           </label>
                         </div>
                         <div className="col-md-12 mb-3">
-                          <label htmlFor="urlArchivo" className="form-label">
+                          <label htmlFor={`archivo${procIndex}`} className="form-label">
                             Adjuntar antecedentes del/los producto/s:
                           </label>
                           <input
@@ -366,21 +383,23 @@ export const Etapa3 = () => {
                             id={`archivo${procIndex}`}
                             accept="application/pdf"
                             multiple
-                            onChange={(e) => {
-                              const newFormularios = [...formularios];
-                              newFormularios[procIndex].urlArchivos = Array.from(e.target.files);
-                              setFormularios(newFormularios);
-                            }}
+                            onChange={(e) => handleArchivoChange(e, procIndex)}
                           />
                         </div>
                         <hr className="mx-1"/>
+                        <div className="col-md-12 mb-3">
+                          <button
+                            className="m-2 btn btn-primary"
+                            type="submit"
+                          >
+                            Aceptar
+                          </button>
+                        </div>
                       </form>
                       )}
+
                     </div>
                 ))}
-                <button className="m-2 btn btn-primary" type="button" onClick={handleSubmit}>
-                  Aceptar
-                </button>
                 <button
                   className="m-2  btn btn-danger"
                   type="button"
