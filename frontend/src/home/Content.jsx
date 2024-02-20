@@ -266,13 +266,13 @@ export const Content = () => {
                           </tr>
                         )
                     )}
-                    {Array(10 - selectedItems.length)
+                    {/* {Array(10 - selectedItems.length)
                       .fill()
                       .map((_, index) => (
                         <tr key={`empty-${index}`}>
                           <td colSpan="5">&nbsp;</td>
                         </tr>
-                      ))}
+                      ))} */}
                   </tbody>
                 </table>
                 <div>

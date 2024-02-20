@@ -1,26 +1,5 @@
 import React from "react";
 
-// Define la función getUnattendedRequests
-// const getUnattendedRequests = (data) => {
-//   if (!data) {
-//     return [];
-//   }
-
-//   const oneDayAgo = new Date();
-//   oneDayAgo.setDate(oneDayAgo.getDate() - 3);
-//   return data
-//     .filter((request) => 
-//     request.nroEtapa !== 'Rechazado' && request.nroEtapa !== 'Finalizado'
-//     )
-//     .filter((request) => new Date(request.updated_at) < oneDayAgo)
-//     .map((request) => ({
-//       nroSolicitud: request.infoSolicitud.nroSolicitud,
-//       daysUnattended: Math.floor(
-//         (new Date() - new Date(request.updated_at)) / (1000 * 60 * 60 * 24)
-//       ),
-//     }));
-// };
-
 const SeccionDiasSinAtender = ({ data, getUnattendedRequests }) => {
   const unattendedRequests = getUnattendedRequests(data);
 
