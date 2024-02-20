@@ -40,12 +40,12 @@ export const Sidebar = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const ITEMS_PER_PAGE = 10;
   const responseLocalStorage = JSON.parse(localStorage.getItem("response"));
-  const user = responseLocalStorage?.nombreusuario;
+  const userId = responseLocalStorage?.usuarioId;
   const userRole = responseLocalStorage?.usuario || [];
   const isSolicitante = userRole.includes("Solicitante");
   const isAdministrador = userRole.includes("Administrador");
 
-  console.log("response", user)
+  console.log("response", userId)
   console.log("rol", isAdministrador)
   console.log("rol", isSolicitante)
 
@@ -65,8 +65,9 @@ export const Sidebar = () => {
             toggleTable={toggleTable}
             showTable={showTable}
             data={data}
+            userId={userId}
           />
-          <div className="align-middle ps-2">Usuario {user}</div>
+          <div className="align-middle ps-2">Usuario</div>
         </div>
       </header>
       {/* SIDEBAR */}

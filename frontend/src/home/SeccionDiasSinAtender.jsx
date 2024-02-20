@@ -1,13 +1,14 @@
 import React from "react";
 
-const SeccionDiasSinAtender = ({ data, getUnattendedRequests }) => {
-  const unattendedRequests = getUnattendedRequests(data);
+const SeccionDiasSinAtender = ({ unattendedRequests }) => {
+  // const unattendedRequests = getUnattendedRequests(data);
+  console.log(unattendedRequests);
 
   return (
     <div className="rightBar">
       {unattendedRequests.map((request, index) => (
         <p key={index}>
-          Solicitud {request.nroSolicitud} lleva {request.daysUnattended} días
+          {request.nroEtapa === 'Rechazado' ? 'Tu' : 'La'} solicitud {request.nroSolicitud} {request.nroEtapa === 'Rechazado' ? 'rechazada' : ''} lleva {request.daysUnattended} días
           sin atender
         </p>
       ))}
