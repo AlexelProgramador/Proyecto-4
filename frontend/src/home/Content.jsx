@@ -151,7 +151,7 @@ export const Content = () => {
     <>
       <div className="w-75 h-35 mx-auto">
         <div className="mb-3">
-          <h2 className="mx-auto p-2 display-4">Solicitudes</h2>
+          <h2 className="mx-auto display-4">Solicitudes</h2>
           <p className="display-7">
             Aquí puedes visualizar todas las solicitudes.
           </p>

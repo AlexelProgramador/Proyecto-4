@@ -48,75 +48,81 @@ const HomeUsuario = () => {
   : [];
 
   return (
-    <div className="w-75 h-40 mx-auto">
-      <div className="card shadow-card rounded-3 border border-0">
-        <div className="card-body">
-          <div className="d-flex justify-content-between pb-0">
-            <div className="h5 text-uppercase">Usuarios</div>
-            <button className="btn btn-primary" onClick={() => navigate("/crearUsuario")}>Crear nuevo usuario</button>
+    <div className="w-75 h-35 mx-auto">
+      <div className="mb-3">
+        <h2 className="mx-auto display-4">Usuarios</h2>
+        <p className="display-7">
+          Aquí puedes visualizar los usuarios del sistema y crear nuevos usuarios solicitantes.
+        </p>
+        <div className="card shadow-card rounded-3 border border-0">
+          <div className="card-body">
+            <div className="d-flex justify-content-between pb-0">
+              <div className="h5 text-uppercase">Usuarios</div>
+              <button className="btn btn-primary" onClick={() => navigate("/crearUsuario")}>Crear nuevo usuario</button>
+            </div>
+            {loading ? (
+              <div className="d-flex justify-content-center  m-5">
+                <div className="spinner-border text-primary" role="status">
+                  <span className="sr-only"></span>
+                </div>
+              </div>
+            ) : (
+              <div className="table-responsive mx-auto">
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">Apellido</th>
+                      <th scope="col">Usuario</th>
+                      <th scope="col">Rol</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {selectedItems.map((item) => {
+                        return (
+                          <tr key={item._id}>
+                            <td>{item.nombre}</td>
+                            <td>{item.apellido}</td>
+                            <td>{item.usuario}</td>
+                            <td>
+                              {item.rol
+                              .filter((rolItem) => rolItem) // Filtra los elementos no nulos
+                              .map((rolItem, index, array) => (
+                                <span key={index}>
+                                  {rolItem}
+                                  {index < array.length - 1 && array[index + 1] !== null && ', '}
+                                </span>
+                              ))}
+                            </td>
+                          </tr>
+                        );
+                                })}
+                    
+                    {/* // {Array(10 - selectedItems.length) */}
+                    {/* //   .fill()
+                    //   .map((_, index) => (
+                    //     <tr key={`empty-${index}`}>
+                    //       <td colSpan="5">&nbsp;</td>
+                    //     </tr>
+                    //   ))} */}
+                  </tbody>
+                </table>
+                <div>
+                  {[...Array(Math.ceil(data.results.length / ITEMS_PER_PAGE)).keys()].map(
+                    (number) => (
+                      <button
+                        key={number}
+                        className="btn btn-primary m-1"
+                        onClick={() => setCurrentPage(number + 1)}
+                      >
+                        {number + 1}
+                      </button>
+                    )
+                  )}
+                </div>
+              </div>
+            )}
           </div>
-          {loading ? (
-            <div className="d-flex justify-content-center  m-5">
-              <div className="spinner-border text-primary" role="status">
-                <span className="sr-only"></span>
-              </div>
-            </div>
-          ) : (
-            <div className="table-responsive mx-auto">
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Apellido</th>
-                    <th scope="col">Usuario</th>
-                    <th scope="col">Rol</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {selectedItems.map((item) => {
-                      return (
-                        <tr key={item._id}>
-                          <td>{item.nombre}</td>
-                          <td>{item.apellido}</td>
-                          <td>{item.usuario}</td>
-                          <td>
-                            {item.rol
-                            .filter((rolItem) => rolItem) // Filtra los elementos no nulos
-                            .map((rolItem, index, array) => (
-                              <span key={index}>
-                                {rolItem}
-                                {index < array.length - 1 && array[index + 1] !== null && ', '}
-                              </span>
-                            ))}
-                          </td>
-                        </tr>
-                      );
-                              })}
-                  
-                  {/* // {Array(10 - selectedItems.length) */}
-                  {/* //   .fill()
-                  //   .map((_, index) => (
-                  //     <tr key={`empty-${index}`}>
-                  //       <td colSpan="5">&nbsp;</td>
-                  //     </tr>
-                  //   ))} */}
-                </tbody>
-              </table>
-              <div>
-                {[...Array(Math.ceil(data.results.length / ITEMS_PER_PAGE)).keys()].map(
-                  (number) => (
-                    <button
-                      key={number}
-                      className="btn btn-primary m-1"
-                      onClick={() => setCurrentPage(number + 1)}
-                    >
-                      {number + 1}
-                    </button>
-                  )
-                )}
-              </div>
-            </div>
-          )}
         </div>
       </div>
       {showAlert && (
