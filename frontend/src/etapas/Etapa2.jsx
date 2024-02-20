@@ -56,27 +56,30 @@ export const Etapa2 = () => {
         item.infoSolicitud.nroSolicitud,
         infoSolicitud.nroEtapa
       );
-      const data = {
-        idEtapa: item._id,
-        nroEtapa: 3,
-        infoUsuario: item.infoUsuario,
-        infoSolicitud: item.infoSolicitud,
-        procesosEtapa1: item.procesosEtapa1,
-        procesosEtapa2: formularios.map((formulario) => ({
-          descproducto: formulario.descproducto,
-          tipodecompra: formulario.tipoCompra,
-          numerocotizacion: formulario.nrocotizacion,
-          estado: formulario.estado,
-          comentarios: formulario.comentarios,
-          nroordendecompra: formulario.nroordencompra,
-          fechadeoc: formulario.fechaoc,
-          proveedorseleccionado: formulario.proveedorselecc,
-          fechaentregaproveedor: formulario.fechaentregaprov,
-          valordecompramiva: formulario.valorcompra,
-          fechaautocompra: formulario.fechaautocompra,
-        urlArchivos: urlArchivos, // Asociar las URLs de los archivos con cada formulario
-      })),
-    };
+const data = {
+  idEtapa: item._id,
+  nroEtapa: 3,
+  infoUsuario: item.infoUsuario,
+  infoSolicitud: item.infoSolicitud,
+  procesosEtapa1: item.procesosEtapa1,
+  procesosEtapa2: {
+    formularios: formularios.map((formulario) => ({
+      descproducto: formulario.descproducto,
+      tipodecompra: formulario.tipoCompra,
+      numerocotizacion: formulario.nrocotizacion,
+      estado: formulario.estado,
+      comentarios: formulario.comentarios,
+      nroordendecompra: formulario.nroordencompra,
+      fechadeoc: formulario.fechaoc,
+      proveedorseleccionado: formulario.proveedorselecc,
+      fechaentregaproveedor: formulario.fechaentregaprov,
+      valordecompramiva: formulario.valorcompra,
+      fechaautocompra: formulario.fechaautocompra,
+    })), 
+    urlArchivos: urlArchivos,
+  }
+};  
+
     
     const url = "avanzarEtapa";
     const response = await executePut(url, data);

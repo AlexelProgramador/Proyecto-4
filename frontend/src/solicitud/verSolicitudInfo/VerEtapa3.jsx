@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom"; // Importa Link
-import usePostRequest from "../../Hooks/usePostRequest";
 import { obtenerMetaData } from "../../firebase/config";
 import { useNavigate } from "react-router-dom";
 
@@ -19,10 +18,13 @@ const VerEtapa3 = ({ item }) => {
     const fetchMetadataAndUrl = async () => {
       const fileDataPromises = item.procesosEtapa3?.map(async (proceso) => {
           try {
-            const fileName = proceso.urlArchivos[0]; // Asegúrate de ajustar esto según la estructura real
-            const metadata = await obtenerMetaData(fileName);
-            const fileUrl = `${fileName}`; // Asegúrate de reemplazar esto con la ruta correcta a tus archivos en el servidor.
-            return { metadata, fileUrl, proceso };
+            const fileUrls = proceso.urlArchivos; // Accede a todos los URLs de archivos
+            const metadataPromises = fileUrls.map(async (url) => {
+              const metadata = await obtenerMetaData(url);
+              return { metadata, url };
+            });
+            const metadataList = await Promise.all(metadataPromises);
+            return { metadataList, proceso };
           } catch (error) {
             console.error("Error fetching metadata:", error);
           }
@@ -39,6 +41,7 @@ const VerEtapa3 = ({ item }) => {
     fetchMetadataAndUrl();
   }, [item.procesosEtapa3]);
 
+
   return (
     <div className="contenido">
       <div className="p-5">
@@ -49,13 +52,7 @@ const VerEtapa3 = ({ item }) => {
         <button
           className="btn btn-primary  position-absolute top-0 end-0 mx-auto mt-5 me-15 w-15"
           onClick={() =>
-            navigate(`/etapa3`,
-              {
-                state: { item },
-              }
-            )
-          }
-        >
+            navigate(`/etapa3`,{ state: { item }, })}>
         Modificar etapa
         </button>
         {Array.isArray(item.procesosEtapa3) && item.procesosEtapa3.map((proceso, index) => (
@@ -112,16 +109,16 @@ const VerEtapa3 = ({ item }) => {
               </tr>
             </thead>
             <tbody>
-              {fileData[index] && (
-                <tr key={index}>
-                  <td>{fileData[index].metadata?.name || "No metadata"}</td>
-                  <td>
-                    <button
-                      onClick={() => openPdf(fileData[index].fileUrl)}
-                      className="btn btn-primary d-flex align-items-center mt-0 bi bi-file-earmark-pdf"
-                      style={{ width: "100px", height: "50px" }}
-                    >
-                      <div>Abrir PDF</div>
+            {fileData[index]?.metadataList.map((file, fileIndex) => (
+                        <tr key={fileIndex}>
+                          <td>{file.metadata?.name || "No metadata"}</td>
+                          <td>
+                            <button
+                              onClick={() => openPdf(file.url)}
+                              className="btn btn-primary d-flex align-items-center mt-0 bi bi-file-earmark-pdf"
+                              style={{ width: "100px", height: "50px" }}
+                            >
+                              <div>Abrir PDF</div>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="40"
@@ -136,7 +133,7 @@ const VerEtapa3 = ({ item }) => {
                     </button>
                   </td>
                 </tr>
-              )}
+              ))}
             </tbody>
           </table>
         </div>
