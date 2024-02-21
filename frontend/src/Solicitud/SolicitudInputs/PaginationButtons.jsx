@@ -2,7 +2,7 @@ const PaginationButtons = ({ paginaActual, setPaginaActual, numeroDePaginas, pro
     return (
       <div className="d-flex justify-content-center mt-1 ">
         <button
-          className="btn btn-primary mr-2"
+          className="btn btn-primary mx-1"
           onClick={(e) => {
             e.preventDefault();
             setPaginaActual(paginaActual - 1);
@@ -25,7 +25,7 @@ const PaginationButtons = ({ paginaActual, setPaginaActual, numeroDePaginas, pro
           </button>
         ))}
         <button
-          className="btn btn-primary ml-2"
+          className="btn btn-primary ms-1"
           onClick={(e) => {
             e.preventDefault();
             setPaginaActual(paginaActual + 1);

@@ -111,7 +111,7 @@ export const CrearSolicitud = () => {
                 />               
                 </>
               ))}
-              <div className="text-center">
+              <div className="d-flex justify-content-center">
                 <button
                   className="btn btn-primary"
                   onClick={handleAddProducto}
@@ -132,10 +132,11 @@ export const CrearSolicitud = () => {
                 fuenteFinanciamiento={fuenteFinanciamiento}
                 setFuenteFinanciamiento={setFuenteFinanciamiento}
                 setMontoEstimado={setMontoEstimado}
+                archivos={archivos}
                 setArchivos={setArchivos}
               />
               <div>
-              <button type="submit" className="btn btn-primary">
+              <button type="submit" className="btn btn-primary me-1">
                 Enviar
               </button>
                 <button
