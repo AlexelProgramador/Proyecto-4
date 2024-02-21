@@ -216,7 +216,7 @@ export const Content = () => {
                                 {responseLocalStorage.usuario.some(
                                   (role) =>
                                     role === "Administrador" ||
-                                    role === getRole(item.nroEtapa)
+                                    role == getRole(item.nroEtapa)
                                 ) &&
                                   item.nroEtapa !== "Finalizado" && (
                                     <>

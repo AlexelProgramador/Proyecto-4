@@ -56,6 +56,7 @@ export const Pendientes = () => {
   const userRole = userRoles.length > 0 ? userRoles[0] : null; // Obtener el primer rol del array, o null si no hay roles
 
   console.log(userRole)
+
   // Buscador
   const [search, setSearch] = useState("");
   const handleDelete = async (itemId, item) => {
@@ -197,7 +198,7 @@ export const Pendientes = () => {
                     {selectedItems.map(
                       (item) =>
                         item.nroEtapa !== "Rechazado" &&
-                        (userRole && (getRole(item.nroEtapa) === userRole || (userRoles[1] && getRole(item.nroEtapa) === userRoles[1]) )) && (
+                        (userRole && (getRole(item.nroEtapa) == userRole || (userRoles[1] && getRole(item.nroEtapa) === userRoles[1]) )) && (
                           <tr key={item._id} id={item._id}>
                             <td>{item.infoSolicitud.nroSolicitud}</td>
                             <td>
@@ -219,7 +220,7 @@ export const Pendientes = () => {
                                 {responseLocalStorage.usuario.some(
                                   (role) =>
                                     role === "Administrador" ||
-                                    role === getRole(item.nroEtapa)
+                                    role == getRole(item.nroEtapa)
                                 ) &&
                                   item.nroEtapa !== "Finalizado" && (
                                     <>
