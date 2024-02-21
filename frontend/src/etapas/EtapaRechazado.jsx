@@ -61,7 +61,7 @@ export const EtapaRechazado = () => {
 
     const data = {
       idEtapa: item._id,
-
+  
       nroEtapa: "0",
       infoUsuario: {
         solicitadoPor: formData.solicitadoPor,
@@ -81,6 +81,7 @@ export const EtapaRechazado = () => {
         tipoSolicitud: item.infoSolicitud.tipoSolicitud,
         urlArchivos: urlArchivos,
       },
+      
     };
 
     const url = "avanzarEtapa";

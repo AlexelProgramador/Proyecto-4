@@ -31,7 +31,7 @@ export const SolicitudChequeo = () => {
     setIsLoading(true);
     const data = {
       idEtapa: item._id,
-
+      motivoRechazo: "",
       nroEtapa: 1,
       infoUsuario: {
         solicitadoPor: item.infoUsuario.solicitadoPor,
@@ -115,6 +115,7 @@ export const SolicitudChequeo = () => {
   return (
     <>
       {infoSolicitud ? (
+        
         isLoading ? (
           <div className="loading-modal d-flex justify-content-center align-items-center flex-column">
             <ClockLoader color="#123abc" loading={isLoading} size={100} />
@@ -122,6 +123,11 @@ export const SolicitudChequeo = () => {
           </div>
         ) : (
           <>
+            {infoSolicitud.motivoRechazo && ( // Verifica si hay un motivo de rechazo
+              <div className="alert alert-danger w-75 h-40 mx-auto" role="alert">
+                Motivo de rechazo: {infoSolicitud.motivoRechazo}
+              </div>
+            )}
             <div className="w-75 h-40 mx-auto">
               <div className="card shadow-card rounded-3 border border-0">
                 <button

@@ -51,6 +51,8 @@ export const EtapaDea = () => {
         tipoSolicitud: item.infoSolicitud.tipoSolicitud,
         urlArchivos: item.infoSolicitud.urlArchivos,
       },
+      motivoRechazo: null,
+
     };
     const url = "avanzarEtapa";
     const response = await executePut(url, data);
