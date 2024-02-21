@@ -1,12 +1,13 @@
 import React, { useState, useContext } from "react";
 import usePostRequest from "../Hooks/usePostRequest";
 import usePutRequest from "../Hooks/usePutRequest";
+import { uploadFiles } from "../firebase/config";
 
 import { AlertContext } from "../context/AlertContext";
 import {
   UsuarioInput,
   ProductoInput,
-  MotivosInput,
+  MotivosInput, 
   PaginationButtons,
   useProductos,
 } from "../solicitud/SolicitudInputs";
@@ -21,6 +22,7 @@ export const EtapaRechazado = () => {
 
   const usuarioInfo = item?.infoUsuario || {};
   const solicitudInfo = item?.infoSolicitud || {};
+  const [archivos, setArchivos] = useState([]);
 
   const navigate = useNavigate();
 
@@ -45,7 +47,12 @@ export const EtapaRechazado = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log("datitos", item);
+    const urlArchivos = await uploadFiles(
+      archivos,
+      item.infoSolicitud.nroSolicitud,
+      item.nroEtapa
+    );
     const productosData = productos.map((producto) => ({
       descripcion: producto.descripcion,
       cantidad: producto.cantidad,
@@ -72,7 +79,7 @@ export const EtapaRechazado = () => {
         nroSolicitud: item.infoSolicitud.nroSolicitud,
         productos: productosData,
         tipoSolicitud: item.infoSolicitud.tipoSolicitud,
-        urlArchivos: item.infoSolicitud.urlArchivos,
+        urlArchivos: urlArchivos,
       },
     };
 
@@ -162,8 +169,8 @@ export const EtapaRechazado = () => {
               setFuenteFinanciamiento={(value) => handleInputChange("fuenteFinanciamiento", value)}
               montoEstimado={formData.montoEstimado}
               setMontoEstimado={(value) => handleInputChange("montoEstimado", value)}
-              archivos={formData.archivos}
-              setArchivo= {(value) => handleInputChange("archivos", value)}
+              archivos={archivos}
+              setArchivos={setArchivos}
             />
             <div>
               <button type="submit" className="btn btn-primary">

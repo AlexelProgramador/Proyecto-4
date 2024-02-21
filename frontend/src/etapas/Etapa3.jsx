@@ -21,12 +21,12 @@ export const Etapa3 = () => {
     // Estado para almacenar los archivos por cada formulario
     const [archivosPorFormulario, setArchivosPorFormulario] = useState(
       // Inicializar los archivos para cada formulario
-      item.procesosEtapa2.map(() => [])
+      item.procesosEtapa2.formularios.map(() => [])
     );
 
   const [formularios, setFormularios] = useState(() => {
     // Inicializar los formularios con base en el número de procesosEtapa2
-    return item.procesosEtapa2.map(() => ({
+    return item.procesosEtapa2.formularios.map(() => ({
       ncdp: "",
       estado: "",
       proveedor: "",
@@ -178,7 +178,7 @@ export const Etapa3 = () => {
                 <p className="display-7">Esta Solicitud corresponde a: Bodega</p>
                 <p className="display-7">Porfavor rellenar información corresponde a la etapa</p>
                 <p className="display-7">Una vez lo considere terminado pulsar el boton "Enviar Etapa"</p>
-                {item.procesosEtapa2.map((proceso, procIndex) => (
+                {item.procesosEtapa2.formularios.map((proceso, procIndex) => (
                   <div key={procIndex}>
                     <div className="fw-semibold mb-2">ORDEN DE COMPRA {procIndex + 1}</div>
                     <p className="display-7">
