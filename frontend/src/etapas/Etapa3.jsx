@@ -303,6 +303,7 @@ export const Etapa3 = () => {
                           <input
                             type="date"
                             className="form-control"
+                            max="9999-12-31"
                             id={`fechavencfact${procIndex}`}
                             value={formularios[procIndex].fechavencfact}
                             onChange={(e) => {
@@ -348,6 +349,7 @@ export const Etapa3 = () => {
                           <input
                             type="date"
                             className="form-control"
+                            max="9999-12-31"
                             value={formularios[procIndex].fecharecep}
                             onChange={(e) => {
                               const newFormularios = [...formularios];

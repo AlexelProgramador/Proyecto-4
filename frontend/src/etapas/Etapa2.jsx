@@ -339,6 +339,7 @@ const data = {
                       <input
                         type="date"
                         className="form-control"
+                        max="9999-12-31"
                         value={formularios[index].fechaautocompra}
                         onChange={(e) => {
                           const newFormularios = [...formularios];

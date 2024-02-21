@@ -30,7 +30,8 @@ class EtapaController extends Controller
         $etapa->completado = $request->completado;
         $etapa->infoUsuario = $request->infoUsuario;
         $etapa->infoSolicitud = $request->infoSolicitud;
-    
+        $etapa->motivoRechazo = $request->motivoRechazo;
+
         if ($request->has('procesosEtapa1')) {
             $etapa->procesosEtapa1 = $request->procesosEtapa1;
         }

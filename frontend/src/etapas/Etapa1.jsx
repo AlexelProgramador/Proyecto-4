@@ -45,7 +45,7 @@ export const Etapa1 = () => {
         nroEtapa: "Dea",
         infoUsuario: item.infoUsuario,
         infoSolicitud: item.infoSolicitud,
-        motivoRechazo: "",
+        motivoRechazo: null,
         procesosEtapa1: {
           centroDeCostos: centroDeCostos,
           verificarSaldo: verificarSaldo,
