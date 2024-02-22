@@ -33,14 +33,14 @@ const verEtapa1 = ({ item }) => {
 
   return (
     <div className="contenido">
-      <div className="p-5">
-        <h4 className="mb-2">
+      <div className="p-4" style={{fontSize: "18px"}}>
+        <div>
           Centro de Costos:{" "}
           <span className="text-primary">
             {item.procesosEtapa1.centroDeCostos}
           </span>
-        </h4>
-        <h4 className="mb-2">
+        </div>
+        <div>
           Verificar Saldo:{" "}
           <label className="toggle-switch">
             <input
@@ -51,13 +51,13 @@ const verEtapa1 = ({ item }) => {
             />
             <span className="slider"></span>
           </label>
-        </h4>
-        <h4>
+        </div>
+        <div>
           Comentario:{" "}
           <span className="text-muted">{item.procesosEtapa1.comentario}</span>
-        </h4>
+        </div>
         <div className="pl-5">
-          <h4>Documentos Adjuntos: </h4>
+          <h4 className="mt-2 h4">Documentos Adjuntos</h4>
           <table className="table">
             <thead>
               <tr>

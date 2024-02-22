@@ -44,37 +44,37 @@ const infoSolicitud = ({ selected = 0, item }) => {
   return (
     <>
       <div className="contenido">
-        <div className="p-5">
-          <h1 className="mb-4 display-6">Información de solicitud</h1>
-          <h4 className="mb-2">
+        <div className="p-4" style={{fontSize: "18px"}}>
+          <h1 className="h4">Información de solicitud</h1>
+          <div>
             Fecha de la solicitud:{" "}
             <span className="text-primary">{item.infoSolicitud.fecha}</span>
-          </h4>
-          <h4 className="mb-3">
+          </div>
+          <div>
             Tipo de solicitud:{" "}
             <span className="text-primary">
               {item.infoSolicitud.tipoSolicitud}
             </span>
-          </h4> 
-          <h1 className="mb-4 display-6">Información de usuario</h1>
-          <h4 className="mb-2">
+          </div> 
+          <h1 className="mt-4 h4">Información de usuario</h1>
+          <div>
             Solicitada por:{" "}
             <span className="text-primary">
               {item.infoUsuario.solicitadoPor}
             </span>
-          </h4>
-          <h4 className="mb-2">
+          </div>
+          <div>
             Anexo:{" "}
             <span className="text-primary">{item.infoUsuario.anexo}</span>
-          </h4>
-          <h4 className="mb-2">
+          </div>
+          <div>
             Correo Electronico:{" "}
             <span className="text-primary">
               {item.infoUsuario.correo
                 ? item.infoUsuario.correo
                 : "No ingresado"}
             </span>
-          </h4>
+          </div>
           <div className="row mt-2 g-2">
             <div style={{ overflow: "hidden" }}>
               <table className="table">
@@ -97,9 +97,8 @@ const infoSolicitud = ({ selected = 0, item }) => {
               </table>
             </div>
           </div>
-
           <div className="pl-5">
-            <h4>Documentos Adjuntos: </h4>
+            <h4 className="mt-2 h4">Documentos Adjuntos</h4>
             <table className="table">
               <thead>
                 <tr>
