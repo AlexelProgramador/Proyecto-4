@@ -67,7 +67,7 @@ export const Sidebar = () => {
             data={data}
             userId={userId}
           />
-          <div className="align-middle ps-2">Usuario</div>
+          <div className="align-middle ps-2"></div>
         </div>
       </header>
       {/* SIDEBAR */}
