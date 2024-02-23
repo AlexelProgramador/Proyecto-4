@@ -68,10 +68,15 @@ export const CrearSolicitud = () => {
           <h1 className="mt-5">{loadingText}</h1>
         </div>
       ) : (
+        <div className="mb-3">
+        <h2 className="mx-auto display-4">Crear Solicitud</h2>
+        <p className="display-7">
+          Aquí puedes realizar una nueva solicitud.
+        </p>
         <div className="card shadow-card rounded-3 border border-0">
           <div className="card-body">
             <div className="d-flex justify-content-between pb-2">
-              <h2 className="mx-auto p-2">Crear solicitud</h2>
+            <div className="h5 text-uppercase">Crear Solicitud</div>
             </div>
 
             <form
@@ -152,6 +157,7 @@ export const CrearSolicitud = () => {
               </div>
             </form>
           </div>
+        </div>
         </div>
       )}
     </div>

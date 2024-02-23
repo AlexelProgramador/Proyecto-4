@@ -45,9 +45,9 @@ export const Sidebar = () => {
   const isSolicitante = userRole.includes("Solicitante");
   const isAdministrador = userRole.includes("Administrador");
 
-  console.log("response", userId)
-  console.log("rol", isAdministrador)
-  console.log("rol", isSolicitante)
+  // console.log("response", userId)
+  // console.log("rol", isAdministrador)
+  // console.log("rol", isSolicitante)
 
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const selectedItems = data

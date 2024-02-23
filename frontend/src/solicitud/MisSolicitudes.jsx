@@ -38,7 +38,8 @@ const MisSolicitudes = () => {
   }, [showAlert]);
   const navigate = useNavigate();
 
-  const userRequests = data ? data.filter(item => item.infoSolicitud.idUsuario === response.usuarioId) : [];
+  const userRequests = data ? data.filter(item => item.infoSolicitud.idUsuario === response.usuarioId)  
+        .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at))  : [];
   const totalItems = userRequests.length; // Número total de solicitudes del usuario
   const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE); // Número total de páginas
   
@@ -67,12 +68,19 @@ const MisSolicitudes = () => {
             ) : (
               <div className="table-responsive mx-auto">
                 <table className="table">
+                  <colgroup>
+                    <col style={{ width: "20%" }} />
+                    <col style={{ width: "12%" }} />
+                    <col style={{ width: "20%" }} />
+                    <col style={{ width: "20%" }} />
+                    <col style={{ width: "28%" }} />
+                  </colgroup>
                   <thead>
                     <tr>
                       <th scope="col">N° Solicitud</th>
                       <th scope="col">Etapa</th>
                       <th scope="col">Solicitado por</th>
-                      <th scope="col"></th>
+                      <th scope="col">Resumen</th>
                       <th scope="col">Acción</th>
                     </tr>
                   </thead>
@@ -84,7 +92,7 @@ const MisSolicitudes = () => {
                             <td>{item.infoSolicitud.nroSolicitud}</td>
                             <td>{item.nroEtapa}</td>
                             <td>{item.infoUsuario?.solicitadoPor}</td>
-                            <td>{item.etapa}</td>
+                            <td>{item.infoUsuario?.resumen}</td>
                             <td>
                               <div className="btn-group btn-group-sm">
                                 {item.nroEtapa !== "Finalizado" &&

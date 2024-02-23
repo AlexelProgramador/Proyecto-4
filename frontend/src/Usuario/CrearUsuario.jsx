@@ -44,10 +44,15 @@ export const CrearUsuario = () => {
           <h1 className="mt-5">{loadingText}</h1>
         </div>
       ) : (
+        <div className="mb-3">
+        <h2 className="mx-auto display-4">Crear Nuevo Usuario</h2>
+        <p className="display-7">
+          Aquí puedes crear la cuenta de un usuario solicitante.
+        </p>
         <div className="card shadow-card rounded-3 border border-0">
           <div className="card-body">
             <div className="d-flex justify-content-between pb-2">
-              <h2 className="mx-auto p-2">Crear Usuario</h2>
+              <h2 className="h5 text-uppercase">Crear Usuario</h2>
             </div>
 
             <form
@@ -114,7 +119,7 @@ export const CrearUsuario = () => {
                 </div>
                 </div> */}
               <div>
-                <button type="submit" className="btn btn-primary">
+                <button type="submit" className="btn btn-primary me-1">
                   Enviar
                 </button>
                 <button
@@ -130,6 +135,7 @@ export const CrearUsuario = () => {
               </div>
             </form>
           </div>
+        </div>
         </div>
       )}
     </div>

@@ -183,6 +183,15 @@ export const Pendientes = () => {
             ) : (
               <div className="table-responsive mx-auto">
                 <table className="table">
+                  <colgroup>
+                    <col style={{ width: "16%" }} />
+                    <col style={{ width: "12%" }} />
+                    <col style={{ width: "8%" }} />
+                    <col style={{ width: "14%" }} />
+                    <col style={{ width: "12%" }} />
+                    <col style={{ width: "14%" }} />
+                    <col style={{ width: "24%" }} />
+                  </colgroup>
                   <thead>
                     <tr>
                       <th scope="col">N° Solicitud</th>

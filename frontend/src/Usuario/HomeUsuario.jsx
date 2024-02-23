@@ -3,6 +3,8 @@ import useFetch from "../hooks/useFetch";
 import { useContext, useEffect } from "react";
 import { AlertContext } from "../context/AlertContext";
 import { CheckCircleFill } from "react-bootstrap-icons";
+import Pagination from "../Components/Pagination";
+
 import React, { useState } from "react";
 import Cookies from "js-cookie";
 function getRole(nroEtapa) {
@@ -69,6 +71,12 @@ const HomeUsuario = () => {
             ) : (
               <div className="table-responsive mx-auto">
                 <table className="table">
+                  <colgroup>
+                    <col style={{ width: "20%" }} />
+                    <col style={{ width: "20%" }} />
+                    <col style={{ width: "25%" }} />
+                    <col style={{ width: "35%" }} />
+                  </colgroup>
                   <thead>
                     <tr>
                       <th scope="col">Nombre</th>
@@ -108,17 +116,11 @@ const HomeUsuario = () => {
                   </tbody>
                 </table>
                 <div>
-                  {[...Array(Math.ceil(data.results.length / ITEMS_PER_PAGE)).keys()].map(
-                    (number) => (
-                      <button
-                        key={number}
-                        className="btn btn-primary m-1"
-                        onClick={() => setCurrentPage(number + 1)}
-                      >
-                        {number + 1}
-                      </button>
-                    )
-                  )}
+                  <Pagination
+                    currentPage={currentPage}
+                    totalPages={Math.ceil(data.results.length / ITEMS_PER_PAGE)}
+                    onPageChange={setCurrentPage}
+                  />
                 </div>
               </div>
             )}
