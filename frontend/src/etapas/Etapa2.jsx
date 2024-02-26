@@ -355,21 +355,21 @@ const data = {
                   </form>
                   </div>                
               ))}
-                  <div className="col-md-12 mt-2 mb-3 px-1">
-                    <label htmlFor="montoEstimado" className="form-label">
-                        Adjuntar pdf(s) en caso de necesitarlo:
-                      </label>
-                      <input
-                        type="file"
-                        className="form-control"
-                        id="archivo"
-                        accept=".jpg, .jpeg, .pdf, .xlsx, .xls, .docx, .doc, .rar, .zip, .png"
-                        multiple
-                        onChange={(e) => {
-                          setArchivos(Array.from(e.target.files));
-                        }}
-                      />
-                  </div>
+              <div className="col-md-12 mt-2 mb-3 px-1">
+                <label htmlFor="montoEstimado" className="form-label">
+                    Adjuntar pdf(s) en caso de necesitarlo:
+                  </label>
+                  <input
+                    type="file"
+                    className="form-control"
+                    id="archivo"
+                    accept=".jpg, .jpeg, .pdf, .xlsx, .xls, .docx, .doc, .rar, .zip, .png"
+                    multiple
+                    onChange={(e) => {
+                      setArchivos(Array.from(e.target.files));
+                    }}
+                  />
+              </div>
             <button className="m-2 btn btn-primary" type="submit" onClick={handleSubmit}>
               Aceptar
             </button>

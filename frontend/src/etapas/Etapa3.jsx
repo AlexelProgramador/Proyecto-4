@@ -375,7 +375,7 @@ export const Etapa3 = () => {
                             Persona a cargo de recepción
                           </label>
                         </div>
-                        <div className="col-md-12 mb-3">
+                        <div className="col-md-12 mt-2 mb-3">
                           <label htmlFor={`archivo${procIndex}`} className="form-label">
                             Adjuntar antecedentes del/los producto/s:
                           </label>
@@ -389,19 +389,18 @@ export const Etapa3 = () => {
                           />
                         </div>
                         <hr className="mx-1"/>
-                        <div className="col-md-12 mb-3">
-                          <button
-                            className="m-2 btn btn-primary"
-                            type="submit"
-                          >
-                            Aceptar
-                          </button>
-                        </div>
                       </form>
                       )}
 
                     </div>
                 ))}
+                <button
+                  className="m-2 btn btn-primary"
+                  type="submit"
+                  onClick={(e) => handleSubmit(e)}
+                >
+                  Aceptar
+                </button>
                 <button
                   className="m-2  btn btn-danger"
                   type="button"

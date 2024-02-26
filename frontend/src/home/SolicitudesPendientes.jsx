@@ -26,7 +26,7 @@ function getRole(nroEtapa) {
     case "Dea":
       return "Dea";
     default:
-      return "completado";
+      return "Completado";
   }
 }
 
