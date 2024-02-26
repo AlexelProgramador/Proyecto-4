@@ -39,64 +39,63 @@ const verEtapa2 = ({ item }) => {
   console.log("length", fileData.length)
   return (
     <div className="contenido">
-      <div className="p-5">
+      <div className="p-4">
         {(isLoading || !item.procesosEtapa2.formularios || item.procesosEtapa2.formularios.length === 0) ? (
           <p>Solicitud en proceso. La información estará disponible aquí una vez que se complete esta etapa.</p>
         ) : (
           item.procesosEtapa2.formularios.map((formulario, index) => (
-            <div key={index} className="mb-4">
-              <h4>
+            <div key={index} className="mb-4" style={{fontSize: "18px"}}>
+              <div className="h4">
+                Orden de compra NRO{" "}{formulario.nroordendecompra}
+              </div>
+              <div>
                 Descripcion de compra:{" "}
                 <span className="text-primary">{formulario.descproducto}</span>
-              </h4>
-              <h4>
+              </div>
+              <div>
                 Tipo de compra:{" "}
                 <span className="text-primary">{formulario.tipodecompra}</span>
-              </h4>
-              <h4>
+              </div>
+              <div>
                 Numero de cotización:{" "}
                 <span className="text-primary">{formulario.numerocotizacion}</span>
-              </h4>
-              <h4>
+              </div>
+              <div>
                 Estado:{" "}
                 <span className="text-primary">{formulario.estado}</span>
-              </h4>
-              <h4>
+              </div>
+              <div>
                 Comentario:{" "}
                 <span className="text-primary">{formulario.comentarios}</span>
-              </h4>
-              <h4>
-                Numero orden de compra:{" "}
-                <span className="text-primary">{formulario.nroordendecompra}</span>
-              </h4>
-              <h4>
+              </div>
+              <div>
                 Fecha orden de compra:{" "}
                 <span className="text-primary">{formulario.fechadeoc}</span>
-              </h4>
-              <h4>
+              </div>
+              <div>
                 Proveedor seleccionado:{" "}
                 <span className="text-primary">{formulario.proveedorseleccionado}</span>
-              </h4>
-              <h4>
+              </div>
+              <div>
                 Fecha entrega proveedor:{" "}
                 <span className="text-primary">{formulario.fechaentregaproveedor}</span>
-              </h4>
-              <h4>
+              </div>
+              <div>
                 Valor de compra mas iva:{" "}
                 <span className="text-primary">{formulario.valordecompramiva}</span>
-              </h4>
-              <h4>
+              </div>
+              <div>
                 Fecha de autorización de compra:{" "}
                 <span className="text-primary">
                   {formulario.fechaautocompra}
                 </span>
-              </h4>
+              </div>
             </div>
           ))          
         )}
         {fileData.length > 0 && (
           <div className="pl-5">
-            <h4>Documentos Adjuntos:</h4>
+            <h4 className="mt-2 h4">Documentos Adjuntos</h4>
               <table className="table">
                 <thead>
                   <tr>

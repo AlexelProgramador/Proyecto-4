@@ -33,63 +33,66 @@ const verEtapa2Classic = ({ item }) => {
 
   return (
     <div className="contenido">
-        <div className="p-5">
-        <h2 className="mb-3">
+        <div className="p-4" style={{fontSize: "18px"}}>
+          <div className="h4">
+            Orden de compra NRO{" "}{item.procesosEtapa2.nroordendecompra}
+          </div>
+        <div>
           Tipo de compra:{" "}
           <span className="text-primary">
             {item.procesosEtapa2.tipodecompra}
           </span>
-        </h2>
-        <h2 className="mb-3">
+        </div>
+        <div>
           Numero de cotizaciones:{" "}
           <span className="text-primary">
             {item.procesosEtapa2.numerocotizacion}
           </span>
-        </h2>
-        <h2 className="mb-3">
+        </div>
+        <div>
           Estado:{" "}
           <span className="text-primary">{item.procesosEtapa2.estado}</span>
-        </h2>
-        <h2 className="mb-3">
+        </div>
+        <div>
           Comentario:{" "}
           <span className="text-muted">{item.procesosEtapa2.comentarios}</span>
-        </h2>
-        <h2 className="mb-3">
+        </div>
+        {/* <h2 className="mb-3">
           Numero de orden de compra:{" "}
           <span className="text-primary">
             {item.procesosEtapa2.nroordendecompra}
           </span>
-        </h2>
-        <h2 className="mb-3">
+        </h2> */}
+        <div>
           Fecha de orden de compra:{" "}
           <span className="text-primary">{item.procesosEtapa2.fechadeoc}</span>
-        </h2>
-        <h2 className="mb-3">
+        </div>
+        <div>
           Proveedor seleccinado:{" "}
           <span className="text-primary">
             {item.procesosEtapa2.proveedorseleccionado}
           </span>
-        </h2>
-        <h2 className="mb-3">
+        </div>
+        <div>
           Fecha entrega de proveedor:{" "}
           <span className="text-primary">
             {item.procesosEtapa2.fechaentregaproveedor}
           </span>
-        </h2>
-        <h2 className="mb-3">
+        </div>
+        <div>
           Compra + IVA:{" "}
           <span className="text-primary">
             $ {item.procesosEtapa2.valordecompramiva}
           </span>
-        </h2>
-        <h2 className="mb-3">
+        </div>
+        <div>
           Fecha de autocompraS:{" "}
           <span className="text-primary">
             {item.procesosEtapa2.fechaautocompra}
           </span>
-        </h2>
+        </div>
         <div className="pl-5">
-        <h4>Documentos Adjuntos:</h4>
+        <h4 className="mt-2 h4">Documentos Adjuntos</h4>
               <table className="table">
                 <thead>
                   <tr>

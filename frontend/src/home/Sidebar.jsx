@@ -42,6 +42,7 @@ export const Sidebar = () => {
   const responseLocalStorage = JSON.parse(localStorage.getItem("response"));
   const userId = responseLocalStorage?.usuarioId;
   const userRole = responseLocalStorage?.usuario || [];
+  const userRoles = userRole.length > 0 ? userRole[0] : null; // Obtener el primer rol del array, o null si no hay roles
   const isSolicitante = userRole.includes("Solicitante");
   const isAdministrador = userRole.includes("Administrador");
 
@@ -78,7 +79,7 @@ export const Sidebar = () => {
             <div>
               <a href="/" className="nav-logo">
                 <i className="fas fa-home-alt nav-logo-icon" />
-                <span className="nav-logo-name">Menu principal</span>
+                <span className="nav-logo-name text-uppercase">Menu</span>
               </a>
             </div>
 

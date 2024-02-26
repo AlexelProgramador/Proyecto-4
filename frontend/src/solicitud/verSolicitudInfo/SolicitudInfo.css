@@ -20,9 +20,9 @@
 .toggle-switch {
   position: relative;
   display: inline-block;
-  width: 50px;
+  width: 46px;
   top: 5px;
-  height: 24px;
+  height: 20px;
 }
 
 .slider {
@@ -40,8 +40,8 @@
 .slider:before {
   position: absolute;
   content: "";
-  height: 16px;
-  width: 16px;
+  height: 12px;
+  width: 12px;
   left: 4px;
   bottom: 4px;
   background-color: white;

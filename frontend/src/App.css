@@ -128,6 +128,7 @@ padding: 0.5rem 0 0.5rem 1.5rem;
 
 .nav-logo {
 margin-bottom: 2rem;
+text-decoration: none;
 }
 
 .nav-logo-icon {
@@ -139,6 +140,7 @@ cursor: pointer;
 .nav-logo-name {
 font-weight: 700;
 color: var(--white-color);
+text-decoration: none;
 }
 
 .nav-link {

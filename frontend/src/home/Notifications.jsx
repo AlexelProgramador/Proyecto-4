@@ -1,25 +1,58 @@
 import React, { useState, useEffect } from "react";
 import SeccionDiasSinAtender from "./SeccionDiasSinAtender";
 
+const getRole = (nroEtapa) => {
+  switch (nroEtapa) {
+    case "0":
+      return "Secretaria";
+    case 1:
+      return "Encargado de presupuesto";
+    case 2:
+      return "Encargado de abastecimiento";
+    case 3:
+      return "Subdirectora";
+    case 4:
+      return "Encargado de abastecimiento";
+    case 5:
+      return "Bodeguero";
+    case "Dea":
+      return "Dea";
+    default:
+      return "completado";
+  }
+};
 // Define la función getUnattendedRequests
 const getUnattendedRequests = (data, userId) => {
+  const responseLocalStorage = JSON.parse(localStorage.getItem("response"));
+  const userRoles = responseLocalStorage?.usuario || [];
+  const userRole = userRoles.length > 0 ? userRoles[0] : null; // Obtener el primer rol del array, o null si no hay roles
+
   if (!data) {
     return [];
   }
 
   const oneDayAgo = new Date();
   oneDayAgo.setDate(oneDayAgo.getDate() - 3);
-
+  console.log(userRoles)
   return data
     .filter((request) => 
-    request.nroEtapa !== 'Finalizado' &&
-    (
-      request.nroEtapa !== 'Rechazado' || 
-      request.infoSolicitud.idUsuario === userId
-    ) &&      
-    new Date(request.updated_at) < oneDayAgo
+    (request.nroEtapa !== 'Finalizado') &&
+      (
+        (request.nroEtapa === 'Rechazado' && 
+        request.infoSolicitud.idUsuario === userId) ||
+        (request.nroEtapa !== 'Rechazado' &&
+          (userRole && (getRole(request.nroEtapa) == userRole || 
+          (userRoles[1] && getRole(request.nroEtapa) === userRoles[1]) ))
+        )
+      ) 
     )
-    // .filter((request) => new Date(request.updated_at) < oneDayAgo)
+    // .filter((request) => 
+    // // Filtrar por rol del usuario
+    // (
+    //   (userRole && (getRole(request.nroEtapa) == userRole || (userRoles[1] && getRole(request.nroEtapa) === userRoles[1]) ))
+    // )
+    // )
+    .filter((request) => new Date(request.updated_at) < oneDayAgo)
     .map((request) => ({
       nroSolicitud: request.infoSolicitud.nroSolicitud,
       daysUnattended: Math.floor(
@@ -30,7 +63,7 @@ const getUnattendedRequests = (data, userId) => {
     
 };
 
-const NotificationSection = ({ toggleTable, showTable, data, userId }) => {
+const NotificationSection = ({ toggleTable, showTable, data, userId}) => {
   const [isHoveredNoti, setIsHoveredNoti] = useState(false);
   const [unattendedRequests, setUnattendedRequests] = useState([]); // Estado para almacenar las solicitudes sin atender
 
