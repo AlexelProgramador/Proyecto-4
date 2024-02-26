@@ -11,6 +11,7 @@ export const CrearUsuario = () => {
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState(""); // Estado para el mensaje de error
   const { execute, response } = usePostRequest();
   const productosPorPagina = 3;
 
@@ -35,6 +36,16 @@ export const CrearUsuario = () => {
       setLoadingText("Creando usuario"); // Limpia el texto de carga
     };
   }, []);
+
+  // Función para validar la contraseña
+  const validatePassword = (value) => {
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+    if (!value.match(regex)) {
+      setPasswordError("La contraseña debe tener al menos 8 caracteres, incluyendo al menos una letra mayúscula, un número y un carácter especial.");
+    } else {
+      setPasswordError("");
+    }
+  };
 
   return (
     <div className="w-75 h-40 mx-auto">
@@ -97,10 +108,16 @@ export const CrearUsuario = () => {
                     className="form-control"
                     id="password"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                      validatePassword(e.target.value);
+                    }}
                   />
                   <label htmlFor="floatingSelect">Password:</label>
-                </div>
+                    {passwordError && (
+                      <div className="text-danger" style={{fontSize: 12}}>{passwordError}</div>
+                    )}
+                  </div>
               </div>
               {/* <div className="col-12">
                 <div className="form-floating">
