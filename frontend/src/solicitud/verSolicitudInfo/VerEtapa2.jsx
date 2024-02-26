@@ -41,7 +41,7 @@ const verEtapa2 = ({ item }) => {
     <div className="contenido">
       <div className="p-4">
         {(isLoading || !item.procesosEtapa2.formularios || item.procesosEtapa2.formularios.length === 0) ? (
-          <p>Solicitud en proceso. La información estará disponible aquí una vez que se complete esta etapa.</p>
+          <p>Solicitud en proceso. La información estará disponible aquí una vez que se complete esta etapaSolicitud en proceso. La información estará disponible aquí una vez que se complete esta etapa.</p>
         ) : (
           item.procesosEtapa2.formularios.map((formulario, index) => (
             <div key={index} className="mb-4" style={{fontSize: "18px"}}>

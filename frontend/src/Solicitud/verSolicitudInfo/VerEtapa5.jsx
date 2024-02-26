@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import usePostRequest from "../../Hooks/usePostRequest";
 import { obtenerMetaData } from "../../firebase/config";
 
-const VerEtapa4 = ({ item }) => {
+const VerEtapa5 = ({ item }) => {
   const openPdf = (fileUrl) => {
     let url = fileUrl;
     window.open(url, "_blank");
@@ -11,7 +11,7 @@ const VerEtapa4 = ({ item }) => {
 
   useEffect(() => {
     const fetchMetadataAndUrl = async () => {
-      const fileDataPromises = item.procesosEtapa3.urlArchivos?.map(
+      const fileDataPromises = item.procesosEtapa4.urlArchivos?.map(
         async (fileName) => {
           try {
             const metadata = await obtenerMetaData(fileName);
@@ -28,7 +28,7 @@ const VerEtapa4 = ({ item }) => {
     };
 
     fetchMetadataAndUrl();
-  }, [item.procesosEtapa3.urlArchivos]);
+  }, [item.procesosEtapa4.urlArchivos]);
   return (
     <div className="contenido">
       <div className="p-5">
@@ -91,4 +91,4 @@ const VerEtapa4 = ({ item }) => {
   );
 };
 
-export default VerEtapa4;
+export default VerEtapa5;

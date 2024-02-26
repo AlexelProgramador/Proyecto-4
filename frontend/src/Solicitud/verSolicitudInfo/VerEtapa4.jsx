@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import usePostRequest from "../../Hooks/usePostRequest";
 import { obtenerMetaData } from "../../firebase/config";
 
-const VerEtapa5 = ({ item }) => {
+const VerEtapa4 = ({ item }) => {
     const openPdf = (fileUrl) => {
         let url = fileUrl;
         window.open(url, "_blank");
@@ -11,24 +11,26 @@ const VerEtapa5 = ({ item }) => {
     
       useEffect(() => {
         const fetchMetadataAndUrl = async () => {
-          const fileDataPromises = item.procesosEtapa4.urlArchivos?.map(
-            async (fileName) => {
-              try {
-                const metadata = await obtenerMetaData(fileName);
-                const fileUrl = `${fileName}`; // Asegúrate de reemplazar esto con la ruta correcta a tus archivos en el servidor.
-                return { metadata, fileUrl };
-              } catch (error) {
-                console.error("Error fetching metadata:", error);
+          if (item.procesosEtapa4 && item.procesosEtapa4.urlArchivos) {
+            const fileDataPromises = item.procesosEtapa4.urlArchivos?.map(
+              async (fileName) => {
+                try {
+                  const metadata = await obtenerMetaData(fileName);
+                  const fileUrl = `${fileName}`; // Asegúrate de reemplazar esto con la ruta correcta a tus archivos en el servidor.
+                  return { metadata, fileUrl };
+                } catch (error) {
+                  console.error("Error fetching metadata:", error);
+                }
               }
-            }
-          );
-    
-          const fileData = await Promise.all(fileDataPromises);
-          setFileData(fileData);
+            );
+      
+            const fileData = await Promise.all(fileDataPromises);
+            setFileData(fileData);
+          }
         };
-    
+      
         fetchMetadataAndUrl();
-      }, [item.procesosEtapa4.urlArchivos]);
+      }, [item.procesosEtapa4]);
 return (
     <div className="contenido">
         <div className="p-5">
@@ -93,4 +95,4 @@ return (
 );
 };
 
-export default VerEtapa5;
+export default VerEtapa4;
