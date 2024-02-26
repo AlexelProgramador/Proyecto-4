@@ -20,6 +20,10 @@ function getRole(nroEtapa) {
       return "Encargado de abastecimiento";
     case 3:
       return "Bodeguero";
+    case 4:
+        return "Encargado de abastecimiento";
+    case 5:
+        return "Bodeguero";
     case "Dea":
       return "Dea";
     default:
@@ -47,7 +51,7 @@ export const Content = () => {
   const { showAlert, setShowAlert } = useContext(AlertContext);
   const [currentPage, setCurrentPage] = useState(1);
   const responseLocalStorage = JSON.parse(localStorage.getItem("response"));
-  const ITEMS_PER_PAGE = 10;
+  const ITEMS_PER_PAGE = 12;
   const { execute, response } = useDeleteRequest();
   // Buscador
   const [search, setSearch] = useState("");
@@ -60,12 +64,15 @@ export const Content = () => {
       const archivosEtapa1 = item.procesosEtapa1?.urlArchivos || [];
       const archivosEtapa2 = item.procesosEtapa2?.urlArchivos || [];
       const archivosEtapa3 = item.procesosEtapa3?.urlArchivos || [];
-
+      const archivosEtapa4 = item.procesosEtapa4?.urlArchivos || [];
+      const archivosEtapa5 = item.procesosEtapa5?.urlArchivos || [];
       const allFiles = [
         ...archivosSolicitud,
         ...archivosEtapa1,
         ...archivosEtapa2,
         ...archivosEtapa3,
+        ...archivosEtapa4,
+        ...archivosEtapa5,
       ];
 
       const fileDeletePromises = allFiles.map(async (fileName) => {
@@ -98,10 +105,29 @@ export const Content = () => {
     ? sortedData.filter((item) => {
         const { infoSolicitud, procesosEtapa2, infoUsuario } = item;
         const nroSolicitud = infoSolicitud ? infoSolicitud.nroSolicitud : "";
-        const nroordendecompra =
-          procesosEtapa2 && procesosEtapa2.length > 0
-            ? procesosEtapa2.map((orden) => orden.nroordendecompra).join(",")
-            : "";
+    // Verificar si procesosEtapa2 es un array de objetos o un objeto con un campo formularios
+    // Verificar si procesosEtapa2 es un array de objetos o un objeto con un campo formularios
+    let nroordendecompra = "";
+    if (Array.isArray(procesosEtapa2)) {
+        // Si procesosEtapa2 es un array, se asume que cada elemento puede tener el campo nroordendecompra
+        nroordendecompra = procesosEtapa2.reduce((acc, proceso) => {
+            if (proceso.nroordendecompra) {
+                acc.push(proceso.nroordendecompra);
+            } else if (proceso.formularios && proceso.formularios.length > 0) {
+                // Si el proceso tiene un campo formularios, se asume que es un array de objetos
+                acc.push(...proceso.formularios.map((formulario) => formulario.nroordendecompra));
+            }
+            return acc;
+        }, []).join(",");
+    } else if (procesosEtapa2 && typeof procesosEtapa2 === 'object') {
+        // Si procesosEtapa2 es un objeto, se asume que es un solo objeto con el campo nroordendecompra
+        if (procesosEtapa2.nroordendecompra) {
+            nroordendecompra = procesosEtapa2.nroordendecompra;
+        } else if (procesosEtapa2.formularios && procesosEtapa2.formularios.length > 0) {
+            // Si procesosEtapa2 tiene un campo formularios, se asume que es un array de objetos
+            nroordendecompra = procesosEtapa2.formularios.map((formulario) => formulario.nroordendecompra).join(",");
+        }
+    }
         const solicitadoPor = infoUsuario?.solicitadoPor || "";
   
         // Realizar la búsqueda en todos los campos
@@ -137,6 +163,8 @@ export const Content = () => {
     Dea: 50,
     2: 75,
     3: 85,
+    4: 75,
+    5: 85,
     Finalizado: 100,
   };
   const handleDeleteRequest = (itemId, item) => {
@@ -200,15 +228,21 @@ export const Content = () => {
                             <td>{item.infoSolicitud ? item.infoSolicitud.nroSolicitud : 'N/A'}</td>
 
                             <td>
-                              {Array.isArray(item.procesosEtapa2) && item.procesosEtapa2.length > 0 ? (
-                                item.procesosEtapa2.map((orden, index) => (
-                                  <span key={index}>
-                                    {orden.nroordendecompra}
-                                    {index !== item.procesosEtapa2.length - 1 ? ", " : ""}
-                                  </span>
+                              {item.procesosEtapa2 && Array.isArray(item.procesosEtapa2.formularios) && item.procesosEtapa2.formularios.length > 0 ? (
+                                  item.procesosEtapa2.formularios.map((formulario, index) => (
+                                    <span key={index}>
+                                      {formulario.nroordendecompra}
+                                      {index !== item.procesosEtapa2.formularios.length - 1 ? ", " : ""}
+                                    </span>
                                 ))
                               ) : (
-                                "No registro"
+                                <span>
+                                  {item.procesosEtapa2 && item.procesosEtapa2.nroordendecompra ? (
+                                    item.procesosEtapa2.nroordendecompra
+                                  ) : (
+                                    "No registro"
+                                  )}
+                                </span>
                               )}
                             </td>
                             <td>

@@ -41,6 +41,12 @@ class EtapaController extends Controller
         if ($request->has('procesosEtapa3')) {
             $etapa->procesosEtapa3 = $request->procesosEtapa3;
         }
+        if ($request->has('procesosEtapa4')) {
+            $etapa->procesosEtapa4 = $request->procesosEtapa4;
+        }
+        if ($request->has('procesosEtapa5')) {
+            $etapa->procesosEtapa5 = $request->procesosEtapa5;
+        }
         if ($request->has('procesosEtapaDea')) {
             $etapa->procesosEtapaDea = $request->procesosEtapaDea;
         }
