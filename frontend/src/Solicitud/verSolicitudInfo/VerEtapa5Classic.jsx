@@ -37,51 +37,51 @@ const VerEtapa5Classic = ({ item }) => {
 
     return (
     <div className="contenido">
-    <div className="p-5">
-        <h2 className="mb-3">
+    <div className="p-4" style={{fontSize: "18px"}}>
+        <div>
           Numero CDP:{" "}
           <span className="text-primary">{item.procesosEtapa5.ncdp}</span>
-        </h2>
-        <h2 className="mb-3">
+        </div>
+        <div>
           Estado:{" "}
           <span className="text-primary">{item.procesosEtapa5.estado}</span>
-        </h2>
-        <h2 className="mb-3">
+        </div>
+        <div>
           Proveedor:{" "}
           <span className="text-primary">{item.procesosEtapa5.proveedor}</span>
-        </h2>
-        <h2 className="mb-3">
+        </div>
+        <div>
           Fecha emision de factura:{" "}
           <span className="text-primary">
             {item.procesosEtapa5.fechaemisionfact}
           </span>
-        </h2>
-        <h2 className="mb-3">
+        </div>
+        <div>
           Fecha maxima:{" "}
           <span className="text-primary">
             {item.procesosEtapa5.fechamaxima}
           </span>
-        </h2>
-        <h2 className="mb-3">
+        </div>
+        <div>
           Aceptado SII:{" "}
           <span className="text-primary">
             {item.procesosEtapa5.aceptadoSsi}
           </span>
-        </h2>
-        <h2 className="mb-3">
+        </div>
+        <div>
           Fecha vencimiento de factura:{" "}
           <span className="text-primary">
             {item.procesosEtapa5.fechavencfact}
           </span>
-        </h2>
-        <h2 className="mb-3">
+        </div>
+        <div>
           Monto de factura:{" "}
           <span className="text-primary">
             {item.procesosEtapa5.montofactura}
           </span>
-        </h2>
+        </div>
         <div className="pl-5">
-          <h2>Documentos Adjuntos: </h2>
+          <h2 className="mt-2 h4">Documentos Adjuntos</h2>
           <table className="table">
             <thead>
               <tr>

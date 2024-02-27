@@ -33,26 +33,26 @@ const VerEtapa4 = ({ item }) => {
       }, [item.procesosEtapa4]);
 return (
     <div className="contenido">
-        <div className="p-5">
-            <h2 className="mb-3">
+        <div className="p-4" style={{fontSize: "18px"}}>
+            <div>
                 Fecha de envio proveedor:{" "}
                 <span className="text-primary">
                     {item.procesosEtapa3.fechadeenvioproveedor}
                 </span>
-            </h2>
-            <h2 className="mb-3">
+            </div>
+            <div>
                 Estado de envio:{" "}
                 <span className="text-primary">
                     {item.procesosEtapa3.estadodeenvio}
                 </span>
-            </h2>
-            <h2 className="mb-3">
+            </div>
+            <div>
                 Comentarios:{" "}
                 <span className="text-muted">{item.procesosEtapa3.comentarios}</span>
-            </h2>
+            </div>
             <div className="pl-5">
             <div className="pl-5">
-          <h2>Documentos Adjuntos: </h2>
+          <h2 className="mt-2 h4">Documentos Adjuntos</h2>
           <table className="table">
             <thead>
               <tr>

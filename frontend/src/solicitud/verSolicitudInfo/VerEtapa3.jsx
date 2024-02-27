@@ -45,7 +45,7 @@ const VerEtapa3 = ({ item }) => {
 
   return (
     <div className="contenido">
-      <div className="p-5">
+      <div className="p-4">
       {isLoading ? (
           <p>Solicitud en proceso. La información estará disponible aquí una vez que se complete esta etapa.</p>
         ) : (
@@ -57,51 +57,51 @@ const VerEtapa3 = ({ item }) => {
         Modificar etapa
         </button>
         {Array.isArray(item.procesosEtapa3) && item.procesosEtapa3.map((proceso, index) => (
-          <div key={index} className="mb-4">
-        <h4 className="mb-2">
+          <div key={index} className="mb-4" style={{fontSize: "18px"}}>
+        <div>
           Numero CDP:{" "}
           <span className="text-primary">{proceso.ncdp}</span>
-        </h4>
-        <h4 className="mb-2">
+        </div>
+        <div>
           Estado:{" "}
           <span className="text-primary">{proceso.estado}</span>
-        </h4>
-        <h4 className="mb-2">
+        </div>
+        <div>
           Proveedor:{" "}
           <span className="text-primary">{proceso.proveedor}</span>
-        </h4>
-        <h4 className="mb-2">
+        </div>
+        <div>
           Fecha emisión de factura:{" "}
           <span className="text-primary">
             {proceso.fechaemisionfact}
           </span>
-        </h4>
-        <h4 className="mb-2">
+        </div>
+        <div >
           Fecha maxima:{" "}
           <span className="text-primary">
             {proceso.fechamaxima}
           </span>
-        </h4>
-        <h4 className="mb-2">
+        </div>
+        <div>
           Aceptado SII:{" "}
           <span className="text-primary">
             {proceso.aceptadoSsi}
           </span>
-        </h4>
-        <h4 className="mb-2">
+        </div>
+        <div>
           Fecha vencimiento de factura:{" "}
           <span className="text-primary">
             {proceso.fechavencfact}
           </span>
-        </h4>
-        <h4 className="mb-2">
+        </div>
+        <div>
           Monto de factura:{" "}
           <span className="text-primary">
             {proceso.montofactura}
           </span>
-        </h4>
+        </div>
         <div className="pl-5">
-          <h4>Documentos Adjuntos: </h4>
+          <h4 className="mt-2 h4">Documentos Adjuntos</h4>
           <table className="table">
             <thead>
               <tr>
@@ -110,16 +110,16 @@ const VerEtapa3 = ({ item }) => {
               </tr>
             </thead>
             <tbody>
-            {fileData[index]?.metadataList.map((file, fileIndex) => (
-                        <tr key={fileIndex}>
-                          <td>{file.metadata?.name || "No metadata"}</td>
-                          <td>
-                            <button
-                              onClick={() => openPdf(file.url)}
-                              className="btn btn-primary d-flex align-items-center mt-0 bi bi-file-earmark-pdf"
-                              style={{ width: "100px", height: "50px" }}
-                            >
-                              <div>Abrir documento</div>
+              {fileData[index]?.metadataList.map((file, fileIndex) => (
+                <tr key={fileIndex}>
+                  <td>{file.metadata?.name || "No metadata"}</td>
+                  <td>
+                    <button
+                      onClick={() => openPdf(file.url)}
+                      className="btn btn-primary d-flex align-items-center mt-0 bi bi-file-earmark-pdf"
+                      style={{ width: "100px", height: "50px" }}
+                    >
+                      <div>Abrir documento</div>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="40"

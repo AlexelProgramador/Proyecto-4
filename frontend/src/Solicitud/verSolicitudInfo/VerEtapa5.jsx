@@ -31,25 +31,25 @@ const VerEtapa5 = ({ item }) => {
   }, [item.procesosEtapa4.urlArchivos]);
   return (
     <div className="contenido">
-      <div className="p-5">
-        <h2 className="mb-3">
+      <div className="p-4" style={{fontSize: "18px"}}>
+        <div>
           Fecha estimada de compra:{" "}
           <span className="text-primary">
             {item.procesosEtapa4.fechaestiprov}
           </span>
-        </h2>
-        <h2 className="mb-3">
+        </div>
+        <div>
           Estado de compra:{" "}
           <span className="text-primary">
             {item.procesosEtapa4.estadodecomp}
           </span>
-        </h2>
-        <h2 className="mb-3">
+        </div>
+        <div>
           Comentario:{" "}
           <span className="text-muted">{item.procesosEtapa4.comentarios}</span>
-        </h2>
+        </div>
         <div className="pl-5">
-          <h2>Documentos Adjuntos: </h2>
+          <h2 className="mt-2 h4">Documentos Adjuntos</h2>
           <table className="table">
             <thead>
               <tr>
