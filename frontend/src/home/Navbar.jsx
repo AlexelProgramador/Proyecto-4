@@ -3,7 +3,7 @@ import { FaUser } from 'react-icons/fa'; // Importa cualquier icono que quieras 
 
 export const Navbar = () => {
   return (
-    <nav className="navbar navbar-light bg-info">
+    <nav className="navbar navbar-light">
       <div className="container-fluid">
         <a className="navbar-brand" href="#">
           <FaUser className="d-inline-block align-top" /> {/* Aquí va tu icono */}
