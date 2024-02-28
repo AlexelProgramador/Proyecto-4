@@ -36,12 +36,32 @@ const verEtapa2 = ({ item }) => {
     fetchMetadataAndUrl();
   }, [item.procesosEtapa2]);
 
-  console.log("length", fileData.length)
+  if (isLoading) {
+    return (
+      <div className="contenido">
+        <div className="p-4">
+          <div>Cargando...</div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!item.procesosEtapa2.formularios) {
+    return (
+      <div className="contenido">
+        <div className="p-4">
+          <div>Solicitud en proceso. La información estará disponible aquí una vez que se complete esta etapa.</div>
+        </div>
+      </div>
+    );
+  }
+
+  console.log("length", !item.procesosEtapa2.formularios)
   return (
     <div className="contenido">
       <div className="p-4">
         {(isLoading || !item.procesosEtapa2.formularios || item.procesosEtapa2.formularios.length === 0) ? (
-          <p>Solicitud en proceso. La información estará disponible aquí una vez que se complete esta etapaSolicitud en proceso. La información estará disponible aquí una vez que se complete esta etapa.</p>
+          <p>Solicitud en proceso. La información estará disponible aquí una vez que se complete esta etapa.</p>
         ) : (
           item.procesosEtapa2.formularios.map((formulario, index) => (
             <div key={index} className="mb-4" style={{fontSize: "18px"}}>
@@ -122,7 +142,6 @@ const verEtapa2 = ({ item }) => {
                           className="bi bi-file-earmark-pdf"
                           viewBox="0 0 16 16"
                         >
-                       
                         </svg>
                       </button>
                     </td>

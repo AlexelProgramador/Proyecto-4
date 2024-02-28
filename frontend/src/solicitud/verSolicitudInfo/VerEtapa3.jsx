@@ -41,6 +41,25 @@ const VerEtapa3 = ({ item }) => {
     fetchMetadataAndUrl();
   }, [item.procesosEtapa3]);
 
+  if (isLoading) {
+    return (
+      <div className="contenido">
+        <div className="p-4">
+          <div>Cargando...</div>
+        </div>
+      </div>
+    );
+  }
+  if (!fileData.length) {
+    return (
+      <div className="contenido">
+        <div className="p-4">
+          <div>Solicitud en proceso La información estará disponible aquí una vez que se complete esta etapa.</div>
+        </div>
+      </div>
+    );
+  }
+
   console.log("llegaste a etapa3 ");
 
   return (
@@ -51,10 +70,10 @@ const VerEtapa3 = ({ item }) => {
         ) : (
         <div>
         <button
-          className="btn btn-primary  position-absolute top-0 end-0 mx-auto mt-5 me-15 w-15"
+          className="btn btn-primary position-absolute top-0 end-0 mx-auto mt-4 me-4 w-15"
           onClick={() =>
             navigate(`/etapa3`,{ state: { item }, })}>
-        Modificar etapa
+          Modificar etapa
         </button>
         {Array.isArray(item.procesosEtapa3) && item.procesosEtapa3.map((proceso, index) => (
           <div key={index} className="mb-4" style={{fontSize: "18px"}}>

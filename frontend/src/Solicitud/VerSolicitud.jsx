@@ -35,7 +35,16 @@ export const VerSolicitud = () => {
           console.log("entre a etapa2viejo");  
           // Lógica para procesar el segundo tipo de datos
             info = <VerEtapa2Classic item={item} />;
-        } 
+        } else if (item.procesosEtapa2.estado == undefined) {
+          info = 
+          (
+            <div className="contenido">
+              <div className="p-4">
+                <div>Solicitud en proceso. La información estará disponible aquí una vez que se complete esta etapa.</div>
+              </div>
+            </div>
+          );
+        }
         break;
     case 3:
         if (Array.isArray(item.procesosEtapa3) && item.procesosEtapa3.length > 0) {

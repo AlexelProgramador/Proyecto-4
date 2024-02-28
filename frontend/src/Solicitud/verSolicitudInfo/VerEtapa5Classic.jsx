@@ -10,30 +10,55 @@ const VerEtapa5Classic = ({ item }) => {
         window.open(url, "_blank");
       };
       const [fileData, setFileData] = useState([]);
+      const [isLoading, setIsLoading] = useState(true);
 
-      const { data, error, isLoading, execute: executePost } = usePostRequest();
+      const { data, error, execute: executePost } = usePostRequest();
       const [archivos, setArchivos] = useState([]);
       
       useEffect(() => {
         const fetchMetadataAndUrl = async () => {
-          const fileDataPromises = item.procesosEtapa5.urlArchivos?.map(
-            async (fileName) => {
-              try {
-                const metadata = await obtenerMetaData(fileName);
-                const fileUrl = `${fileName}`; // Asegúrate de reemplazar esto con la ruta correcta a tus archivos en el servidor.
-                return { metadata, fileUrl };
-              } catch (error) {
-                console.error("Error fetching metadata:", error);
+          if (item.procesosEtapa5 && item.procesosEtapa5.urlArchivos) {
+            const fileDataPromises = item.procesosEtapa5.urlArchivos.map(
+              async (fileName) => {
+                try {
+                  const metadata = await obtenerMetaData(fileName);
+                  const fileUrl = `${fileName}`;
+                  return { metadata, fileUrl };
+                } catch (error) {
+                  console.error("Error fetching metadata:", error);
+                }
               }
-            }
-          );
+            );
     
-          const fileData = await Promise.all(fileDataPromises);
-          setFileData(fileData);
+            const fileData = await Promise.all(fileDataPromises);
+            setFileData(fileData);
+          }
+    
+          setIsLoading(false);
         };
     
         fetchMetadataAndUrl();
-      }, [item.procesosEtapa5.urlArchivos]);
+      }, [item.procesosEtapa5]);
+
+      if (isLoading) {
+        return (
+          <div className="contenido">
+            <div className="p-4">
+              <div>Cargando...</div>
+            </div>
+          </div>
+        );
+      }
+    
+      if (!item.procesosEtapa5 || !item.procesosEtapa5.ncdp || !item.procesosEtapa5.estado) {
+        return (
+          <div className="contenido">
+            <div className="p-4">
+              <div>Solicitud en proceso. La información estará disponible aquí una vez que se complete esta etapa.</div>
+            </div>
+          </div>
+        );
+      }
 
     return (
     <div className="contenido">

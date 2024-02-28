@@ -8,7 +8,8 @@ const VerEtapa4 = ({ item }) => {
         window.open(url, "_blank");
       };
       const [fileData, setFileData] = useState([]);
-    
+      const [isLoading, setIsLoading] = useState(true);
+
       useEffect(() => {
         const fetchMetadataAndUrl = async () => {
           if (item.procesosEtapa4 && item.procesosEtapa4.urlArchivos) {
@@ -26,11 +27,35 @@ const VerEtapa4 = ({ item }) => {
       
             const fileData = await Promise.all(fileDataPromises);
             setFileData(fileData);
+            setIsLoading(false);
+          } else {
+            setIsLoading(false);
           }
         };
       
         fetchMetadataAndUrl();
       }, [item.procesosEtapa4]);
+
+      if (isLoading) {
+        return (
+          <div className="contenido">
+            <div className="p-4">
+              <div>Cargando...</div>
+            </div>
+          </div>
+        );
+      }
+
+      if (!item.procesosEtapa3 || !item.procesosEtapa3.fechadeenvioproveedor || !item.procesosEtapa3.estadodeenvio || !item.procesosEtapa3.comentarios) {
+        return (
+          <div className="contenido">
+            <div className="p-4">
+              <div>Solicitud en proceso. La información estará disponible aquí una vez que se complete esta etapa.</div>
+            </div>
+          </div>
+        );
+      }
+
 return (
     <div className="contenido">
         <div className="p-4" style={{fontSize: "18px"}}>
