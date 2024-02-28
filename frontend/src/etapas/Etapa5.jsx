@@ -44,6 +44,8 @@ export const Etapa5 = () => {
         idEtapa: item._id,
         nroEtapa: "Finalizado",
         completado: true,
+        infoUsuario: item.infoUsuario,
+        infoSolicitud: item.infoSolicitud,
         procesosEtapa5: {
           ncdp: ncdp,
           estado: estado,

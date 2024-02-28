@@ -37,6 +37,8 @@ export const Etapa4 = () => {
       const data = {
         idEtapa: item._id,
         nroEtapa: 5,
+        infoUsuario: item.infoUsuario,
+        infoSolicitud: item.infoSolicitud,
         procesosEtapa4: {
           fechaestiprov: fechaestprov,
           estadodecomp: estadodecomp,
