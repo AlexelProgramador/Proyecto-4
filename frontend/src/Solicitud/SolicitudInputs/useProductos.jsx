@@ -24,13 +24,13 @@ const useProductos = (productosIniciales, productosPorPagina) => {
     }
   };
 
-  const handleRemoveProducto = (index) => {
+  const handleRemoveProducto = () => {
     const updatedProductos = [...productos];
-    updatedProductos.splice(index, 1);
+    updatedProductos.pop(); // Eliminar el último elemento del array
     setProductos(updatedProductos);
-  
+
     // Verificar si se necesita actualizar la página actual
-    if (updatedProductos.length % productosPorPagina === 0) {
+    if (updatedProductos.length % productosPorPagina === 0 && paginaActual > 0) {
       setPaginaActual(paginaActual - 1);
     }
   };

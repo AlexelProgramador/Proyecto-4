@@ -10,6 +10,7 @@ const UsuarioInput = ({
   setAnexo,
   resumen,
   setResumen,
+  fechaestimada,
   setFechaest
 }) => {
   return (
@@ -51,35 +52,33 @@ const UsuarioInput = ({
           <label htmlFor="floatingSelect">Correo Electronico:</label>
           </div>
       </div>
-      
-      
-        <div className="col-md-6">
-          <div className="form-floating g-2">
+      <div className="col-md-6">
+        <div className="form-floating g-2">
+        <input
+          type="text"
+          className="form-control"
+          id="resumen"
+          value={resumen}
+          onChange={(e) => setResumen(e.target.value)}
+          required
+        />
+        <label htmlFor="floatingSelect">Resumen Solicitud</label>
+        </div>
+      </div>
+      <div className="col-md-6">
+        <div className="form-floating g-2">
           <input
-            type="text"
-            className="form-control"
-            id="resumen"
-            value={resumen}
-            onChange={(e) => setResumen(e.target.value)}
-            required
-          />
-          <label htmlFor="floatingSelect">Resumen Solicitud</label>
-          </div>
+          type="date"
+          className="form-control"
+          id="Fechaest"
+          max="9999-12-31"
+          value={fechaestimada}
+          onChange={(e) => setFechaest(e.target.value)}
+          required
+        />
+        <label htmlFor="floatingSelect">Fecha Estimada</label>
         </div>
-        <div className="col-md-6">
-            <div className="form-floating g-2">
-            <input
-            type="date"
-            className="form-control"
-            id="Fechaest"
-            max="9999-12-31"
-
-            onChange={(e) => setFechaest(e.target.value)}
-            required
-          />
-          <label htmlFor="floatingSelect">Fecha Estimada</label>
-          </div>
-        </div>
+      </div>
     </>
   );
 };

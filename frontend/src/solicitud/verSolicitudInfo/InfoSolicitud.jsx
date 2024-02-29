@@ -34,6 +34,7 @@ const infoSolicitud = ({ selected = 0, item }) => {
         }
       );
 
+      console.log(fileDataPromises);
       const fileData = await Promise.all(fileDataPromises);
       setFileData(fileData);
     };

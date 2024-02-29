@@ -204,8 +204,9 @@ export const Pendientes = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {selectedItems.map(
-                      (item) =>
+                    {filteredData.map((item) => {
+                          console.log("etapa", getRole(item.nroEtapa)); // Agregamos el console.log aquí
+                        return (
                         item.nroEtapa !== "Rechazado" &&
                         (userRole && (getRole(item.nroEtapa) == userRole || (userRoles[1] && getRole(item.nroEtapa) === userRoles[1]) )) && (
                           <tr key={item._id} id={item._id}>
@@ -278,7 +279,8 @@ export const Pendientes = () => {
                             </td>
                           </tr>
                         )
-                    )}
+                        );
+                      })}
                     {Array(10 - selectedItems.length)
                       .fill()
                       .map((_, index) => (

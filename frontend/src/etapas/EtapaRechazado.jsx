@@ -9,7 +9,7 @@ import {
   ProductoInput,
   MotivosInput, 
   PaginationButtons,
-  useProductos,
+  useProductos
 } from "../solicitud/SolicitudInputs";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
@@ -22,7 +22,6 @@ export const EtapaRechazado = () => {
 
   const usuarioInfo = item?.infoUsuario || {};
   const solicitudInfo = item?.infoSolicitud || {};
-  const [archivos, setArchivos] = useState([]);
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -34,8 +33,17 @@ export const EtapaRechazado = () => {
     fechaestimada: usuarioInfo.fechaestimada|| "",
     fuenteFinanciamiento: solicitudInfo.fuenteFinanciamiento || "",
     montoEstimado: solicitudInfo.montoEstimado || "",
+    productos: item?.infoSolicitud.productos || [],
+    archivos: item?.infoSolicitud.urlArchivos || []
   });
-  console.log("archivos",item?.infoSolicitud?.urlArchivos)
+
+  const [archivos, setArchivos] = useState([]);
+  const [archivosAntiguos, setArchivosAntiguos] = useState([]);
+
+
+  console.log("archivos", formData.archivos);
+  console.log("productos",formData.fechaestimada);
+
 
   const handleInputChange = (fieldName, value) => {
     setFormData((prevData) => ({
@@ -47,11 +55,14 @@ export const EtapaRechazado = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("datitos", item);
-    const urlArchivos = await uploadFiles(
+    const urlArchivosNuevos = await uploadFiles(
       archivos,
       item.infoSolicitud.nroSolicitud,
       item.nroEtapa
     );
+    const urlArchivosAntiguos = formData.archivos.filter(url => !archivos.includes(url)); // Filtrar los archivos antiguos que no están en los nuevos archivos
+    const urlArchivos = [...urlArchivosAntiguos, ...urlArchivosNuevos]; // Combinar archivos antiguos con nuevos
+  
     const productosData = productos.map((producto) => ({
       descripcion: producto.descripcion,
       cantidad: producto.cantidad,
@@ -103,9 +114,8 @@ export const EtapaRechazado = () => {
     productosPaginados,
     handleAddProducto,
     handleRemoveProducto,
-
     handleProductoChange,
-  } = useProductos([{ descripcion: "", cantidad: "", tipoEmpaque: "" }], 3);
+  } = useProductos(formData.productos, 3);
   // const [productos, setProductos] = useState(item?.infoSolicitud.productos || []);
 
   return (
@@ -159,6 +169,7 @@ export const EtapaRechazado = () => {
                 key={index}
                 index={index}
                 producto={producto}
+                setProductos={setProductos}
                 handleProductoChange={handleProductoChange}
                 handleRemoveProducto={handleRemoveProducto}
 
@@ -173,7 +184,7 @@ export const EtapaRechazado = () => {
               paginaActual={paginaActual}
               setPaginaActual={setPaginaActual}
               numeroDePaginas={numeroDePaginas}
-              productos={productos}
+              productos={formData.productos}
               productosPorPagina={3}
             />
             <MotivosInput
@@ -185,6 +196,7 @@ export const EtapaRechazado = () => {
               setMontoEstimado={(value) => handleInputChange("montoEstimado", value)}
               archivos={archivos} // Pasar los archivos aquí
               setArchivos={setArchivos}
+              item = {item}
             />
             <div>
               <button type="submit" className="btn btn-primary me-1">

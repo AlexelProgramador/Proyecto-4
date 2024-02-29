@@ -1,6 +1,6 @@
 // ProductoInput.jsx
 import React from "react";
-const ProductoInput = ({ index, producto, handleProductoChange, handleRemoveProducto }) => {
+const ProductoInput = ({ index, producto, setProductos, handleProductoChange, handleRemoveProducto }) => {
   return (
     <>
       <div key={index} className="col-md-6">

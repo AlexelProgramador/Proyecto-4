@@ -139,6 +139,7 @@ export const CrearSolicitud = () => {
                 setMontoEstimado={setMontoEstimado}
                 archivos={archivos}
                 setArchivos={setArchivos}
+                item={null}
               />
               <div>
               <button type="submit" className="btn btn-primary me-1">
