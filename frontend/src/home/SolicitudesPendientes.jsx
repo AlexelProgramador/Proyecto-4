@@ -106,22 +106,53 @@ export const Pendientes = () => {
   const sortedData = data
     ? [...data].sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at))
     : [];
-  const filteredData = search
-    ? sortedData.filter(
-        (item) =>
-          (item.infoSolicitud.nroSolicitud &&
-            item.infoSolicitud.nroSolicitud.includes(search)) ||
-          (item.procesosEtapa2.nroordendecompra &&
-            item.procesosEtapa2.nroordendecompra.includes(search))
-      )
+    const filteredData = search
+    ? sortedData.filter((item) => {
+        const { infoSolicitud, procesosEtapa2, infoUsuario } = item;
+        const nroSolicitud = infoSolicitud ? infoSolicitud.nroSolicitud : "";
+    // Verificar si procesosEtapa2 es un array de objetos o un objeto con un campo formularios
+    // Verificar si procesosEtapa2 es un array de objetos o un objeto con un campo formularios
+    let nroordendecompra = "";
+    if (Array.isArray(procesosEtapa2)) {
+        // Si procesosEtapa2 es un array, se asume que cada elemento puede tener el campo nroordendecompra
+        nroordendecompra = procesosEtapa2.reduce((acc, proceso) => {
+            if (proceso.nroordendecompra) {
+                acc.push(proceso.nroordendecompra);
+            } else if (proceso.formularios && proceso.formularios.length > 0) {
+                // Si el proceso tiene un campo formularios, se asume que es un array de objetos
+                acc.push(...proceso.formularios.map((formulario) => formulario.nroordendecompra));
+            }
+            return acc;
+        }, []).join(",");
+    } else if (procesosEtapa2 && typeof procesosEtapa2 === 'object') {
+        // Si procesosEtapa2 es un objeto, se asume que es un solo objeto con el campo nroordendecompra
+        if (procesosEtapa2.nroordendecompra) {
+            nroordendecompra = procesosEtapa2.nroordendecompra;
+        } else if (procesosEtapa2.formularios && procesosEtapa2.formularios.length > 0) {
+            // Si procesosEtapa2 tiene un campo formularios, se asume que es un array de objetos
+            nroordendecompra = procesosEtapa2.formularios.map((formulario) => formulario.nroordendecompra).join(",");
+        }
+    }
+        const solicitadoPor = infoUsuario?.solicitadoPor || "";
+  
+        // Realizar la búsqueda en todos los campos
+        return (
+          nroSolicitud.includes(search) ||
+          nroordendecompra.includes(search) ||
+          solicitadoPor.toLowerCase().includes(search.toLowerCase())
+        );
+      })
     : sortedData;
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const selectedItems = filteredData.slice(
-    startIndex,
-    startIndex + ITEMS_PER_PAGE
-  );
 
-  // console.log(selectedItems);
+    const seleccionados = filteredData ? filteredData.filter(item => item.nroEtapa !== "Rechazado" &&
+    (userRole && (getRole(item.nroEtapa) == userRole || (userRoles[1] && getRole(item.nroEtapa) === userRoles[1]) )))  
+        .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at))  : [];
+    const totalItems = seleccionados.length; // Número total de solicitudes del usuario
+    const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE); // Calcula el número total de páginas basado en filteredData
+
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    const endIndex = startIndex + ITEMS_PER_PAGE;
+    const selectedItems = seleccionados.slice(startIndex, endIndex);
 
   useEffect(() => {
     if (showAlert) {
@@ -204,7 +235,7 @@ export const Pendientes = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {filteredData.map((item) => {
+                    {selectedItems.map((item) => {
                           // console.log("etapa", getRole(item.nroEtapa)); // Agregamos el console.log aquí
                         return (
                         item.nroEtapa !== "Rechazado" &&
@@ -281,19 +312,19 @@ export const Pendientes = () => {
                         )
                         );
                       })}
-                    {Array(10 - selectedItems.length)
+                    {/* {Array(10 - selectedItems.length)
                       .fill()
                       .map((_, index) => (
                         <tr key={`empty-${index}`}>
                           <td colSpan="5">&nbsp;</td>
                         </tr>
-                      ))}
+                      ))} */}
                   </tbody>
                 </table>
                 <div>
                 <Pagination
                   currentPage={currentPage}
-                  totalPages={Math.ceil(selectedItems.length / ITEMS_PER_PAGE)}
+                  totalPages={totalPages}
                   onPageChange={setCurrentPage}
                 />
                 </div>
