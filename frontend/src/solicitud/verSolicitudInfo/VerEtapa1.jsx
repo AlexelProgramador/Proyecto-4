@@ -9,27 +9,55 @@ const verEtapa1 = ({ item }) => {
   };
 
   const [fileData, setFileData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchMetadataAndUrl = async () => {
-      const fileDataPromises = item.procesosEtapa1.urlArchivos?.map(
-        async (fileName) => {
-          try {
-            const metadata = await obtenerMetaData(fileName);
-            const fileUrl = `${fileName}`; // Asegúrate de reemplazar esto con la ruta correcta a tus archivos en el servidor.
-            return { metadata, fileUrl };
-          } catch (error) {
-            console.error("Error fetching metadata:", error);
+      if (item.procesosEtapa1 && item.procesosEtapa1.urlArchivos) {
+        const fileDataPromises = item.procesosEtapa1.urlArchivos?.map(
+          async (fileName) => {
+            try {
+              const metadata = await obtenerMetaData(fileName);
+              const fileUrl = `${fileName}`; // Asegúrate de reemplazar esto con la ruta correcta a tus archivos en el servidor.
+              return { metadata, fileUrl };
+            } catch (error) {
+              console.error("Error fetching metadata:", error);
+            }
           }
-        }
-      );
+        );
 
-      const fileData = await Promise.all(fileDataPromises);
-      setFileData(fileData);
+        const fileData = await Promise.all(fileDataPromises);
+        setFileData(fileData);
+      } 
+        setIsLoading(false);
+      
     };
 
     fetchMetadataAndUrl();
   }, [item.procesosEtapa1.urlArchivos]);
+
+  console.log("prueba", !item.procesosEtapa1.centroDeCostos)
+
+  if ((!item.procesosEtapa1 || !item.procesosEtapa1.centroDeCostos) && item.nroEtapa !== 2 && item.nroEtapa !== "Dea") {
+    return (
+      <div className="contenido">
+        <div className="p-4">
+          <div>Solicitud en proceso. La información estará disponible aquí una vez que se complete esta etapa.</div>
+        </div>
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <div className="contenido">
+        <div className="p-4">
+          <div>Cargando...</div>
+        </div>
+      </div>
+    );
+  }
+
 
   return (
     <div className="contenido">
