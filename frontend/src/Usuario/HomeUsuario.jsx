@@ -43,7 +43,7 @@ const HomeUsuario = () => {
   }, [showAlert]);
   const navigate = useNavigate();
 
-  console.log(data)
+  // console.log(data)
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const selectedItems = data && Array.isArray(data.results)
   ? data.results.slice(startIndex, startIndex + ITEMS_PER_PAGE)

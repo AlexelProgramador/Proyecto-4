@@ -55,7 +55,7 @@ export const Pendientes = () => {
   const userRoles = responseLocalStorage?.usuario || [];
   const userRole = userRoles.length > 0 ? userRoles[0] : null; // Obtener el primer rol del array, o null si no hay roles
 
-  console.log(userRole)
+  // console.log(userRole)
 
   // Buscador
   const [search, setSearch] = useState("");
@@ -121,7 +121,7 @@ export const Pendientes = () => {
     startIndex + ITEMS_PER_PAGE
   );
 
-  console.log(selectedItems);
+  // console.log(selectedItems);
 
   useEffect(() => {
     if (showAlert) {
@@ -205,7 +205,7 @@ export const Pendientes = () => {
                   </thead>
                   <tbody>
                     {filteredData.map((item) => {
-                          console.log("etapa", getRole(item.nroEtapa)); // Agregamos el console.log aquí
+                          // console.log("etapa", getRole(item.nroEtapa)); // Agregamos el console.log aquí
                         return (
                         item.nroEtapa !== "Rechazado" &&
                         (userRole && (getRole(item.nroEtapa) == userRole || (userRoles[1] && getRole(item.nroEtapa) === userRoles[1]) )) && (

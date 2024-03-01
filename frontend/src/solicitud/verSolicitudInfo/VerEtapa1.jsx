@@ -36,7 +36,7 @@ const verEtapa1 = ({ item }) => {
     fetchMetadataAndUrl();
   }, [item.procesosEtapa1.urlArchivos]);
 
-  console.log("prueba", !item.procesosEtapa1.centroDeCostos)
+  // console.log("prueba", !item.procesosEtapa1.centroDeCostos)
 
   if ((!item.procesosEtapa1 || !item.procesosEtapa1.centroDeCostos) && item.nroEtapa !== 2 && item.nroEtapa !== "Dea") {
     return (

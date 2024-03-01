@@ -2,7 +2,7 @@ import React from "react";
 
 const SeccionDiasSinAtender = ({ unattendedRequests }) => {
   // const unattendedRequests = getUnattendedRequests(data);
-  console.log(unattendedRequests);
+  // console.log(unattendedRequests);
 
   return (
     <div className="rightBar">

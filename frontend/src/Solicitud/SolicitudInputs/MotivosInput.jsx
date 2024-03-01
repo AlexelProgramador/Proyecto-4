@@ -39,8 +39,8 @@ const MotivosInput = ({
       fetchMetadataAndUrl();
     }, [item.infoSolicitud.urlArchivos]);
 
-    console.log("filedatapromise",fileData);
-    console.log("fileData:", fileData);
+    // console.log("filedatapromise",fileData);
+    // console.log("fileData:", fileData);
 
   }
   

@@ -97,7 +97,7 @@ const data = {
     var url = "verEtapa";
     var response = await executePost(data, url);
     setinfoSolicitud(response);
-    console.log(item);
+    // console.log(item);
   };
 
   useEffect(() => {

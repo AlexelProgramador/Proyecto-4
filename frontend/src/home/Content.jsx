@@ -145,7 +145,7 @@ export const Content = () => {
     startIndex + ITEMS_PER_PAGE
   );
 
-  console.log(selectedItems);
+  // console.log(selectedItems);
 
   useEffect(() => {
     if (showAlert) {

@@ -31,9 +31,7 @@ const verEtapa2Classic = ({ item }) => {
       fetchMetadataAndUrl();
     }, [item.procesosEtapa2]);
 
-
-    console.log("length", !item.procesosEtapa2)
-
+    // console.log("length", !item.procesosEtapa2)
 
   return (
     <div className="contenido">

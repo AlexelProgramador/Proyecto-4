@@ -56,7 +56,7 @@ const verEtapa2 = ({ item }) => {
     );
   }
 
-  console.log("length", !item.procesosEtapa2.formularios)
+  // console.log("length", !item.procesosEtapa2.formularios)
   return (
     <div className="contenido">
       <div className="p-4">

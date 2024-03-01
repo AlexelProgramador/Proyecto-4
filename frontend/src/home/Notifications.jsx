@@ -33,7 +33,7 @@ const getUnattendedRequests = (data, userId) => {
 
   const oneDayAgo = new Date();
   oneDayAgo.setDate(oneDayAgo.getDate() - 3);
-  console.log(userRoles)
+  // console.log(userRoles)
   return data
     .filter((request) => 
     (request.nroEtapa !== 'Finalizado') &&

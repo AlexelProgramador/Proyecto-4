@@ -12,7 +12,7 @@ const VerEtapa3 = ({ item }) => {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
-  console.log(item)
+  // console.log(item)
 
   useEffect(() => {
     const fetchMetadataAndUrl = async () => {

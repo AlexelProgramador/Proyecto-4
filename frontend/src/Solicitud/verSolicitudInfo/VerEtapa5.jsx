@@ -35,8 +35,7 @@ const VerEtapa5 = ({ item }) => {
     fetchMetadataAndUrl();
   }, [item.procesosEtapa4.urlArchivos]);
 
-  console.log("prueba", !item.procesosEtapa4.fechaestiprov)
-
+  // console.log("prueba", !item.procesosEtapa4.fechaestiprov)
 
   if (isLoading) {
     return (

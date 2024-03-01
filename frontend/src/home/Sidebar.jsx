@@ -40,13 +40,14 @@ export const Sidebar = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const ITEMS_PER_PAGE = 10;
   const responseLocalStorage = JSON.parse(localStorage.getItem("response"));
+  const user = responseLocalStorage?.nombreusuario;
   const userId = responseLocalStorage?.usuarioId;
   const userRole = responseLocalStorage?.usuario || [];
   const userRoles = userRole.length > 0 ? userRole[0] : null; // Obtener el primer rol del array, o null si no hay roles
   const isSolicitante = userRole.includes("Solicitante");
   const isAdministrador = userRole.includes("Administrador");
 
-  // console.log("response", userId)
+  // console.log("response", user)
   // console.log("rol", isAdministrador)
   // console.log("rol", isSolicitante)
 
@@ -68,7 +69,7 @@ export const Sidebar = () => {
             data={data}
             userId={userId}
           />
-          <div className="align-middle ps-2"></div>
+          <div className="align-middle ps-2">{" "}{user}</div>
         </div>
       </header>
       {/* SIDEBAR */}
