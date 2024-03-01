@@ -1,6 +1,31 @@
 // ProductoInput.jsx
 import React from "react";
 const ProductoInput = ({ index, producto, setProductos, handleProductoChange, handleRemoveProducto }) => {
+  
+  const unidadesEmpaque = [
+    "Unidad no definida", "Galón", "Ampolla", "Frasco Ampolla", "Año", "Atado",
+    "Balón", "Bandeja", "Barra", "Bidón", "Bolsa",
+    "Cubeta", "Balde", "Block", "Botella", "Caja",
+    "Pieza", "Lata", "Cajetilla", "Cápsula", "Carga",
+    "Carrete", "Cartón", "Centímetros Cúbicos", "Cientos", "Cilindro",
+    "Comprimido", "Comprimido Vaginal", "Centímetro", "Cajón", "Cono",
+    "Cartucho", "Bloque", "Pallets", "Día", "Docena",
+    "Dosis", "Tambor", "Disco", "Unidad", "Pie",
+    "Global", "Gramo", "Gragea", "Gruesa", "Hoja",
+    "Hora", "Día/Hombre", "Pulgada", "Tarro", "Cuñete",
+    "Kilogramo", "Kit", "Hora/Hombre", "Libra", "Litro",
+    "Matraz", "Microgramo", "Miles", "Milígramo", "Mililitro",
+    "Milímetro", "Mes", "Metro Cuadrado", "Metro Cúbico", "Metro Lineal",
+    "Lámina", "Onza", "Ovillo", "Ovulo", "Pack",
+    "Pan", "Papelillo", "Placa", "Pliego", "Paquete",
+    "Plancha", "Pomo", "Pote", "Par", "Quincena",
+    "Rack", "Resma", "Rollo", "Saco", "Sachet",
+    "Juego", "Sobre", "Tira", "Supositorio", "Talonario",
+    "Tineta", "Tonelada", "Tubo", "Unidad Internacional", "Frasco",
+    "Semana", "Mes/Hombre",
+  ];
+  
+  
   return (
     <>
       <div key={index} className="col-md-6">
@@ -42,28 +67,12 @@ const ProductoInput = ({ index, producto, setProductos, handleProductoChange, ha
               handleProductoChange(index, "tipoEmpaque", e.target.value)
             }
           >
-            <option>tipo de empaque</option>
-            <option value="Unidad">Unidad</option>
-            <option value="Bidon">Bidon</option>
-            <option value="Bolsa">Bolsa</option>
-            <option value="Botella">Botella</option>
-            <option value="Caja">Caja</option>
-            <option value="Docena">Docena</option>
-            <option value="Kilo">Kilo</option>
-            <option value="Litro">Litro</option>
-            <option value="Onza">Onza</option>
-            <option value="Pack">Pack</option>
-            <option value="Pallet">Pallet</option>
-            <option value="Par">Par</option>
-            <option value="Pieza">Pieza</option>
-            <option value="Plancha">Plancha</option>
-            <option value="Pliego">Pliego</option>
-            <option value="Resma">Resma</option>
-            <option value="Rollo">Rollo</option>
-            <option value="Sachet">Sachet</option>
-            <option value="Saco">Saco</option>
+            {/* Mapear las opciones del empaque */}
+            {unidadesEmpaque.map((opcion, i) => (
+              <option key={i} value={opcion}>{opcion}</option>
+            ))}
           </select>
-          <label htmlFor="tipo de empaque">tipo de empaque</label>
+          <label htmlFor="tipo de empaque">Unidad de empaque</label>
         </div>
       </div>
       <div className="col-auto justify-content-center d-flex align-items-center">
