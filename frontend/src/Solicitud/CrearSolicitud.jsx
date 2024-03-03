@@ -12,6 +12,10 @@ import {
 } from "./SolicitudInputs";
 import { useNavigate } from "react-router-dom";
 
+// Correo
+import enviarCorreo from "./EmaiSender"; // Asegúrate de tener la ruta correcta al componente EmailSender
+
+
 export const CrearSolicitud = () => {
   const { setShowAlert } = useContext(AlertContext);
   const navigate = useNavigate();
@@ -60,6 +64,64 @@ export const CrearSolicitud = () => {
     };
   }, []);
 
+  // console.log("prueba", response)
+
+  const handleEnviarSolicitud = async (event) => {
+    event.preventDefault();
+
+    console.log("handleEnviarSolicitud ejecutándose...");
+
+    // Envía la solicitud
+    const solicitudEnviada = await handleSubmit(
+      event,
+      solicitadoPor,
+      anexo,
+      correo,
+      resumen,
+      Fechaest,
+      productos,
+      motivos,
+      fuenteFinanciamiento,
+      montoEstimado,
+      archivos
+    );
+
+    console.log("Solicitud enviada:", solicitudEnviada);
+
+    // Si la solicitud se envió con éxito, envía el correo de confirmación
+    if (solicitudEnviada) {
+      try {
+        // Llama a la función enviarCorreo con los datos necesarios
+        const correoEnviado = await enviarCorreo(correo, 
+        `Estimando/a ${solicitadoPor},
+
+          Su solicitud ${resumen} ha sido ingresada con éxito.
+
+          Información de la Solicitud
+          Creada el ${new Date().toLocaleDateString()}
+        `, 
+        `Confirmación de su solicitud`);
+      
+      console.log("Correo enviado:", correoEnviado);
+
+        // Realiza las acciones necesarias según el resultado del envío del correo
+        if (correoEnviado) {
+          // Acciones si el correo se envió correctamente
+          setShowAlert({ type: "success", message: "Correo electrónico enviado con éxito" });
+        } else {
+          // Acciones si hubo un error al enviar el correo
+          setShowAlert({ type: "error", message: "Error al enviar el correo electrónico" });
+        }
+      } catch (error) {
+        // Manejar cualquier error que ocurra durante el envío del correo
+        console.error("Error al enviar el correo electrónico:", error);
+        setShowAlert({ type: "error", message: "Error al enviar el correo electrónico" });
+      }
+    } else {
+      console.log("No paso por el if")
+    }
+  };
+
   return (
     <div className="w-75 h-40 mx-auto">
       {isLoading ? (
@@ -80,21 +142,8 @@ export const CrearSolicitud = () => {
             </div>
 
             <form
-              onSubmit={(event) =>
-                handleSubmit(
-                  event,
-                  solicitadoPor,
-                  anexo,
-                  correo,
-                  resumen,
-                  Fechaest,
-                  productos,
-                  motivos,
-                  fuenteFinanciamiento,
-                  montoEstimado,
-                  archivos
-                )
-              }
+                              onSubmit={handleEnviarSolicitud}
+
               className="row g-3"
             >
               <UsuarioInput
@@ -106,7 +155,6 @@ export const CrearSolicitud = () => {
                 setResumen={setResumen}
               />
               {productosPaginados.map((producto, index) => (
-                <>
                 <ProductoInput
                   key={index}
                   index={index}
@@ -114,7 +162,6 @@ export const CrearSolicitud = () => {
                   handleProductoChange={handleProductoChange}
                   handleRemoveProducto={handleRemoveProducto}
                 />               
-                </>
               ))}
               <div className="d-flex justify-content-center">
                 <button

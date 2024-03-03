@@ -10,6 +10,8 @@ use App\Http\Controllers\Api\AApiPdfController;
 
 use App\Http\Controllers\Api\PdfController;
 use App\Http\Controllers\ArchivosController;
+use App\Http\Controllers\Api\CorreoController; // Elimina la segunda importación de CorreoController
+
 
 /*
 |--------------------------------------------------------------------------
@@ -52,3 +54,5 @@ Route::controller(ArchivosController::class)->group(function () {
 Route::group(['prefix' => 'pdf', 'as' => 'pdf.'], function () {
     Route::get('/{filename}', [AApiPdfController::class, 'show'])->name('show');
 });
+
+Route::post('/enviar-correo', [CorreoController::class, 'enviarCorreo']);

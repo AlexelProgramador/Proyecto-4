@@ -1,6 +1,6 @@
 // ProductoInput.jsx
 import React from "react";
-const ProductoInput = ({ index, producto, setProductos, handleProductoChange, handleRemoveProducto }) => {
+const ProductoInput = ({ index, producto, handleProductoChange, handleRemoveProducto }) => {
   
   const unidadesEmpaque = [
     "Unidad no definida", "Galón", "Ampolla", "Frasco Ampolla", "Año", "Atado",
@@ -28,7 +28,7 @@ const ProductoInput = ({ index, producto, setProductos, handleProductoChange, ha
   
   return (
     <>
-      <div key={index} className="col-md-6">
+      <div className="col-md-6">
         <div className="form-floating g-3">
           <input
             type="text"
@@ -42,7 +42,7 @@ const ProductoInput = ({ index, producto, setProductos, handleProductoChange, ha
         </div>
       </div>
 
-      <div key={index} className="col-md-2">
+      <div className="col-md-2">
         <div className="form-floating g-3">
           <input
             type="number"
@@ -56,7 +56,7 @@ const ProductoInput = ({ index, producto, setProductos, handleProductoChange, ha
         </div>
       </div>
 
-      <div key={index} className="col">
+      <div className="col">
         <div className="form-floating g-3">
           <select
             className="form-select"

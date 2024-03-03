@@ -19,7 +19,9 @@ const useProductos = (productosIniciales, productosPorPagina) => {
       ...productos,
       { descripcion: "", cantidad: "", tipoEmpaque: "" },
     ]);
-    if (productos.length % productosPorPagina === 0) {
+    
+    // Verificar si se necesita actualizar la página actual
+    if ((productos.length + 1) % productosPorPagina === 0) {
       setPaginaActual(paginaActual + 1);
     }
   };
