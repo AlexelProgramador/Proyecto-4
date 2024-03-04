@@ -76,9 +76,9 @@ const useSubmitForm = (execute, setShowAlert) => {
       if (response) {
         setShowAlert(true);
         navigate("/");
-        return true; // Devuelve true si la solicitud se envió correctamente
+        return data.infoSolicitud.nroSolicitud; // Devuelve true si la solicitud se envió correctamente
       } else {
-        return false; // Devuelve false si hubo un error al enviar la solicitud
+        return null; // Devuelve false si hubo un error al enviar la solicitud
       }
     } catch (error) {
       alert(error.message);

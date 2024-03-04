@@ -6,8 +6,9 @@ const enviarCorreo = async (correoDestinatario, contenidoCorreo, asuntoCorreo) =
       'http://127.0.0.1:8000/api/enviar-correo',
       {
         correo: correoDestinatario, 
+        asunto: asuntoCorreo,
         contenido: contenidoCorreo,
-        asunto: asuntoCorreo
+
       },
       {
         headers: {

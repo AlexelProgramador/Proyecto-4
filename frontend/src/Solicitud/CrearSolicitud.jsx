@@ -72,7 +72,7 @@ export const CrearSolicitud = () => {
     console.log("handleEnviarSolicitud ejecutándose...");
 
     // Envía la solicitud
-    const solicitudEnviada = await handleSubmit(
+    const nroSolicitud = await handleSubmit(
       event,
       solicitadoPor,
       anexo,
@@ -86,23 +86,49 @@ export const CrearSolicitud = () => {
       archivos
     );
 
-    console.log("Solicitud enviada:", solicitudEnviada);
+    console.log("Solicitud enviada:", nroSolicitud);
 
     // Si la solicitud se envió con éxito, envía el correo de confirmación
-    if (solicitudEnviada) {
+    if (nroSolicitud) {
+    const contenidoCorreo = `
+    <h3>Estimado/a ${solicitadoPor},</h3>
+    <p>Su solicitud realizada el ${new Date().toLocaleDateString()} con la descripción "${resumen}" ha sido ingresada correctamente, con el N° ${nroSolicitud}.</p>
+
+    <h3>Información Solicitud</h3>
+    <div><strong>Solicitado por:</strong> ${solicitadoPor}</div>
+    <div><strong>Anexo:</strong> ${anexo}</div>
+    <div><strong>Correo Electrónico:</strong> ${correo}</div>
+    <div><strong>Resumen:</strong> ${resumen}</div>
+    <div><strong>Motivos:</strong> ${motivos}</div>
+    <div><strong>Fuente de Financiamiento:</strong> ${fuenteFinanciamiento}</div>
+    <div><strong>Monto Estimado:</strong> ${montoEstimado}</div>
+    <h3>Productos Solicitados</h3>
+    <table style="border: 0px; width: 100%; text-align: left">
+      <thead>
+        <tr>
+          <th style="width: 60%;">Descripción</th>
+          <th style="width: 10%;">Cantidad</th>
+          <th style="width: 30%;">Tipo de Empaque</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${productos.map((producto) => `
+        <tr>
+          <td>${producto.descripcion}</td>
+          <td>${producto.cantidad}</td>
+          <td>${producto.tipoEmpaque}</td>
+        </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  `;
+
       try {
         // Llama a la función enviarCorreo con los datos necesarios
-        const correoEnviado = await enviarCorreo(correo, 
-        `Estimando/a ${solicitadoPor},
-
-          Su solicitud ${resumen} ha sido ingresada con éxito.
-
-          Información de la Solicitud
-          Creada el ${new Date().toLocaleDateString()}
-        `, 
-        `Confirmación de su solicitud`);
+        const correoEnviado = await enviarCorreo(correo, contenidoCorreo, 
+        `Confirmación Solicitud #${nroSolicitud}`);
       
-      console.log("Correo enviado:", correoEnviado);
+        console.log("Correo enviado:", correoEnviado, contenidoCorreo);
 
         // Realiza las acciones necesarias según el resultado del envío del correo
         if (correoEnviado) {
@@ -141,9 +167,7 @@ export const CrearSolicitud = () => {
             <div className="h5 text-uppercase">Crear Solicitud</div>
             </div>
 
-            <form
-                              onSubmit={handleEnviarSolicitud}
-
+            <form onSubmit={handleEnviarSolicitud}
               className="row g-3"
             >
               <UsuarioInput
@@ -160,8 +184,8 @@ export const CrearSolicitud = () => {
                   index={index}
                   producto={producto}
                   handleProductoChange={handleProductoChange}
-                  handleRemoveProducto={handleRemoveProducto}
-                />               
+                  handleRemoveProducto={() => handleRemoveProducto(index)} // Aquí pasas el índice
+                  />               
               ))}
               <div className="d-flex justify-content-center">
                 <button

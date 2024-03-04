@@ -15,22 +15,23 @@ const useProductos = (productosIniciales, productosPorPagina) => {
   const handleAddProducto = (event) => {
     event.preventDefault();
 
-    setProductos([
-      ...productos,
-      { descripcion: "", cantidad: "", tipoEmpaque: "" },
-    ]);
-    
-    // Verificar si se necesita actualizar la página actual
-    if ((productos.length + 1) % productosPorPagina === 0) {
-      setPaginaActual(paginaActual + 1);
-    }
+  setProductos([
+    ...productos,
+    { descripcion: "", cantidad: "", tipoEmpaque: "" },
+  ]);
+
+  // Verificar si se necesita actualizar la página actual
+  const numeroDePaginasDespuesDeAgregar = Math.ceil((productos.length + 1) / productosPorPagina);
+  if (numeroDePaginasDespuesDeAgregar > numeroDePaginas) {
+    setPaginaActual(numeroDePaginasDespuesDeAgregar - 1);
+  }
   };
 
-  const handleRemoveProducto = () => {
+  const handleRemoveProducto = (index) => {
     const updatedProductos = [...productos];
-    updatedProductos.pop(); // Eliminar el último elemento del array
+    updatedProductos.splice(index + paginaActual * productosPorPagina, 1); // Eliminar el producto en la posición indicada
     setProductos(updatedProductos);
-
+  
     // Verificar si se necesita actualizar la página actual
     if (updatedProductos.length % productosPorPagina === 0 && paginaActual > 0) {
       setPaginaActual(paginaActual - 1);
