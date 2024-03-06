@@ -119,7 +119,7 @@ export const Sidebar = () => {
                     color: isHoveredSoliFin ? "white" : "grey",
                   }}
                   onMouseEnter={() => setIsHoveredSoliFin(true)}
-                  onMouseLeave={() => setIsHoveredSoliFIN(false)}
+                  onMouseLeave={() => setIsHoveredSoliFin(false)}
                   className="d-flex nav-link"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg"

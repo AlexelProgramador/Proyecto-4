@@ -3,28 +3,18 @@ import React from "react";
 const ProductoInput = ({ index, producto, handleProductoChange, handleRemoveProducto }) => {
   
   const unidadesEmpaque = [
-    "Unidad no definida", "Galón", "Ampolla", "Frasco Ampolla", "Año", "Atado",
-    "Balón", "Bandeja", "Barra", "Bidón", "Bolsa",
-    "Cubeta", "Balde", "Block", "Botella", "Caja",
-    "Pieza", "Lata", "Cajetilla", "Cápsula", "Carga",
-    "Carrete", "Cartón", "Centímetros Cúbicos", "Cientos", "Cilindro",
-    "Comprimido", "Comprimido Vaginal", "Centímetro", "Cajón", "Cono",
-    "Cartucho", "Bloque", "Pallets", "Día", "Docena",
-    "Dosis", "Tambor", "Disco", "Unidad", "Pie",
-    "Global", "Gramo", "Gragea", "Gruesa", "Hoja",
-    "Hora", "Día/Hombre", "Pulgada", "Tarro", "Cuñete",
-    "Kilogramo", "Kit", "Hora/Hombre", "Libra", "Litro",
-    "Matraz", "Microgramo", "Miles", "Milígramo", "Mililitro",
-    "Milímetro", "Mes", "Metro Cuadrado", "Metro Cúbico", "Metro Lineal",
-    "Lámina", "Onza", "Ovillo", "Ovulo", "Pack",
-    "Pan", "Papelillo", "Placa", "Pliego", "Paquete",
-    "Plancha", "Pomo", "Pote", "Par", "Quincena",
-    "Rack", "Resma", "Rollo", "Saco", "Sachet",
-    "Juego", "Sobre", "Tira", "Supositorio", "Talonario",
-    "Tineta", "Tonelada", "Tubo", "Unidad Internacional", "Frasco",
-    "Semana", "Mes/Hombre",
+    "Ampolla", "Año", "Atado", "Balde", "Balón", "Bandeja", "Barra", "Bidón", "Bloque", "Block",
+    "Bolsa", "Botella", "Caja", "Cajetilla", "Cajón", "Carga", "Carrete", "Cartón", "Cartucho", "Centímetro",
+    "Centímetros Cúbicos", "Cientos", "Cilindro", "Comprimido", "Comprimido Vaginal", "Cono", "Cuñete", "Día",
+    "Día/Hombre", "Disco", "Docena", "Dosis", "Frasco", "Frasco Ampolla", "Galón", "Global", "Gramo",
+    "Gragea", "Gruesa", "Hoja", "Hora", "Hora/Hombre", "Juego", "Kit", "Kilogramo", "Lata",
+    "Lámina", "Libra", "Litro", "Matraz", "Mes", "Mes/Hombre", "Metro Cuadrado", "Metro Cúbico", "Metro Lineal",
+    "Miles", "Milígramo", "Mililitro", "Milímetro", "Microgramo", "Ovillo", "Ovulo", "Pack", "Pan",
+    "Papelillo", "Par", "Paquete", "Pie", "Pieza", "Placa", "Pliego", "Plancha", "Pomo",
+    "Pote", "Pulgada", "Quincena", "Rack", "Resma", "Rollo", "Saco", "Sachet", "Semana",
+    "Sobre", "Supositorio", "Talonario", "Tarro", "Tineta", "Tira", "Tonelada", "Tubo", "Unidad",
+    "Unidad Internacional", "Unidad no definida", "Vial"
   ];
-  
   
   return (
     <>
