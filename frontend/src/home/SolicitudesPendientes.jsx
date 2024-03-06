@@ -8,6 +8,7 @@ import Cookies from "js-cookie";
 import useDeleteRequest from "../Hooks/useDeleteRequest";
 import { eliminarArchivo } from "../firebase/config";
 import Pagination from "../Components/Pagination";
+import SearchBar from "../Components/SearchBar";
 
 function getRole(nroEtapa) {
   switch (nroEtapa) {
@@ -108,9 +109,8 @@ export const Pendientes = () => {
     : [];
     const filteredData = search
     ? sortedData.filter((item) => {
-        const { infoSolicitud, procesosEtapa2, infoUsuario } = item;
+        const { infoSolicitud, procesosEtapa2, infoUsuario, nroEtapa } = item;
         const nroSolicitud = infoSolicitud ? infoSolicitud.nroSolicitud : "";
-    // Verificar si procesosEtapa2 es un array de objetos o un objeto con un campo formularios
     // Verificar si procesosEtapa2 es un array de objetos o un objeto con un campo formularios
     let nroordendecompra = "";
     if (Array.isArray(procesosEtapa2)) {
@@ -134,12 +134,15 @@ export const Pendientes = () => {
         }
     }
         const solicitadoPor = infoUsuario?.solicitadoPor || "";
-  
+        const resumen = infoUsuario?.resumen || "";
+
         // Realizar la búsqueda en todos los campos
         return (
           nroSolicitud.includes(search) ||
           nroordendecompra.includes(search) ||
-          solicitadoPor.toLowerCase().includes(search.toLowerCase())
+          solicitadoPor.toLowerCase().includes(search.toLowerCase()) ||
+          getRole(nroEtapa).toLowerCase().includes(search.toLowerCase()) ||
+          resumen.toLowerCase().includes(search.toLowerCase())
         );
       })
     : sortedData;
@@ -182,6 +185,12 @@ export const Pendientes = () => {
       handleDelete(itemId, item);
     }
   };
+
+  // Función para manejar el cambio de búsqueda
+  const handleSearchChange = (value) => {
+    setSearch(value);
+    setCurrentPage(1); // Restablecer currentPage a 1 cuando se realiza una búsqueda
+  };
   return (
     <>
       <div className="w-75 h-35 mx-auto">
@@ -191,13 +200,7 @@ export const Pendientes = () => {
             Aquí puedes gestionar las solicitudes, ver detalles de cada etapa,
             eliminar etapas y más.
           </p>
-          <input
-            className="form-control me-2 w-30"
-            type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Buscar número de solicitud u orden de compra"
-          />
+          <SearchBar search={search} setSearch={handleSearchChange} />
         </div>
 
         <div className="card shadow-card rounded-3 border border-0">
