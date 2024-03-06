@@ -46,12 +46,12 @@ const ProgressBar = ({ value }) => {
   );
 };
 
-export const Content = () => {
+export const Finalizadas = () => {
   const { data, loading, error } = useFetch("etapas");
   const { showAlert, setShowAlert } = useContext(AlertContext);
   const [currentPage, setCurrentPage] = useState(1);
   const responseLocalStorage = JSON.parse(localStorage.getItem("response"));
-  const ITEMS_PER_PAGE = 12;
+  const ITEMS_PER_PAGE = 10;
   const { execute, response } = useDeleteRequest();
   // Buscador
   const [search, setSearch] = useState("");
@@ -139,8 +139,8 @@ export const Content = () => {
       })
     : sortedData;
     
-    const seleccionados = filteredData ? filteredData.filter(item => item.nroEtapa !== "Rechazado" && item.nroEtapa !== "Finalizado")  
-    .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at))  : [];
+    const seleccionados = filteredData ? filteredData.filter(item => item.nroEtapa === "Finalizado")  
+        .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at))  : [];
     const totalItems = seleccionados.length; // Número total de solicitudes del usuario
     const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE); // Calcula el número total de páginas basado en filteredData
 
@@ -182,9 +182,9 @@ export const Content = () => {
     <>
       <div className="w-75 h-35 mx-auto">
         <div className="mb-3">
-          <h2 className="mx-auto display-4">Solicitudes</h2>
+          <h2 className="mx-auto display-4">Solicitudes Finalizadas</h2>
           <p className="display-7">
-            Aquí puedes visualizar todas las solicitudes.
+            Aquí puedes visualizar todas las solicitudes que fueron completadas.
           </p>
           <SearchBar search={search} setSearch={setSearch} />
         </div>
@@ -192,7 +192,7 @@ export const Content = () => {
         <div className="card shadow-card rounded-3 border border-0">
           <div className="card-body">
             <div className="d-flex justify-content-between pb-0">
-              <div className="h5 text-uppercase">Solicitudes</div>
+              <div className="h5 text-uppercase">Solicitudes Finalizadas</div>
             </div>
             {loading ? (
               <div className="d-flex justify-content-center  m-5">
@@ -226,7 +226,7 @@ export const Content = () => {
                   <tbody>
                     {selectedItems.map(
                       (item) =>
-                        item.nroEtapa !== "Rechazado" && item.nroEtapa !== "Finalizado" && (
+                        item.nroEtapa === "Finalizado" && (
                           <tr key={item._id} id={item._id}>
                             <td>{item.infoSolicitud ? item.infoSolicitud.nroSolicitud : 'N/A'}</td>
 

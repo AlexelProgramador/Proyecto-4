@@ -1,5 +1,6 @@
 import { Content } from "./Content";
 import { Pendientes } from "./SolicitudesPendientes";
+import { Finalizadas } from "./Finalizadas";
 import { Etapa1 } from "../etapas/Etapa1";
 import { SolicitudChequeo } from "../etapas/SolicitudChequeo";
 import { Etapa2 } from "../etapas/Etapa2";
@@ -57,6 +58,7 @@ export const Home = () => {
             : (
               <>
               <Route path="solicitudes" element={<Content />} />
+              <Route path="solicitudesFinalizadas" element={<Finalizadas />} />
               <Route path="solicitudChequeo" element={<SolicitudChequeo />} />
               <Route path="etapa1" element={<Etapa1 />} />
               <Route path="etapa2" element={<Etapa2 />} />

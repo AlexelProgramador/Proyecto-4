@@ -128,7 +128,7 @@ export const CrearSolicitud = () => {
         const correoEnviado = await enviarCorreo(correo, contenidoCorreo, 
         `Confirmación Solicitud #${nroSolicitud}`);
       
-        console.log("Correo enviado:", correoEnviado, contenidoCorreo);
+        console.log("Correo enviado:", correoEnviado);
 
         // Realiza las acciones necesarias según el resultado del envío del correo
         if (correoEnviado) {
