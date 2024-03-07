@@ -10,6 +10,8 @@ const MotivosInput = ({
   setFuenteFinanciamiento,
   montoEstimado,
   setMontoEstimado,
+  ComentarioReingreso,
+  setComentarioReingreso,
   archivos,
   setArchivos,
   item
@@ -39,16 +41,9 @@ const MotivosInput = ({
       fetchMetadataAndUrl();
     }, [item.infoSolicitud.urlArchivos]);
 
-    // console.log("filedatapromise",fileData);
-    // console.log("fileData:", fileData);
 
   }
-  
-  // const handleEliminarArchivoAntiguo = (index) => {
-  //   const newArchivosAntiguos = [...archivosAntiguos];
-  //   newArchivosAntiguos.splice(index, 1);
-  //   setArchivosAntiguos(newArchivosAntiguos);
-  // };
+
 
   const handleArchivoChange = (e) => {
     const newArchivos = Array.from(e.target.files);
@@ -103,6 +98,19 @@ const MotivosInput = ({
         />
         <label htmlFor="montoEstimado" className="form-label">
           Monto estimado de compra:
+        </label>
+      </div>
+      <div className="form-floating mt-2 g-2">
+        <input
+          type="text"
+          className="form-control"
+          id="Comentreingreso"
+          value={ComentarioReingreso}
+          onChange={(e) => setComentarioReingreso(e.target.value)}
+          required
+        />
+        <label htmlFor="Comentreingreso" className="form-label">
+          Comentario de reingreso de solicitud:
         </label>
       </div>
 
