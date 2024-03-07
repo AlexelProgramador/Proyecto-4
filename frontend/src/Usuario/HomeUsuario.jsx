@@ -1,38 +1,23 @@
 import { useNavigate } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
 import { useContext, useEffect } from "react";
+import useDeleteRequest from "../Hooks/useDeleteRequest";
 import { AlertContext } from "../context/AlertContext";
 import { CheckCircleFill } from "react-bootstrap-icons";
 import Pagination from "../Components/Pagination";
 
 import React, { useState } from "react";
 import Cookies from "js-cookie";
-function getRole(nroEtapa) {
-  switch (nroEtapa) {
-    case 0:
-      return "Secretaria";
-    case 1:
-      return "Encargado de presupuesto";
-    case 2:
-      return "Encargado de abastecimiento";
-    case 3:
-      return "Subdirectora";
-    case 4:
-      return "Encargado de abastecimiento ";
-    case 5:
-      return "Bodeguero";
-    case "Dea":
-      return "Dea";
-    default:
-      return null;
-  }
-}
+
 const HomeUsuario = () => {
   const { data, loading, error } = useFetch("usuarios");
   const { showAlert, setShowAlert } = useContext(AlertContext);
   const [currentPage, setCurrentPage] = useState(1);
-  const response = JSON.parse(localStorage.getItem("response"));
+  const responseLocalStorage = JSON.parse(localStorage.getItem("response"));
   const ITEMS_PER_PAGE = 10;
+  const { execute } = useDeleteRequest();
+
+
   useEffect(() => {
     if (showAlert) {
       const timer = setTimeout(() => {
@@ -48,6 +33,19 @@ const HomeUsuario = () => {
   const selectedItems = data && Array.isArray(data.results)
   ? data.results.slice(startIndex, startIndex + ITEMS_PER_PAGE)
   : [];
+
+  const handleDeleteRequest = async (userId) => {
+    if (window.confirm("¿Estás seguro de que quieres eliminar este usuario?")) {
+      try {
+        const response = await execute(`usuario/${userId}`, userId);
+        console.log(response);
+        setShowAlert(true);
+        // Aquí puedes realizar alguna lógica adicional después de eliminar el usuario
+      } catch (error) {
+        console.error(error);
+      }
+  }
+  };
 
   return (
     <div className="w-75 h-35 mx-auto">
@@ -72,26 +70,28 @@ const HomeUsuario = () => {
               <div className="table-responsive mx-auto">
                 <table className="table">
                   <colgroup>
-                    <col style={{ width: "20%" }} />
-                    <col style={{ width: "20%" }} />
-                    <col style={{ width: "25%" }} />
+                    <col style={{ width: "15%" }} />
+                    <col style={{ width: "15%" }} />
+                    <col style={{ width: "15%" }} />
                     <col style={{ width: "35%" }} />
+                    <col style={{ width: "20%" }} />
                   </colgroup>
                   <thead>
                     <tr>
-                      <th scope="col">Nombre</th>
-                      <th scope="col">Apellido</th>
+                      <th scope="col">Nombre Apellido</th>
                       <th scope="col">Usuario</th>
+                      <th scope="col">Correo</th>
                       <th scope="col">Rol</th>
+                      <th scope="col"></th>
                     </tr>
                   </thead>
                   <tbody>
                     {selectedItems.map((item) => {
                         return (
                           <tr key={item._id}>
-                            <td>{item.nombre}</td>
-                            <td>{item.apellido}</td>
+                            <td>{item.nombre} {item.apellido}</td>
                             <td>{item.usuario}</td>
+                            <td>{item.correo}</td>
                             <td>
                               {item.rol
                               .filter((rolItem) => rolItem) // Filtra los elementos no nulos
@@ -102,9 +102,29 @@ const HomeUsuario = () => {
                                 </span>
                               ))}
                             </td>
+                            <td>
+                              {/* <button
+                                className="btn btn-warning"
+                                onClick={() =>
+                                  navigate(`/editarUsuario`, {
+                                    state: { item },
+                                  })
+                                }
+                              >
+                                Editar
+                              </button>
+                              <button
+                                className="btn btn-danger"
+                                onClick={() =>
+                                  handleDeleteRequest(item._id)
+                                } // Agrega la función para eliminar el usuario
+                              >
+                                Eliminar
+                              </button> */}
+                            </td>
                           </tr>
                         );
-                                })}
+                      })}
                     
                     {/* // {Array(10 - selectedItems.length) */}
                     {/* //   .fill()
