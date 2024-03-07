@@ -41,6 +41,7 @@ export const SolicitudChequeo = () => {
         fechaestimada: item.infoUsuario.fechaestimada
       },
       infoSolicitud: {
+        
         fecha: item.infoSolicitud.fecha,
         fuenteFinanciamiento: item.infoSolicitud.fuenteFinanciamiento,
         idUsuario: item.infoSolicitud.idUsuario,
@@ -49,6 +50,7 @@ export const SolicitudChequeo = () => {
         nroSolicitud: item.infoSolicitud.nroSolicitud,
         productos: item.infoSolicitud.productos,
         tipoSolicitud: item.infoSolicitud.tipoSolicitud,
+        comentarioReingreso: null,
         urlArchivos: item.infoSolicitud.urlArchivos,
       },
     };
@@ -126,6 +128,11 @@ export const SolicitudChequeo = () => {
             {infoSolicitud.motivoRechazo && ( // Verifica si hay un motivo de rechazo
               <div className="alert alert-danger w-75 h-40 mx-auto" role="alert">
                 Motivo de rechazo: {infoSolicitud.motivoRechazo}
+              </div>
+            )}
+            {infoSolicitud.infoSolicitud.comentarioReingreso && ( // Verifica si hay un motivo de rechazo
+              <div className="alert alert-warning w-75 h-40 mx-auto" role="alert">
+                Motivo de reingreso: {infoSolicitud.infoSolicitud.comentarioReingreso}
               </div>
             )}
             <div className="w-75 h-40 mx-auto">

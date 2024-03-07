@@ -19,6 +19,7 @@ export const EtapaRechazado = () => {
   const location = useLocation();
   const { data, error, execute: executePut } = usePutRequest();
   const item = location.state?.item;
+  const [comentarioReingreso] = useState("");
 
   const usuarioInfo = item?.infoUsuario || {};
   const solicitudInfo = item?.infoSolicitud || {};
@@ -34,9 +35,10 @@ export const EtapaRechazado = () => {
     fuenteFinanciamiento: solicitudInfo.fuenteFinanciamiento || "",
     montoEstimado: solicitudInfo.montoEstimado || "",
     productos: item?.infoSolicitud.productos || [],
-    archivos: item?.infoSolicitud.urlArchivos || []
+    archivos: item?.infoSolicitud.urlArchivos || [],
+    comentarioReingreso: comentarioReingreso
   });
-
+  
   const [archivos, setArchivos] = useState([]);
   const [archivosAntiguos, setArchivosAntiguos] = useState([]);
 
@@ -89,6 +91,7 @@ export const EtapaRechazado = () => {
         nroSolicitud: item.infoSolicitud.nroSolicitud,
         productos: productosData,
         tipoSolicitud: item.infoSolicitud.tipoSolicitud,
+        comentarioReingreso: formData.comentarioReingreso,
         urlArchivos: urlArchivos,
       },
       
@@ -194,6 +197,8 @@ export const EtapaRechazado = () => {
               setFuenteFinanciamiento={(value) => handleInputChange("fuenteFinanciamiento", value)}
               montoEstimado={formData.montoEstimado}
               setMontoEstimado={(value) => handleInputChange("montoEstimado", value)}
+              comentarioReingreso={comentarioReingreso}
+              setComentarioReingreso={(value) => handleInputChange("comentarioReingreso", value)}
               archivos={archivos} // Pasar los archivos aquí
               setArchivos={setArchivos}
               item = {item}
