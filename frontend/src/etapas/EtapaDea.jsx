@@ -12,7 +12,7 @@ export const EtapaDea = () => {
   const item = location.state.item;
   const { execute: executePost, response } = usePostRequest();
   const [infoSolicitud, setinfoSolicitud] = useState(null);
-  
+  const [comentarioDea, setComentariodea] = useState("");
   const [motivoRechazo, setMotivoRechazo] = useState("");
   const [showMotivoRechazo, setShowMotivoRechazo] = useState(false);
 
@@ -33,6 +33,7 @@ export const EtapaDea = () => {
       nroEtapa: 2,
       procesosEtapaDea: {
         aprobado: "true",
+        comentariodea: comentarioDea,
       },
       infoUsuario: {
         solicitadoPor: item.infoUsuario.solicitadoPor,
@@ -268,6 +269,19 @@ export const EtapaDea = () => {
                       ></textarea>
                       <label htmlFor="floatingTextarea2">comentario</label>
                     </div>
+
+                      <div className="form-floating mt-2 g-2">
+                        <input
+                          type="text"
+                          className="form-control"
+                          value={comentarioDea || ''}
+                          onChange={(e) => setComentariodea(e.target.value)}
+                        />
+                        <label htmlFor="floatingSelect">
+                          Comentario DEA
+                        </label>
+                      </div>
+
                     <button className="m-2 btn btn-primary" type="submit">
                       Enviar Etapa
                     </button>

@@ -135,6 +135,12 @@ const data = {
           </div>
         ) : (
           <>
+          {infoSolicitud.procesosEtapaDea && infoSolicitud.procesosEtapaDea.comentariodea && (
+            <div className="w-75 h-40 mx-auto alert alert-warning" role="alert">
+              <strong>Comentario etapa Dea:</strong><br />
+              {infoSolicitud.procesosEtapaDea.comentariodea}
+            </div>
+          )}
           <div className="w-75 h-40 mx-auto">
               <div className="card shadow-card rounded-3 border border-0 mb-5">
                 <div className="card-body ">

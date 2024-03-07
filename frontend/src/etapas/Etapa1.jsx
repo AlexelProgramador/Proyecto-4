@@ -79,7 +79,7 @@ export const Etapa1 = () => {
         fecha: item.infoSolicitud.fecha,
         fuenteFinanciamiento: item.infoSolicitud.fuenteFinanciamiento,
         idUsuario: item.infoSolicitud.idUsuario,
-        montoEstimado: item.infoSolicitud.idUsuario,
+        montoEstimado: item.infoSolicitud.montoEstimado,
         motivos: item.infoSolicitud.motivos,
         nroSolicitud: item.infoSolicitud.nroSolicitud,
         productos: item.infoSolicitud.productos,
