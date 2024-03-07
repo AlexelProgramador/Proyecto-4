@@ -58,6 +58,7 @@ const MotivosInput = ({
     handleEliminarArchivo(index);
   };
   // console.log("archivosAntiguos",archivosAntiguos)
+  // en 104 si item == null tonces se muestra 
 
   return (
     <div>
@@ -100,6 +101,8 @@ const MotivosInput = ({
           Monto estimado de compra:
         </label>
       </div>
+
+
       <div className="form-floating mt-2 g-2">
         <input
           type="text"

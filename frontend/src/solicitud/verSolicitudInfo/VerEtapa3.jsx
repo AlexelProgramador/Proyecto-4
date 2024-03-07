@@ -12,7 +12,6 @@ const VerEtapa3 = ({ item }) => {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
-  // console.log(item)
 
   useEffect(() => {
     const fetchMetadataAndUrl = async () => {
@@ -61,7 +60,7 @@ const VerEtapa3 = ({ item }) => {
   }
 
   console.log("llegaste a etapa3 ");
-
+  console.log(item);
   return (
     <div className="contenido">
       <div className="p-4">
@@ -72,7 +71,7 @@ const VerEtapa3 = ({ item }) => {
         <button
           className="btn btn-primary position-absolute top-0 end-0 mx-auto mt-4 me-4 w-15"
           onClick={() =>
-            navigate(`/etapa3`,{ state: { item }, })}>
+            navigate(`/etapa3Edit`,{ state: { item }, })}>
           Modificar etapa
         </button>
         {Array.isArray(item.procesosEtapa3) && item.procesosEtapa3.map((proceso, index) => (
@@ -104,7 +103,7 @@ const VerEtapa3 = ({ item }) => {
         <div>
           Aceptado SII:{" "}
           <span className="text-primary">
-            {proceso.aceptadoSsi}
+            {proceso.aceptadassi}
           </span>
         </div>
         <div>

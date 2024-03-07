@@ -40,7 +40,6 @@ export const EtapaRechazado = () => {
   });
   
   const [archivos, setArchivos] = useState([]);
-  const [archivosAntiguos, setArchivosAntiguos] = useState([]);
 
 
   // console.log("archivos", formData.archivos);
