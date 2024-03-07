@@ -23,6 +23,7 @@ class UsuarioController extends Controller
         $request->validate([
             'nombre' => 'required|string|regex:/^[a-zA-Z]+$/',
             'apellido' => 'required|string|regex:/^[a-zA-Z]+$/',
+            'correo' => 'required|email|unique:usuarios',
             'password' => 'required|min:8|regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[^\s]+$/',
             'rol' => 'required',
         ]);
@@ -39,6 +40,7 @@ class UsuarioController extends Controller
         $usuario = new Usuario();
         $usuario->nombre =  $request->nombre;
         $usuario->apellido =  $request->apellido;
+        $usuario->correo = $request->correo;
         $usuario->usuario =  strtoupper(substr($request->nombre, 0, 1)) . $request->apellido;
         $usuario->password =  Hash::make($request->password);
         $usuario->rol =  $request->rol;
@@ -55,6 +57,7 @@ class UsuarioController extends Controller
         $request->validate([
             'nombre' => 'required|string|regex:/^[a-zA-Z]+$/',
             'apellido' => 'required|string|regex:/^[a-zA-Z]+$/',
+            'correo' => 'required|email|unique:usuarios,correo,'.$id,
             'password' => 'required|min:8|regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[^\s]+$/',
             'rol' => 'required',
         ]);
@@ -62,11 +65,11 @@ class UsuarioController extends Controller
         $usuario->nombre =  $request->newNombre;
         $usuario->apellido =  $request->newApellido;
         $usuario->usuario =  $request->newUsuario;
+        $usuario->correo = $request->newCorreo;
         $usuario->password =  Hash::make($request->newPassword);
         $usuario->rol =  $request->rol;
 
         // Indicamos los campos que son son requeridos( no deben ser espacios en blanco)
-
 
         $usuario->save();
 

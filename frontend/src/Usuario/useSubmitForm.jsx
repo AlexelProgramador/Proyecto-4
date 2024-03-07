@@ -5,7 +5,7 @@ const useSubmitForm = (execute, setShowAlert) => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (event, nombre, apellido, password) => {
+  const handleSubmit = async (event, nombre, apellido, password, correo) => {
     event.preventDefault();
 
     try {
@@ -16,6 +16,7 @@ const useSubmitForm = (execute, setShowAlert) => {
         nombre: nombre,
         apellido: apellido,
         password: password,
+        correo: correo,
         rol:  ["Solicitante"], // Puedes ajustar esto según la estructura de tu backend
         // Otros campos necesarios para la creación de usuarios
       };
