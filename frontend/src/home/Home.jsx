@@ -5,6 +5,8 @@ import { Etapa1 } from "../etapas/Etapa1";
 import { SolicitudChequeo } from "../etapas/SolicitudChequeo";
 import { Etapa2 } from "../etapas/Etapa2";
 import { Etapa3 } from "../etapas/Etapa3";
+import { Etapa3Edit } from "../etapas/Etapa3Edit";
+
 import { Etapa4 } from "../etapas/Etapa4";
 import { Etapa5 } from "../etapas/Etapa5";
 import { CrearSolicitud } from "../Solicitud/CrearSolicitud";
@@ -63,6 +65,7 @@ export const Home = () => {
               <Route path="etapa1" element={<Etapa1 />} />
               <Route path="etapa2" element={<Etapa2 />} />
               <Route path="etapa3" element={<Etapa3 />} />
+              <Route path="etapa3Edit" element={<Etapa3Edit />} />
               <Route path="etapa4" element={<Etapa4 />} />
               <Route path="etapa5" element={<Etapa5 />} />
               <Route path="etapaDea" element={<EtapaDea />} />
