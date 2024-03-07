@@ -62,7 +62,7 @@ const UsuarioInput = ({
           onChange={(e) => setResumen(e.target.value)}
           required
         />
-        <label htmlFor="floatingSelect">Resumen Solicitud</label>
+        <label htmlFor="floatingSelect">Resumen Solicitud:</label>
         </div>
       </div>
       <div className="col-md-6">
@@ -76,7 +76,7 @@ const UsuarioInput = ({
           onChange={(e) => setFechaest(e.target.value)}
           required
         />
-        <label htmlFor="floatingSelect">Fecha Estimada</label>
+        <label htmlFor="floatingSelect">Fecha de necesidad del producto:</label>
         </div>
       </div>
     </>

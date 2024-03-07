@@ -103,9 +103,8 @@ export const Content = () => {
     : [];
     const filteredData = search
     ? sortedData.filter((item) => {
-        const { infoSolicitud, procesosEtapa2, infoUsuario } = item;
+        const { infoSolicitud, procesosEtapa2, infoUsuario, nroEtapa } = item;
         const nroSolicitud = infoSolicitud ? infoSolicitud.nroSolicitud : "";
-    // Verificar si procesosEtapa2 es un array de objetos o un objeto con un campo formularios
     // Verificar si procesosEtapa2 es un array de objetos o un objeto con un campo formularios
     let nroordendecompra = "";
     if (Array.isArray(procesosEtapa2)) {
@@ -129,21 +128,32 @@ export const Content = () => {
         }
     }
         const solicitadoPor = infoUsuario?.solicitadoPor || "";
-  
+        const resumen = infoUsuario?.resumen || "";
+
         // Realizar la búsqueda en todos los campos
         return (
           nroSolicitud.includes(search) ||
           nroordendecompra.includes(search) ||
-          solicitadoPor.toLowerCase().includes(search.toLowerCase())
+          solicitadoPor.toLowerCase().includes(search.toLowerCase()) ||
+          getRole(nroEtapa).toLowerCase().includes(search.toLowerCase()) ||
+          resumen.toLowerCase().includes(search.toLowerCase())
         );
       })
     : sortedData;
     
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const selectedItems = filteredData.slice(
-    startIndex,
-    startIndex + ITEMS_PER_PAGE
-  );
+    const seleccionados = filteredData ? filteredData.filter(item => item.nroEtapa !== "Rechazado" && item.nroEtapa !== "Finalizado")  
+    .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at))  : [];
+    const totalItems = seleccionados.length; // Número total de solicitudes del usuario
+    const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE); // Calcula el número total de páginas basado en filteredData
+
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    const endIndex = startIndex + ITEMS_PER_PAGE;
+    const selectedItems = seleccionados.slice(startIndex, endIndex);
+  // Función para manejar el cambio de búsqueda
+  const handleSearchChange = (value) => {
+    setSearch(value);
+    setCurrentPage(1); // Restablecer currentPage a 1 cuando se realiza una búsqueda
+  };
 
   // console.log(selectedItems);
 
@@ -183,7 +193,7 @@ export const Content = () => {
           <p className="display-7">
             Aquí puedes visualizar todas las solicitudes.
           </p>
-          <SearchBar search={search} setSearch={setSearch} />
+          <SearchBar search={search} setSearch={handleSearchChange} />
         </div>
 
         <div className="card shadow-card rounded-3 border border-0">
@@ -223,7 +233,7 @@ export const Content = () => {
                   <tbody>
                     {selectedItems.map(
                       (item) =>
-                        item.nroEtapa !== "Rechazado" && (
+                        item.nroEtapa !== "Rechazado" && item.nroEtapa !== "Finalizado" && (
                           <tr key={item._id} id={item._id}>
                             <td>{item.infoSolicitud ? item.infoSolicitud.nroSolicitud : 'N/A'}</td>
 
@@ -321,7 +331,7 @@ export const Content = () => {
                 <div>
                 <Pagination
                   currentPage={currentPage}
-                  totalPages={Math.ceil(filteredData.length / ITEMS_PER_PAGE)}
+                  totalPages={totalPages}
                   onPageChange={setCurrentPage}
                 />
                 </div>

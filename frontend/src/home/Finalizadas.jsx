@@ -21,9 +21,9 @@ function getRole(nroEtapa) {
     case 3:
       return "Bodeguero";
     case 4:
-      return "Encargado de abastecimiento";
+        return "Encargado de abastecimiento";
     case 5:
-      return "Bodeguero";
+        return "Bodeguero";
     case "Dea":
       return "Dea";
     default:
@@ -46,18 +46,13 @@ const ProgressBar = ({ value }) => {
   );
 };
 
-export const Pendientes = () => {
+export const Finalizadas = () => {
   const { data, loading, error } = useFetch("etapas");
   const { showAlert, setShowAlert } = useContext(AlertContext);
   const [currentPage, setCurrentPage] = useState(1);
   const responseLocalStorage = JSON.parse(localStorage.getItem("response"));
   const ITEMS_PER_PAGE = 10;
   const { execute, response } = useDeleteRequest();
-  const userRoles = responseLocalStorage?.usuario || [];
-  const userRole = userRoles.length > 0 ? userRoles[0] : null; // Obtener el primer rol del array, o null si no hay roles
-
-  // console.log(userRole)
-
   // Buscador
   const [search, setSearch] = useState("");
   const handleDelete = async (itemId, item) => {
@@ -71,7 +66,6 @@ export const Pendientes = () => {
       const archivosEtapa3 = item.procesosEtapa3?.urlArchivos || [];
       const archivosEtapa4 = item.procesosEtapa4?.urlArchivos || [];
       const archivosEtapa5 = item.procesosEtapa5?.urlArchivos || [];
-
       const allFiles = [
         ...archivosSolicitud,
         ...archivosEtapa1,
@@ -146,9 +140,8 @@ export const Pendientes = () => {
         );
       })
     : sortedData;
-
-    const seleccionados = filteredData ? filteredData.filter(item => item.nroEtapa !== "Rechazado" &&
-    (userRole && (getRole(item.nroEtapa) == userRole || (userRoles[1] && getRole(item.nroEtapa) === userRoles[1]) )))  
+    
+    const seleccionados = filteredData ? filteredData.filter(item => item.nroEtapa === "Finalizado")  
         .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at))  : [];
     const totalItems = seleccionados.length; // Número total de solicitudes del usuario
     const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE); // Calcula el número total de páginas basado en filteredData
@@ -156,6 +149,8 @@ export const Pendientes = () => {
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
     const endIndex = startIndex + ITEMS_PER_PAGE;
     const selectedItems = seleccionados.slice(startIndex, endIndex);
+
+  // console.log(selectedItems);
 
   useEffect(() => {
     if (showAlert) {
@@ -169,11 +164,11 @@ export const Pendientes = () => {
 
   const etapaPorcentaje = {
     0: 0,
-    1: 14,
-    Dea: 28,
-    2: 42,
-    3: 57,
-    4: 71,
+    1: 25,
+    Dea: 50,
+    2: 75,
+    3: 85,
+    4: 75,
     5: 85,
     Finalizado: 100,
   };
@@ -185,7 +180,6 @@ export const Pendientes = () => {
       handleDelete(itemId, item);
     }
   };
-
   // Función para manejar el cambio de búsqueda
   const handleSearchChange = (value) => {
     setSearch(value);
@@ -195,10 +189,9 @@ export const Pendientes = () => {
     <>
       <div className="w-75 h-35 mx-auto">
         <div className="mb-3">
-          <h2 className="mx-auto display-4">Solicitudes Pendientes</h2>
+          <h2 className="mx-auto display-4">Solicitudes Finalizadas</h2>
           <p className="display-7">
-            Aquí puedes gestionar las solicitudes, ver detalles de cada etapa,
-            eliminar etapas y más.
+            Aquí puedes visualizar todas las solicitudes que fueron completadas.
           </p>
           <SearchBar search={search} setSearch={handleSearchChange} />
         </div>
@@ -206,7 +199,7 @@ export const Pendientes = () => {
         <div className="card shadow-card rounded-3 border border-0">
           <div className="card-body">
             <div className="d-flex justify-content-between pb-0">
-              <div className="h5 text-uppercase">Solicitudes Pendientes</div>
+              <div className="h5 text-uppercase">Solicitudes Finalizadas</div>
             </div>
             {loading ? (
               <div className="d-flex justify-content-center  m-5">
@@ -216,7 +209,7 @@ export const Pendientes = () => {
               </div>
             ) : (
               <div className="table-responsive mx-auto">
-                <table className="table">
+                <table className="table">  
                   <colgroup>
                     <col style={{ width: "16%" }} />
                     <col style={{ width: "12%" }} />
@@ -238,17 +231,29 @@ export const Pendientes = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {selectedItems.map((item) => {
-                          // console.log("etapa", getRole(item.nroEtapa)); // Agregamos el console.log aquí
-                        return (
-                        item.nroEtapa !== "Rechazado" &&
-                        (userRole && (getRole(item.nroEtapa) == userRole || (userRoles[1] && getRole(item.nroEtapa) === userRoles[1]) )) && (
+                    {selectedItems.map(
+                      (item) =>
+                        item.nroEtapa === "Finalizado" && (
                           <tr key={item._id} id={item._id}>
-                            <td>{item.infoSolicitud.nroSolicitud}</td>
+                            <td>{item.infoSolicitud ? item.infoSolicitud.nroSolicitud : 'N/A'}</td>
+
                             <td>
-                              {item.procesosEtapa2.nroordendecompra
-                                ? item.procesosEtapa2.nroordendecompra
-                                : "No registro"}
+                              {item.procesosEtapa2 && Array.isArray(item.procesosEtapa2.formularios) && item.procesosEtapa2.formularios.length > 0 ? (
+                                  item.procesosEtapa2.formularios.map((formulario, index) => (
+                                    <span key={index}>
+                                      {formulario.nroordendecompra}
+                                      {index !== item.procesosEtapa2.formularios.length - 1 ? ", " : ""}
+                                    </span>
+                                ))
+                              ) : (
+                                <span>
+                                  {item.procesosEtapa2 && item.procesosEtapa2.nroordendecompra ? (
+                                    item.procesosEtapa2.nroordendecompra
+                                  ) : (
+                                    "No registro"
+                                  )}
+                                </span>
+                              )}
                             </td>
                             <td>
                               {item.nroEtapa}
@@ -273,8 +278,8 @@ export const Pendientes = () => {
                                         onClick={() =>
                                           navigate(
                                             item.nroEtapa === "0"
-                                              ? "solicitudChequeo"
-                                              : `etapa${item.nroEtapa}`,
+                                              ? "/solicitudChequeo"
+                                              : `/etapa${item.nroEtapa}`,
                                             {
                                               state: { item },
                                             }
@@ -302,7 +307,7 @@ export const Pendientes = () => {
                                 <button
                                   className="btn btn-warning"
                                   onClick={() =>
-                                    navigate(`verSolicitud`, {
+                                    navigate(`/verSolicitud`, {
                                       state: { item },
                                     })
                                   }
@@ -313,8 +318,7 @@ export const Pendientes = () => {
                             </td>
                           </tr>
                         )
-                        );
-                      })}
+                    )}
                     {/* {Array(10 - selectedItems.length)
                       .fill()
                       .map((_, index) => (
