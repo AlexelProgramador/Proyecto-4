@@ -102,7 +102,7 @@ const MotivosInput = ({
         </label>
       </div>
 
-
+      {item !== null &&
       <div className="form-floating mt-2 g-2">
         <input
           type="text"
@@ -110,12 +110,12 @@ const MotivosInput = ({
           id="Comentreingreso"
           value={ComentarioReingreso}
           onChange={(e) => setComentarioReingreso(e.target.value)}
-          required
         />
         <label htmlFor="Comentreingreso" className="form-label">
           Comentario de reingreso de solicitud:
         </label>
       </div>
+      }
 
       <div className="mt-2">
         <label htmlFor="montoEstimado" className="form-label">
