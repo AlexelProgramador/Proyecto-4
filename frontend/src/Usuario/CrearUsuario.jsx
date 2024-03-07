@@ -19,7 +19,7 @@ export const CrearUsuario = () => {
   // console.log("Roles seleccionados:", rol);
 
 
-  const [loadingText, setLoadingText] = useState("Subiendo solicitud");
+  const [loadingText, setLoadingText] = useState("Subiendo usuario");
 
   useEffect(() => {
     const interval = setInterval(() => {
