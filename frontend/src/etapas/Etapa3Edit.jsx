@@ -79,15 +79,7 @@ export const Etapa3Edit = () => {
     var response = await executePost(data, url);
     setinfoSolicitud(response);
   };
-  const handleEdit = (index, field, value) => {
-    setEditableData({
-      ...editableData,
-      [index]: {
-        ...editableData[index],
-        [field]: value
-      }
-    });
-  };
+
 
   const handleSave = async (e) => {
     e.preventDefault();
@@ -112,7 +104,7 @@ export const Etapa3Edit = () => {
         const urlsAntiguo = item.procesosEtapa3[index].urlArchivos || [];
         return [...urlsAntiguo, ...urlsNuevo];
       });
-  
+      
       // Construir los datos a enviar al backend
       const dataToSend = {
         idEtapa: item._id, // ID de la etapa
@@ -124,7 +116,8 @@ export const Etapa3Edit = () => {
         procesosEtapa2: item.procesosEtapa2,
         procesosEtapa3: item.procesosEtapa3.map((proceso, index) => ({
           ...proceso, // Información original del proceso
-          ...editableData[index], // Datos editables sobrescriben los originales si están presentes
+          ...editableData[index],
+          nrofactura: numerosFacturaEditables[index], // Datos editables sobrescriben los originales si están presentes
           urlArchivos: urlsArchivosFinales[index], // Usar las URLs combinadas de archivos
         })),
       };
@@ -142,6 +135,52 @@ export const Etapa3Edit = () => {
     // Limpiar los datos editables después de enviarlos al backend
     setEditableData({});
   };
+
+  const [numerosFacturaEditables, setNumerosFacturaEditables] = useState(() =>
+  item.procesosEtapa3.reduce((acc, proceso, index) => {
+    acc[index] = proceso.nrofactura.slice();
+    return acc;
+  }, {})
+);
+  
+const handleEdit = (index, field, value, numeroIndex) => {
+  if (field === 'nrofactura') {
+    // Si el campo editado es nrofactura, actualiza solo el valor correspondiente
+    if (value === "") {
+      // Si el valor es una cadena vacía, elimina el número de factura
+      handleDeleteNumeroFactura(index, numeroIndex);
+    } else {
+      setNumerosFacturaEditables(prevState => ({
+        ...prevState,
+        [index]: prevState[index].map((item, i) => i === numeroIndex ? value : item) // Actualiza solo el número de factura correspondiente
+      }));
+    }
+  } else {
+    // Para otros campos, actualiza el estado editableData
+    setEditableData({
+      ...editableData,
+      [index]: {
+        ...editableData[index],
+        [field]: value
+      }
+    });
+  }
+};
+
+const handleAddNumeroFactura = (index) => {
+  setNumerosFacturaEditables(prevState => ({
+    ...prevState,
+    [index]: [...prevState[index], ""] // Agrega un nuevo elemento vacío al array
+  }));
+};
+const handleDeleteNumeroFactura = (index, numeroIndex) => {
+  setNumerosFacturaEditables(prevState => {
+    const newState = { ...prevState };
+    newState[index] = prevState[index].filter((_, i) => i !== numeroIndex);
+    return newState;
+  });
+};
+
 
   if (isLoading) {
     return (
@@ -222,15 +261,38 @@ export const Etapa3Edit = () => {
                       />
                     <label htmlFor="floatingSelect">Proveedor</label>
                   </div>
-                  <div className="col-md-6 form-floating mt-2 g-2">
-                  <input
-                    type="text"
-                    className="form-control"
-                    value={editableData[index]?.nrofactura || proceso.nrofactura}
-                    onChange={(e) => handleEdit(index, "nrofactura", e.target.value)}
-                  />
-                    <label htmlFor="floatingSelect">N° Factura</label>
+
+
+                  {Array.isArray(numerosFacturaEditables[index]) && numerosFacturaEditables[index].map((numero, numeroIndex) => (
+                  <div className="row px-2" key={numeroIndex}>
+                    <div className="form-floating g-3 d-flex">
+                    <input
+                      className="form-control"
+                      value={numero}
+                      onChange={(e) => handleEdit(index, "nrofactura", e.target.value, numeroIndex)} // Modifica handleEdit para manejar el cambio en números de factura
+                    />
+                    <label htmlFor="floatingSelect">Número de factura</label>
+                    <div
+                     type="button"
+                     className="btn text-center d-grid gap-2 px-4 ps-4 col-auto justify-content-center d-flex align-items-center"
+                     onClick={() => handleDeleteNumeroFactura(index, numeroIndex)}          >
+                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash3" viewBox="0 0 16 16">
+                       <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
+                     </svg>
+                   </div>
+                    {numeroIndex === numerosFacturaEditables[index].length - 1 && (
+                    <div className="d-flex justify-content-center px-2 ">
+                      <button type="button" className="btn btn-primary px-3" onClick={() => handleAddNumeroFactura(index)}>
+                        +
+                      </button>
+                    </div>
+                    )}
+                    
+                    </div>
                   </div>
+                  ))}
+
+
                   <div className="col-md-4 form-floating mt-2 g-2">
                     <input
                       type="date"
