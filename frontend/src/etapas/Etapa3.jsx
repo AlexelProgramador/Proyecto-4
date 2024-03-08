@@ -18,11 +18,11 @@ export const Etapa3 = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
-    // Estado para almacenar los archivos por cada formulario
-    const [archivosPorFormulario, setArchivosPorFormulario] = useState(
-      // Inicializar los archivos para cada formulario
-      item.procesosEtapa2.formularios.map(() => [])
-    );
+  // Estado para almacenar los archivos por cada formulario
+  const [archivosPorFormulario, setArchivosPorFormulario] = useState(
+    // Inicializar los archivos para cada formulario
+    item.procesosEtapa2.formularios.map(() => [])
+  );
 
   const [formularios, setFormularios] = useState(() => {
     // Inicializar los formularios con base en el número de procesosEtapa2
@@ -30,15 +30,16 @@ export const Etapa3 = () => {
       ncdp: "",
       estado: "",
       proveedor: "",
-      nrofactura: "",
-      fechaemifactura: "",
-      fechamaxima: "",
-      aceptadassi: "",
-      fechavencfact: "",
-      montofactura: "",
-      comentarios: "",
-      fecharecep: "",
-      perscargrecep: "",
+      facturas: [],
+      // nrofactura: "",
+      // fechaemifactura: "",
+      // fechamaxima: "",
+      // aceptadassi: "",
+      // fechavencfact: "",
+      // montofactura: "",
+      // comentarios: "",
+      // fecharecep: "",
+      // perscargrecep: "",
     }));
   });  
   
@@ -53,7 +54,8 @@ export const Etapa3 = () => {
       });
     };
 
-    
+    console.log(formularios);
+
   const handleFechaEmisionChange = (e, index) => {
     const selectedFechaEmision = e.target.value;
     const fechaMaxima = calcularFechaMaxima(selectedFechaEmision);
@@ -83,14 +85,14 @@ export const Etapa3 = () => {
     return fechaVencimientoString;
   };
 
-  const handleSubmit = async (e, procIndex) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       setIsLoading(true);
       
       // Obtener las URLs de los archivos para todos los formularios
       const urlsArchivos = await Promise.all(
-        archivosPorFormulario.map(async (archivos, index) => {
+        archivosPorFormulario.map(async (archivos) => {
           if (archivos.length > 0) {
             return await uploadFiles(
               archivos,
@@ -117,15 +119,17 @@ export const Etapa3 = () => {
           ncdp: formulario.ncdp,
           estado: formulario.estado,
           proveedor: formulario.proveedor,
-          nrofactura: numerosFacturaPorProceso[index],
-          fechaemisionfact: formulario.fechaemifactura,
-          fechamaxima: formulario.fechamaxima,
-          aceptadassi: formulario.aceptadassi,
-          fechavencfact: formulario.fechavencfact,
-          montofactura: formulario.montofactura,
-          comentarios: formulario.comentarios,
-          perscargrecep: formulario.perscargrecep,
-          urlArchivos: urlsArchivos[index], // Usar la URL correspondiente al índice del formulario
+          factura: formulario.facturas.map((factura) => ({
+            nrofactura: factura.nrofactura,
+            fechaemisionfact: factura.fechaemifactura,
+            fechamaxima: factura.fechamaxima,
+            aceptadassi: factura.aceptadassi,
+            fechavencfact: factura.fechavencfact,
+            montofactura: factura.montofactura,
+            comentarios: factura.comentarios,
+            perscargrecep: factura.perscargrecep,
+            urlArchivos: urlsArchivos[index], // Usar la URL correspondiente al índice del formulario
+          })),
         })),
       };
   
@@ -150,23 +154,45 @@ export const Etapa3 = () => {
     getinfoSolicitud();
   }, []);
 
+  // Factura
   const [numerosFacturaPorProceso, setNumerosFacturaPorProceso] = useState(() => {
     // Inicializar los números de factura para cada proceso
     return item.procesosEtapa2.formularios.map(() => [""]);
   });
+  // Define una función para actualizar las facturas
+const updateFactura =  (procIndex, numIndex, field, value) => {
+  setFormularios(prevFormularios => {
+    const newFormularios = [...prevFormularios];
+    const factura = newFormularios[procIndex].facturas[numIndex];
+    factura[field] = value;
+    return newFormularios;
+  });
+};
+
   const addNumeroFactura = (procIndex) => {
-    setNumerosFacturaPorProceso((prevNumerosFactura) => {
-      const nuevosNumerosFactura = [...prevNumerosFactura];
-      nuevosNumerosFactura[procIndex] = [...nuevosNumerosFactura[procIndex], ""];
-      return nuevosNumerosFactura;
+    setFormularios((prevFormularios) => {
+      const nuevosFormularios = [...prevFormularios];
+      const nuevaFactura = {
+        nrofactura: "",
+        fechaemifactura: "",
+        fechamaxima: "",
+        aceptadassi: "",
+        fechavencfact: "",
+        montofactura: "",
+        comentarios: "",
+        fecharecep: "",
+        perscargrecep: "",
+      };
+      nuevosFormularios[procIndex].facturas.push(nuevaFactura);
+      return nuevosFormularios;
     });
   };
 
   const removeNumeroFactura = (procIndex, numIndex) => {
-    setNumerosFacturaPorProceso((prevNumerosFactura) => {
-      const nuevosNumerosFactura = [...prevNumerosFactura];
-      nuevosNumerosFactura[procIndex].splice(numIndex, 1);
-      return nuevosNumerosFactura;
+    setFormularios((prevFormularios) => {
+      const nuevosFormularios = [...prevFormularios];
+      nuevosFormularios[procIndex].facturas.splice(numIndex, 1); // Elimina la factura del array de facturas
+      return nuevosFormularios;
     });
   };
 
@@ -254,31 +280,138 @@ export const Etapa3 = () => {
                           <label htmlFor="floatingSelect">Proveedor</label>
                         </div>
   
-                        {numerosFacturaPorProceso[procIndex].map((factura, numIndex) => (
+                        {formularios[procIndex].facturas.map((factura, numIndex) => (
+                          <>
                         <div key={numIndex} className="row px-2">
                           <div className="form-floating g-3 d-flex">
                             <input
                               type="text"
                               className="form-control"
-                              value={factura}
-                              onChange={(e) => {
-                                const newNumerosFactura = [...numerosFacturaPorProceso];
-                                newNumerosFactura[procIndex][numIndex] = e.target.value;
-                                setNumerosFacturaPorProceso(newNumerosFactura);
-                              }}
+                              value={factura.nrofactura}
+                              onChange={(e) => 
+                                updateFactura(procIndex, numIndex, 'nrofactura', e.target.value)}
                             />
-                            <label htmlFor="floatingSelect" >N° de Factura</label>
-                            <div
-                            type="button"
-                            className="btn text-center d-grid gap-2 px-2 ps-4 col-auto justify-content-center d-flex align-items-center"
-                            onClick={() => removeNumeroFactura(procIndex, numIndex)}
+                            <label htmlFor="floatingSelect" >N° de Factura</label>                      
+                          </div>
+                          <div className="col-md-4 form-floating mt-2 g-2">
+                            <input
+                              type="date"
+                              className="form-control"
+                              id={`fechaemifactura${procIndex}`}
+                              value={factura.fechaemifactura}
+                              onChange={(e) => 
+                                updateFactura(procIndex, numIndex, 'fechaemifactura', e.target.value)}
+                            />
+                            <label htmlFor="floatingSelect">Fecha emisión factura</label>
+                          </div>
+                          <div className="col-md-4 form-floating mt-2 g-2">
+                            <input
+                              type="date"
+                              className="form-control"
+                              id={`fechamaxima${procIndex}`}
+                              value={factura.fechamaxima}
+                              onChange={(e) =>
+                                updateFactura(procIndex, numIndex, 'fechamaxima', e.target.value)}
+                            />
+                            <label htmlFor="floatingSelect">Fecha máxima de rechazo</label>
+                          </div>
+                          <div className="col-md-4 form-floating mt-2 g-2">
+                            <select
+                              className="form-select"
+                              id={`floatingSelect${procIndex}`}
+                              aria-label="Floating label select example"
+                              onChange={(e) => 
+                                updateFactura(procIndex, numIndex, 'aceptadassi', e.target.value)}
                             >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash3" viewBox="0 0 16 16">
-                              <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
-                            </svg>
-                          </div>                      
-                          </div>                 
-                        </div>
+                              <option value="Valor por defecto">
+                                Seleccione una opción
+                              </option>
+                              <option value="Si">Si</option>
+                              <option value="No">No</option>
+                            </select>
+                            <label htmlFor="floatingSelect">Aceptado SII</label>
+                          </div>
+                          <div className="col-md-4 form-floating mt-2 g-2">
+                            <input
+                              type="date"
+                              className="form-control"
+                              max="9999-12-31"
+                              id={`fechavencfact${procIndex}`}
+                              value={factura.fechavencfact}
+                              onChange={(e) => 
+                                updateFactura(procIndex, numIndex, 'fechavencfact', e.target.value)}
+                                />
+                                <label htmlFor="floatingSelect">
+                                  Fecha vencimiento factura
+                                </label>
+                              </div>
+                              <div className="col-md-8 form-floating mt-2 g-2">
+                                <input
+                                  type="text"
+                                  className="form-control"
+                                  value={factura.montofactura}
+                                  onChange={(e) => 
+                                    updateFactura(procIndex, numIndex, 'montofactura', e.target.value)}
+                                />
+                                <label htmlFor="floatingSelect">Monto factura</label>
+                              </div>
+                              <div className="col-md-12 form-floating mt-2 g-2">
+                                <input
+                                  type="text"
+                                  className="form-control"
+                                  value={factura.comentarios}
+                                  onChange={(e) => 
+                                    updateFactura(procIndex, numIndex, 'comentarios', e.target.value)}
+                                />
+                                <label htmlFor="floatingSelect">Comentario</label>
+                              </div>
+                              <div className="col-md-4 form-floating mt-2 g-2">
+                                <input
+                                  type="date"
+                                  className="form-control"
+                                  max="9999-12-31"
+                                  value={factura.fecharecep}
+                                  onChange={(e) => 
+                                    updateFactura(procIndex, numIndex, 'fecharecep', e.target.value)}
+                                />
+                                <label htmlFor="floatingSelect">Fecha recepción:</label>
+                              </div>
+                              <div className="col-md-8 form-floating mt-2 g-2">
+                                <input
+                                  type="text"
+                                  className="form-control"
+                                  value={factura.perscargrecep}
+                                  onChange={(e) =>
+                                    updateFactura(procIndex, numIndex, 'perscargrecep', e.target.value)}
+                                />
+                                <label htmlFor="floatingSelect">
+                                  Persona a cargo de recepción
+                                </label>
+                              </div>
+                              <div className="col-md-12 mt-2 mb-3">
+                                <label htmlFor={`archivo${procIndex}`} className="form-label">
+                                  Adjuntar antecedentes del/los producto/s:
+                                </label>
+                                <input
+                                  type="file"
+                                  className="form-control"
+                                  id={`archivo${procIndex}`}
+                                  accept="application/pdf"
+                                  multiple
+                                  onChange={(e) => handleArchivoChange(e, procIndex)}
+                                />
+                              </div>
+                              <div
+                                type="button"
+                                className="btn text-center d-grid gap-2 px-2 ps-4 col-auto justify-content-center d-flex align-items-center"
+                                onClick={() => removeNumeroFactura(procIndex, numIndex)}
+                                >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash3" viewBox="0 0 16 16">
+                                  <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
+                                </svg>
+                              </div>                 
+                            </div>
+                          </>
                         ))}
                         <div className="d-flex justify-content-center mt-2">
                         <button
@@ -286,142 +419,9 @@ export const Etapa3 = () => {
                           className="btn btn-primary"
                           onClick={() => addNumeroFactura(procIndex)}
                         >
-                                      +
-                                    </button>
-                                    </div>                
-                                            <div className="col-md-4 form-floating mt-2 g-2">
-                                              <input
-                                                type="date"
-                                                className="form-control"
-                                                id={`fechaemifactura${procIndex}`}
-                                                value={formularios[procIndex].fechaemifactura}
-                                                onChange={(e) => {
-                                                  const newFormularios = [...formularios];
-                                                  newFormularios[procIndex].fechaemifactura = e.target.value;
-                                                  handleFechaEmisionChange(e, procIndex);
-                                                  setFormularios(newFormularios);
-                                                }}
-                                              />
-                                              <label htmlFor="floatingSelect">Fecha emisión factura</label>
-                                            </div>
-                                        <div className="col-md-4 form-floating mt-2 g-2">
-                                          <input
-                                            type="date"
-                                            className="form-control"
-                                            id={`fechamaxima${procIndex}`}
-                                            value={formularios[procIndex].fechamaxima}
-                                            onChange={(e) => {
-                                              const newFormularios = [...formularios];
-                                              newFormularios[procIndex].fechamaxima = e.target.value;
-                                              setFormularios(newFormularios);
-                                            }}
-                                          />
-                                          <label htmlFor="floatingSelect">Fecha máxima de rechazo</label>
-                                        </div>
-                                      <div className="col-md-4 form-floating mt-2 g-2">
-                                        <select
-                                          className="form-select"
-                                          id={`floatingSelect${procIndex}`}
-                                          aria-label="Floating label select example"
-                                          onChange={(e) => {
-                                            const newFormularios = [...formularios];
-                                            newFormularios[procIndex].aceptadassi = e.target.value;
-                                            setFormularios(newFormularios);
-                                          }}
-                                        >
-                                          <option value="Valor por defecto">
-                                            Seleccione una opción
-                                          </option>
-                                          <option value="Si">Si</option>
-                                          <option value="No">No</option>
-                                        </select>
-                                        <label htmlFor="floatingSelect">Aceptado SII</label>
-                                      </div>
-                                    <div className="col-md-4 form-floating mt-2 g-2">
-                                      <input
-                                        type="date"
-                                        className="form-control"
-                                        max="9999-12-31"
-                                        id={`fechavencfact${procIndex}`}
-                                        value={formularios[procIndex].fechavencfact}
-                                        onChange={(e) => {
-                                          const newFormularios = [...formularios];
-                                          newFormularios[procIndex].fechavencfact = e.target.value;
-                                          setFormularios(newFormularios);
-                                        }}
-                                      />
-                                      <label htmlFor="floatingSelect">
-                                        Fecha vencimiento factura
-                                      </label>
-                                    </div>
-                                    <div className="col-md-8 form-floating mt-2 g-2">
-                                      <input
-                                        type="text"
-                                        className="form-control"
-                                        value={formularios[procIndex].montofactura}
-                                        onChange={(e) => {
-                                          const newFormularios = [...formularios];
-                                          newFormularios[procIndex].montofactura = e.target.value;
-                                          setFormularios(newFormularios);
-                                        }}
-                                      />
-                                      <label htmlFor="floatingSelect">Monto factura</label>
-                                    </div>
-                                    <div className="col-md-12 form-floating mt-2 g-2">
-                                      <input
-                                        type="text"
-                                        className="form-control"
-                                        value={formularios[procIndex].comentarios}
-                                        onChange={(e) => {
-                                          const newFormularios = [...formularios];
-                                          newFormularios[procIndex].comentarios = e.target.value;
-                                          setFormularios(newFormularios);
-                                        }}
-                                      />
-                                      <label htmlFor="floatingSelect">Comentario</label>
-                                    </div>
-                                    <div className="col-md-4 form-floating mt-2 g-2">
-                                      <input
-                                        type="date"
-                                        className="form-control"
-                                        max="9999-12-31"
-                                        value={formularios[procIndex].fecharecep}
-                                        onChange={(e) => {
-                                          const newFormularios = [...formularios];
-                                          newFormularios[procIndex].fecharecep = e.target.value;
-                                          setFormularios(newFormularios);
-                                        }}
-                                      />
-                                      <label htmlFor="floatingSelect">Fecha recepción:</label>
-                                    </div>
-                                    <div className="col-md-8 form-floating mt-2 g-2">
-                                      <input
-                                        type="text"
-                                        className="form-control"
-                                        value={formularios[procIndex].perscargrecep}
-                                        onChange={(e) => {
-                                          const newFormularios = [...formularios];
-                                          newFormularios[procIndex].perscargrecep = e.target.value;
-                                          setFormularios(newFormularios);
-                                        }}
-                                      />
-                          <label htmlFor="floatingSelect">
-                            Persona a cargo de recepción
-                          </label>
-                        </div>
-                        <div className="col-md-12 mt-2 mb-3">
-                          <label htmlFor={`archivo${procIndex}`} className="form-label">
-                            Adjuntar antecedentes del/los producto/s:
-                          </label>
-                          <input
-                            type="file"
-                            className="form-control"
-                            id={`archivo${procIndex}`}
-                            accept="application/pdf"
-                            multiple
-                            onChange={(e) => handleArchivoChange(e, procIndex)}
-                          />
-                        </div>
+                          +
+                        </button>
+                        </div>                
                         <hr className="mx-1"/>
                       </form>
                       )}
