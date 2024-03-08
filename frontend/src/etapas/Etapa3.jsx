@@ -159,13 +159,20 @@ export const Etapa3 = () => {
     // Inicializar los números de factura para cada proceso
     return item.procesosEtapa2.formularios.map(() => [""]);
   });
+
   // Define una función para actualizar las facturas
 const updateFactura =  (procIndex, numIndex, field, value) => {
   setFormularios(prevFormularios => {
     const newFormularios = [...prevFormularios];
     const factura = newFormularios[procIndex].facturas[numIndex];
     factura[field] = value;
-    return newFormularios;
+    // Verificar si la fecha de emisión de la factura está presente
+    if (factura.fechaemifactura) {
+      // Recalcular fechas máximas y actualizar el estado
+      factura.fechamaxima = calcularFechaMaxima(factura.fechaemifactura);
+      factura.fechavencfact = calcularFechaVencimiento(factura.fechaemifactura);
+    }
+    return newFormularios;  
   });
 };
 
@@ -226,7 +233,7 @@ const updateFactura =  (procIndex, numIndex, field, value) => {
                 <p className="display-7">Una vez lo considere terminado pulsar el boton "Enviar Etapa"</p>
                 {item.procesosEtapa2.formularios.map((proceso, procIndex) => (
                   <div key={procIndex}>
-                    <div className="fw-semibold mb-2">ORDEN DE COMPRA {procIndex + 1}</div>
+                    <div className="fw-semibold mb-2 h5">ORDEN DE COMPRA {procIndex + 1}</div>
                     <p className="display-7">
                       Descripción de compra: {proceso.descproducto}
                     </p>
@@ -235,7 +242,7 @@ const updateFactura =  (procIndex, numIndex, field, value) => {
                     </p>
                     {formularios[procIndex] && (
                       <form className="row px-2" onSubmit={(e) => handleSubmit(e, procIndex)}>
-                        <div className="col-md-6 form-floating mt-2 g-2">
+                        <div className="col-md-3 form-floating mt-2 g-2">
                           <input
                             type="text"
                             className="form-control"
@@ -250,7 +257,7 @@ const updateFactura =  (procIndex, numIndex, field, value) => {
                           <label htmlFor="floatingSelect">N° CDP</label>
                         </div>
   
-                        <div className="col-md-6 form-floating mt-2 g-2">
+                        <div className="col-md-4 form-floating mt-2 g-2">
                           <input
                             type="text"
                             className="form-control"
@@ -265,7 +272,7 @@ const updateFactura =  (procIndex, numIndex, field, value) => {
                           <label htmlFor="floatingSelect">Estado</label>
                         </div>
   
-                        <div className="col-md-6 form-floating mt-2 g-2">
+                        <div className="col-md-5 form-floating mt-2 mb-3 g-2">
                           <input
                             type="text"
                             className="form-control"
@@ -282,8 +289,21 @@ const updateFactura =  (procIndex, numIndex, field, value) => {
   
                         {formularios[procIndex].facturas.map((factura, numIndex) => (
                           <>
-                        <div key={numIndex} className="row px-2">
-                          <div className="form-floating g-3 d-flex">
+                          <hr className="mt-1 mb-1"/>
+
+                          <div className="d-flex justify-content-between align-items-center mt-0 px-1">                   
+                            <div className="fw-semibold">Formulario Factura {numIndex+1}</div>
+                              <div
+                              type="button"
+                              className="btn border-0 text-center d-grid gap-2 px-1 ps-0"
+                              onClick={() => removeNumeroFactura(procIndex, numIndex)}
+                              >
+                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash3" viewBox="0 0 16 16">
+                                <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
+                              </svg>
+                            </div>
+                          </div>                          
+                          <div className="col-md-4 form-floating mt-2 g-2">
                             <input
                               type="text"
                               className="form-control"
@@ -340,12 +360,12 @@ const updateFactura =  (procIndex, numIndex, field, value) => {
                               value={factura.fechavencfact}
                               onChange={(e) => 
                                 updateFactura(procIndex, numIndex, 'fechavencfact', e.target.value)}
-                                />
-                                <label htmlFor="floatingSelect">
-                                  Fecha vencimiento factura
-                                </label>
-                              </div>
-                              <div className="col-md-8 form-floating mt-2 g-2">
+                              />
+                              <label htmlFor="floatingSelect">
+                                Fecha vencimiento factura
+                              </label>
+                            </div>
+                              <div className="col-md-4 form-floating mt-2 g-2">
                                 <input
                                   type="text"
                                   className="form-control"
@@ -400,27 +420,17 @@ const updateFactura =  (procIndex, numIndex, field, value) => {
                                   multiple
                                   onChange={(e) => handleArchivoChange(e, procIndex)}
                                 />
-                              </div>
-                              <div
-                                type="button"
-                                className="btn text-center d-grid gap-2 px-2 ps-4 col-auto justify-content-center d-flex align-items-center"
-                                onClick={() => removeNumeroFactura(procIndex, numIndex)}
-                                >
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash3" viewBox="0 0 16 16">
-                                  <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
-                                </svg>
                               </div>                 
-                            </div>
-                          </>
+                            </>
                         ))}
-                        <div className="d-flex justify-content-center mt-2">
-                        <button
-                          type="button"
-                          className="btn btn-primary"
-                          onClick={() => addNumeroFactura(procIndex)}
-                        >
-                          +
-                        </button>
+                        <div className="d-flex justify-content-center mt-1 my-3">
+                          <button
+                            type="button"
+                            className="btn btn-primary"
+                            onClick={() => addNumeroFactura(procIndex)}
+                          >
+                            Agregar Formulario Factura
+                          </button>
                         </div>                
                         <hr className="mx-1"/>
                       </form>
