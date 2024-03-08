@@ -22,7 +22,7 @@ export const Etapa2 = () => {
   const [archivos, setArchivos] = useState([]);
   const [formularios, setFormularios] = useState([{ descproducto: "",tipoCompra: "", nrocotizacion: "", estado: "", comentarios: "", nroordencompra: "", fechaoc: "", proveedorselecc: "", fechaentregaprov: "", valorcompra: "", fechaautocompra: "", urlArchivos: []}]);
   const { setShowAlert } = useContext(AlertContext);
-  const correoUser = JSON.parse(localStorage.getItem("response")).correo || [];
+  //const correoUser = JSON.parse(localStorage.getItem("response")).correo || [];
 
   const agregarFormulario = () => {
     setFormularios((prevFormularios) => [
@@ -141,27 +141,13 @@ const data = {
     const contenidoCorreo = `
     <h3>Estimado/a ${data.infoUsuario.solicitadoPor || ''},</h3>
     <p>La solicitud de N° ${data.infoSolicitud.nroSolicitud} ha sido enviada exitosamente a la siguiente etapa.</p>
-    <h3>Información Solicitud Etapa 2</h3>
-    ${data.procesosEtapa2.formularios.map((formulario) => `
-    <div>
-    <div><h4>Orden de Compra N° ${formulario.nroordendecompra || ''}</h4></div>
-      <strong>Descripción de orden de Compra:</strong> ${formulario.descproducto || ''}
-    </div>
-    <div><strong>Tipo de Compra:</strong> ${formulario.tipodecompra || ''}</div>
-    <div><strong>Número de Cotización:</strong> ${formulario.numerocotizacion || ''}</div>
-    <div><strong>Estado:</strong> ${formulario.estado || ''}</div>
-    <div><strong>Comentarios:</strong> ${formulario.comentarios || ''}</div>
-    <div><strong>Fecha de Orden de Compra:</strong> ${formulario.fechadeoc || ''}</div>
-    <div><strong>Proveedor Seleccionado:</strong> ${formulario.proveedorseleccionado || ''}</div>
-    <div><strong>Fecha de Entrega Proveedor:</strong> ${formulario.fechaentregaproveedor || ''}</div>
-    <div><strong>Valor de Compra más IVA:</strong> ${formulario.valordecompramiva || ''}</div>
-    <div><strong>Fecha de Autorización de Compra:</strong> ${formulario.fechaautocompra || ''}</div>
-  `).join('')}
   `;
 
+
+  
       try {
         // Llama a la función enviarCorreo con los datos necesarios
-        const correoEnviado = await enviarCorreo(correoUser, contenidoCorreo, 
+        const correoEnviado = await enviarCorreo(item.infoUsuario.correo, contenidoCorreo, 
         `Solicitud #${data.infoSolicitud.nroSolicitud} Enviada`);
       
         console.log("Correo enviado:", correoEnviado);
@@ -183,7 +169,7 @@ const data = {
       console.log("No hay solicitud")
     }
   };
-
+  console.log(item.infoUsuario.correo)
   
   return (
     <>
