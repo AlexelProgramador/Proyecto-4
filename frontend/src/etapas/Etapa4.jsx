@@ -141,7 +141,7 @@ export const Etapa4 = () => {
                         type="file"
                         className="form-control"
                         id="archivo"
-                        accept="application/pdf"
+                        accept=".jpg, .jpeg, .pdf, .xlsx, .xls, .docx, .doc, .rar, .zip, .png"
                         multiple
                         onChange={(e) => {
                           setArchivos(Array.from(e.target.files));

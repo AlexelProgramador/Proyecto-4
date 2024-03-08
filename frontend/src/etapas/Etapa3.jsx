@@ -56,16 +56,16 @@ export const Etapa3 = () => {
 
     console.log(formularios);
 
-  const handleFechaEmisionChange = (e, index) => {
-    const selectedFechaEmision = e.target.value;
-    const fechaMaxima = calcularFechaMaxima(selectedFechaEmision);
-    const fechaVencimiento = calcularFechaVencimiento(selectedFechaEmision);
-    const newFormularios = [...formularios];
-    newFormularios[index].fechaemifactura = selectedFechaEmision;
-    newFormularios[index].fechamaxima = fechaMaxima;
-    newFormularios[index].fechavencfact = fechaVencimiento;
-    setFormularios(newFormularios);
-  };
+  // const handleFechaEmisionChange = (e, index) => {
+  //   const selectedFechaEmision = e.target.value;
+  //   const fechaMaxima = calcularFechaMaxima(selectedFechaEmision);
+  //   const fechaVencimiento = calcularFechaVencimiento(selectedFechaEmision);
+  //   const newFormularios = [...formularios];
+  //   newFormularios[index].fechaemifactura = selectedFechaEmision;
+  //   newFormularios[index].fechamaxima = fechaMaxima;
+  //   newFormularios[index].fechavencfact = fechaVencimiento;
+  //   setFormularios(newFormularios);
+  // };
 
   const calcularFechaMaxima = (fechaEmision) => {
     const fechaEmisionDate = new Date(fechaEmision);
@@ -128,8 +128,8 @@ export const Etapa3 = () => {
             montofactura: factura.montofactura,
             comentarios: factura.comentarios,
             perscargrecep: factura.perscargrecep,
-            urlArchivos: urlsArchivos[index], // Usar la URL correspondiente al índice del formulario
           })),
+          urlArchivos: urlsArchivos[index], // Usar la URL correspondiente al índice del formulario
         })),
       };
   
@@ -407,22 +407,22 @@ const updateFactura =  (procIndex, numIndex, field, value) => {
                                 <label htmlFor="floatingSelect">
                                   Persona a cargo de recepción
                                 </label>
-                              </div>
-                              <div className="col-md-12 mt-2 mb-3">
-                                <label htmlFor={`archivo${procIndex}`} className="form-label">
-                                  Adjuntar antecedentes del/los producto/s:
-                                </label>
-                                <input
-                                  type="file"
-                                  className="form-control"
-                                  id={`archivo${procIndex}`}
-                                  accept="application/pdf"
-                                  multiple
-                                  onChange={(e) => handleArchivoChange(e, procIndex)}
-                                />
-                              </div>                 
+                              </div>                
                             </>
                         ))}
+                        <div className="col-md-12 mt-2 mb-3">
+                              <label htmlFor={`archivo${procIndex}`} className="form-label">
+                                Adjuntar antecedentes del/los producto/s:
+                              </label>
+                              <input
+                                type="file"
+                                className="form-control"
+                                id={`archivo${procIndex}`}
+                                accept=".jpg, .jpeg, .pdf, .xlsx, .xls, .docx, .doc, .rar, .zip, .png"
+                                multiple
+                                onChange={(e) => handleArchivoChange(e, procIndex)}
+                              />
+                            </div> 
                         <div className="d-flex justify-content-center mt-1 my-3">
                           <button
                             type="button"

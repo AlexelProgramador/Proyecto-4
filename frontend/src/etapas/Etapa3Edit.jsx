@@ -415,7 +415,7 @@ const handleDeleteNumeroFactura = (index, numeroIndex) => {
                             type="file"
                             className="form-control"
                             id={`archivo${index}`}
-                            accept="application/pdf"
+                            accept=".jpg, .jpeg, .pdf, .xlsx, .xls, .docx, .doc, .rar, .zip, .png"
                             multiple
                             onChange={(e) => handleArchivoChange(e, index)}
                           />
