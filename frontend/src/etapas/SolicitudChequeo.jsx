@@ -103,26 +103,8 @@ export const SolicitudChequeo = () => {
   };
 
   const handleEnviarSolicitud = async (data) => {
-    // event.preventDefault();
 
-    // console.log("handleEnviarSolicitud ejecutándose...");
-
-    // // Envía la solicitud
-    // const nroSolicitud = await handleSubmit(
-    //   event,
-    //   solicitadoPor,
-    //   anexo,
-    //   correo,
-    //   resumen,
-    //   Fechaest,
-    //   productos,
-    //   motivos,
-    //   fuenteFinanciamiento,
-    //   montoEstimado,
-    //   archivos
-    // );
-
-    console.log("Solicitud enviada:", data.infoSolicitud.nroSolicitud);
+    console.log("Solicitud rechazada enviada:", data.infoSolicitud.nroSolicitud);
 
     const fechaCompleta = new Date(data.infoSolicitud.fecha);
     const fechaFormateada = fechaCompleta.toLocaleDateString('es-ES', { year: 'numeric', month: '2-digit', day: '2-digit', timeZone: 'UTC' });

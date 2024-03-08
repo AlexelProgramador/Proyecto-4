@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useLocation } from "react-router-dom";
 import usePostRequest from "../Hooks/usePostRequest";
 import usePutRequest from "../Hooks/usePutRequest";
@@ -6,13 +6,14 @@ import { useNavigate } from "react-router-dom";
 import { uploadFiles } from "../firebase/config";
 import { BounceLoader, ClockLoader } from "react-spinners";
 import { LoadingText } from "../Components/LoadingText";
+import { AlertContext } from "../context/AlertContext";
+import enviarCorreo from "../Components/Correo";
 
 export const Etapa2 = () => {
   const location = useLocation();
   const item = location.state.item;
   const { execute: executePost } = usePostRequest();
   const [infoSolicitud, setinfoSolicitud] = useState(null);
-
   const [motivoRechazo, setMotivoRechazo] = useState("");
   const { execute: executePut } = usePutRequest();
   const navigate = useNavigate();
@@ -20,7 +21,9 @@ export const Etapa2 = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [archivos, setArchivos] = useState([]);
   const [formularios, setFormularios] = useState([{ descproducto: "",tipoCompra: "", nrocotizacion: "", estado: "", comentarios: "", nroordencompra: "", fechaoc: "", proveedorselecc: "", fechaentregaprov: "", valorcompra: "", fechaautocompra: "", urlArchivos: []}]);
-  
+  const { setShowAlert } = useContext(AlertContext);
+  const correoUser = JSON.parse(localStorage.getItem("response")).correo || [];
+
   const agregarFormulario = () => {
     setFormularios((prevFormularios) => [
       ...prevFormularios,
@@ -85,6 +88,8 @@ const data = {
     const response = await executePut(url, data);
     setIsLoading(false);
     navigate("/");
+    handleEnviarSolicitud(data);
+
   } catch (error) {
     alert(error.message);
   }
@@ -122,6 +127,61 @@ const data = {
 
     navigate("/");
     
+  };
+
+  const handleEnviarSolicitud = async (data) => {
+
+    console.log("Solicitud etapa 2 enviada:", data.infoSolicitud.nroSolicitud);
+
+    // const fechaCompleta = new Date(data.infoSolicitud.fecha);
+    // const fechaFormateada = fechaCompleta.toLocaleDateString('es-ES', { year: 'numeric', month: '2-digit', day: '2-digit', timeZone: 'UTC' });
+
+    // Si la solicitud se envió con éxito, envía el correo de confirmación
+    if (data.infoSolicitud.nroSolicitud) {
+    const contenidoCorreo = `
+    <h3>Estimado/a ${data.infoUsuario.solicitadoPor || ''},</h3>
+    <p>La solicitud de N° ${data.infoSolicitud.nroSolicitud} ha sido enviada exitosamente a la siguiente etapa.</p>
+    <h3>Información Solicitud Etapa 2</h3>
+    ${data.procesosEtapa2.formularios.map((formulario) => `
+    <div>
+    <div><h4>Orden de Compra N° ${formulario.nroordendecompra || ''}</h4></div>
+      <strong>Descripción de orden de Compra:</strong> ${formulario.descproducto || ''}
+    </div>
+    <div><strong>Tipo de Compra:</strong> ${formulario.tipodecompra || ''}</div>
+    <div><strong>Número de Cotización:</strong> ${formulario.numerocotizacion || ''}</div>
+    <div><strong>Estado:</strong> ${formulario.estado || ''}</div>
+    <div><strong>Comentarios:</strong> ${formulario.comentarios || ''}</div>
+    <div><strong>Fecha de Orden de Compra:</strong> ${formulario.fechadeoc || ''}</div>
+    <div><strong>Proveedor Seleccionado:</strong> ${formulario.proveedorseleccionado || ''}</div>
+    <div><strong>Fecha de Entrega Proveedor:</strong> ${formulario.fechaentregaproveedor || ''}</div>
+    <div><strong>Valor de Compra más IVA:</strong> ${formulario.valordecompramiva || ''}</div>
+    <div><strong>Fecha de Autorización de Compra:</strong> ${formulario.fechaautocompra || ''}</div>
+  `).join('')}
+  `;
+
+      try {
+        // Llama a la función enviarCorreo con los datos necesarios
+        const correoEnviado = await enviarCorreo(correoUser, contenidoCorreo, 
+        `Solicitud #${data.infoSolicitud.nroSolicitud} Enviada`);
+      
+        console.log("Correo enviado:", correoEnviado);
+
+        // Realiza las acciones necesarias según el resultado del envío del correo
+        if (correoEnviado) {
+          // Acciones si el correo se envió correctamente
+          setShowAlert({ type: "success", message: "Correo electrónico enviado con éxito" });
+        } else {
+          // Acciones si hubo un error al enviar el correo
+          setShowAlert({ type: "error", message: "Error al enviar el correo electrónico" });
+        }
+      } catch (error) {
+        // Manejar cualquier error que ocurra durante el envío del correo
+        console.error("Error al enviar el correo electrónico:", error);
+        setShowAlert({ type: "error", message: "Error al enviar el correo electrónico" });
+      }
+    } else {
+      console.log("No hay solicitud")
+    }
   };
 
   
