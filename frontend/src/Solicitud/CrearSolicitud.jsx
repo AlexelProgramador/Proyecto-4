@@ -13,7 +13,7 @@ import {
 import { useNavigate } from "react-router-dom";
 
 // Correo
-import enviarCorreo from "./EmaiSender"; // Asegúrate de tener la ruta correcta al componente EmailSender
+import enviarCorreo from "../Components/Correo"; // Asegúrate de tener la ruta correcta al componente EmailSender
 
 
 export const CrearSolicitud = () => {
@@ -144,7 +144,7 @@ export const CrearSolicitud = () => {
         setShowAlert({ type: "error", message: "Error al enviar el correo electrónico" });
       }
     } else {
-      console.log("No paso por el if")
+      console.log("No hay solicitud")
     }
   };
 

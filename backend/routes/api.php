@@ -33,6 +33,8 @@ Route::controller(AuthController::class)->group(function () {
 Route::controller(UsuarioController::class)->group(function () {
     Route::get("/usuarios", "index");
     Route::post("/usuario", "store");
+    Route::delete("/usuario/{userId}", "destroy");
+    Route::put("/editarUsuario/{id}", [UsuarioController::class, 'editarUsuario']);
 });
 
 // Controlador Etapa.

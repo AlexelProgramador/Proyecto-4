@@ -10,14 +10,14 @@ import React, { useState } from "react";
 import Cookies from "js-cookie";
 
 const HomeUsuario = () => {
-  const { data, loading, error } = useFetch("usuarios");
+  const { data, loading, error, fetchData } = useFetch("usuarios");
   const { showAlert, setShowAlert } = useContext(AlertContext);
   const [currentPage, setCurrentPage] = useState(1);
   const responseLocalStorage = JSON.parse(localStorage.getItem("response"));
   const ITEMS_PER_PAGE = 10;
   const { execute } = useDeleteRequest();
 
-
+  
   useEffect(() => {
     if (showAlert) {
       const timer = setTimeout(() => {
@@ -40,6 +40,7 @@ const HomeUsuario = () => {
         const response = await execute(`usuario/${userId}`, userId);
         console.log(response);
         setShowAlert(true);
+        await fetchData(); // Actualiza la lista de usuarios después de eliminar uno
         // Aquí puedes realizar alguna lógica adicional después de eliminar el usuario
       } catch (error) {
         console.error(error);
@@ -70,11 +71,11 @@ const HomeUsuario = () => {
               <div className="table-responsive mx-auto">
                 <table className="table">
                   <colgroup>
-                    <col style={{ width: "15%" }} />
-                    <col style={{ width: "15%" }} />
-                    <col style={{ width: "15%" }} />
-                    <col style={{ width: "35%" }} />
                     <col style={{ width: "20%" }} />
+                    <col style={{ width: "15%" }} />
+                    <col style={{ width: "30%" }} />
+                    <col style={{ width: "20%" }} />
+                    <col style={{ width: "15%" }} />
                   </colgroup>
                   <thead>
                     <tr>
@@ -103,7 +104,9 @@ const HomeUsuario = () => {
                               ))}
                             </td>
                             <td>
-                              {/* <button
+                            <div className="btn-group btn-group-sm">
+
+                              <button
                                 className="btn btn-warning"
                                 onClick={() =>
                                   navigate(`/editarUsuario`, {
@@ -120,7 +123,8 @@ const HomeUsuario = () => {
                                 } // Agrega la función para eliminar el usuario
                               >
                                 Eliminar
-                              </button> */}
+                              </button>
+                              </div>
                             </td>
                           </tr>
                         );

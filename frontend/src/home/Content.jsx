@@ -55,6 +55,7 @@ export const Content = () => {
   const { execute, response } = useDeleteRequest();
   // Buscador
   const [search, setSearch] = useState("");
+  
   const handleDelete = async (itemId, item) => {
     try {
       const response = await execute("eliminarEtapa", { idEtapa: itemId });
