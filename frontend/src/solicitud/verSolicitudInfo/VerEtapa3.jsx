@@ -88,14 +88,23 @@ const VerEtapa3 = ({ item }) => {
           Proveedor:{" "}
           <span className="text-primary">{proceso.proveedor}</span>
         </div>
-        {Array.isArray(proceso.nrofactura) && proceso.nrofactura.map((numero, numeroIndex) => (
-          <div key={numeroIndex}>
-            Número de factura {numeroIndex + 1}:{" "}
+        {Array.isArray(proceso.nrofactura) ? (
+          proceso.nrofactura.map((numero, numeroIndex) => (
+            <div key={numeroIndex}>
+              Número de factura {numeroIndex + 1}:{" "}
+              <span className="text-primary">
+                {numero !== null ? numero : "Vacío"}
+              </span>
+            </div>
+          ))
+        ) : (
+          <div>
+            Número de factura:{" "}
             <span className="text-primary">
-              {numero !== null ? numero : "Vacío"}
+              {proceso.nrofactura}
             </span>
           </div>
-        ))}
+        )}
         <div>
           Fecha emisión de factura:{" "}
           <span className="text-primary">
