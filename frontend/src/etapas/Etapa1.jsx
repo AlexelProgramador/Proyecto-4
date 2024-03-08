@@ -217,7 +217,7 @@ export const Etapa1 = () => {
                           value={infoSolicitud.infoUsuario.fechaestimada}
                           disabled
                         />
-                        <label htmlFor="floatingInputGrid">Fecha estimada:</label>
+                        <label htmlFor="floatingInputGrid">Fecha de necesidad del producto:</label>
                       </div>
                     </div>
                   </div>

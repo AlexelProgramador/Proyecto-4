@@ -34,7 +34,11 @@ export const EtapaRechazado = () => {
     fechaestimada: usuarioInfo.fechaestimada|| "",
     fuenteFinanciamiento: solicitudInfo.fuenteFinanciamiento || "",
     montoEstimado: solicitudInfo.montoEstimado || "",
-    productos: item?.infoSolicitud.productos || [],
+    productos: item?.infoSolicitud.productos.map(producto => ({
+      descripcion: producto.descripcion || "",
+      cantidad: producto.cantidad || "",
+      tipoEmpaque: producto.tipoEmpaque || "",
+    })) || [],    
     archivos: item?.infoSolicitud.urlArchivos || [],
     comentarioReingreso: comentarioReingreso
   });

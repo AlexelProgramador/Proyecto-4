@@ -83,7 +83,7 @@ export const SolicitudChequeo = () => {
         fecha: item.infoSolicitud.fecha,
         fuenteFinanciamiento: item.infoSolicitud.fuenteFinanciamiento,
         idUsuario: item.infoSolicitud.idUsuario,
-        montoEstimado: item.infoSolicitud.idUsuario,
+        montoEstimado: item.infoSolicitud.montoEstimado,
         motivos: item.infoSolicitud.motivos,
         nroSolicitud: item.infoSolicitud.nroSolicitud,
         productos: item.infoSolicitud.productos,
@@ -130,17 +130,18 @@ export const SolicitudChequeo = () => {
     // Si la solicitud se envió con éxito, envía el correo de confirmación
     if (data.infoSolicitud.nroSolicitud) {
     const contenidoCorreo = `
-    <h3>Estimado/a ${data.infoUsuario.solicitadoPor},</h3>
-    <p>Su solicitud realizada el ${fechaFormateada} con la descripción "${data.infoUsuario.resumen}" y el N° ${data.infoSolicitud.nroSolicitud} ha sido rechazada.</p>
-    <p><strong>Motivo de rechazo:</strong> ${data.motivoRechazo}</p>
+    <h3>Estimado/a ${data.infoUsuario.solicitadoPor || ''},</h3>
+    <p>Su solicitud realizada el ${fechaFormateada} con la descripción "${data.infoUsuario.resumen || ''}" y el N° ${data.infoSolicitud.nroSolicitud} ha sido rechazada.</p>
+    <p><strong>Motivo de rechazo:</strong> ${data.motivoRechazo || ''}</p>
     <h3>Información Solicitud</h3>
-    <div><strong>Solicitado por:</strong> ${data.infoUsuario.solicitadoPor}</div>
-    <div><strong>Anexo:</strong> ${data.infoUsuario.anexo}</div>
-    <div><strong>Correo Electrónico:</strong> ${data.infoUsuario.correo}</div>
-    <div><strong>Resumen:</strong> ${data.infoUsuario.resumen}</div>
-    <div><strong>Motivos:</strong> ${data.infoSolicitud.motivos}</div>
-    <div><strong>Fuente de Financiamiento:</strong> ${data.infoSolicitud.fuenteFinanciamiento}</div>
-    <div><strong>Monto Estimado:</strong> ${data.infoSolicitud.montoEstimado}</div>
+    <div><strong>Solicitado por:</strong> ${data.infoUsuario.solicitadoPor || ''}</div>
+    <div><strong>Anexo:</strong> ${data.infoUsuario.anexo || ''}</div>
+    <div><strong>Correo Electrónico:</strong> ${data.infoUsuario.correo || ''}</div>
+    <div><strong>Resumen:</strong> ${data.infoUsuario.resumen || ''}</div>
+    <div><strong>Fecha de necesidad del producto:</strong> ${data.infoUsuario.fechaestimada || ''}</div>
+    <div><strong>Motivos:</strong> ${data.infoSolicitud.motivos || ''}</div>
+    <div><strong>Fuente de Financiamiento:</strong> ${data.infoSolicitud.fuenteFinanciamiento || ''}</div>
+    <div><strong>Monto Estimado:</strong> ${data.infoSolicitud.montoEstimado || ''}</div>
     <h3>Productos Solicitados</h3>
     <table style="border: 0px; width: 100%; text-align: left">
       <thead>
@@ -153,9 +154,9 @@ export const SolicitudChequeo = () => {
       <tbody>
         ${data.infoSolicitud.productos.map((producto) => `
         <tr>
-          <td>${producto.descripcion}</td>
-          <td>${producto.cantidad}</td>
-          <td>${producto.tipoEmpaque}</td>
+          <td>${producto.descripcion || ''}</td>
+          <td>${producto.cantidad || ''}</td>
+          <td>${producto.tipoEmpaque || ''}</td>
         </tr>
         `).join('')}
       </tbody>
@@ -309,12 +310,12 @@ export const SolicitudChequeo = () => {
                           value={infoSolicitud.infoUsuario.fechaestimada}
                           disabled
                         />
-                        <label htmlFor="floatingInputGrid">Fecha estimada:</label>
+                        <label htmlFor="floatingInputGrid">Fecha de necesidad del producto:</label>
                       </div>
                     </div>
                   </div>
 
-                  <div className="row mt-2 g-2">
+                  <div className="row mt-2 mb-3 g-2">
                     <div style={{ overflow: "hidden" }}>
                       <table className="table">
                         <thead>
@@ -325,32 +326,29 @@ export const SolicitudChequeo = () => {
                           </tr>
                         </thead>
                         <tbody>
-                          {infoSolicitud.infoSolicitud.productos.map(
-                            (item, index) => (
+                          {infoSolicitud.infoSolicitud.productos
+                            .slice(
+                              paginaActual * productosPorPagina,
+                              paginaActual * productosPorPagina + productosPorPagina
+                            )
+                            .map((item, index) => (
                               <tr key={index}>
                                 <td>{item.descripcion}</td>
                                 <td>{item.cantidad}</td>
                                 <td>{item.tipoEmpaque}</td>
                               </tr>
-                            )
-                          )}
-                          <tr>
-                            <td></td>
-                            <td>
-                              <PaginationButtons
-                                paginaActual={paginaActual}
-                                setPaginaActual={setPaginaActual}
-                                numeroDePaginas={numeroDePaginas}
-                                productos={
-                                  infoSolicitud.infoSolicitud.productos
-                                }
-                                productosPorPagina={productosPorPagina}
-                              />
-                            </td>
-                            <td></td>
-                          </tr>
+                            ))}                          
                         </tbody>
                       </table>
+                        <PaginationButtons
+                          paginaActual={paginaActual}
+                          setPaginaActual={setPaginaActual}
+                          numeroDePaginas={numeroDePaginas}
+                          productos={
+                            infoSolicitud.infoSolicitud.productos
+                          }
+                          productosPorPagina={productosPorPagina}
+                        />
                     </div>
                   </div>
                   <div className="row g-2">

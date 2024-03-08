@@ -57,6 +57,7 @@ const ProductoInput = ({ index, producto, handleProductoChange, handleRemoveProd
               handleProductoChange(index, "tipoEmpaque", e.target.value)
             }
           >
+              <option>Escoja una opción</option>
             {/* Mapear las opciones del empaque */}
             {unidadesEmpaque.map((opcion, i) => (
               <option key={i} value={opcion}>{opcion}</option>

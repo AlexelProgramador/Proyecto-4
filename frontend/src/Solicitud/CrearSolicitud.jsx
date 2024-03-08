@@ -99,6 +99,7 @@ export const CrearSolicitud = () => {
     <div><strong>Anexo:</strong> ${anexo}</div>
     <div><strong>Correo Electrónico:</strong> ${correo}</div>
     <div><strong>Resumen:</strong> ${resumen}</div>
+    <div><strong>Fecha de necesidad del producto:</strong> ${Fechaest}</div>
     <div><strong>Motivos:</strong> ${motivos}</div>
     <div><strong>Fuente de Financiamiento:</strong> ${fuenteFinanciamiento}</div>
     <div><strong>Monto Estimado:</strong> ${montoEstimado}</div>
