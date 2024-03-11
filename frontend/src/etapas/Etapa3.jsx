@@ -127,6 +127,7 @@ export const Etapa3 = () => {
             fechavencfact: factura.fechavencfact,
             montofactura: factura.montofactura,
             comentarios: factura.comentarios,
+            fecharecep: factura.fecharecep,
             perscargrecep: factura.perscargrecep,
           })),
           urlArchivos: urlsArchivos[index], // Usar la URL correspondiente al índice del formulario

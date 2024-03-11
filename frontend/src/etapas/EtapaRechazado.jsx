@@ -46,10 +46,6 @@ export const EtapaRechazado = () => {
   const [archivos, setArchivos] = useState([]);
 
 
-  // console.log("archivos", formData.archivos);
-  // console.log("productos",formData.fechaestimada);
-
-
   const handleInputChange = (fieldName, value) => {
     setFormData((prevData) => ({
       ...prevData,

@@ -91,6 +91,10 @@ const VerEtapa3 = ({ item }) => {
                   Monto de factura: <span className="text-primary">{factura.montofactura}</span>
                 </div>
                 <div>
+                  Fecha recepción de factura:{" "}
+                  <span className="text-primary">{factura.fecharecep}</span>
+                </div>
+                <div>
                   Persona a cargo de recepción:{" "}
                   <span className="text-primary">{factura.perscargrecep}</span>
                 </div>
