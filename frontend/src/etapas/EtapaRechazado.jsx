@@ -13,6 +13,7 @@ import {
 } from "../solicitud/SolicitudInputs";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import enviarCorreo from "../Components/Correo";
 
 export const EtapaRechazado = () => {
   const { setShowAlert } = useContext(AlertContext);
@@ -101,6 +102,8 @@ export const EtapaRechazado = () => {
     try {
       const response = await executePut(url, data);
       navigate("/");
+      handleEnviarSolicitud(data);
+
     } catch (error) {
       console.error("Error al actualizar la solicitud:", error);
       setShowAlert({ type: "error", message: "Error al actualizar la solicitud" });
@@ -119,6 +122,75 @@ export const EtapaRechazado = () => {
     handleProductoChange,
   } = useProductos(formData.productos, 3);
   // const [productos, setProductos] = useState(item?.infoSolicitud.productos || []);
+
+  const handleEnviarSolicitud = async (data) => {
+
+    console.log("Solicitud etapa 2 enviada:", data.infoSolicitud.nroSolicitud);
+
+    // const fechaCompleta = new Date(data.infoSolicitud.fecha);
+    // const fechaFormateada = fechaCompleta.toLocaleDateString('es-ES', { year: 'numeric', month: '2-digit', day: '2-digit', timeZone: 'UTC' });
+
+    // Si la solicitud se envió con éxito, envía el correo de confirmación
+    if (data.infoSolicitud.nroSolicitud) {
+    const contenidoCorreo = `
+    <h3>Estimado/a ${data.infoUsuario.solicitadoPor},</h3>
+    <p>Su solicitud N° ${data.infoSolicitud.nroSolicitud} con la descripción "${data.infoUsuario.resumen}" ha sido ingresada nuevamente el ${new Date().toLocaleDateString()}.</p>
+    <p><strong>Comentario reingreso:</strong> ${data.infoSolicitud.comentarioReingreso || ''}</p>
+    <h3>Información Solicitud</h3>
+    <div><strong>Solicitado por:</strong> ${data.infoUsuario.solicitadoPor}</div>
+    <div><strong>Anexo:</strong> ${data.infoUsuario.anexo}</div>
+    <div><strong>Correo Electrónico:</strong> ${data.infoUsuario.correo}</div>
+    <div><strong>Resumen:</strong> ${data.infoUsuario.resumen}</div>
+    <div><strong>Fecha de necesidad del producto:</strong> ${data.infoUsuario.fechaestimada}</div>
+    <div><strong>Motivos:</strong> ${data.infoSolicitud.motivos}</div>
+    <div><strong>Fuente de Financiamiento:</strong> ${data.infoSolicitud.fuenteFinanciamiento}</div>
+    <div><strong>Monto Estimado:</strong> ${data.infoSolicitud.montoEstimado}</div>
+    <h3>Productos Solicitados</h3>
+    <table style="border: 0px; width: 100%; text-align: left">
+      <thead>
+        <tr>
+          <th style="width: 60%;">Descripción</th>
+          <th style="width: 10%;">Cantidad</th>
+          <th style="width: 30%;">Tipo de Empaque</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${data.infoSolicitud.productos.map((producto) => `
+        <tr>
+          <td>${producto.descripcion}</td>
+          <td>${producto.cantidad}</td>
+          <td>${producto.tipoEmpaque}</td>
+        </tr>
+        `).join('')}
+      </tbody>
+    </table>
+    `;
+
+      try {
+        // Llama a la función enviarCorreo con los datos necesarios
+        const correoEnviado = await enviarCorreo(item.infoUsuario.correo, contenidoCorreo, 
+        `Solicitud #${data.infoSolicitud.nroSolicitud} Reingresada`);
+      
+        console.log("Correo enviado:", correoEnviado);
+
+        // Realiza las acciones necesarias según el resultado del envío del correo
+        if (correoEnviado) {
+          // Acciones si el correo se envió correctamente
+          setShowAlert({ type: "success", message: "Correo electrónico enviado con éxito" });
+        } else {
+          // Acciones si hubo un error al enviar el correo
+          setShowAlert({ type: "error", message: "Error al enviar el correo electrónico" });
+        }
+      } catch (error) {
+        // Manejar cualquier error que ocurra durante el envío del correo
+        console.error("Error al enviar el correo electrónico:", error);
+        setShowAlert({ type: "error", message: "Error al enviar el correo electrónico" });
+      }
+    } else {
+      console.log("No hay solicitud")
+    }
+  };
+
 
   return (
     <div className="   mx-auto">

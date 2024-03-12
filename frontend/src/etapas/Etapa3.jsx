@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useLocation } from "react-router-dom";
 import usePostRequest from "../Hooks/usePostRequest";
 import usePutRequest from "../Hooks/usePutRequest";
@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { uploadFiles } from "../firebase/config";
 import { BounceLoader, ClockLoader } from "react-spinners";
 import { LoadingText } from "../Components/LoadingText";
+import { AlertContext } from "../context/AlertContext";
+import enviarCorreo from "../Components/Correo";
 
 export const Etapa3 = () => {
   const location = useLocation();
@@ -13,6 +15,7 @@ export const Etapa3 = () => {
   const { execute: executePost } = usePostRequest();
   const [infoSolicitud, setinfoSolicitud] = useState(null);
   const [archivos] = useState([]);
+  const { setShowAlert } = useContext(AlertContext);
 
   const { execute: executePut } = usePutRequest();
   const navigate = useNavigate();
@@ -138,6 +141,8 @@ export const Etapa3 = () => {
       const response = await executePut(url, data);
       setIsLoading(false);
       navigate("/");
+      handleEnviarSolicitud(data);
+
     } catch (error) {
       console.error("Error en handleSubmit:", error);
     }
@@ -202,6 +207,50 @@ const updateFactura =  (procIndex, numIndex, field, value) => {
       nuevosFormularios[procIndex].facturas.splice(numIndex, 1); // Elimina la factura del array de facturas
       return nuevosFormularios;
     });
+  };
+
+  const handleEnviarSolicitud = async (data) => {
+
+    console.log("Solicitud etapa 2 enviada:", data.infoSolicitud.nroSolicitud);
+
+    // const fechaCompleta = new Date(data.infoSolicitud.fecha);
+    // const fechaFormateada = fechaCompleta.toLocaleDateString('es-ES', { year: 'numeric', month: '2-digit', day: '2-digit', timeZone: 'UTC' });
+
+    // Si la solicitud se envió con éxito, envía el correo de confirmación
+    if (data.infoSolicitud.nroSolicitud) {
+    const contenidoCorreo = `
+    <h3>Estimado/a ${data.infoUsuario.solicitadoPor || ''},</h3>
+    <p>Con fecha del ${new Date().toLocaleDateString()} se ha recepcionado 
+    en bodega los productos o servicios relacionados a la solicitud de N°${data.infoSolicitud.nroSolicitud} con:</p>
+    ${data.procesosEtapa2.formularios.map((form) => 
+      `<p>- Orden de compra N° ${form.nroordendecompra} al proveedor ${form.proveedorseleccionado}
+      por la compra de ${form.descproducto || ''}.</p>`).join('')}
+      <p>Cualquier duda consultar al mail jgamboa@odontologia.uchile.cl y/o kmorales@odontologia.uchile.cl</p>
+      <p>Muchas gracias.</p>`;
+
+      try {
+        // Llama a la función enviarCorreo con los datos necesarios
+        const correoEnviado = await enviarCorreo(item.infoUsuario.correo, contenidoCorreo, 
+        `Solicitud #${data.infoSolicitud.nroSolicitud} Bodega`);
+      
+        console.log("Correo enviado:", correoEnviado);
+
+        // Realiza las acciones necesarias según el resultado del envío del correo
+        if (correoEnviado) {
+          // Acciones si el correo se envió correctamente
+          setShowAlert({ type: "success", message: "Correo electrónico enviado con éxito" });
+        } else {
+          // Acciones si hubo un error al enviar el correo
+          setShowAlert({ type: "error", message: "Error al enviar el correo electrónico" });
+        }
+      } catch (error) {
+        // Manejar cualquier error que ocurra durante el envío del correo
+        console.error("Error al enviar el correo electrónico:", error);
+        setShowAlert({ type: "error", message: "Error al enviar el correo electrónico" });
+      }
+    } else {
+      console.log("No hay solicitud")
+    }
   };
 
   return (
@@ -411,7 +460,7 @@ const updateFactura =  (procIndex, numIndex, field, value) => {
                               </div>                
                             </>
                         ))}
-                        <div className="col-md-12 mt-2 mb-3">
+                        <div className="col-md-12 mt-2 mb-3 px-1">
                               <label htmlFor={`archivo${procIndex}`} className="form-label">
                                 Adjuntar antecedentes del/los producto/s:
                               </label>
@@ -427,7 +476,7 @@ const updateFactura =  (procIndex, numIndex, field, value) => {
                         <div className="d-flex justify-content-center mt-1 my-3">
                           <button
                             type="button"
-                            className="btn btn-primary"
+                            className="btn btn-success"
                             onClick={() => addNumeroFactura(procIndex)}
                           >
                             Agregar Formulario Factura
@@ -440,7 +489,7 @@ const updateFactura =  (procIndex, numIndex, field, value) => {
                     </div>
                 ))}
                 <button
-                  className="m-2 btn btn-primary"
+                  className="btn btn-primary"
                   type="submit"
                   onClick={(e) => handleSubmit(e)}
                 >

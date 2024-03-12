@@ -357,7 +357,7 @@ export const Etapa1 = () => {
                       />
                     </div>
 
-                    <button className="m-2 btn btn-primary" type="submit">
+                    <button className="btn btn-primary" type="submit">
                       Enviar Etapa
                     </button>
                     <button

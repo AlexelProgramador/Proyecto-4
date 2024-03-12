@@ -48,7 +48,7 @@ const verEtapa1 = ({ item }) => {
     );
   }
 
-  if (item.procesosEtapa1.centroDeCostos !== null && (!item.procesosEtapa1 || !item.procesosEtapa1.verificarSaldo) && item.nroEtapa !== 2 && item.nroEtapa !== "Dea") {
+  if ((!item.procesosEtapa1 || !item.procesosEtapa1.centroDeCostos || !item.procesosEtapa1.verificarSaldo) && item.nroEtapa !== 2 && item.nroEtapa !== "Dea" && item.nroEtapa !== 3 && item.nroEtapa !== 4 && item.nroEtapa !== 5 ) {
     return (
       <div className="contenido">
         <div className="p-4">

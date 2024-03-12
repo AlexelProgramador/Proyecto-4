@@ -150,7 +150,7 @@ export const CrearSolicitud = () => {
   };
 
   return (
-    <div className="   mx-auto">
+    <div className="mx-auto">
       {isLoading ? (
         <div className="loading-modal d-flex justify-content-center align-items-center flex-column">
           <ClockLoader color="#123abc" loading={isLoading} size={100} />

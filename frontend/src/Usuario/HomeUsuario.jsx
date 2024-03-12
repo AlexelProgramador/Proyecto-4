@@ -69,7 +69,19 @@ const HomeUsuario = () => {
         <p className="display-7">
           Aquí puedes visualizar los usuarios del sistema y crear nuevos usuarios solicitantes.
         </p>
-        <SearchBar search={search} setSearch={handleSearchChange} />
+        <div className="mb-3">
+          <div className="row">
+            <div className="col-md-4">
+            <input
+            className="form-control me-2"
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Buscar nombre, apellido, usuario y correo"
+          />
+            </div>
+          </div>
+        </div>        
         <div className="card shadow-card rounded-3 border border-0">
           <div className="card-body">
             <div className="d-flex justify-content-between pb-0">

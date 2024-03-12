@@ -59,41 +59,40 @@ export const Etapa2 = () => {
         item.infoSolicitud.nroSolicitud,
         infoSolicitud.nroEtapa
       );
-const data = {
-  idEtapa: item._id,
-  nroEtapa: 3,
-  infoUsuario: item.infoUsuario,
-  infoSolicitud: item.infoSolicitud,
-  procesosEtapa1: item.procesosEtapa1,
-  procesosEtapa2: {
-    formularios: formularios.map((formulario) => ({
-      descproducto: formulario.descproducto,
-      tipodecompra: formulario.tipoCompra,
-      numerocotizacion: formulario.nrocotizacion,
-      estado: formulario.estado,
-      comentarios: formulario.comentarios,
-      nroordendecompra: formulario.nroordencompra,
-      fechadeoc: formulario.fechaoc,
-      proveedorseleccionado: formulario.proveedorselecc,
-      fechaentregaproveedor: formulario.fechaentregaprov,
-      valordecompramiva: formulario.valorcompra,
-      fechaautocompra: formulario.fechaautocompra,
-    })), 
-    urlArchivos: urlArchivos,
-  }
-};  
-
+      const data = {
+        idEtapa: item._id,
+        nroEtapa: 3,
+        infoUsuario: item.infoUsuario,
+        infoSolicitud: item.infoSolicitud,
+        procesosEtapa1: item.procesosEtapa1,
+        procesosEtapa2: {
+          formularios: formularios.map((formulario) => ({
+            descproducto: formulario.descproducto,
+            tipodecompra: formulario.tipoCompra,
+            numerocotizacion: formulario.nrocotizacion,
+            estado: formulario.estado,
+            comentarios: formulario.comentarios,
+            nroordendecompra: formulario.nroordencompra,
+            fechadeoc: formulario.fechaoc,
+            proveedorseleccionado: formulario.proveedorselecc,
+            fechaentregaproveedor: formulario.fechaentregaprov,
+            valordecompramiva: formulario.valorcompra,
+            fechaautocompra: formulario.fechaautocompra,
+          })), 
+          urlArchivos: urlArchivos,
+        }
+      };  
     
-    const url = "avanzarEtapa";
-    const response = await executePut(url, data);
-    setIsLoading(false);
-    navigate("/");
-    handleEnviarSolicitud(data);
+      const url = "avanzarEtapa";
+      const response = await executePut(url, data);
+      setIsLoading(false);
+      navigate("/");
+      handleEnviarSolicitud(data);
 
-  } catch (error) {
-    alert(error.message);
-  }
-};
+    } catch (error) {
+      alert(error.message);
+    }
+  };
 
   const getinfoSolicitud = async () => {
     var data = {
@@ -140,15 +139,17 @@ const data = {
     if (data.infoSolicitud.nroSolicitud) {
     const contenidoCorreo = `
     <h3>Estimado/a ${data.infoUsuario.solicitadoPor || ''},</h3>
-    <p>La solicitud de N° ${data.infoSolicitud.nroSolicitud} ha sido enviada exitosamente a la siguiente etapa.</p>
-  `;
+    <p>Con fecha del ${new Date().toLocaleDateString()} se ha enviado la solicitud de N°${data.infoSolicitud.nroSolicitud} con:</p>
+    ${data.procesosEtapa2.formularios.map((form) => 
+      `<p>- Orden de compra N° ${form.nroordendecompra} al proveedor ${form.proveedorseleccionado}
+      por la compra de ${form.descproducto || ''}.</p>`).join('')}
+      <p>Cualquier duda consultar al mail adquisiciones@odontologia.uchile.cl</p>
+      <p>Muchas gracias.</p>`;
 
-
-  
       try {
         // Llama a la función enviarCorreo con los datos necesarios
         const correoEnviado = await enviarCorreo(item.infoUsuario.correo, contenidoCorreo, 
-        `Solicitud #${data.infoSolicitud.nroSolicitud} Enviada`);
+        `Solicitud #${data.infoSolicitud.nroSolicitud} Abastecimiento`);
       
         console.log("Correo enviado:", correoEnviado);
 
@@ -169,7 +170,6 @@ const data = {
       console.log("No hay solicitud")
     }
   };
-  console.log(item.infoUsuario.correo)
   
   return (
     <>
@@ -422,7 +422,7 @@ const data = {
                     }}
                   />
               </div>
-            <button className="m-2 btn btn-primary" type="submit" onClick={handleSubmit}>
+            <button className="ms-1 btn btn-primary" type="submit" onClick={handleSubmit}>
               Aceptar
             </button>
             <button

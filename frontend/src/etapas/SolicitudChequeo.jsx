@@ -375,7 +375,7 @@ export const SolicitudChequeo = () => {
                     <label htmlFor="floatingTextarea2">Motivo de compra</label>
                   </div>
                   <form onSubmit={handleSubmit}>
-                    <button className="m-2 btn btn-primary" type="submit">
+                    <button className="btn btn-primary" type="submit">
                       Aceptar
                     </button>
                     <button
