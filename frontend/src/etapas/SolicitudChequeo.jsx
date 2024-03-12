@@ -197,16 +197,16 @@ export const SolicitudChequeo = () => {
         ) : (
           <>
             {infoSolicitud.motivoRechazo && ( // Verifica si hay un motivo de rechazo
-              <div className="alert alert-danger w-75 h-40 mx-auto" role="alert">
+              <div className="alert alert-danger    mx-auto" role="alert">
                 Motivo de rechazo: {infoSolicitud.motivoRechazo}
               </div>
             )}
             {infoSolicitud.infoSolicitud.comentarioReingreso && ( // Verifica si hay un motivo de rechazo
-              <div className="alert alert-warning w-75 h-40 mx-auto" role="alert">
+              <div className="alert alert-warning    mx-auto" role="alert">
                 Motivo de reingreso: {infoSolicitud.infoSolicitud.comentarioReingreso}
               </div>
             )}
-            <div className="w-75 h-40 mx-auto">
+            <div className="   mx-auto">
               <div className="card shadow-card rounded-3 border border-0">
                 <button
                   className="m-2 btn btn-warning rounded-pill px-3 w-10"
@@ -216,7 +216,7 @@ export const SolicitudChequeo = () => {
                     navigate("/");
                   }}
                 >
-                  Atras
+                  Atrás
                 </button>
                 <div className="card-body">
                   <h2 className="mx-auto p-2 display-4">Solicitud Etapa 0</h2>
@@ -433,7 +433,7 @@ export const SolicitudChequeo = () => {
                               className="btn btn-secondary"
                               data-bs-dismiss="modal"
                             >
-                              Cerrar
+                              Cancelar
                             </button>
                             <button
                               type="submit"

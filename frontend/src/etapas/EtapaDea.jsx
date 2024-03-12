@@ -134,11 +134,11 @@ export const EtapaDea = () => {
         ) : (
           <>
             {infoSolicitud.motivoRechazo && ( // Verifica si hay un motivo de rechazo
-              <div className="alert alert-danger w-75 h-40 mx-auto" role="alert">
+              <div className="alert alert-danger    mx-auto" role="alert">
                 Motivo de rechazo: {infoSolicitud.motivoRechazo}
               </div>
             )}
-            <div className="w-75 h-40 mx-auto">
+            <div className="   mx-auto">
               <div className="card shadow-card rounded-3 border border-0">
                 <div className="card-body">
                   <h2 className="mx-auto p-2 display-4">Solicitud Etapa 1</h2>
@@ -282,11 +282,11 @@ export const EtapaDea = () => {
                         </label>
                       </div>
 
-                    <button className="m-2 btn btn-primary" type="submit">
+                    <button className="btn btn-primary" type="submit">
                       Enviar Etapa
                     </button>
                     <button
-                      className="m-2  btn btn-danger"
+                      className="m-2 btn btn-danger"
                       type="button"
                       data-bs-toggle="modal"
                       data-bs-target="#rechazarModal"
@@ -305,7 +305,7 @@ export const EtapaDea = () => {
                         <div className="modal-content">
                           <div className="modal-header">
                             <h5 className="modal-title" id="exampleModalLabel">
-                              Motivo de rechazo
+                              Motivo de Rechazo
                             </h5>
                             <button
                               type="button"
@@ -340,7 +340,7 @@ export const EtapaDea = () => {
                               className="btn btn-secondary"
                               data-bs-dismiss="modal"
                             >
-                              Cerrar
+                              Cancelar
                             </button>
                             <button
                               type="submit"

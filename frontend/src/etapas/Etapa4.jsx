@@ -77,7 +77,7 @@ export const Etapa4 = () => {
           </div>
         ) : (
           <>
-            <div className="w-75 h-40 mx-auto">
+            <div className="  mx-auto">
               <div className="card shadow-card rounded-3 border border-0">
                 <div className="card-body">
                   <h2 className="mx-auto p-2 display-4">Solicitud Etapa 4</h2>

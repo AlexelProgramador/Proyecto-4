@@ -93,10 +93,11 @@ export const Etapa3Edit = () => {
         procesosEtapa1: item.procesosEtapa1,
         procesosEtapa2: item.procesosEtapa2,
         procesosEtapa3: formularios.map((formulario, index) => {
+
           const archivosNuevosFormulario = archivosNuevos[index] || [];
-          const urlArchivosAntiguos = item.procesosEtapa3[index].urlArchivos.filter(url => !archivosNuevosFormulario.includes(url));
+          const urlArchivosAntiguos = item.procesosEtapa3[index].urlArchivos || [];
           const urlArchivos = [...urlArchivosAntiguos, ...archivosNuevosFormulario];
-      
+          
           return {
             ncdp: formulario.ncdp,
             estado: formulario.estado,
@@ -120,7 +121,7 @@ export const Etapa3Edit = () => {
       const url = "avanzarEtapa";
       const response = await executePut(url, data);
       setIsLoading(false);
-      navigate("/verSolicitud", { state: { item}});
+      navigate("/");
     } catch (error) {
       console.error("Error en handleSubmit:", error);
     }
@@ -171,10 +172,10 @@ const updateFactura =  (procIndex, numIndex, field, value) => {
     const factura = newFormularios[procIndex].facturas[numIndex];
     factura[field] = value;
     // Verificar si la fecha de emisión de la factura está presente
-    if (factura.fechaemifactura) {
+    if (factura.fechaemisionfact) {
       // Recalcular fechas máximas y actualizar el estado
-      factura.fechamaxima = calcularFechaMaxima(factura.fechaemifactura);
-      factura.fechavencfact = calcularFechaVencimiento(factura.fechaemifactura);
+      factura.fechamaxima = calcularFechaMaxima(factura.fechaemisionfact);
+      factura.fechavencfact = calcularFechaVencimiento(factura.fechaemisionfact);
     }
     return newFormularios;  
   });
@@ -217,7 +218,7 @@ const updateFactura =  (procIndex, numIndex, field, value) => {
           </div>
         ) : (
           <>
-          <div className="w-75 h-40 mx-auto">
+          <div className="  mx-auto">
             <div className="card shadow-card rounded-3 border border-0 mb-5">
               <div className="card-body ">
                 <div className="position-relative">

@@ -29,6 +29,7 @@ import { EtapaDea } from "../etapas/EtapaDea";
 
 export const Home = () => {
   const [showAlert, setShowAlert] = useState(false);
+  const [show, setShow] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -46,14 +47,10 @@ export const Home = () => {
   return (
     <AlertContext.Provider value={{ showAlert, setShowAlert }}>
       <div>
-        <nav>
-          <Navbar />
-        </nav>
-        <div>
-          <div>
-            <Sidebar />
-          </div>
-          <div className="col">
+        <main className={show ? 'space-toggle' : null}>
+          <Navbar show={show} setShow={setShow}/>
+          <Sidebar show={show} setShow={setShow}/>
+          <div className='container-fluid cont'>
             <Routes>
             {isSolicitante ? (
               <Route path="/" element={<MisSolicitudes />} />
@@ -88,7 +85,7 @@ export const Home = () => {
               <Route path="*" element={<Error />} />
             </Routes>
           </div>
-        </div>
+        </main>
       </div>
     </AlertContext.Provider>
   );

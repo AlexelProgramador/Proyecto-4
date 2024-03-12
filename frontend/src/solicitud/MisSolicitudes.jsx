@@ -48,7 +48,7 @@ const MisSolicitudes = () => {
   const selectedItems = userRequests.slice(startIndex, endIndex);
 
   return (
-    <div className="w-75 h-35 mx-auto">
+    <div className="    mx-auto">
       <div className="mb-3">
         <h2 className="mx-auto display-4">Mis Solicitudes</h2>
         <p className="display-7">

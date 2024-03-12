@@ -19,5 +19,5 @@ export const LoadingText = ({ initialText }) => {
     };
   }, [initialText]);
 
-  return <h1 className="mt-5">{loadingText}</h1>;
+  return <h3 className="mt-5">{loadingText}</h3>;
 };

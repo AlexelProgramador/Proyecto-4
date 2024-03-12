@@ -80,7 +80,7 @@ export const VerSolicitud = () => {
   const hasProcesosEtapa4 = item.procesosEtapa4 !== undefined;
 
   return (
-    <div className="w-75 h-40 mx-auto">
+    <div className="   mx-auto">
       <div className="mb-3">
         <h2 className="mx-auto display-4">Información de solicitud</h2>
         <p className="display-7">

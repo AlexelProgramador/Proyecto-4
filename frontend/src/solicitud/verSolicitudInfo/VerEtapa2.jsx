@@ -66,7 +66,11 @@ const verEtapa2 = ({ item }) => {
           item.procesosEtapa2.formularios.map((formulario, index) => (
             <div key={index} className="mb-4" style={{fontSize: "18px"}}>
               <div className="h4">
-                Orden de compra NRO{" "}{formulario.nroordendecompra}
+                Orden de compra N°{" "}{index+1}
+              </div>
+              <div>
+                Orden de compra:{" "}
+                <span className="text-primary">{formulario.nroordendecompra}</span>
               </div>
               <div>
                 Descripcion de compra:{" "}
@@ -130,19 +134,10 @@ const verEtapa2 = ({ item }) => {
                     <td>
                       <button
                         onClick={() => openPdf(data.url)}
-                        className="btn btn-primary d-flex align-items-center mt-0 bi bi-file-earmark-pdf"
-                        style={{ width: "100px", height: "50px" }}
+                        className="btn btn-sm btn-primary rounded-pill"
+                        style={{ width: "80px"}}
                       >
-                        <div>Abrir Documento</div>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="40"
-                          height="40"
-                          fill="currentColor"
-                          className="bi bi-file-earmark-pdf"
-                          viewBox="0 0 16 16"
-                        >
-                        </svg>
+                        Abrir
                       </button>
                     </td>
                   </tr>

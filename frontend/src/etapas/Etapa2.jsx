@@ -182,17 +182,17 @@ const data = {
         ) : (
           <>
           {infoSolicitud.procesosEtapaDea && infoSolicitud.procesosEtapaDea.comentariodea && (
-            <div className="w-75 h-40 mx-auto alert alert-warning" role="alert">
+            <div className="  mx-auto alert alert-warning" role="alert">
               <strong>Comentario etapa Dea:</strong><br />
               {infoSolicitud.procesosEtapaDea.comentariodea}
             </div>
           )}
-          <div className="w-75 h-40 mx-auto">
+          <div className="  mx-auto">
               <div className="card shadow-card rounded-3 border border-0 mb-5">
                 <div className="card-body ">
                   <div className="position-relative">
                     <button className="m-2 btn btn-warning rounded-pill px-3 w-10" type="button" onClick={(e) => { e.preventDefault(); navigate("/"); }}>
-                      Atras
+                      Atrás
                     </button>
                     <button className="btn btn-success position-absolute top-0 end-0" onClick={agregarFormulario}>
                       Añadir Formulario
@@ -233,7 +233,7 @@ const data = {
 
                     <div className="col-md-3 form-floating mt-2 g-2">
                       <select
-                        class="form-select"
+                        className="form-select"
                         id={`floatingSelect${index}`}
                         aria-label="Floating label select example"
                         onChange={(e) => {
@@ -483,7 +483,7 @@ const data = {
                   className="btn btn-secondary"
                   data-bs-dismiss="modal"
                 >
-                  Cerrar
+                  Cancelar
                 </button>
                 <button
                   type="submit"

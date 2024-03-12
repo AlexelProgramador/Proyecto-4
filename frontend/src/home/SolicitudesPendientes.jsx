@@ -193,7 +193,7 @@ export const Pendientes = () => {
   };
   return (
     <>
-      <div className="w-75 h-35 mx-auto">
+      <div className="mx-auto">
         <div className="mb-3">
           <h2 className="mx-auto display-4">Solicitudes Pendientes</h2>
           <p className="display-7">

@@ -5,7 +5,7 @@ import useDeleteRequest from "../Hooks/useDeleteRequest";
 import { AlertContext } from "../context/AlertContext";
 import { CheckCircleFill } from "react-bootstrap-icons";
 import Pagination from "../Components/Pagination";
-
+import SearchBar from "../Components/SearchBar";
 import React, { useState } from "react";
 import Cookies from "js-cookie";
 
@@ -16,8 +16,28 @@ const HomeUsuario = () => {
   const responseLocalStorage = JSON.parse(localStorage.getItem("response"));
   const ITEMS_PER_PAGE = 10;
   const { execute } = useDeleteRequest();
+  const [search, setSearch] = useState("");
 
-  
+  const filteredItems = data && Array.isArray(data.results)
+  ? data.results.filter(item => 
+    (item.nombre && item.nombre.toLowerCase().includes(search.toLowerCase())) ||
+    (item.apellido && item.apellido.toLowerCase().includes(search.toLowerCase())) ||
+    (item.usuario && item.usuario.toLowerCase().includes(search.toLowerCase())) ||
+    (item.correo && item.correo.toLowerCase().includes(search.toLowerCase())) ||
+    item.rol.some(role => typeof role === 'string' && role.toLowerCase().includes(search)) // Búsqueda en roles
+    )
+  : [];
+
+  // console.log(data)
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const selectedItems = filteredItems.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
+  // Función para manejar el cambio de búsqueda
+  const handleSearchChange = (value) => {
+    setSearch(value);
+    setCurrentPage(1); // Restablecer currentPage a 1 cuando se realiza una búsqueda
+  };
+
   useEffect(() => {
     if (showAlert) {
       const timer = setTimeout(() => {
@@ -27,12 +47,6 @@ const HomeUsuario = () => {
     }
   }, [showAlert]);
   const navigate = useNavigate();
-
-  // console.log(data)
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const selectedItems = data && Array.isArray(data.results)
-  ? data.results.slice(startIndex, startIndex + ITEMS_PER_PAGE)
-  : [];
 
   const handleDeleteRequest = async (userId) => {
     if (window.confirm("¿Estás seguro de que quieres eliminar este usuario?")) {
@@ -49,12 +63,13 @@ const HomeUsuario = () => {
   };
 
   return (
-    <div className="w-75 h-35 mx-auto">
+    <div className="mx-auto">
       <div className="mb-3">
         <h2 className="mx-auto display-4">Usuarios</h2>
         <p className="display-7">
           Aquí puedes visualizar los usuarios del sistema y crear nuevos usuarios solicitantes.
         </p>
+        <SearchBar search={search} setSearch={handleSearchChange} />
         <div className="card shadow-card rounded-3 border border-0">
           <div className="card-body">
             <div className="d-flex justify-content-between pb-0">

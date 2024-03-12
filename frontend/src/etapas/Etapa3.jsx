@@ -214,7 +214,7 @@ const updateFactura =  (procIndex, numIndex, field, value) => {
           </div>
         ) : (
           <>
-          <div className="w-75 h-40 mx-auto">
+          <div className="  mx-auto">
             <div className="card shadow-card rounded-3 border border-0 mb-5">
               <div className="card-body ">
                 <div className="position-relative">
@@ -225,7 +225,7 @@ const updateFactura =  (procIndex, numIndex, field, value) => {
                       navigate("/");
                     }}
                   >
-                    Atras
+                    Atrás
                   </button>
                 </div>
                 <h2 className="mx-auto p-2 display-4">Solicitud Etapa 3</h2>

@@ -118,7 +118,7 @@ export const Etapa1 = () => {
       {infoSolicitud ? (
       <>
       {showMotivoRechazo && (
-        <div className="w-75 h-40 mx-auto alert alert-danger" role="alert">
+        <div className="  mx-auto alert alert-danger" role="alert">
           Motivo de Rechazo: {infoSolicitud.motivoRechazo}
         </div>
       )}
@@ -129,7 +129,7 @@ export const Etapa1 = () => {
           {<LoadingText initialText={"Actualizando Etapa"} />}
         </div>
           ) : (
-            <div className="w-75 h-40 mx-auto">
+            <div className="  mx-auto">
               <div className="card shadow-card rounded-3 border border-0">
               <button
                   className="m-2 btn btn-warning rounded-pill px-3 w-10"
@@ -139,7 +139,7 @@ export const Etapa1 = () => {
                     navigate("/");
                   }}
                 >
-                  Atras
+                  Atrás
                 </button>
                 <div className="card-body">
                   <h2 className="mx-auto p-2 display-4">Solicitud Etapa 1</h2>
@@ -380,7 +380,7 @@ export const Etapa1 = () => {
                         <div className="modal-content">
                           <div className="modal-header">
                             <h5 className="modal-title" id="exampleModalLabel">
-                              Motivo de rechazo
+                              Motivo de Rechazo
                             </h5>
                             <button
                               type="button"
@@ -415,7 +415,7 @@ export const Etapa1 = () => {
                               className="btn btn-secondary"
                               data-bs-dismiss="modal"
                             >
-                              Cerrar
+                              Cancelar
                             </button>
                             <button
                               type="submit"

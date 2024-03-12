@@ -108,23 +108,7 @@ const NotificationSection = ({ toggleTable, showTable, data, userId}) => {
       </div>
       {showTable && (
         <div
-          className="notificaciones"
-          style={{
-            position: "absolute",
-            top: "100%",
-            right: 20,
-            zIndex: 1,
-            background: "white",
-            border: "0px solid #1E4162",
-            boxShadow: "0px 3px 3px 2px rgba(0, 0, 0, 0.20)",
-            width: "25vw",
-            maxHeight: "25vw",
-            padding: "10px",
-            borderRadius: "5px",
-            color: "rgba(0, 0, 0, 0.87)",
-            fontSize: "14px",
-            overflowY: "auto",
-          }}
+          className="noti"
         >
           <h6 className="border-bottom pb-2" style={{ color: "rgba(0, 0, 0, 0.87)", fontSize: "14px" }}>
             Solicitudes sin verificar por 3 días

@@ -121,7 +121,7 @@ export const EtapaRechazado = () => {
   // const [productos, setProductos] = useState(item?.infoSolicitud.productos || []);
 
   return (
-    <div className="w-75 h-40 mx-auto">
+    <div className="   mx-auto">
       <div className="mb-3">
         <h2 className="mx-auto display-4">Modificar Solicitud</h2>
         <p className="display-7">
@@ -214,7 +214,7 @@ export const EtapaRechazado = () => {
                   navigate("/");
                 }}
               >
-                Atras
+                Atrás
               </button>
             </div>
           </form>

@@ -150,7 +150,7 @@ export const CrearSolicitud = () => {
   };
 
   return (
-    <div className="w-75 h-40 mx-auto">
+    <div className="   mx-auto">
       {isLoading ? (
         <div className="loading-modal d-flex justify-content-center align-items-center flex-column">
           <ClockLoader color="#123abc" loading={isLoading} size={100} />
@@ -225,7 +225,7 @@ export const CrearSolicitud = () => {
                     navigate("/");
                   }}
                 >
-                  Atras
+                  Atrás
                 </button>
               </div>
             </form>
