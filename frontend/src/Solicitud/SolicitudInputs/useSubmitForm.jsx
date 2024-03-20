@@ -1,22 +1,30 @@
 // useSubmitForm.js
 import Cookies from "js-cookie";
+import useFetch from "../../hooks/useFetch";
+
 import { useNavigate } from "react-router-dom";
 import moment from "moment-timezone";
 import { uploadFiles } from "../../firebase/config";
 import { useState } from "react";
 import { BeatLoader } from "react-spinners";
 
+
 const useSubmitForm = (execute, setShowAlert) => {
+
+  const { data } = useFetch("etapas");
+
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const getNextSolicitudNumber = () => {
-    let storedNumber = localStorage.getItem("solicitudNumber");
-    let nextNumber = storedNumber ? parseInt(storedNumber, 10) + 1 : 23; // Inicia desde 23 si no hay un valor almacenado
-    localStorage.setItem("solicitudNumber", nextNumber.toString());
-    return nextNumber;
-  };
+// Obtener el número de solicitud del último elemento en el array de datos
+const ultimoElemento = data && data.length > 0 ? data[data.length - 1] : null;
+
+    // Sumarle 1 al último número de solicitud para obtener el nuevo número de solicitud
+const nuevoNumeroSolicitud = ultimoElemento ? parseInt(ultimoElemento.infoSolicitud.nroSolicitud.split("-")[0]) + 1 : 1;
+
+
+
 
   const handleSubmit = async (
     event,
@@ -34,7 +42,7 @@ const useSubmitForm = (execute, setShowAlert) => {
     event.preventDefault();
     let sessionInfo = JSON.parse(localStorage.getItem("response"));
     let now = moment().tz("America/Santiago");
-    const nroSolicitud = `${getNextSolicitudNumber()}-SOL-${now.format("DDMMYYYY")}`;
+    const nroSolicitud = `${nuevoNumeroSolicitud}-SOL-${now.format("DDMMYYYY")}`;
 
     try {
       setIsLoading(true);
