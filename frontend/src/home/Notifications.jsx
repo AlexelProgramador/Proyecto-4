@@ -63,15 +63,43 @@ const getUnattendedRequests = (data, userId) => {
     
 };
 
-const NotificationSection = ({ toggleTable, showTable, data, userId}) => {
+const NotificationSection = ({ toggleTable, showTable, data, userId, fetchData}) => {
   const [isHoveredNoti, setIsHoveredNoti] = useState(false);
   const [unattendedRequests, setUnattendedRequests] = useState([]); // Estado para almacenar las solicitudes sin atender
+  const [fetchTimeout, setFetchTimeout] = useState(null); // Estado para el temporizador de solicitud
 
   useEffect(() => {
-    if (data) {
-      const filteredRequests = getUnattendedRequests(data, userId);
-      setUnattendedRequests(filteredRequests);
+    // Limpiar el temporizador cuando el componente se desmonta
+    return () => {
+      if (fetchTimeout) {
+        clearTimeout(fetchTimeout);
+      }
+    };
+  }, [fetchTimeout]);
+
+  useEffect(() => {
+    // Actualizar las solicitudes sin atender y configurar el temporizador de solicitud
+    const updateUnattendedRequests = () => {
+      if (data) {
+        const filteredRequests = getUnattendedRequests(data, userId);
+        setUnattendedRequests(filteredRequests);
+      }
+      // Establecer un temporizador para la próxima solicitud
+      const timeoutId = setTimeout(() => {
+        fetchData(); // Hacer la próxima solicitud
+      }, 6000); // Consulta cada minuto
+      setFetchTimeout(timeoutId);
+    };
+
+    // Actualizar las solicitudes sin atender cuando se actualiza `data`
+    updateUnattendedRequests();
+
+    // Limpiar el temporizador anterior cuando `data` cambia
+    if (fetchTimeout) {
+      clearTimeout(fetchTimeout);
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, userId]);
 
   return (

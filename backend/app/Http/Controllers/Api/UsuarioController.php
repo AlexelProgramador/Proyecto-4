@@ -25,7 +25,7 @@ class UsuarioController extends Controller
         $request->validate([
             'nombre' => 'required|string|regex:/^[a-zA-Z]+$/',
             'apellido' => 'required|string|regex:/^[a-zA-Z]+$/',
-            'correo' => 'required|email|unique:usuarios',
+            // 'correo' => 'email',
             'password' => 'required|min:8|regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&\\\\\\/])/',
             'rol' => 'required',
         ]);
@@ -75,7 +75,7 @@ class UsuarioController extends Controller
         $validator = Validator::make($request->all(), [
             'nombre' => 'required|string|regex:/^[a-zA-Z]+$/',
             'apellido' => 'required|string|regex:/^[a-zA-Z]+$/',
-            'correo' => 'required|email',
+            // 'correo' => 'required|email',
             // 'correo' => 'required|email|unique:usuarios,correo,'.$id, // Agregar validación de correo único
             // 'password' => 'required|min:8|regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&\\\\\\/])/',
             // 'rol' => 'required',

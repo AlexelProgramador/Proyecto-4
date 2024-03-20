@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { BounceLoader, ClockLoader } from "react-spinners";
 import { LoadingText } from "../Components/LoadingText";
 import enviarCorreo from "../Components/Correo";
+import { obtenerMetaData } from "../firebase/config";
 
 export const SolicitudChequeo = () => {
   const location = useLocation();
@@ -185,6 +186,38 @@ export const SolicitudChequeo = () => {
   useEffect(() => {
     getinfoSolicitud();
   }, []);
+
+  const openPdf = (fileUrl) => {
+    let url = fileUrl;
+    window.open(url, "_blank");
+  };
+
+  const [fileData, setFileData] = useState([]);
+
+  useEffect(() => {
+    const fetchMetadataAndUrl = async () => {
+      const fileDataPromises = item.infoSolicitud.urlArchivos.map(
+        async (fileName) => {
+          try {
+            const metadata = await obtenerMetaData(fileName);
+            const fileUrl = `${fileName}`; // Asegúrate de reemplazar esto con la ruta correcta a tus archivos en el servidor.
+            return { metadata, fileUrl };
+          } catch (error) {
+            console.error("Error fetching metadata:", error);
+          }
+        }
+      );
+
+      const fileData = await Promise.all(fileDataPromises);
+      setFileData(fileData);
+    };
+
+    fetchMetadataAndUrl();
+  }, [item.infoSolicitud.urlArchivos]);
+
+  // console.log(infoSolicitud.infoSolicitud);
+
+
   return (
     <>
       {infoSolicitud ? (
@@ -374,6 +407,33 @@ export const SolicitudChequeo = () => {
                     ></textarea>
                     <label htmlFor="floatingTextarea2">Motivo de compra</label>
                   </div>
+                  {/* archvios adjuntos */}
+                  <table className="table">
+                    <thead>
+                      <tr>
+                        <th>Nombre del archivo</th>
+                        <th >Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {fileData.map((data, index) => (
+                        <tr key={index}>
+                          <td>
+                            {data.metadata ? data.metadata.name : "No metadata"}
+                          </td>
+                          <td>
+                            <button
+                              onClick={() => openPdf(data.fileUrl)}
+                              className="btn btn-sm btn-primary rounded-pill"
+                              style={{ width: "80px"}}
+                            >
+                              Abrir
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                   <form onSubmit={handleSubmit}>
                     <button className="btn btn-primary" type="submit">
                       Aceptar

@@ -12,7 +12,7 @@ export const Navbar = ({ show, setShow }) => {
   const user = responseLocalStorage?.nombreusuario;
   const userId = responseLocalStorage?.usuarioId;
   const [isHoveredNoti, setIsHoveredNoti] = useState(false);
-  const { data, loading, error } = useFetch("etapas");
+  const { data, loading, error, fetchData } = useFetch("etapas");
   const [showTable, setShowTable] = useState(false);
   const tableRef = useRef(null);
 
@@ -44,6 +44,7 @@ export const Navbar = ({ show, setShow }) => {
             showTable={showTable}
             data={data}
             userId={userId}
+            fetchData={fetchData}
           />
           <div className="align-middle ps-2">{" "}{user}</div>
         </div>
